@@ -91,12 +91,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TobaccoListShow.Designer.cs" />
-    <Compile Include="TobaccoListShow1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TobaccoListShow.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="FmCommoditySize.resx">
       <DependentUpon>FmCommoditySize.cs</DependentUpon>
     </EmbeddedResource>
@@ -122,10 +116,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="TobaccoListShow.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>TobaccoListShow1.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
