@@ -30,7 +30,7 @@ namespace PackageMachine
             this.p_Main.Margin = new Padding(4);
             this.p_Main.Name = "p_Main";
             this.p_Main.Size = new Size(876, 489);
-            this.p_Main.TabIndex = 0;
+            this.p_Main.TabIndex = 0; 
             this.lab_Line.AutoSize = true;
             this.lab_Line.Location = new Point(0, 208);
             this.lab_Line.Margin = new Padding(4, 0, 4, 0);
@@ -53,6 +53,9 @@ namespace PackageMachine
             
             ShowLoad();
         }
+
+ 
+
         /// <summary>
         /// 更新垛型显示层
         /// </summary>
@@ -94,9 +97,16 @@ namespace PackageMachine
                     this.buttonList[ListIndex].TabIndex = TabeltIndex;
                     this.buttonList[ListIndex].BackColor = ((detail.Speed == 0) ? Color.White : this.colorList[detail.TobaccoStatus].Color);
                     this.buttonList[ListIndex].Height = (int)(detail.TobaccoHeight * (1f + num));
-                    this.buttonList[ListIndex].Width = (int)(detail.TobaccoWidth * (1f + num)); 
-                    this.buttonList[ListIndex].Top =  this.p_Main.Height - (int)(detail.PositionHeightLast * (1f + num))-4;
-                    this.buttonList[ListIndex].Left = this.p_Main.Width - (int)( detail.PositionWidthLast * (1f + num))-4; 
+                    this.buttonList[ListIndex].Width = (int)(detail.TobaccoWidth * (1f + num));
+                    //this.buttonList[ListIndex].Top = this.p_Main.Height - (int)(detail.PositionHeightLast * (1f + num)) - 4;
+                    //this.buttonList[ListIndex].Left = this.p_Main.Width - (int)(detail.PositionWidthLast * (1f + num)) - 4;
+                   
+                    buttonList[ListIndex].Location = new Point( (int)detail.PostionX, (int)detail.PostionY);
+                    if (ListIndex == 0)
+                    {
+
+                        buttonList[ListIndex].Location = new Point((int)detail.PostionX - (int)detail.PostionX, (int)detail.PostionY);
+                    }
                     this.buttonList[ListIndex].Text = string.Concat(new string[]
                                 {
                                     detail.GlobalIndex.ToString(),

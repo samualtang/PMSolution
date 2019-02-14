@@ -64,6 +64,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EntityData.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\Bill_Model.cs" />
     <Compile Include="Model\TaskList.cs" />
     <Compile Include="Model\TobaccoInfo.cs" />
     <Compile Include="PROJ_PRODUCT.cs">

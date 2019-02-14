@@ -25,59 +25,64 @@ namespace PackageMachine
 		// Token: 0x0600014D RID: 333 RVA: 0x00017210 File Offset: 0x00015410
 		public TobaccoShow()
 		{
-			this.InitializeComponent();
-			this.colorList.Add(new ColorTobacco(Color.White));
-			bool flag = false;
-			foreach (ColorTobacco colorTobacco in this.colorList)
-			{
-				if (colorTobacco.Color != Color.White)
-				{
-					flag = true;
-				}
-			}
-			if (!flag)
-			{
-				this.colorList.Clear();
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(0, 255, 0)));
-				this.colorList.Add(new ColorTobacco(Color.Wheat));
-				this.colorList.Add(new ColorTobacco(Color.Peru));
-				this.colorList.Add(new ColorTobacco(Color.Red));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(0, 255, 0)));
-				this.colorList.Add(new ColorTobacco(Color.Pink));
-				this.colorList.Add(new ColorTobacco(Color.Purple));
-				this.colorList.Add(new ColorTobacco(Color.Aqua));
-				this.colorList.Add(new ColorTobacco(Color.DimGray));
-				this.colorList.Add(new ColorTobacco(Color.HotPink));
-				this.colorList.Add(new ColorTobacco(Color.Lavender));
-				this.colorList.Add(new ColorTobacco(Color.MediumSpringGreen));
-				this.colorList.Add(new ColorTobacco(Color.PeachPuff));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(0, 140, 0)));
-				this.colorList.Add(new ColorTobacco(Color.Tomato));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(80, 100, 255)));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(120, 120, 0)));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(0, 150, 150)));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(100, 255, 140)));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(50, 255, 40)));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(0, 0, 70)));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(70, 0, 0)));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(140, 0, 70)));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(0, 120, 90)));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(40, 50, 60)));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(47, 180, 200)));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(90, 255, 255)));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(159, 255, 27)));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(170, 180, 47)));
-				this.colorList.Add(new ColorTobacco(Color.FromArgb(70, 255, 90)));
-			}
+             
+            this.InitializeComponent();
+		
+        }
+      void Funion()
+        {
+            this.colorList.Add(new ColorTobacco(Color.White));
+            bool flag = false;
+            foreach (ColorTobacco colorTobacco in this.colorList)
+            {
+                if (colorTobacco.Color != Color.White)
+                {
+                    flag = true;
+                }
+            }
+            if (!flag)
+            {
+                this.colorList.Clear();
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(0, 255, 0)));
+                this.colorList.Add(new ColorTobacco(Color.Wheat));
+                this.colorList.Add(new ColorTobacco(Color.Peru));
+                this.colorList.Add(new ColorTobacco(Color.Red));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(0, 255, 0)));
+                this.colorList.Add(new ColorTobacco(Color.Pink));
+                this.colorList.Add(new ColorTobacco(Color.Purple));
+                this.colorList.Add(new ColorTobacco(Color.Aqua));
+                this.colorList.Add(new ColorTobacco(Color.DimGray));
+                this.colorList.Add(new ColorTobacco(Color.HotPink));
+                this.colorList.Add(new ColorTobacco(Color.Lavender));
+                this.colorList.Add(new ColorTobacco(Color.MediumSpringGreen));
+                this.colorList.Add(new ColorTobacco(Color.PeachPuff));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(0, 140, 0)));
+                this.colorList.Add(new ColorTobacco(Color.Tomato));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(80, 100, 255)));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(120, 120, 0)));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(0, 150, 150)));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(100, 255, 140)));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(50, 255, 40)));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(0, 0, 70)));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(70, 0, 0)));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(140, 0, 70)));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(0, 120, 90)));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(40, 50, 60)));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(47, 180, 200)));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(90, 255, 255)));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(159, 255, 27)));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(170, 180, 47)));
+                this.colorList.Add(new ColorTobacco(Color.FromArgb(70, 255, 90)));
+            }
 
-           
+
             this.CreateButton(6, 6);
-			//this.UesdBackImage = SysRuntimeParam.UesdBackImage;
-			//this.UesdDifferBackImage = SysRuntimeParam.UesdDifferBackImage;
-		}
-      
-		// Token: 0x0600014E RID: 334 RVA: 0x00017644 File Offset: 0x00015844
-		private void CreateButton(int lineCount, int coloumCount)
+            //this.UesdBackImage = SysRuntimeParam.UesdBackImage;
+
+
+        }
+        // Token: 0x0600014E RID: 334 RVA: 0x00017644 File Offset: 0x00015844
+        private void CreateButton(int lineCount, int coloumCount)
 		{
 			this.lineCount = lineCount;
 			this.coloumCount = coloumCount;
@@ -110,6 +115,7 @@ namespace PackageMachine
         {
            
             tbinfo = Linfo;
+            Funion();
             this.UpdateTobaccoShow();
         }
         public List<TobaccoInfo> tbinfo = null;
@@ -136,7 +142,7 @@ namespace PackageMachine
                     this.buttonList[j].Visible = false;
                 }
 
-                float num = 530 * 200 / (float)(base.Width * base.Height);
+                float num = 520 * 200 / (float)(base.Width * base.Height);
                 float num2 = 200 * (1f + num);
                 int num3 = 0;
                 int TabeltIndex = 0;
@@ -211,9 +217,13 @@ namespace PackageMachine
 
 		// Token: 0x06000159 RID: 345 RVA: 0x00018404 File Offset: 0x00016604
 		private void InitializeComponent()
-		{
-			this.components = new Container();
-			this.p_Main = new Panel();
+		{ 
+            this.components = new Container();
+            base.AutoScaleMode = AutoScaleMode.Font;
+
+
+
+            this.p_Main = new Panel();
 			this.lab_Line = new Label();
 			this.timer1 = new Timer(this.components);
 			this.tp_CodeInfo = new ToolTip(this.components);
@@ -237,7 +247,7 @@ namespace PackageMachine
 			this.timer1.Enabled = true;
 			this.timer1.Interval = 500;
 			base.AutoScaleDimensions = new SizeF(8f, 15f);
-			base.AutoScaleMode = AutoScaleMode.Font;
+			
 			this.BackColor = Color.White;
 			base.Controls.Add(this.p_Main);
 			base.Margin = new Padding(4);
@@ -247,10 +257,12 @@ namespace PackageMachine
 			this.p_Main.ResumeLayout(false);
 			this.p_Main.PerformLayout();
 			base.ResumeLayout(false);
+            
 		}
+         
 
-		// Token: 0x0400014C RID: 332
-		private List<Button> buttonList;
+        // Token: 0x0400014C RID: 332
+        private List<Button> buttonList;
          
 
  

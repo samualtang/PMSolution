@@ -16,7 +16,7 @@ namespace PackageMachine
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new PackageMachine.FmOrderInfo());
+            Application.Run(new FmInfo());
         }
     }
 }

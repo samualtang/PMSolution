@@ -35,17 +35,17 @@
             this.DGV_OrderInfo = new System.Windows.Forms.DataGridView();
             this.lbl_alltime_title = new System.Windows.Forms.Label();
             this.groupBox_efficiency = new System.Windows.Forms.GroupBox();
-            this.lbl_Remainingtime_content = new System.Windows.Forms.Label();
-            this.lbl_Efficiency_content = new System.Windows.Forms.Label();
-            this.lbl_SurplusQty_content = new System.Windows.Forms.Label();
-            this.lbl_allpacknum_content = new System.Windows.Forms.Label();
-            this.lbl_alltime_content = new System.Windows.Forms.Label();
-            this.lbl_Efficiency_title = new System.Windows.Forms.Label();
-            this.lbl_Other_time = new System.Windows.Forms.Label();
-            this.linklbl_Otherreasons = new System.Windows.Forms.LinkLabel();
-            this.lbl_Remainingtime_title = new System.Windows.Forms.Label();
-            this.lbl_SurplusQty_title = new System.Windows.Forms.Label();
             this.lbl_allpacknum_title = new System.Windows.Forms.Label();
+            this.lbl_SurplusQty_title = new System.Windows.Forms.Label();
+            this.lbl_Remainingtime_title = new System.Windows.Forms.Label();
+            this.linklbl_Otherreasons = new System.Windows.Forms.LinkLabel();
+            this.lbl_Other_time = new System.Windows.Forms.Label();
+            this.lbl_Efficiency_title = new System.Windows.Forms.Label();
+            this.lbl_alltime_content = new System.Windows.Forms.Label();
+            this.lbl_allpacknum_content = new System.Windows.Forms.Label();
+            this.lbl_SurplusQty_content = new System.Windows.Forms.Label();
+            this.lbl_Efficiency_content = new System.Windows.Forms.Label();
+            this.lbl_Remainingtime_content = new System.Windows.Forms.Label();
             this.btn_exportorder = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox_order.SuspendLayout();
@@ -84,7 +84,6 @@
             this.btn_Query.TabIndex = 5;
             this.btn_Query.Text = "查  询";
             this.btn_Query.UseVisualStyleBackColor = true;
-            this.btn_Query.Click += new System.EventHandler(this.btn_Query_Click);
             // 
             // comboBox_QueryCriteria
             // 
@@ -136,68 +135,32 @@
             this.groupBox_efficiency.TabStop = false;
             this.groupBox_efficiency.Text = "效率统计";
             // 
-            // lbl_Remainingtime_content
+            // lbl_allpacknum_title
             // 
-            this.lbl_Remainingtime_content.AutoSize = true;
-            this.lbl_Remainingtime_content.Location = new System.Drawing.Point(122, 199);
-            this.lbl_Remainingtime_content.Name = "lbl_Remainingtime_content";
-            this.lbl_Remainingtime_content.Size = new System.Drawing.Size(143, 12);
-            this.lbl_Remainingtime_content.TabIndex = 15;
-            this.lbl_Remainingtime_content.Text = "小时/分钟{需要可以配置}";
+            this.lbl_allpacknum_title.AutoSize = true;
+            this.lbl_allpacknum_title.Location = new System.Drawing.Point(41, 111);
+            this.lbl_allpacknum_title.Name = "lbl_allpacknum_title";
+            this.lbl_allpacknum_title.Size = new System.Drawing.Size(65, 12);
+            this.lbl_allpacknum_title.TabIndex = 5;
+            this.lbl_allpacknum_title.Text = "已包总数：";
             // 
-            // lbl_Efficiency_content
+            // lbl_SurplusQty_title
             // 
-            this.lbl_Efficiency_content.AutoSize = true;
-            this.lbl_Efficiency_content.Location = new System.Drawing.Point(122, 169);
-            this.lbl_Efficiency_content.Name = "lbl_Efficiency_content";
-            this.lbl_Efficiency_content.Size = new System.Drawing.Size(173, 12);
-            this.lbl_Efficiency_content.TabIndex = 14;
-            this.lbl_Efficiency_content.Text = "包效率；条效率{需要可以配置}";
+            this.lbl_SurplusQty_title.AutoSize = true;
+            this.lbl_SurplusQty_title.Location = new System.Drawing.Point(41, 140);
+            this.lbl_SurplusQty_title.Name = "lbl_SurplusQty_title";
+            this.lbl_SurplusQty_title.Size = new System.Drawing.Size(65, 12);
+            this.lbl_SurplusQty_title.TabIndex = 6;
+            this.lbl_SurplusQty_title.Text = "剩余数量：";
             // 
-            // lbl_SurplusQty_content
+            // lbl_Remainingtime_title
             // 
-            this.lbl_SurplusQty_content.AutoSize = true;
-            this.lbl_SurplusQty_content.Location = new System.Drawing.Point(122, 140);
-            this.lbl_SurplusQty_content.Name = "lbl_SurplusQty_content";
-            this.lbl_SurplusQty_content.Size = new System.Drawing.Size(185, 12);
-            this.lbl_SurplusQty_content.TabIndex = 13;
-            this.lbl_SurplusQty_content.Text = "数量/包；数量/条{需要可以配置}";
-            // 
-            // lbl_allpacknum_content
-            // 
-            this.lbl_allpacknum_content.AutoSize = true;
-            this.lbl_allpacknum_content.Location = new System.Drawing.Point(122, 111);
-            this.lbl_allpacknum_content.Name = "lbl_allpacknum_content";
-            this.lbl_allpacknum_content.Size = new System.Drawing.Size(185, 12);
-            this.lbl_allpacknum_content.TabIndex = 12;
-            this.lbl_allpacknum_content.Text = "数量/包；数量/条{需要可以配置}";
-            // 
-            // lbl_alltime_content
-            // 
-            this.lbl_alltime_content.AutoSize = true;
-            this.lbl_alltime_content.Location = new System.Drawing.Point(122, 81);
-            this.lbl_alltime_content.Name = "lbl_alltime_content";
-            this.lbl_alltime_content.Size = new System.Drawing.Size(143, 12);
-            this.lbl_alltime_content.TabIndex = 11;
-            this.lbl_alltime_content.Text = "小时/分钟{需要可以配置}";
-            // 
-            // lbl_Efficiency_title
-            // 
-            this.lbl_Efficiency_title.AutoSize = true;
-            this.lbl_Efficiency_title.Location = new System.Drawing.Point(41, 169);
-            this.lbl_Efficiency_title.Name = "lbl_Efficiency_title";
-            this.lbl_Efficiency_title.Size = new System.Drawing.Size(65, 12);
-            this.lbl_Efficiency_title.TabIndex = 10;
-            this.lbl_Efficiency_title.Text = "包装效率：";
-            // 
-            // lbl_Other_time
-            // 
-            this.lbl_Other_time.AutoSize = true;
-            this.lbl_Other_time.Location = new System.Drawing.Point(206, 31);
-            this.lbl_Other_time.Name = "lbl_Other_time";
-            this.lbl_Other_time.Size = new System.Drawing.Size(59, 12);
-            this.lbl_Other_time.TabIndex = 9;
-            this.lbl_Other_time.Text = "时间/分钟";
+            this.lbl_Remainingtime_title.AutoSize = true;
+            this.lbl_Remainingtime_title.Location = new System.Drawing.Point(17, 199);
+            this.lbl_Remainingtime_title.Name = "lbl_Remainingtime_title";
+            this.lbl_Remainingtime_title.Size = new System.Drawing.Size(89, 12);
+            this.lbl_Remainingtime_title.TabIndex = 7;
+            this.lbl_Remainingtime_title.Text = "预计剩余时间：";
             // 
             // linklbl_Otherreasons
             // 
@@ -209,32 +172,68 @@
             this.linklbl_Otherreasons.TabStop = true;
             this.linklbl_Otherreasons.Text = "其他原因停机时间";
             // 
-            // lbl_Remainingtime_title
+            // lbl_Other_time
             // 
-            this.lbl_Remainingtime_title.AutoSize = true;
-            this.lbl_Remainingtime_title.Location = new System.Drawing.Point(17, 199);
-            this.lbl_Remainingtime_title.Name = "lbl_Remainingtime_title";
-            this.lbl_Remainingtime_title.Size = new System.Drawing.Size(89, 12);
-            this.lbl_Remainingtime_title.TabIndex = 7;
-            this.lbl_Remainingtime_title.Text = "预计剩余时间：";
+            this.lbl_Other_time.AutoSize = true;
+            this.lbl_Other_time.Location = new System.Drawing.Point(206, 31);
+            this.lbl_Other_time.Name = "lbl_Other_time";
+            this.lbl_Other_time.Size = new System.Drawing.Size(59, 12);
+            this.lbl_Other_time.TabIndex = 9;
+            this.lbl_Other_time.Text = "时间/分钟";
             // 
-            // lbl_SurplusQty_title
+            // lbl_Efficiency_title
             // 
-            this.lbl_SurplusQty_title.AutoSize = true;
-            this.lbl_SurplusQty_title.Location = new System.Drawing.Point(41, 140);
-            this.lbl_SurplusQty_title.Name = "lbl_SurplusQty_title";
-            this.lbl_SurplusQty_title.Size = new System.Drawing.Size(65, 12);
-            this.lbl_SurplusQty_title.TabIndex = 6;
-            this.lbl_SurplusQty_title.Text = "剩余数量：";
+            this.lbl_Efficiency_title.AutoSize = true;
+            this.lbl_Efficiency_title.Location = new System.Drawing.Point(41, 169);
+            this.lbl_Efficiency_title.Name = "lbl_Efficiency_title";
+            this.lbl_Efficiency_title.Size = new System.Drawing.Size(65, 12);
+            this.lbl_Efficiency_title.TabIndex = 10;
+            this.lbl_Efficiency_title.Text = "包装效率：";
             // 
-            // lbl_allpacknum_title
+            // lbl_alltime_content
             // 
-            this.lbl_allpacknum_title.AutoSize = true;
-            this.lbl_allpacknum_title.Location = new System.Drawing.Point(41, 111);
-            this.lbl_allpacknum_title.Name = "lbl_allpacknum_title";
-            this.lbl_allpacknum_title.Size = new System.Drawing.Size(65, 12);
-            this.lbl_allpacknum_title.TabIndex = 5;
-            this.lbl_allpacknum_title.Text = "已包总数：";
+            this.lbl_alltime_content.AutoSize = true;
+            this.lbl_alltime_content.Location = new System.Drawing.Point(122, 81);
+            this.lbl_alltime_content.Name = "lbl_alltime_content";
+            this.lbl_alltime_content.Size = new System.Drawing.Size(143, 12);
+            this.lbl_alltime_content.TabIndex = 11;
+            this.lbl_alltime_content.Text = "小时/分钟{需要可以配置}";
+            // 
+            // lbl_allpacknum_content
+            // 
+            this.lbl_allpacknum_content.AutoSize = true;
+            this.lbl_allpacknum_content.Location = new System.Drawing.Point(122, 111);
+            this.lbl_allpacknum_content.Name = "lbl_allpacknum_content";
+            this.lbl_allpacknum_content.Size = new System.Drawing.Size(185, 12);
+            this.lbl_allpacknum_content.TabIndex = 12;
+            this.lbl_allpacknum_content.Text = "数量/包；数量/条{需要可以配置}";
+            // 
+            // lbl_SurplusQty_content
+            // 
+            this.lbl_SurplusQty_content.AutoSize = true;
+            this.lbl_SurplusQty_content.Location = new System.Drawing.Point(122, 140);
+            this.lbl_SurplusQty_content.Name = "lbl_SurplusQty_content";
+            this.lbl_SurplusQty_content.Size = new System.Drawing.Size(185, 12);
+            this.lbl_SurplusQty_content.TabIndex = 13;
+            this.lbl_SurplusQty_content.Text = "数量/包；数量/条{需要可以配置}";
+            // 
+            // lbl_Efficiency_content
+            // 
+            this.lbl_Efficiency_content.AutoSize = true;
+            this.lbl_Efficiency_content.Location = new System.Drawing.Point(122, 169);
+            this.lbl_Efficiency_content.Name = "lbl_Efficiency_content";
+            this.lbl_Efficiency_content.Size = new System.Drawing.Size(173, 12);
+            this.lbl_Efficiency_content.TabIndex = 14;
+            this.lbl_Efficiency_content.Text = "包效率；条效率{需要可以配置}";
+            // 
+            // lbl_Remainingtime_content
+            // 
+            this.lbl_Remainingtime_content.AutoSize = true;
+            this.lbl_Remainingtime_content.Location = new System.Drawing.Point(122, 199);
+            this.lbl_Remainingtime_content.Name = "lbl_Remainingtime_content";
+            this.lbl_Remainingtime_content.Size = new System.Drawing.Size(143, 12);
+            this.lbl_Remainingtime_content.TabIndex = 15;
+            this.lbl_Remainingtime_content.Text = "小时/分钟{需要可以配置}";
             // 
             // btn_exportorder
             // 
@@ -267,6 +266,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FmOrderInfo";
             this.Text = "FmOrderInfo";
+            this.Load += new System.EventHandler(this.FmOrderInfo_Load);
             this.groupBox_order.ResumeLayout(false);
             this.groupBox_order.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_OrderInfo)).EndInit();

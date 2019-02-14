@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CigrShow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CigrShow.Designer.cs">
+      <DependentUpon>CigrShow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Code\ButtonCreator.cs" />
     <Compile Include="Code\ColorTobacco.cs" />
     <Compile Include="Code\ImageHelper.cs" />
