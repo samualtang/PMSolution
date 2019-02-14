@@ -17,7 +17,8 @@ namespace PackageMachine
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.WindowState = FormWindowState.Maximized;
-           
+            CheckForIllegalCrossThreadCalls = false
+                 ;
         }
         private void pbInfo_Click(object sender, EventArgs e)
         {

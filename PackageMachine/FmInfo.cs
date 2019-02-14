@@ -54,7 +54,7 @@ namespace PackageMachine
 
         private void FmInfo_Resize(object sender, EventArgs e)
         { 
-             cs.Location = new Point(this.Width - cs.Width - 4, Height - cs.Height-4);
+            cs.Location = new Point(this.Width - cs.Width - 4, Height - cs.Height-4);
             cs2.Location = new Point(   4, Height - cs2.Height - 4);
 
         }
@@ -81,7 +81,7 @@ namespace PackageMachine
                 info.GlobalIndex = Convert.ToInt32(item.CIGNUM ?? 0);
                 info.Speed = 1;
                 info.OrderIndex = Convert.ToInt32(item.PACKAGEQTY ?? 0);
-                info.PostionX = (float)Convert.ToDouble(item.CIGWIDTHX ?? 0)  ;//坐标X
+                info.PostionX = (float)Convert.ToDouble(item.CIGWIDTHX ?? 0) *2 ;//坐标X
                 info.PostionY = cs.H - (float)Convert.ToDouble(item.CIGHIGHY ?? 0)   ;//坐标Y 
                 list.Add(info); 
             }

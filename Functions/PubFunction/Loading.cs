@@ -82,6 +82,7 @@ namespace General
             await MaskControls(f1, result, control);
 
         }
+       
         /// <summary>
         /// 
         /// </summary>
@@ -101,12 +102,7 @@ namespace General
                 lb.Size = new System.Drawing.Size(115, 15);
                 lb.Text = TitleInfo;
 
-                ProgressBar progressBar1 = new ProgressBar();
-                progressBar1.Location = new System.Drawing.Point(33, 42);
-                progressBar1.Name = "probr_by_Mask";
-                progressBar1.Size = new System.Drawing.Size(441, 23);
-                progressBar1.TabIndex = 0;
-                progressBar1.Visible = true; ;
+              
 
                 Panel pl = new Panel();
                 pl.Size = new System.Drawing.Size(497, 89);
@@ -114,6 +110,16 @@ namespace General
                 pl.Name = "panel_By_Mask";
                 pl.Controls.Add(lb);
                 pl.BorderStyle = BorderStyle.Fixed3D;
+                ProgressBar progressBar1 = new ProgressBar();
+                progressBar1.Name = "probr_by_Mask";
+                progressBar1.Size = new System.Drawing.Size(441, 23);
+                progressBar1.TabIndex = 0;
+                progressBar1.Visible = true;
+               
+                int x = (int)(0.5 * (f1.Width - progressBar1.Width));
+                int y = progressBar1.Location.Y;
+                progressBar1.Location = new System.Drawing.Point(x, y);
+           
                 pl.Controls.Add(progressBar1);
                 pl.Visible = true;
                 pl.Show();
@@ -149,6 +155,9 @@ namespace General
                 throw ex;
             }
         }
+
+ 
+
         /// <summary>
         /// 遮罩层 
         /// </summary>
@@ -158,17 +167,20 @@ namespace General
         private static async Task   MaskControls(Form f1, IAsyncResult result)
         {
             try
-            { 
+            {
+                int x = f1.Width / 2;
+                int y = f1.Height / 2;
                 Label lb = new Label();
                 lb.AutoSize = true; 
-                lb.Font = new System.Drawing.Font("宋体", 11F);
-                lb.Location = new System.Drawing.Point(184, 14);
+                lb.Font = new System.Drawing.Font("微软雅黑", 11F);
+                lb.Location = new System.Drawing.Point( x-115, y +10);
                 lb.Name = "label_by_Mask";
                 lb.Size = new System.Drawing.Size(115, 15);
                 lb.Text = TitleInfo;
                 
                 ProgressBar progressBar1 = new ProgressBar();
-                progressBar1.Location = new System.Drawing.Point(33, 42);
+             
+                progressBar1.Location = new System.Drawing.Point(x - 441, y -23);
                 progressBar1.Name = "probr_by_Mask";
                 progressBar1.Size = new System.Drawing.Size(441, 23);
                 progressBar1.TabIndex = 0;
