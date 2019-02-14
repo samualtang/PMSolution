@@ -30,9 +30,10 @@ namespace PackageMachine
                 return;
             }
             frm.MdiParent = this;
+            frm.Dock = DockStyle.Fill;
             //frm.WindowState = FormWindowState.Maximized;
             frm.Show();
-            frm.Dock = DockStyle.Fill;
+           
         }
 
         private void pbDx_Click(object sender, EventArgs e)

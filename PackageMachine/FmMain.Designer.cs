@@ -273,7 +273,7 @@
             this.panelMain.Controls.Add(this.gbNormail);
             this.panelMain.Controls.Add(this.groupBox4);
             this.panelMain.Controls.Add(this.gbCache);
-            this.panelMain.Location = new System.Drawing.Point(1080, 130);
+            this.panelMain.Location = new System.Drawing.Point(199, 102);
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(1450, 656);
             this.panelMain.TabIndex = 80;

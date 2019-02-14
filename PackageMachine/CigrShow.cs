@@ -81,11 +81,10 @@ namespace PackageMachine
             else
             { 
                 Font font = this.buttonList[0].Font; 
-                float num = 530 * 200 / (float)(W * H); 
+                float num = 530 * 200 / (float)( Width *  Height); 
                 int ListIndex = 0;
                 int TabeltIndex = 0;
                 TobaccoInfo detail;
-                int num4 = 0;
                 foreach (var item in tbinfo)
                 {
                     detail = item;
@@ -96,16 +95,15 @@ namespace PackageMachine
                     this.buttonList[ListIndex].Font = font;
                     this.buttonList[ListIndex].TabIndex = TabeltIndex;
                     this.buttonList[ListIndex].BackColor = ((detail.Speed == 0) ? Color.White : this.colorList[detail.TobaccoStatus].Color);
-                    this.buttonList[ListIndex].Height = (int)(detail.TobaccoHeight * (1f + num));
-                    this.buttonList[ListIndex].Width = (int)(detail.TobaccoWidth * (1f + num));
+                    this.buttonList[ListIndex].Height = (int)detail.TobaccoHeight  ;
+                    this.buttonList[ListIndex].Width = (int)detail.TobaccoWidth  ;
                     //this.buttonList[ListIndex].Top = this.p_Main.Height - (int)(detail.PositionHeightLast * (1f + num)) - 4;
-                    //this.buttonList[ListIndex].Left = this.p_Main.Width - (int)(detail.PositionWidthLast * (1f + num)) - 4;
-                   
-                    buttonList[ListIndex].Location = new Point( (int)detail.PostionX, (int)detail.PostionY);
+                    //this.buttonList[ListIndex].Left = this.p_Main.Width - (int)(detail.PositionWidthLast * (1f + num)) - 4; 
+                    buttonList[ListIndex].Location = new Point( (int)detail.PostionX +2, (int)detail.PostionY -2 );
                     if (ListIndex == 0)
                     {
 
-                        buttonList[ListIndex].Location = new Point((int)detail.PostionX - (int)detail.PostionX, (int)detail.PostionY);
+                        buttonList[ListIndex].Location = new Point((int)detail.PostionX - (int)detail.PostionX+2, (int)detail.PostionY  -2);
                     }
                     this.buttonList[ListIndex].Text = string.Concat(new string[]
                                 {
@@ -114,8 +112,7 @@ namespace PackageMachine
                                     detail.OrderIndex.ToString(),
                                     ".",
                                     detail.TobaccoName,
-                                });
-                    num4 += 20;
+                                }); 
                     ListIndex++;
                     TabeltIndex++;
                      
