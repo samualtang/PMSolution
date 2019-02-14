@@ -1,0 +1,1230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PROJ_PRODUCT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="PRODUCTNO" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="PRODUCTNAME" Type="nvarchar2" MaxLength="300" Nullable="false" />
+          <Property Name="PRODUCTDESC" Type="varchar2" MaxLength="1000" />
+          <Property Name="PRODUCTSUBDESC" Type="varchar2" MaxLength="100" />
+          <Property Name="PRODUCTSPEC" Type="varchar2" MaxLength="100" />
+          <Property Name="PRODUCTBARCODE" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="PRODUCTNODECODE" Type="varchar2" MaxLength="100" />
+          <Property Name="TURNOVERRATE" Type="varchar2" MaxLength="100" />
+          <Property Name="ABC" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="PRODUCTCLASS" Type="varchar2" MaxLength="100" />
+          <Property Name="PRODUCTTYPE" Type="varchar2" MaxLength="100" />
+          <Property Name="PRODUCTTSTATE" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="QUANTITY_PACK" Type="number" Precision="18" Scale="12" />
+          <Property Name="MAINUNIT" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="BASICUNIT" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="MAINTOBASICRATE" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="MAINTOBASICDESC" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="CREATEBY" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="CREATEDATE" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="MODIFYBY" Type="varchar2" MaxLength="100" />
+          <Property Name="MODIFYDATE" Type="varchar2" MaxLength="100" />
+          <Property Name="REMARK" Type="varchar2" MaxLength="200" />
+          <Property Name="BRANDID" Type="varchar2" MaxLength="100" />
+          <Property Name="BRANDNAME" Type="varchar2" MaxLength="200" />
+          <Property Name="VENDORID" Type="varchar2" MaxLength="100" />
+          <Property Name="VENDORNAME" Type="varchar2" MaxLength="200" />
+          <Property Name="PRODUCTERID" Type="varchar2" MaxLength="100" />
+          <Property Name="PRODUCTERNAME" Type="varchar2" MaxLength="200" />
+          <Property Name="MARKETPRICE" Type="number" Precision="18" Scale="12" />
+          <Property Name="LOWESTSALEPRICE" Type="number" Precision="18" Scale="12" />
+          <Property Name="SELLPRICE" Type="number" Precision="18" Scale="12" />
+          <Property Name="ISDELICATE" Type="varchar2" MaxLength="100" />
+          <Property Name="IMPORTPRODUCT" Type="varchar2" MaxLength="100" />
+          <Property Name="IMAGEURL" Type="varchar2" MaxLength="200" />
+          <Property Name="DEFAULTCOLOR" Type="varchar2" MaxLength="100" />
+          <Property Name="PALLETEMPLTY" Type="varchar2" MaxLength="100" />
+          <Property Name="PALLETENTITY" Type="varchar2" MaxLength="100" />
+          <Property Name="SIZE_LENGTH" Type="number" Precision="18" Scale="12" />
+          <Property Name="SIZE_WIDTH" Type="number" Precision="18" Scale="12" />
+          <Property Name="SIZE_HEIGHT" Type="number" Precision="18" Scale="12" />
+          <Property Name="VOLUME" Type="number" Precision="18" Scale="12" />
+          <Property Name="WEIGHT" Type="number" Precision="18" Scale="12" />
+          <Property Name="NETWEIGHT" Type="number" Precision="18" Scale="12" />
+          <Property Name="WARNSTATE" Type="varchar2" MaxLength="100" />
+          <Property Name="INV_HIGH" Type="number" Precision="18" Scale="12" />
+          <Property Name="INV_SAFE" Type="number" Precision="18" Scale="12" />
+          <Property Name="INV_ORDER" Type="number" Precision="18" Scale="12" />
+          <Property Name="INV_HIVEDAYS" Type="number" Precision="18" Scale="12" />
+          <Property Name="INV_LIMIT" Type="number" Precision="18" Scale="12" />
+          <Property Name="INV_HIGH_COLOR" Type="varchar2" MaxLength="100" />
+          <Property Name="INV_SAFE_COLOR" Type="varchar2" MaxLength="100" />
+          <Property Name="INV_ORDER_COLOR" Type="varchar2" MaxLength="100" />
+          <Property Name="INV_HIVEDAYS_COLOR" Type="varchar2" MaxLength="100" />
+          <Property Name="INV_LIMIT_COLOR" Type="varchar2" MaxLength="100" />
+          <Property Name="CUSTOMCOL01" Type="varchar2" MaxLength="100" />
+          <Property Name="CUSTOMCOL02" Type="varchar2" MaxLength="100" />
+          <Property Name="CUSTOMCOL03" Type="varchar2" MaxLength="100" />
+          <Property Name="CUSTOMCOL04" Type="varchar2" MaxLength="100" />
+          <Property Name="CUSTOMCOL05" Type="varchar2" MaxLength="100" />
+          <Property Name="CUSTOMCOL06" Type="varchar2" MaxLength="100" />
+          <Property Name="CUSTOMCOL07" Type="varchar2" MaxLength="100" />
+          <Property Name="CUSTOMCOL08" Type="varchar2" MaxLength="100" />
+          <Property Name="CUSTOMCOL09" Type="varchar2" MaxLength="100" />
+          <Property Name="CUSTOMCOL10" Type="varchar2" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="T_PACKAGE_TASK">
+          <Key>
+            <PropertyRef Name="PTID" />
+          </Key>
+          <Property Name="PTID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="BILLCODE" Type="nvarchar2" MaxLength="20" />
+          <Property Name="ORDERSEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="PACKAGESEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="CIGARETTECODE" Type="nvarchar2" MaxLength="20" />
+          <Property Name="CIGARETTENAME" Type="nvarchar2" MaxLength="40" />
+          <Property Name="PACKAGEQTY" Type="number" Precision="38" Scale="0" />
+          <Property Name="CIGSEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="CIGHIGH" Type="number" Precision="38" Scale="0" />
+          <Property Name="CIGWIDTH" Type="number" Precision="38" Scale="0" />
+          <Property Name="CIGLENGTH" Type="number" Precision="38" Scale="0" />
+          <Property Name="CIGWIDTHX" Type="number" Precision="38" Scale="0" />
+          <Property Name="CIGHIGHY" Type="number" Precision="38" Scale="0" />
+          <Property Name="CIGZ" Type="number" Precision="38" Scale="0" />
+          <Property Name="SORTNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="ALLPACKAGESEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="STARTTIME" Type="date" />
+          <Property Name="FINISHTIME" Type="date" />
+          <Property Name="ORDERPACKAGEQTY" Type="number" Precision="38" Scale="0" />
+          <Property Name="ORDERQTY" Type="number" Precision="38" Scale="0" />
+          <Property Name="PACKAGENO" Type="number" Precision="38" Scale="0" />
+          <Property Name="PACKTASKNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="CIGNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="CIGTYPE" Type="nvarchar2" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_ORDER">
+          <Key>
+            <PropertyRef Name="BILLCODE" />
+          </Key>
+          <Property Name="BILLCODE" Type="varchar2" MaxLength="80" Nullable="false" />
+          <Property Name="COMPANYCODE" Type="varchar2" MaxLength="10" />
+          <Property Name="COMPANYNAME" Type="varchar2" MaxLength="20" />
+          <Property Name="BATCHCODE" Type="varchar2" MaxLength="12" />
+          <Property Name="SYNSEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="ORDERQUANTITY" Type="number" Precision="8" Scale="2" />
+          <Property Name="ORDERMONEY" Type="number" Precision="8" Scale="2" />
+          <Property Name="CUSTOMERCODE" Type="varchar2" MaxLength="20" />
+          <Property Name="CUSTOMERNAME" Type="varchar2" MaxLength="200" />
+          <Property Name="ADDRESS" Type="varchar2" MaxLength="200" />
+          <Property Name="TELEPHONE" Type="varchar2" MaxLength="20" />
+          <Property Name="PRIORITY" Type="number" Precision="38" Scale="0" />
+          <Property Name="REGIONCODE" Type="varchar2" MaxLength="20" />
+          <Property Name="TASKNUMBERS" Type="varchar2" MaxLength="3000" />
+          <Property Name="TASKBOXIES" Type="varchar2" MaxLength="3000" />
+          <Property Name="STATE" Type="varchar2" MaxLength="10" />
+          <Property Name="DEVSEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="ID" Type="number" Precision="38" Scale="0" />
+          <Property Name="CREATETIME" Type="date" />
+          <Property Name="ORDERDATE" Type="date" />
+          <Property Name="UNSTATE" Type="varchar2" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_ORDERLINE">
+          <Key>
+            <PropertyRef Name="BILLCODE" />
+            <PropertyRef Name="LINENUM" />
+          </Key>
+          <Property Name="BILLCODE" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="LINENUM" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CIGARETTECODE" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="CIGARETTENAME" Type="varchar2" MaxLength="30" />
+          <Property Name="QUANTITY" Type="number" Precision="8" Scale="1" />
+          <Property Name="PRICE" Type="number" Precision="8" Scale="2" />
+          <Property Name="UNIT" Type="varchar2" MaxLength="5" />
+          <Property Name="MOENY" Type="number" Precision="8" Scale="2" />
+          <Property Name="MULTIPLE" Type="number" Precision="38" Scale="0" />
+          <Property Name="ALLOWSORT" Type="varchar2" MaxLength="4" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_POKE">
+          <Key>
+            <PropertyRef Name="POKEID" />
+          </Key>
+          <Property Name="POKEID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TROUGHNUM" Type="varchar2" MaxLength="30" />
+          <Property Name="POKENUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="SORTSTATE" Type="number" Precision="38" Scale="0" />
+          <Property Name="TASKNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="TASKQTY" Type="number" Precision="38" Scale="0" />
+          <Property Name="EXPORTNUM" Type="varchar2" MaxLength="10" />
+          <Property Name="MACHINESEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="MAINBELT" Type="number" Precision="38" Scale="0" />
+          <Property Name="GROUPNO" Type="number" Precision="38" Scale="0" />
+          <Property Name="POKEPLACE" Type="number" Precision="38" Scale="0" />
+          <Property Name="UNIONSTATE" Type="number" Precision="38" Scale="0" />
+          <Property Name="MACHINESTATE" Type="number" Precision="38" Scale="0" />
+          <Property Name="MERAGENUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="PACKAGEMACHINE" Type="number" Precision="38" Scale="0" />
+          <Property Name="SORTNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="BILLCODE" Type="varchar2" MaxLength="80" />
+          <Property Name="UNIONEXPORTNUM" Type="varchar2" MaxLength="10" />
+          <Property Name="UNIONTASKNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="SECSORTNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="INVFLAG" Type="varchar2" MaxLength="10" />
+          <Property Name="SENDPOKENUM" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_SORTTROUGH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LINENUM" Type="varchar2" MaxLength="10" />
+          <Property Name="TROUGHNUM" Type="varchar2" MaxLength="30" />
+          <Property Name="TROUGHDESC" Type="varchar2" MaxLength="30" />
+          <Property Name="ACTCOUNT" Type="number" Precision="38" Scale="0" />
+          <Property Name="MACHINESEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="CIGARETTECODE" Type="varchar2" MaxLength="10" />
+          <Property Name="CIGARETTENAME" Type="nvarchar2" MaxLength="30" />
+          <Property Name="STATE" Type="varchar2" MaxLength="10" />
+          <Property Name="MANTISSA" Type="number" Precision="38" Scale="0" />
+          <Property Name="CIGARETTETYPE" Type="number" Precision="38" Scale="0" />
+          <Property Name="REPLENISHLINE" Type="number" Precision="38" Scale="0" />
+          <Property Name="TRANSPORTATIONLINE" Type="number" Precision="38" Scale="0" />
+          <Property Name="LASTMANTISSA" Type="number" Precision="38" Scale="0" />
+          <Property Name="TROUGHTYPE" Type="number" Precision="38" Scale="0" />
+          <Property Name="GROUPNO" Type="number" Precision="38" Scale="0" />
+          <Property Name="THRESHOLD" Type="number" Precision="38" Scale="0" />
+          <Property Name="BOXCOUNT" Type="number" Precision="38" Scale="0" />
+          <Property Name="MAINTISSALESS" Type="number" Precision="38" Scale="0" />
+          <Property Name="CLEARUP" Type="number" Precision="38" Scale="0" />
+          <Property Name="CLEARTHRESHOLD" Type="number" Precision="38" Scale="0" />
+          <Property Name="SEQ" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_SYNSEQ">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SYNSEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="QUANTITY" Type="number" Precision="10" Scale="2" />
+          <Property Name="ORDERDATE" Type="date" />
+          <Property Name="PMSTATE" Type="varchar2" MaxLength="20" />
+          <Property Name="TBJSTATE" Type="varchar2" MaxLength="20" />
+          <Property Name="PACKAGENO" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_TASK">
+          <Key>
+            <PropertyRef Name="TASKNUM" />
+          </Key>
+          <Property Name="TASKNUM" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LINENUM" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="EXPORTNUM" Type="varchar2" MaxLength="10" />
+          <Property Name="REGIONCODE" Type="varchar2" MaxLength="20" />
+          <Property Name="REGIONDESC" Type="varchar2" MaxLength="30" />
+          <Property Name="BILLCODE" Type="varchar2" MaxLength="30" />
+          <Property Name="COMPANYCODE" Type="varchar2" MaxLength="10" />
+          <Property Name="COMPANYNAME" Type="varchar2" MaxLength="20" />
+          <Property Name="BATCHCODE" Type="varchar2" MaxLength="12" />
+          <Property Name="SYNSEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="CUSTOMERCODE" Type="varchar2" MaxLength="20" />
+          <Property Name="ORDERQUANTITY" Type="number" Precision="10" Scale="2" />
+          <Property Name="CUSTOMERNAME" Type="varchar2" MaxLength="200" />
+          <Property Name="ORDERMONEY" Type="number" Precision="8" Scale="2" />
+          <Property Name="TASKQUANTITY" Type="number" Precision="10" Scale="2" />
+          <Property Name="CAPACITY" Type="number" Precision="10" Scale="2" />
+          <Property Name="PRIORITY" Type="number" Precision="8" Scale="0" />
+          <Property Name="TASKBOX" Type="varchar2" MaxLength="20" />
+          <Property Name="PACKAGEID" Type="varchar2" MaxLength="10" />
+          <Property Name="PACKAGEDESC" Type="varchar2" MaxLength="20" />
+          <Property Name="SORTSEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="LABLENUM" Type="varchar2" MaxLength="20" />
+          <Property Name="PLANTIME" Type="date" />
+          <Property Name="SORTTIME" Type="date" />
+          <Property Name="FINISHTIME" Type="date" />
+          <Property Name="STATE" Type="varchar2" MaxLength="20" />
+          <Property Name="LABELBATCH" Type="number" Precision="3" Scale="0" />
+          <Property Name="PALLETNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="MAINBELT" Type="number" Precision="38" Scale="0" />
+          <Property Name="PACKAGEMACHINE" Type="number" Precision="38" Scale="0" />
+          <Property Name="SORTNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="ORDERDATE" Type="date" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_TASKLINE">
+          <Key>
+            <PropertyRef Name="TASKNUM" />
+            <PropertyRef Name="CIGARETTECODE" />
+          </Key>
+          <Property Name="TASKNUM" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CIGARETTECODE" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="CIGARETTENAME" Type="varchar2" MaxLength="30" />
+          <Property Name="QUANTITY" Type="number" Precision="10" Scale="1" />
+          <Property Name="UNIT" Type="varchar2" MaxLength="5" />
+          <Property Name="ALLOWSORT" Type="varchar2" MaxLength="4" />
+          <Property Name="SORTNUM" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_UN_POKE">
+          <Key>
+            <PropertyRef Name="POKEID" />
+          </Key>
+          <Property Name="POKEID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TROUGHNUM" Type="varchar2" MaxLength="30" />
+          <Property Name="POKENUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="STATUS" Type="number" Precision="38" Scale="0" />
+          <Property Name="TASKNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="TASKQTY" Type="number" Precision="38" Scale="0" />
+          <Property Name="PACKAGEMACHINE" Type="number" Precision="38" Scale="0" />
+          <Property Name="MACHINESEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="LINENUM" Type="varchar2" MaxLength="10" />
+          <Property Name="CIGARETTECODE" Type="varchar2" MaxLength="20" />
+          <Property Name="CUSTOMERCODE" Type="varchar2" MaxLength="20" />
+          <Property Name="SORTNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="SECSORTNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="BILLCODE" Type="varchar2" MaxLength="80" />
+          <Property Name="CTYPE" Type="number" Precision="38" Scale="0" />
+          <Property Name="SENDTASKNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="STORENUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="GRIDNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="INVFLAG" Type="varchar2" MaxLength="10" />
+          <Property Name="SENDSEQ" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_UN_TASK">
+          <Key>
+            <PropertyRef Name="TASKNUM" />
+          </Key>
+          <Property Name="TASKNUM" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LINENUM" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="EXPORTNUM" Type="varchar2" MaxLength="10" />
+          <Property Name="REGIONCODE" Type="varchar2" MaxLength="20" />
+          <Property Name="REGIONDESC" Type="varchar2" MaxLength="30" />
+          <Property Name="BILLCODE" Type="varchar2" MaxLength="80" />
+          <Property Name="COMPANYCODE" Type="varchar2" MaxLength="10" />
+          <Property Name="COMPANYNAME" Type="varchar2" MaxLength="20" />
+          <Property Name="BATCHCODE" Type="varchar2" MaxLength="12" />
+          <Property Name="SYNSEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="CUSTOMERCODE" Type="varchar2" MaxLength="20" />
+          <Property Name="ORDERQUANTITY" Type="number" Precision="10" Scale="2" />
+          <Property Name="CUSTOMERNAME" Type="varchar2" MaxLength="200" />
+          <Property Name="ORDERMONEY" Type="number" Precision="8" Scale="2" />
+          <Property Name="TASKQUANTITY" Type="number" Precision="10" Scale="2" />
+          <Property Name="PRIORITY" Type="number" Precision="8" Scale="0" />
+          <Property Name="TASKBOX" Type="varchar2" MaxLength="20" />
+          <Property Name="SORTSEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="LABLENUM" Type="varchar2" MaxLength="20" />
+          <Property Name="PLANTIME" Type="date" />
+          <Property Name="SORTTIME" Type="date" />
+          <Property Name="FINISHTIME" Type="date" />
+          <Property Name="STATE" Type="varchar2" MaxLength="20" />
+          <Property Name="LABELBATCH" Type="number" Precision="3" Scale="0" />
+          <Property Name="PALLETNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="EXISTRCD" Type="number" Precision="38" Scale="0" />
+          <Property Name="ORDERDATE" Type="date" />
+          <Property Name="MAINBELT" Type="number" Precision="38" Scale="0" />
+          <Property Name="PACKAGEMACHINE" Type="number" Precision="38" Scale="0" />
+          <Property Name="SORTNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="SECSORTNUM" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_UN_TASKLINE">
+          <Key>
+            <PropertyRef Name="TASKNUM" />
+            <PropertyRef Name="CIGARETTECODE" />
+          </Key>
+          <Property Name="TASKNUM" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CIGARETTECODE" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="CIGARETTENAME" Type="varchar2" MaxLength="30" />
+          <Property Name="QUANTITY" Type="number" Precision="10" Scale="1" />
+          <Property Name="UNIT" Type="varchar2" MaxLength="5" />
+          <Property Name="ALLOWSORT" Type="varchar2" MaxLength="4" />
+        </EntityType>
+        <EntityType Name="T_WMS_ITEM">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar2" MaxLength="30" Nullable="false" />
+          <Property Name="DCNO" Type="varchar2" MaxLength="40" />
+          <Property Name="SHIPPER_ID" Type="number" Precision="38" Scale="0" />
+          <Property Name="ITEMNO" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="ITEMNAME" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="SHORTNAME" Type="varchar2" MaxLength="50" />
+          <Property Name="SPEC" Type="varchar2" MaxLength="80" />
+          <Property Name="ABCCODE" Type="number" Precision="38" Scale="0" />
+          <Property Name="ITEMPRICE" Type="number" Precision="18" Scale="6" />
+          <Property Name="SHIPTYPE" Type="char" MaxLength="1" />
+          <Property Name="ITEMTYPE_ID" Type="nvarchar2" MaxLength="40" />
+          <Property Name="PRODUCEAREA" Type="nvarchar2" MaxLength="50" />
+          <Property Name="MANUFACTURER_ID" Type="number" Precision="38" Scale="0" />
+          <Property Name="VENDOR_ID" Type="number" Precision="38" Scale="0" />
+          <Property Name="BASEUOM_ID" Type="varchar2" MaxLength="30" />
+          <Property Name="DEFAULTUOM_ID" Type="varchar2" MaxLength="30" />
+          <Property Name="STORAGECONDITION" Type="varchar2" MaxLength="30" />
+          <Property Name="ISLOTCTRL" Type="number" Precision="38" Scale="0" />
+          <Property Name="SHELFLIFE" Type="number" Precision="38" Scale="0" />
+          <Property Name="SHELFLIFETYPE" Type="varchar2" MaxLength="1" />
+          <Property Name="PALLETRATIO" Type="number" Precision="3" Scale="0" />
+          <Property Name="CREATETIME" Type="date" />
+          <Property Name="CREATEUSER" Type="varchar2" MaxLength="20" />
+          <Property Name="MODIFYTIME" Type="date" />
+          <Property Name="MODIFYUSER" Type="varchar2" MaxLength="20" />
+          <Property Name="ROWSTATUS" Type="number" Precision="38" Scale="0" />
+          <Property Name="CATID" Type="number" Precision="38" Scale="0" />
+          <Property Name="BIGBOX_BAR" Type="varchar2" MaxLength="30" />
+          <Property Name="PACK_BAR" Type="varchar2" MaxLength="30" />
+          <Property Name="ITEM_KIND" Type="char" MaxLength="1" />
+          <Property Name="KIND" Type="char" MaxLength="1" />
+          <Property Name="H_SIZE" Type="number" Precision="20" Scale="2" />
+          <Property Name="T_SIZE" Type="number" Precision="20" Scale="2" />
+          <Property Name="J_SIZE" Type="number" Precision="20" Scale="2" />
+          <Property Name="W_SIZE" Type="number" Precision="20" Scale="2" />
+          <Property Name="X_SIZE" Type="number" Precision="20" Scale="2" />
+          <Property Name="WEIGHT" Type="number" Precision="20" Scale="2" />
+          <Property Name="FULLCOUNT" Type="number" Precision="38" Scale="0" />
+          <Property Name="CDTYPE" Type="number" Precision="38" Scale="0" />
+          <Property Name="ISCANSCANCODE" Type="number" Precision="38" Scale="0" />
+          <Property Name="DXTYPE" Type="varchar2" MaxLength="20" />
+          <Property Name="JT_SIZE" Type="number" Precision="20" Scale="2" />
+          <Property Name="WZ_SIZE" Type="number" Precision="20" Scale="2" />
+          <Property Name="OUTTYPE" Type="number" Precision="38" Scale="0" />
+          <Property Name="ILENGTH" Type="number" Precision="38" Scale="0" />
+          <Property Name="IWIDTH" Type="number" Precision="38" Scale="0" />
+          <Property Name="IHEIGHT" Type="number" Precision="38" Scale="0" />
+          <Property Name="DOUBLETAKE" Type="varchar2" MaxLength="100" />
+        </EntityType>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="PROJ_PRODUCT" EntityType="Self.PROJ_PRODUCT" Schema="ZOOMTEL" store:Type="Tables" />
+          <EntitySet Name="T_PACKAGE_TASK" EntityType="Self.T_PACKAGE_TASK" Schema="ZOOMTEL" store:Type="Tables" />
+          <EntitySet Name="T_PRODUCE_ORDER" EntityType="Self.T_PRODUCE_ORDER" Schema="ZOOMTEL" store:Type="Tables" />
+          <EntitySet Name="T_PRODUCE_ORDERLINE" EntityType="Self.T_PRODUCE_ORDERLINE" Schema="ZOOMTEL" store:Type="Tables" />
+          <EntitySet Name="T_PRODUCE_POKE" EntityType="Self.T_PRODUCE_POKE" Schema="ZOOMTEL" store:Type="Tables" />
+          <EntitySet Name="T_PRODUCE_SORTTROUGH" EntityType="Self.T_PRODUCE_SORTTROUGH" Schema="ZOOMTEL" store:Type="Tables" />
+          <EntitySet Name="T_PRODUCE_SYNSEQ" EntityType="Self.T_PRODUCE_SYNSEQ" Schema="ZOOMTEL" store:Type="Tables" />
+          <EntitySet Name="T_PRODUCE_TASK" EntityType="Self.T_PRODUCE_TASK" Schema="ZOOMTEL" store:Type="Tables" />
+          <EntitySet Name="T_PRODUCE_TASKLINE" EntityType="Self.T_PRODUCE_TASKLINE" Schema="ZOOMTEL" store:Type="Tables" />
+          <EntitySet Name="T_UN_POKE" EntityType="Self.T_UN_POKE" Schema="ZOOMTEL" store:Type="Tables" />
+          <EntitySet Name="T_UN_TASK" EntityType="Self.T_UN_TASK" Schema="ZOOMTEL" store:Type="Tables" />
+          <EntitySet Name="T_UN_TASKLINE" EntityType="Self.T_UN_TASKLINE" Schema="ZOOMTEL" store:Type="Tables" />
+          <EntitySet Name="T_WMS_ITEM" EntityType="Self.T_WMS_ITEM" Schema="ZOOMTEL" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PROJ_PRODUCT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRODUCTNO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRODUCTNAME" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PRODUCTDESC" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="PRODUCTSUBDESC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PRODUCTSPEC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PRODUCTBARCODE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRODUCTNODECODE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TURNOVERRATE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ABC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRODUCTCLASS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PRODUCTTYPE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PRODUCTTSTATE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QUANTITY_PACK" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="MAINUNIT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BASICUNIT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MAINTOBASICRATE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MAINTOBASICDESC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CREATEBY" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CREATEDATE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MODIFYBY" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MODIFYDATE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="REMARK" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BRANDID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BRANDNAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="VENDORID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="VENDORNAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PRODUCTERID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PRODUCTERNAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MARKETPRICE" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="LOWESTSALEPRICE" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="SELLPRICE" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="ISDELICATE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IMPORTPRODUCT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IMAGEURL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DEFAULTCOLOR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PALLETEMPLTY" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PALLETENTITY" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SIZE_LENGTH" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="SIZE_WIDTH" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="SIZE_HEIGHT" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="VOLUME" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="WEIGHT" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="NETWEIGHT" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="WARNSTATE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="INV_HIGH" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="INV_SAFE" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="INV_ORDER" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="INV_HIVEDAYS" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="INV_LIMIT" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="INV_HIGH_COLOR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="INV_SAFE_COLOR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="INV_ORDER_COLOR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="INV_HIVEDAYS_COLOR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="INV_LIMIT_COLOR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMCOL01" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMCOL02" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMCOL03" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMCOL04" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMCOL05" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMCOL06" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMCOL07" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMCOL08" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMCOL09" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMCOL10" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_ORDER">
+          <Key>
+            <PropertyRef Name="BILLCODE" />
+          </Key>
+          <Property Name="BILLCODE" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="COMPANYCODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="COMPANYNAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BATCHCODE" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="SYNSEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ORDERQUANTITY" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="ORDERMONEY" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="CUSTOMERCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMERNAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TELEPHONE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PRIORITY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="REGIONCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TASKNUMBERS" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <Property Name="TASKBOXIES" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <Property Name="STATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DEVSEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CREATETIME" Type="DateTime" />
+          <Property Name="ORDERDATE" Type="DateTime" />
+          <Property Name="UNSTATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_ORDERLINE">
+          <Key>
+            <PropertyRef Name="BILLCODE" />
+            <PropertyRef Name="LINENUM" />
+          </Key>
+          <Property Name="BILLCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LINENUM" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CIGARETTECODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CIGARETTENAME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="QUANTITY" Type="Decimal" Precision="8" Scale="1" />
+          <Property Name="PRICE" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="UNIT" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="MOENY" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="MULTIPLE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ALLOWSORT" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_POKE">
+          <Key>
+            <PropertyRef Name="POKEID" />
+          </Key>
+          <Property Name="POKEID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TROUGHNUM" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="POKENUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SORTSTATE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="TASKNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="TASKQTY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="EXPORTNUM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MACHINESEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="MAINBELT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="GROUPNO" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="POKEPLACE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="UNIONSTATE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="MACHINESTATE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="MERAGENUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PACKAGEMACHINE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SORTNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="BILLCODE" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="UNIONEXPORTNUM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UNIONTASKNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SECSORTNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="INVFLAG" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SENDPOKENUM" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_SORTTROUGH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LINENUM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TROUGHNUM" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TROUGHDESC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ACTCOUNT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="MACHINESEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGARETTECODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CIGARETTENAME" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="STATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MANTISSA" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGARETTETYPE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="REPLENISHLINE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="TRANSPORTATIONLINE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="LASTMANTISSA" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="TROUGHTYPE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="GROUPNO" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="THRESHOLD" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="BOXCOUNT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="MAINTISSALESS" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CLEARUP" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CLEARTHRESHOLD" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SEQ" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_SYNSEQ">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SYNSEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="QUANTITY" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="ORDERDATE" Type="DateTime" />
+          <Property Name="PMSTATE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TBJSTATE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PACKAGENO" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_TASK">
+          <Key>
+            <PropertyRef Name="TASKNUM" />
+          </Key>
+          <Property Name="TASKNUM" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LINENUM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EXPORTNUM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="REGIONCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="REGIONDESC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="BILLCODE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="COMPANYCODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="COMPANYNAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BATCHCODE" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="SYNSEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CUSTOMERCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ORDERQUANTITY" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="CUSTOMERNAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ORDERMONEY" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="TASKQUANTITY" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="CAPACITY" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="PRIORITY" Type="Int32" />
+          <Property Name="TASKBOX" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PACKAGEID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PACKAGEDESC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SORTSEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="LABLENUM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PLANTIME" Type="DateTime" />
+          <Property Name="SORTTIME" Type="DateTime" />
+          <Property Name="FINISHTIME" Type="DateTime" />
+          <Property Name="STATE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LABELBATCH" Type="Int16" />
+          <Property Name="PALLETNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="MAINBELT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PACKAGEMACHINE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SORTNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ORDERDATE" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_TASKLINE">
+          <Key>
+            <PropertyRef Name="TASKNUM" />
+            <PropertyRef Name="CIGARETTECODE" />
+          </Key>
+          <Property Name="TASKNUM" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CIGARETTECODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CIGARETTENAME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="QUANTITY" Type="Decimal" Precision="10" Scale="1" />
+          <Property Name="UNIT" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="ALLOWSORT" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="SORTNUM" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_UN_POKE">
+          <Key>
+            <PropertyRef Name="POKEID" />
+          </Key>
+          <Property Name="POKEID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TROUGHNUM" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="POKENUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="STATUS" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="TASKNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="TASKQTY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PACKAGEMACHINE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="MACHINESEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="LINENUM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CIGARETTECODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMERCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SORTNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SECSORTNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="BILLCODE" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="CTYPE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SENDTASKNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="STORENUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="GRIDNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="INVFLAG" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SENDSEQ" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_UN_TASK">
+          <Key>
+            <PropertyRef Name="TASKNUM" />
+          </Key>
+          <Property Name="TASKNUM" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LINENUM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EXPORTNUM" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="REGIONCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="REGIONDESC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="BILLCODE" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="COMPANYCODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="COMPANYNAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BATCHCODE" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="SYNSEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CUSTOMERCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ORDERQUANTITY" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="CUSTOMERNAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ORDERMONEY" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="TASKQUANTITY" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="PRIORITY" Type="Int32" />
+          <Property Name="TASKBOX" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SORTSEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="LABLENUM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PLANTIME" Type="DateTime" />
+          <Property Name="SORTTIME" Type="DateTime" />
+          <Property Name="FINISHTIME" Type="DateTime" />
+          <Property Name="STATE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LABELBATCH" Type="Int16" />
+          <Property Name="PALLETNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="EXISTRCD" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ORDERDATE" Type="DateTime" />
+          <Property Name="MAINBELT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PACKAGEMACHINE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SORTNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SECSORTNUM" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_UN_TASKLINE">
+          <Key>
+            <PropertyRef Name="TASKNUM" />
+            <PropertyRef Name="CIGARETTECODE" />
+          </Key>
+          <Property Name="TASKNUM" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CIGARETTECODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CIGARETTENAME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="QUANTITY" Type="Decimal" Precision="10" Scale="1" />
+          <Property Name="UNIT" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="ALLOWSORT" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PROJ_PRODUCT" EntityType="Self.PROJ_PRODUCT" />
+          <EntitySet Name="T_PRODUCE_ORDER" EntityType="Self.T_PRODUCE_ORDER" />
+          <EntitySet Name="T_PRODUCE_ORDERLINE" EntityType="Self.T_PRODUCE_ORDERLINE" />
+          <EntitySet Name="T_PRODUCE_POKE" EntityType="Self.T_PRODUCE_POKE" />
+          <EntitySet Name="T_PRODUCE_SORTTROUGH" EntityType="Self.T_PRODUCE_SORTTROUGH" />
+          <EntitySet Name="T_PRODUCE_SYNSEQ" EntityType="Self.T_PRODUCE_SYNSEQ" />
+          <EntitySet Name="T_PRODUCE_TASK" EntityType="Self.T_PRODUCE_TASK" />
+          <EntitySet Name="T_PRODUCE_TASKLINE" EntityType="Self.T_PRODUCE_TASKLINE" />
+          <EntitySet Name="T_UN_POKE" EntityType="Self.T_UN_POKE" />
+          <EntitySet Name="T_UN_TASK" EntityType="Self.T_UN_TASK" />
+          <EntitySet Name="T_UN_TASKLINE" EntityType="Self.T_UN_TASKLINE" />
+          <EntitySet Name="T_WMS_ITEM" EntityType="Model.T_WMS_ITEM" />
+          <EntitySet Name="T_PACKAGE_TASK" EntityType="Model.T_PACKAGE_TASK" />
+        </EntityContainer>
+        <EntityType Name="T_WMS_ITEM">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DCNO" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="SHIPPER_ID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ITEMNO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ITEMNAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SHORTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SPEC" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="ABCCODE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ITEMPRICE" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="SHIPTYPE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ITEMTYPE_ID" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="PRODUCEAREA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MANUFACTURER_ID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="VENDOR_ID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="BASEUOM_ID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DEFAULTUOM_ID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="STORAGECONDITION" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ISLOTCTRL" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SHELFLIFE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SHELFLIFETYPE" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="PALLETRATIO" Type="Int16" />
+          <Property Name="CREATETIME" Type="DateTime" />
+          <Property Name="CREATEUSER" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MODIFYTIME" Type="DateTime" />
+          <Property Name="MODIFYUSER" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ROWSTATUS" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CATID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="BIGBOX_BAR" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PACK_BAR" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ITEM_KIND" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="KIND" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="H_SIZE" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="T_SIZE" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="J_SIZE" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="W_SIZE" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="X_SIZE" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="WEIGHT" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="FULLCOUNT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CDTYPE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ISCANSCANCODE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="DXTYPE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="JT_SIZE" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="WZ_SIZE" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="OUTTYPE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ILENGTH" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="IWIDTH" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="IHEIGHT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="DOUBLETAKE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_PACKAGE_TASK">
+          <Key>
+            <PropertyRef Name="PTID" />
+          </Key>
+          <Property Name="PTID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="BILLCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ORDERSEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PACKAGESEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGARETTECODE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CIGARETTENAME" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="PACKAGEQTY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGSEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGHIGH" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGWIDTH" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGLENGTH" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGWIDTHX" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGHIGHY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGZ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SORTNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ALLPACKAGESEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="STARTTIME" Type="DateTime" />
+          <Property Name="FINISHTIME" Type="DateTime" />
+          <Property Name="ORDERPACKAGEQTY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ORDERQTY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PACKAGENO" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PACKTASKNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGTYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="PROJ_PRODUCT">
+            <EntityTypeMapping TypeName="Model.PROJ_PRODUCT">
+              <MappingFragment StoreEntitySet="PROJ_PRODUCT">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PRODUCTNO" ColumnName="PRODUCTNO" />
+                <ScalarProperty Name="PRODUCTNAME" ColumnName="PRODUCTNAME" />
+                <ScalarProperty Name="PRODUCTDESC" ColumnName="PRODUCTDESC" />
+                <ScalarProperty Name="PRODUCTSUBDESC" ColumnName="PRODUCTSUBDESC" />
+                <ScalarProperty Name="PRODUCTSPEC" ColumnName="PRODUCTSPEC" />
+                <ScalarProperty Name="PRODUCTBARCODE" ColumnName="PRODUCTBARCODE" />
+                <ScalarProperty Name="PRODUCTNODECODE" ColumnName="PRODUCTNODECODE" />
+                <ScalarProperty Name="TURNOVERRATE" ColumnName="TURNOVERRATE" />
+                <ScalarProperty Name="ABC" ColumnName="ABC" />
+                <ScalarProperty Name="PRODUCTCLASS" ColumnName="PRODUCTCLASS" />
+                <ScalarProperty Name="PRODUCTTYPE" ColumnName="PRODUCTTYPE" />
+                <ScalarProperty Name="PRODUCTTSTATE" ColumnName="PRODUCTTSTATE" />
+                <ScalarProperty Name="QUANTITY_PACK" ColumnName="QUANTITY_PACK" />
+                <ScalarProperty Name="MAINUNIT" ColumnName="MAINUNIT" />
+                <ScalarProperty Name="BASICUNIT" ColumnName="BASICUNIT" />
+                <ScalarProperty Name="MAINTOBASICRATE" ColumnName="MAINTOBASICRATE" />
+                <ScalarProperty Name="MAINTOBASICDESC" ColumnName="MAINTOBASICDESC" />
+                <ScalarProperty Name="CREATEBY" ColumnName="CREATEBY" />
+                <ScalarProperty Name="CREATEDATE" ColumnName="CREATEDATE" />
+                <ScalarProperty Name="MODIFYBY" ColumnName="MODIFYBY" />
+                <ScalarProperty Name="MODIFYDATE" ColumnName="MODIFYDATE" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="BRANDID" ColumnName="BRANDID" />
+                <ScalarProperty Name="BRANDNAME" ColumnName="BRANDNAME" />
+                <ScalarProperty Name="VENDORID" ColumnName="VENDORID" />
+                <ScalarProperty Name="VENDORNAME" ColumnName="VENDORNAME" />
+                <ScalarProperty Name="PRODUCTERID" ColumnName="PRODUCTERID" />
+                <ScalarProperty Name="PRODUCTERNAME" ColumnName="PRODUCTERNAME" />
+                <ScalarProperty Name="MARKETPRICE" ColumnName="MARKETPRICE" />
+                <ScalarProperty Name="LOWESTSALEPRICE" ColumnName="LOWESTSALEPRICE" />
+                <ScalarProperty Name="SELLPRICE" ColumnName="SELLPRICE" />
+                <ScalarProperty Name="ISDELICATE" ColumnName="ISDELICATE" />
+                <ScalarProperty Name="IMPORTPRODUCT" ColumnName="IMPORTPRODUCT" />
+                <ScalarProperty Name="IMAGEURL" ColumnName="IMAGEURL" />
+                <ScalarProperty Name="DEFAULTCOLOR" ColumnName="DEFAULTCOLOR" />
+                <ScalarProperty Name="PALLETEMPLTY" ColumnName="PALLETEMPLTY" />
+                <ScalarProperty Name="PALLETENTITY" ColumnName="PALLETENTITY" />
+                <ScalarProperty Name="SIZE_LENGTH" ColumnName="SIZE_LENGTH" />
+                <ScalarProperty Name="SIZE_WIDTH" ColumnName="SIZE_WIDTH" />
+                <ScalarProperty Name="SIZE_HEIGHT" ColumnName="SIZE_HEIGHT" />
+                <ScalarProperty Name="VOLUME" ColumnName="VOLUME" />
+                <ScalarProperty Name="WEIGHT" ColumnName="WEIGHT" />
+                <ScalarProperty Name="NETWEIGHT" ColumnName="NETWEIGHT" />
+                <ScalarProperty Name="WARNSTATE" ColumnName="WARNSTATE" />
+                <ScalarProperty Name="INV_HIGH" ColumnName="INV_HIGH" />
+                <ScalarProperty Name="INV_SAFE" ColumnName="INV_SAFE" />
+                <ScalarProperty Name="INV_ORDER" ColumnName="INV_ORDER" />
+                <ScalarProperty Name="INV_HIVEDAYS" ColumnName="INV_HIVEDAYS" />
+                <ScalarProperty Name="INV_LIMIT" ColumnName="INV_LIMIT" />
+                <ScalarProperty Name="INV_HIGH_COLOR" ColumnName="INV_HIGH_COLOR" />
+                <ScalarProperty Name="INV_SAFE_COLOR" ColumnName="INV_SAFE_COLOR" />
+                <ScalarProperty Name="INV_ORDER_COLOR" ColumnName="INV_ORDER_COLOR" />
+                <ScalarProperty Name="INV_HIVEDAYS_COLOR" ColumnName="INV_HIVEDAYS_COLOR" />
+                <ScalarProperty Name="INV_LIMIT_COLOR" ColumnName="INV_LIMIT_COLOR" />
+                <ScalarProperty Name="CUSTOMCOL01" ColumnName="CUSTOMCOL01" />
+                <ScalarProperty Name="CUSTOMCOL02" ColumnName="CUSTOMCOL02" />
+                <ScalarProperty Name="CUSTOMCOL03" ColumnName="CUSTOMCOL03" />
+                <ScalarProperty Name="CUSTOMCOL04" ColumnName="CUSTOMCOL04" />
+                <ScalarProperty Name="CUSTOMCOL05" ColumnName="CUSTOMCOL05" />
+                <ScalarProperty Name="CUSTOMCOL06" ColumnName="CUSTOMCOL06" />
+                <ScalarProperty Name="CUSTOMCOL07" ColumnName="CUSTOMCOL07" />
+                <ScalarProperty Name="CUSTOMCOL08" ColumnName="CUSTOMCOL08" />
+                <ScalarProperty Name="CUSTOMCOL09" ColumnName="CUSTOMCOL09" />
+                <ScalarProperty Name="CUSTOMCOL10" ColumnName="CUSTOMCOL10" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_PRODUCE_ORDER">
+            <EntityTypeMapping TypeName="Model.T_PRODUCE_ORDER">
+              <MappingFragment StoreEntitySet="T_PRODUCE_ORDER">
+                <ScalarProperty Name="BILLCODE" ColumnName="BILLCODE" />
+                <ScalarProperty Name="COMPANYCODE" ColumnName="COMPANYCODE" />
+                <ScalarProperty Name="COMPANYNAME" ColumnName="COMPANYNAME" />
+                <ScalarProperty Name="BATCHCODE" ColumnName="BATCHCODE" />
+                <ScalarProperty Name="SYNSEQ" ColumnName="SYNSEQ" />
+                <ScalarProperty Name="ORDERQUANTITY" ColumnName="ORDERQUANTITY" />
+                <ScalarProperty Name="ORDERMONEY" ColumnName="ORDERMONEY" />
+                <ScalarProperty Name="CUSTOMERCODE" ColumnName="CUSTOMERCODE" />
+                <ScalarProperty Name="CUSTOMERNAME" ColumnName="CUSTOMERNAME" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="TELEPHONE" ColumnName="TELEPHONE" />
+                <ScalarProperty Name="PRIORITY" ColumnName="PRIORITY" />
+                <ScalarProperty Name="REGIONCODE" ColumnName="REGIONCODE" />
+                <ScalarProperty Name="TASKNUMBERS" ColumnName="TASKNUMBERS" />
+                <ScalarProperty Name="TASKBOXIES" ColumnName="TASKBOXIES" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="DEVSEQ" ColumnName="DEVSEQ" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CREATETIME" ColumnName="CREATETIME" />
+                <ScalarProperty Name="ORDERDATE" ColumnName="ORDERDATE" />
+                <ScalarProperty Name="UNSTATE" ColumnName="UNSTATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_PRODUCE_ORDERLINE">
+            <EntityTypeMapping TypeName="Model.T_PRODUCE_ORDERLINE">
+              <MappingFragment StoreEntitySet="T_PRODUCE_ORDERLINE">
+                <ScalarProperty Name="BILLCODE" ColumnName="BILLCODE" />
+                <ScalarProperty Name="LINENUM" ColumnName="LINENUM" />
+                <ScalarProperty Name="CIGARETTECODE" ColumnName="CIGARETTECODE" />
+                <ScalarProperty Name="CIGARETTENAME" ColumnName="CIGARETTENAME" />
+                <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="UNIT" ColumnName="UNIT" />
+                <ScalarProperty Name="MOENY" ColumnName="MOENY" />
+                <ScalarProperty Name="MULTIPLE" ColumnName="MULTIPLE" />
+                <ScalarProperty Name="ALLOWSORT" ColumnName="ALLOWSORT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_PRODUCE_POKE">
+            <EntityTypeMapping TypeName="Model.T_PRODUCE_POKE">
+              <MappingFragment StoreEntitySet="T_PRODUCE_POKE">
+                <ScalarProperty Name="POKEID" ColumnName="POKEID" />
+                <ScalarProperty Name="TROUGHNUM" ColumnName="TROUGHNUM" />
+                <ScalarProperty Name="POKENUM" ColumnName="POKENUM" />
+                <ScalarProperty Name="SORTSTATE" ColumnName="SORTSTATE" />
+                <ScalarProperty Name="TASKNUM" ColumnName="TASKNUM" />
+                <ScalarProperty Name="TASKQTY" ColumnName="TASKQTY" />
+                <ScalarProperty Name="EXPORTNUM" ColumnName="EXPORTNUM" />
+                <ScalarProperty Name="MACHINESEQ" ColumnName="MACHINESEQ" />
+                <ScalarProperty Name="MAINBELT" ColumnName="MAINBELT" />
+                <ScalarProperty Name="GROUPNO" ColumnName="GROUPNO" />
+                <ScalarProperty Name="POKEPLACE" ColumnName="POKEPLACE" />
+                <ScalarProperty Name="UNIONSTATE" ColumnName="UNIONSTATE" />
+                <ScalarProperty Name="MACHINESTATE" ColumnName="MACHINESTATE" />
+                <ScalarProperty Name="MERAGENUM" ColumnName="MERAGENUM" />
+                <ScalarProperty Name="PACKAGEMACHINE" ColumnName="PACKAGEMACHINE" />
+                <ScalarProperty Name="SORTNUM" ColumnName="SORTNUM" />
+                <ScalarProperty Name="BILLCODE" ColumnName="BILLCODE" />
+                <ScalarProperty Name="UNIONEXPORTNUM" ColumnName="UNIONEXPORTNUM" />
+                <ScalarProperty Name="UNIONTASKNUM" ColumnName="UNIONTASKNUM" />
+                <ScalarProperty Name="SECSORTNUM" ColumnName="SECSORTNUM" />
+                <ScalarProperty Name="INVFLAG" ColumnName="INVFLAG" />
+                <ScalarProperty Name="SENDPOKENUM" ColumnName="SENDPOKENUM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_PRODUCE_SORTTROUGH">
+            <EntityTypeMapping TypeName="Model.T_PRODUCE_SORTTROUGH">
+              <MappingFragment StoreEntitySet="T_PRODUCE_SORTTROUGH">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LINENUM" ColumnName="LINENUM" />
+                <ScalarProperty Name="TROUGHNUM" ColumnName="TROUGHNUM" />
+                <ScalarProperty Name="TROUGHDESC" ColumnName="TROUGHDESC" />
+                <ScalarProperty Name="ACTCOUNT" ColumnName="ACTCOUNT" />
+                <ScalarProperty Name="MACHINESEQ" ColumnName="MACHINESEQ" />
+                <ScalarProperty Name="CIGARETTECODE" ColumnName="CIGARETTECODE" />
+                <ScalarProperty Name="CIGARETTENAME" ColumnName="CIGARETTENAME" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="MANTISSA" ColumnName="MANTISSA" />
+                <ScalarProperty Name="CIGARETTETYPE" ColumnName="CIGARETTETYPE" />
+                <ScalarProperty Name="REPLENISHLINE" ColumnName="REPLENISHLINE" />
+                <ScalarProperty Name="TRANSPORTATIONLINE" ColumnName="TRANSPORTATIONLINE" />
+                <ScalarProperty Name="LASTMANTISSA" ColumnName="LASTMANTISSA" />
+                <ScalarProperty Name="TROUGHTYPE" ColumnName="TROUGHTYPE" />
+                <ScalarProperty Name="GROUPNO" ColumnName="GROUPNO" />
+                <ScalarProperty Name="THRESHOLD" ColumnName="THRESHOLD" />
+                <ScalarProperty Name="BOXCOUNT" ColumnName="BOXCOUNT" />
+                <ScalarProperty Name="MAINTISSALESS" ColumnName="MAINTISSALESS" />
+                <ScalarProperty Name="CLEARUP" ColumnName="CLEARUP" />
+                <ScalarProperty Name="CLEARTHRESHOLD" ColumnName="CLEARTHRESHOLD" />
+                <ScalarProperty Name="SEQ" ColumnName="SEQ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_PRODUCE_SYNSEQ">
+            <EntityTypeMapping TypeName="Model.T_PRODUCE_SYNSEQ">
+              <MappingFragment StoreEntitySet="T_PRODUCE_SYNSEQ">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SYNSEQ" ColumnName="SYNSEQ" />
+                <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+                <ScalarProperty Name="ORDERDATE" ColumnName="ORDERDATE" />
+                <ScalarProperty Name="PMSTATE" ColumnName="PMSTATE" />
+                <ScalarProperty Name="TBJSTATE" ColumnName="TBJSTATE" />
+                <ScalarProperty Name="PACKAGENO" ColumnName="PACKAGENO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_PRODUCE_TASK">
+            <EntityTypeMapping TypeName="Model.T_PRODUCE_TASK">
+              <MappingFragment StoreEntitySet="T_PRODUCE_TASK">
+                <ScalarProperty Name="TASKNUM" ColumnName="TASKNUM" />
+                <ScalarProperty Name="LINENUM" ColumnName="LINENUM" />
+                <ScalarProperty Name="EXPORTNUM" ColumnName="EXPORTNUM" />
+                <ScalarProperty Name="REGIONCODE" ColumnName="REGIONCODE" />
+                <ScalarProperty Name="REGIONDESC" ColumnName="REGIONDESC" />
+                <ScalarProperty Name="BILLCODE" ColumnName="BILLCODE" />
+                <ScalarProperty Name="COMPANYCODE" ColumnName="COMPANYCODE" />
+                <ScalarProperty Name="COMPANYNAME" ColumnName="COMPANYNAME" />
+                <ScalarProperty Name="BATCHCODE" ColumnName="BATCHCODE" />
+                <ScalarProperty Name="SYNSEQ" ColumnName="SYNSEQ" />
+                <ScalarProperty Name="CUSTOMERCODE" ColumnName="CUSTOMERCODE" />
+                <ScalarProperty Name="ORDERQUANTITY" ColumnName="ORDERQUANTITY" />
+                <ScalarProperty Name="CUSTOMERNAME" ColumnName="CUSTOMERNAME" />
+                <ScalarProperty Name="ORDERMONEY" ColumnName="ORDERMONEY" />
+                <ScalarProperty Name="TASKQUANTITY" ColumnName="TASKQUANTITY" />
+                <ScalarProperty Name="CAPACITY" ColumnName="CAPACITY" />
+                <ScalarProperty Name="PRIORITY" ColumnName="PRIORITY" />
+                <ScalarProperty Name="TASKBOX" ColumnName="TASKBOX" />
+                <ScalarProperty Name="PACKAGEID" ColumnName="PACKAGEID" />
+                <ScalarProperty Name="PACKAGEDESC" ColumnName="PACKAGEDESC" />
+                <ScalarProperty Name="SORTSEQ" ColumnName="SORTSEQ" />
+                <ScalarProperty Name="LABLENUM" ColumnName="LABLENUM" />
+                <ScalarProperty Name="PLANTIME" ColumnName="PLANTIME" />
+                <ScalarProperty Name="SORTTIME" ColumnName="SORTTIME" />
+                <ScalarProperty Name="FINISHTIME" ColumnName="FINISHTIME" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="LABELBATCH" ColumnName="LABELBATCH" />
+                <ScalarProperty Name="PALLETNUM" ColumnName="PALLETNUM" />
+                <ScalarProperty Name="MAINBELT" ColumnName="MAINBELT" />
+                <ScalarProperty Name="PACKAGEMACHINE" ColumnName="PACKAGEMACHINE" />
+                <ScalarProperty Name="SORTNUM" ColumnName="SORTNUM" />
+                <ScalarProperty Name="ORDERDATE" ColumnName="ORDERDATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_PRODUCE_TASKLINE">
+            <EntityTypeMapping TypeName="Model.T_PRODUCE_TASKLINE">
+              <MappingFragment StoreEntitySet="T_PRODUCE_TASKLINE">
+                <ScalarProperty Name="TASKNUM" ColumnName="TASKNUM" />
+                <ScalarProperty Name="CIGARETTECODE" ColumnName="CIGARETTECODE" />
+                <ScalarProperty Name="CIGARETTENAME" ColumnName="CIGARETTENAME" />
+                <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+                <ScalarProperty Name="UNIT" ColumnName="UNIT" />
+                <ScalarProperty Name="ALLOWSORT" ColumnName="ALLOWSORT" />
+                <ScalarProperty Name="SORTNUM" ColumnName="SORTNUM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_UN_POKE">
+            <EntityTypeMapping TypeName="Model.T_UN_POKE">
+              <MappingFragment StoreEntitySet="T_UN_POKE">
+                <ScalarProperty Name="POKEID" ColumnName="POKEID" />
+                <ScalarProperty Name="TROUGHNUM" ColumnName="TROUGHNUM" />
+                <ScalarProperty Name="POKENUM" ColumnName="POKENUM" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="TASKNUM" ColumnName="TASKNUM" />
+                <ScalarProperty Name="TASKQTY" ColumnName="TASKQTY" />
+                <ScalarProperty Name="PACKAGEMACHINE" ColumnName="PACKAGEMACHINE" />
+                <ScalarProperty Name="MACHINESEQ" ColumnName="MACHINESEQ" />
+                <ScalarProperty Name="LINENUM" ColumnName="LINENUM" />
+                <ScalarProperty Name="CIGARETTECODE" ColumnName="CIGARETTECODE" />
+                <ScalarProperty Name="CUSTOMERCODE" ColumnName="CUSTOMERCODE" />
+                <ScalarProperty Name="SORTNUM" ColumnName="SORTNUM" />
+                <ScalarProperty Name="SECSORTNUM" ColumnName="SECSORTNUM" />
+                <ScalarProperty Name="BILLCODE" ColumnName="BILLCODE" />
+                <ScalarProperty Name="CTYPE" ColumnName="CTYPE" />
+                <ScalarProperty Name="SENDTASKNUM" ColumnName="SENDTASKNUM" />
+                <ScalarProperty Name="STORENUM" ColumnName="STORENUM" />
+                <ScalarProperty Name="GRIDNUM" ColumnName="GRIDNUM" />
+                <ScalarProperty Name="INVFLAG" ColumnName="INVFLAG" />
+                <ScalarProperty Name="SENDSEQ" ColumnName="SENDSEQ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_UN_TASK">
+            <EntityTypeMapping TypeName="Model.T_UN_TASK">
+              <MappingFragment StoreEntitySet="T_UN_TASK">
+                <ScalarProperty Name="TASKNUM" ColumnName="TASKNUM" />
+                <ScalarProperty Name="LINENUM" ColumnName="LINENUM" />
+                <ScalarProperty Name="EXPORTNUM" ColumnName="EXPORTNUM" />
+                <ScalarProperty Name="REGIONCODE" ColumnName="REGIONCODE" />
+                <ScalarProperty Name="REGIONDESC" ColumnName="REGIONDESC" />
+                <ScalarProperty Name="BILLCODE" ColumnName="BILLCODE" />
+                <ScalarProperty Name="COMPANYCODE" ColumnName="COMPANYCODE" />
+                <ScalarProperty Name="COMPANYNAME" ColumnName="COMPANYNAME" />
+                <ScalarProperty Name="BATCHCODE" ColumnName="BATCHCODE" />
+                <ScalarProperty Name="SYNSEQ" ColumnName="SYNSEQ" />
+                <ScalarProperty Name="CUSTOMERCODE" ColumnName="CUSTOMERCODE" />
+                <ScalarProperty Name="ORDERQUANTITY" ColumnName="ORDERQUANTITY" />
+                <ScalarProperty Name="CUSTOMERNAME" ColumnName="CUSTOMERNAME" />
+                <ScalarProperty Name="ORDERMONEY" ColumnName="ORDERMONEY" />
+                <ScalarProperty Name="TASKQUANTITY" ColumnName="TASKQUANTITY" />
+                <ScalarProperty Name="PRIORITY" ColumnName="PRIORITY" />
+                <ScalarProperty Name="TASKBOX" ColumnName="TASKBOX" />
+                <ScalarProperty Name="SORTSEQ" ColumnName="SORTSEQ" />
+                <ScalarProperty Name="LABLENUM" ColumnName="LABLENUM" />
+                <ScalarProperty Name="PLANTIME" ColumnName="PLANTIME" />
+                <ScalarProperty Name="SORTTIME" ColumnName="SORTTIME" />
+                <ScalarProperty Name="FINISHTIME" ColumnName="FINISHTIME" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="LABELBATCH" ColumnName="LABELBATCH" />
+                <ScalarProperty Name="PALLETNUM" ColumnName="PALLETNUM" />
+                <ScalarProperty Name="EXISTRCD" ColumnName="EXISTRCD" />
+                <ScalarProperty Name="ORDERDATE" ColumnName="ORDERDATE" />
+                <ScalarProperty Name="MAINBELT" ColumnName="MAINBELT" />
+                <ScalarProperty Name="PACKAGEMACHINE" ColumnName="PACKAGEMACHINE" />
+                <ScalarProperty Name="SORTNUM" ColumnName="SORTNUM" />
+                <ScalarProperty Name="SECSORTNUM" ColumnName="SECSORTNUM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_UN_TASKLINE">
+            <EntityTypeMapping TypeName="Model.T_UN_TASKLINE">
+              <MappingFragment StoreEntitySet="T_UN_TASKLINE">
+                <ScalarProperty Name="TASKNUM" ColumnName="TASKNUM" />
+                <ScalarProperty Name="CIGARETTECODE" ColumnName="CIGARETTECODE" />
+                <ScalarProperty Name="CIGARETTENAME" ColumnName="CIGARETTENAME" />
+                <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+                <ScalarProperty Name="UNIT" ColumnName="UNIT" />
+                <ScalarProperty Name="ALLOWSORT" ColumnName="ALLOWSORT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_WMS_ITEM">
+            <EntityTypeMapping TypeName="Model.T_WMS_ITEM">
+              <MappingFragment StoreEntitySet="T_WMS_ITEM">
+                <ScalarProperty Name="DOUBLETAKE" ColumnName="DOUBLETAKE" />
+                <ScalarProperty Name="IHEIGHT" ColumnName="IHEIGHT" />
+                <ScalarProperty Name="IWIDTH" ColumnName="IWIDTH" />
+                <ScalarProperty Name="ILENGTH" ColumnName="ILENGTH" />
+                <ScalarProperty Name="OUTTYPE" ColumnName="OUTTYPE" />
+                <ScalarProperty Name="WZ_SIZE" ColumnName="WZ_SIZE" />
+                <ScalarProperty Name="JT_SIZE" ColumnName="JT_SIZE" />
+                <ScalarProperty Name="DXTYPE" ColumnName="DXTYPE" />
+                <ScalarProperty Name="ISCANSCANCODE" ColumnName="ISCANSCANCODE" />
+                <ScalarProperty Name="CDTYPE" ColumnName="CDTYPE" />
+                <ScalarProperty Name="FULLCOUNT" ColumnName="FULLCOUNT" />
+                <ScalarProperty Name="WEIGHT" ColumnName="WEIGHT" />
+                <ScalarProperty Name="X_SIZE" ColumnName="X_SIZE" />
+                <ScalarProperty Name="W_SIZE" ColumnName="W_SIZE" />
+                <ScalarProperty Name="J_SIZE" ColumnName="J_SIZE" />
+                <ScalarProperty Name="T_SIZE" ColumnName="T_SIZE" />
+                <ScalarProperty Name="H_SIZE" ColumnName="H_SIZE" />
+                <ScalarProperty Name="KIND" ColumnName="KIND" />
+                <ScalarProperty Name="ITEM_KIND" ColumnName="ITEM_KIND" />
+                <ScalarProperty Name="PACK_BAR" ColumnName="PACK_BAR" />
+                <ScalarProperty Name="BIGBOX_BAR" ColumnName="BIGBOX_BAR" />
+                <ScalarProperty Name="CATID" ColumnName="CATID" />
+                <ScalarProperty Name="ROWSTATUS" ColumnName="ROWSTATUS" />
+                <ScalarProperty Name="MODIFYUSER" ColumnName="MODIFYUSER" />
+                <ScalarProperty Name="MODIFYTIME" ColumnName="MODIFYTIME" />
+                <ScalarProperty Name="CREATEUSER" ColumnName="CREATEUSER" />
+                <ScalarProperty Name="CREATETIME" ColumnName="CREATETIME" />
+                <ScalarProperty Name="PALLETRATIO" ColumnName="PALLETRATIO" />
+                <ScalarProperty Name="SHELFLIFETYPE" ColumnName="SHELFLIFETYPE" />
+                <ScalarProperty Name="SHELFLIFE" ColumnName="SHELFLIFE" />
+                <ScalarProperty Name="ISLOTCTRL" ColumnName="ISLOTCTRL" />
+                <ScalarProperty Name="STORAGECONDITION" ColumnName="STORAGECONDITION" />
+                <ScalarProperty Name="DEFAULTUOM_ID" ColumnName="DEFAULTUOM_ID" />
+                <ScalarProperty Name="BASEUOM_ID" ColumnName="BASEUOM_ID" />
+                <ScalarProperty Name="VENDOR_ID" ColumnName="VENDOR_ID" />
+                <ScalarProperty Name="MANUFACTURER_ID" ColumnName="MANUFACTURER_ID" />
+                <ScalarProperty Name="PRODUCEAREA" ColumnName="PRODUCEAREA" />
+                <ScalarProperty Name="ITEMTYPE_ID" ColumnName="ITEMTYPE_ID" />
+                <ScalarProperty Name="SHIPTYPE" ColumnName="SHIPTYPE" />
+                <ScalarProperty Name="ITEMPRICE" ColumnName="ITEMPRICE" />
+                <ScalarProperty Name="ABCCODE" ColumnName="ABCCODE" />
+                <ScalarProperty Name="SPEC" ColumnName="SPEC" />
+                <ScalarProperty Name="SHORTNAME" ColumnName="SHORTNAME" />
+                <ScalarProperty Name="ITEMNAME" ColumnName="ITEMNAME" />
+                <ScalarProperty Name="ITEMNO" ColumnName="ITEMNO" />
+                <ScalarProperty Name="SHIPPER_ID" ColumnName="SHIPPER_ID" />
+                <ScalarProperty Name="DCNO" ColumnName="DCNO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_PACKAGE_TASK">
+            <EntityTypeMapping TypeName="Model.T_PACKAGE_TASK">
+              <MappingFragment StoreEntitySet="T_PACKAGE_TASK">
+                <ScalarProperty Name="CIGTYPE" ColumnName="CIGTYPE" />
+                <ScalarProperty Name="CIGNUM" ColumnName="CIGNUM" />
+                <ScalarProperty Name="PACKTASKNUM" ColumnName="PACKTASKNUM" />
+                <ScalarProperty Name="PACKAGENO" ColumnName="PACKAGENO" />
+                <ScalarProperty Name="ORDERQTY" ColumnName="ORDERQTY" />
+                <ScalarProperty Name="ORDERPACKAGEQTY" ColumnName="ORDERPACKAGEQTY" />
+                <ScalarProperty Name="FINISHTIME" ColumnName="FINISHTIME" />
+                <ScalarProperty Name="STARTTIME" ColumnName="STARTTIME" />
+                <ScalarProperty Name="ALLPACKAGESEQ" ColumnName="ALLPACKAGESEQ" />
+                <ScalarProperty Name="SORTNUM" ColumnName="SORTNUM" />
+                <ScalarProperty Name="CIGZ" ColumnName="CIGZ" />
+                <ScalarProperty Name="CIGHIGHY" ColumnName="CIGHIGHY" />
+                <ScalarProperty Name="CIGWIDTHX" ColumnName="CIGWIDTHX" />
+                <ScalarProperty Name="CIGLENGTH" ColumnName="CIGLENGTH" />
+                <ScalarProperty Name="CIGWIDTH" ColumnName="CIGWIDTH" />
+                <ScalarProperty Name="CIGHIGH" ColumnName="CIGHIGH" />
+                <ScalarProperty Name="CIGSEQ" ColumnName="CIGSEQ" />
+                <ScalarProperty Name="PACKAGEQTY" ColumnName="PACKAGEQTY" />
+                <ScalarProperty Name="CIGARETTENAME" ColumnName="CIGARETTENAME" />
+                <ScalarProperty Name="CIGARETTECODE" ColumnName="CIGARETTECODE" />
+                <ScalarProperty Name="PACKAGESEQ" ColumnName="PACKAGESEQ" />
+                <ScalarProperty Name="ORDERSEQ" ColumnName="ORDERSEQ" />
+                <ScalarProperty Name="BILLCODE" ColumnName="BILLCODE" />
+                <ScalarProperty Name="PTID" ColumnName="PTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

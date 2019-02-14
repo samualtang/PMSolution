@@ -292,9 +292,9 @@
             this.gbSysDate.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.gbSysDate.Controls.Add(this.label10);
             this.gbSysDate.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gbSysDate.Location = new System.Drawing.Point(0, 723);
+            this.gbSysDate.Location = new System.Drawing.Point(0, 711);
             this.gbSysDate.Name = "gbSysDate";
-            this.gbSysDate.Size = new System.Drawing.Size(1584, 38);
+            this.gbSysDate.Size = new System.Drawing.Size(1370, 38);
             this.gbSysDate.TabIndex = 76;
             this.gbSysDate.TabStop = false;
             this.gbSysDate.Text = "系统信息：";
@@ -305,9 +305,9 @@
             this.gbInfo.Controls.Add(this.list_date);
             this.gbInfo.Dock = System.Windows.Forms.DockStyle.Right;
             this.gbInfo.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.gbInfo.Location = new System.Drawing.Point(1400, 80);
+            this.gbInfo.Location = new System.Drawing.Point(1186, 80);
             this.gbInfo.Name = "gbInfo";
-            this.gbInfo.Size = new System.Drawing.Size(184, 643);
+            this.gbInfo.Size = new System.Drawing.Size(184, 631);
             this.gbInfo.TabIndex = 83;
             this.gbInfo.TabStop = false;
             this.gbInfo.Text = "任务信息";
@@ -323,7 +323,7 @@
             "数据库连接成功。。。"});
             this.list_date.Location = new System.Drawing.Point(3, 19);
             this.list_date.Name = "list_date";
-            this.list_date.Size = new System.Drawing.Size(178, 621);
+            this.list_date.Size = new System.Drawing.Size(178, 609);
             this.list_date.TabIndex = 0;
             // 
             // mune
@@ -338,7 +338,7 @@
             this.mune.Dock = System.Windows.Forms.DockStyle.Left;
             this.mune.Location = new System.Drawing.Point(0, 80);
             this.mune.Name = "mune";
-            this.mune.Size = new System.Drawing.Size(134, 643);
+            this.mune.Size = new System.Drawing.Size(134, 631);
             this.mune.TabIndex = 79;
             // 
             // pbSize
@@ -425,7 +425,7 @@
             this.pbmaintitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.pbmaintitle.Location = new System.Drawing.Point(0, 0);
             this.pbmaintitle.Name = "pbmaintitle";
-            this.pbmaintitle.Size = new System.Drawing.Size(1584, 80);
+            this.pbmaintitle.Size = new System.Drawing.Size(1370, 80);
             this.pbmaintitle.TabIndex = 77;
             // 
             // pbExit
@@ -483,7 +483,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1584, 761);
+            this.ClientSize = new System.Drawing.Size(1370, 749);
             this.Controls.Add(this.panelSize);
             this.Controls.Add(this.gbInfo);
             this.Controls.Add(this.panelDx);

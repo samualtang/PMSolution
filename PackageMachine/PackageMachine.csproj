@@ -33,8 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Oracle.DataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,7 +50,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Code\ButtonCreator.cs" />
+    <Compile Include="Code\ColorTobacco.cs" />
+    <Compile Include="Code\ImageHelper.cs" />
+    <Compile Include="FmCommoditySize.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FmCommoditySize.Designer.cs">
+      <DependentUpon>FmCommoditySize.cs</DependentUpon>
+    </Compile>
     <Compile Include="FmInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,13 +71,36 @@
     <Compile Include="FmMain.Designer.cs">
       <DependentUpon>FmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FmOrderInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FmOrderInfo.Designer.cs">
+      <DependentUpon>FmOrderInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FmSystemSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FmSystemSetup.Designer.cs">
+      <DependentUpon>FmSystemSetup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TobaccoListShow.Designer.cs" />
+    <Compile Include="TobaccoShow.Designer.cs" />
+    <EmbeddedResource Include="FmCommoditySize.resx">
+      <DependentUpon>FmCommoditySize.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FmInfo.resx">
       <DependentUpon>FmInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FmMain.resx">
       <DependentUpon>FmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FmOrderInfo.resx">
+      <DependentUpon>FmOrderInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FmSystemSetup.resx">
+      <DependentUpon>FmSystemSetup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -77,6 +112,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TobaccoListShow.resx" />
+    <EmbeddedResource Include="TobaccoShow.resx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -88,7 +125,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\标题.png" />
@@ -125,6 +164,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="From\" />
+    <Folder Include="PublicFun\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EFModle\EFModle.csproj">
+      <Project>{10c0351b-9da2-4cda-9d04-633a53108455}</Project>
+      <Name>EFModle</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Functions\Functions.csproj">
+      <Project>{c85e1cdc-ce4a-4756-bce1-d969c9be02fc}</Project>
+      <Name>Functions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
