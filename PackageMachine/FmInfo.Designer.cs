@@ -41,7 +41,7 @@
             this.lblallcount = new System.Windows.Forms.Label();
             this.lblorderdate = new System.Windows.Forms.Label();
             this.lbllinename = new System.Windows.Forms.Label();
-            this.cs2 = new PackageMachine.CigrShow();
+            this.cigrCache1 = new PackageMachine.CigrCache();
             this.cs = new PackageMachine.CigrShow();
             this.panelInfo.SuspendLayout();
             this.SuspendLayout();
@@ -173,23 +173,21 @@
             this.lbllinename.TabIndex = 7;
             this.lbllinename.Text = "线路名称：0207[201-129] ";
             // 
-            // cs2
+            // cigrCache1
             // 
-            this.cs2.BackColor = System.Drawing.Color.White;
-            this.cs2.H = 459;
-            this.cs2.Location = new System.Drawing.Point(12, 210);
-            this.cs2.Name = "cs2";
-            this.cs2.Size = new System.Drawing.Size(670, 434);
-            this.cs2.TabIndex = 4;
-            this.cs2.W = 670;
+            this.cigrCache1.BackColor = System.Drawing.Color.White;
+            this.cigrCache1.Location = new System.Drawing.Point(14, 121);
+            this.cigrCache1.Name = "cigrCache1";
+            this.cigrCache1.Size = new System.Drawing.Size(773, 87);
+            this.cigrCache1.TabIndex = 6;
             // 
             // cs
             // 
             this.cs.BackColor = System.Drawing.Color.White;
             this.cs.H = 459;
-            this.cs.Location = new System.Drawing.Point(768, 210);
+            this.cs.Location = new System.Drawing.Point(562, 155);
             this.cs.Name = "cs";
-            this.cs.Size = new System.Drawing.Size(670, 434);
+            this.cs.Size = new System.Drawing.Size(876, 489);
             this.cs.TabIndex = 3;
             this.cs.W = 670;
             // 
@@ -199,8 +197,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1450, 656);
+            this.Controls.Add(this.cigrCache1);
             this.Controls.Add(this.panelInfo);
-            this.Controls.Add(this.cs2);
             this.Controls.Add(this.cs);
             this.Controls.Add(this.btnnext);
             this.Controls.Add(this.btnLast);
@@ -228,7 +226,7 @@
         private System.Windows.Forms.Button btnLast;
         private System.Windows.Forms.Button btnnext;
         private CigrShow cs;
-        private CigrShow cs2;
+
         private System.Windows.Forms.Panel panelInfo;
         private System.Windows.Forms.Label lblcutcount;
         private System.Windows.Forms.Label lblcutname;
@@ -236,6 +234,7 @@
         private System.Windows.Forms.Label lblallcount;
         private System.Windows.Forms.Label lblorderdate;
         private System.Windows.Forms.Label lbllinename;
+        private CigrCache cigrCache1;
     }
     
 }

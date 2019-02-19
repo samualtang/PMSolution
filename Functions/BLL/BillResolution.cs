@@ -21,9 +21,8 @@ namespace Functions.BLL
                 var listTask = (from item in en.T_PACKAGE_TASK select item).Distinct().ToList();
                 foreach (var item in listTask)
                 {
-                    Bill_Model bill_ = new Bill_Model(); 
-                    var task = (from T_item in en.T_PACKAGE_TASK where T_item.SORTNUM == item.SORTNUM  select T_item).ToList();//获取单个任务信息
-                    bill_.T_P_TASK = task;//单个任务集合
+                    Bill_Model bill_ = new Bill_Model();  
+                    bill_.T_P_TASK = (from T_item in en.T_PACKAGE_TASK  select T_item).ToList();//单个任务集合
                     bill_.SortNum = item.SORTNUM ??0;
                     bill_.PackageSeqLength = (from l_item in en.T_PACKAGE_TASK select l_item).Max(a => a.ALLPACKAGESEQ) ?? 0;
                     list_BM.Add(bill_); 
@@ -46,7 +45,7 @@ namespace Functions.BLL
                 List<T_PACKAGE_TASK> t_s = new List<T_PACKAGE_TASK>();
                 foreach (var item in List)
                 {
-                    foreach (var detail in item.T_P_TASK.Where(a => a.ALLPACKAGESEQ == PackageIndex && a.PACKAGENO == Packageno).ToList())
+                    foreach (var detail in item.T_P_TASK.Where(a => a.ALLPACKAGESEQ == PackageIndex  ).OrderBy(a=> a.CIGSEQ).ToList())
                     {
                         t_s.Add(detail);
                     }
@@ -58,11 +57,11 @@ namespace Functions.BLL
                     info.TobaccoLength = (float)Convert.ToDouble(item.CIGLENGTH);
                     info.TobaccoWidth = (float)Convert.ToDouble(item.CIGWIDTH);
                     info.TobaccoHeight = (float)Convert.ToDouble(item.CIGHIGH);
-                    info.GlobalIndex = Convert.ToInt32(item.CIGNUM ?? 0);
+                    info.GlobalIndex = Convert.ToInt32(item.ALLPACKAGESEQ ?? 0);
                     info.Speed = 1;
-                    info.OrderIndex = Convert.ToInt32(item.PACKAGEQTY ?? 0);
+                    info.OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0);
                     info.CigType = item.CIGTYPE;//卷烟类型
-                    info.PostionX = (float)Convert.ToDouble(item.CIGWIDTHX ?? 0) * 2;//坐标X
+                    info.PostionX = (float)Convert.ToDouble(Math.Ceiling( item.CIGWIDTHX ?? 0 ))  ;//坐标X
                     info.PostionY = Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0);//坐标Y 
                     list.Add(info);
                 }
@@ -74,6 +73,7 @@ namespace Functions.BLL
             }
         }
 
+         
  
     }
 }

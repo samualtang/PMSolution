@@ -44,13 +44,13 @@ namespace PackageMachine
             this.BackColor = Color.White;
             base.Controls.Add(this.p_Main);
             base.Margin = new Padding(4);
-            base.Name = "TobaccoShow";
+            base.Name = "CigrShow";
             base.Size = new Size(876, 489);
             base.Resize += this.TobaccoShow_Resize;
             this.p_Main.ResumeLayout(false);
             this.p_Main.PerformLayout();
             base.ResumeLayout(false);
-            
+          
             ShowLoad();
         }
 
@@ -100,15 +100,15 @@ namespace PackageMachine
                     this.buttonList[ListIndex].TabIndex = TabeltIndex;
                     this.buttonList[ListIndex].BackColor = ((detail.Speed == 0) ? Color.White : this.colorList[detail.TobaccoStatus].Color);
                     this.buttonList[ListIndex].Height = (int)detail.TobaccoHeight  ;
-                    this.buttonList[ListIndex].Width = (int)detail.TobaccoWidth  ;
+                    this.buttonList[ListIndex].Width = (int)detail.TobaccoWidth;
                     //this.buttonList[ListIndex].Top = this.p_Main.Height - (int)(detail.PositionHeightLast * (1f + num)) - 4;
                     //this.buttonList[ListIndex].Left = this.p_Main.Width - (int)(detail.PositionWidthLast * (1f + num)) - 4; 
-                    buttonList[ListIndex].Location = new Point( (int)detail.PostionX +2, (int)detail.PostionY -2 );
-                    if (ListIndex == 0)
-                    {
+                    buttonList[ListIndex].Location = new Point( (int)detail.PostionX - 40, (int)detail.PostionY  );
+                    //if (ListIndex == 0)
+                    //{
 
-                        buttonList[ListIndex].Location = new Point((int)detail.PostionX - (int)detail.PostionX+2, (int)detail.PostionY  -2);
-                    }
+                    //    buttonList[ListIndex].Location = new Point((int)detail.PostionX - (int)detail.PostionX+2, (int)detail.PostionY  -2);
+                    //}
                     this.buttonList[ListIndex].Text = string.Concat(new string[]
                                 {
                                     detail.GlobalIndex.ToString(),
@@ -123,6 +123,10 @@ namespace PackageMachine
                      
                 }
             }
+        }
+        private void TobaccoShow_Resize(object sender, EventArgs e)
+        {
+            
         }
         /// <summary>
         /// 包类总烟数
@@ -212,20 +216,20 @@ namespace PackageMachine
                 this.buttonList.Add(button);
             }
         }
-        private void TobaccoShow_Resize(object sender, EventArgs e)
-        {
-             //this.UpdateTobaccoShow();
-        }
+  
 
         private int GetPositionIndex(int index)
         {
             return index;
         }
-
+       
         private void btn_MouseEnter(object sender, EventArgs e)
         {
-            Button button = (Button)sender;
-            this.tp_CodeInfo.Show(button.ImageKey, button);
+         
+            Button btn = (Button)sender;
+            tp_CodeInfo.SetToolTip(btn, buttonList[btn.TabIndex].Location.X + "  , " + (459 - buttonList[btn.TabIndex].Location.Y +"|||||||"+ buttonList[btn.TabIndex].Height +","+ buttonList[btn.TabIndex].Width));
+          //  MessageBox.Show(buttonList[btn.TabIndex].Location.X + "  , " + buttonList[btn.TabIndex].Location.Y);
+           // this.tp_CodeInfo.Show(button.ImageKey, button);
         }
 
         // Token: 0x06000157 RID: 343 RVA: 0x000183A8 File Offset: 0x000165A8
@@ -247,14 +251,7 @@ namespace PackageMachine
         // Token: 0x04000150 RID: 336
         private int coloumCount;
 
-        // Token: 0x04000151 RID: 337
-        private bool UesdBackImage = false;
 
-        // Token: 0x04000152 RID: 338
-        private bool UesdDifferBackImage = false;
-
-        // Token: 0x04000153 RID: 339
-        private string[] arrFileNames = null;
 
         // Token: 0x04000154 RID: 340
         private List<ColorTobacco> colorList = new List<ColorTobacco>();

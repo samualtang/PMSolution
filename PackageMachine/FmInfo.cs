@@ -42,7 +42,7 @@ namespace PackageMachine
         {
             CompSizeChanged();
             cs.Location = new Point(this.Width - cs.Width - 4, Height - cs.Height-4);
-            cs2.Location = new Point(   4, Height - cs2.Height - 4);
+            //cs2.Location = new Point(   4, Height - cs2.Height - 4);
             
 
         }
@@ -57,7 +57,7 @@ namespace PackageMachine
         void BindBillInfo(int packageIndex = 0 , int x = 0 , int y = 0)
         {
            
-            List<TobaccoInfo> list = br.GetTobaccoInfos(bill_s, packageIndex,cs.H);
+            List<TobaccoInfo> list = br.GetTobaccoInfos(bill_s, packageIndex,cs.H,1);
             LabBind( );
             cs.UpdateValue(list);
             
