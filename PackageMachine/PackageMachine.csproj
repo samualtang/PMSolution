@@ -74,6 +74,13 @@
     <Compile Include="FmMain.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="CigrCache.cs">
+      
+<SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CigrCache.Designer.cs">
+      <DependentUpon>CigrCache.cs</DependentUpon>
+    </Compile>
     <Compile Include="FmMain.Designer.cs">
       <DependentUpon>FmMain.cs</DependentUpon>
     </Compile>
