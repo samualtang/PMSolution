@@ -35,28 +35,45 @@ namespace Functions.BLL
         /// <summary>
         /// 根据订单号包序返回订单详细
         /// </summary>
-        /// <param name="List"></param>
-        /// <param name="PackageIndex"></param>
-        /// <param name="sortnum"></param>
+        /// <param name="List">订单信息</param>
+        /// <param name="PackageIndex">包内序号</param> 
         /// <returns></returns>
-        public List<T_PACKAGE_TASK> GetTaskDetail(List<Bill_Model> List, int PackageIndex)
+        public List<TobaccoInfo> GetTobaccoInfos(List<Bill_Model> List, int PackageIndex , int Height,int Packageno)
         {
-            List<T_PACKAGE_TASK> t_s = new List<T_PACKAGE_TASK>();
+            List<TobaccoInfo> list = new List<TobaccoInfo>(); 
             if (List != null)
             {
+                List<T_PACKAGE_TASK> t_s = new List<T_PACKAGE_TASK>();
                 foreach (var item in List)
                 {
-                    foreach (var detail in item.T_P_TASK.Where(a => a.ALLPACKAGESEQ == PackageIndex).ToList())
+                    foreach (var detail in item.T_P_TASK.Where(a => a.ALLPACKAGESEQ == PackageIndex && a.PACKAGENO == Packageno).ToList())
                     {
                         t_s.Add(detail);
                     }
                 }
-                return t_s;
+                foreach (var item in t_s)
+                {
+                    TobaccoInfo info = new TobaccoInfo();
+                    info.TobaccoName = item.CIGARETTENAME;
+                    info.TobaccoLength = (float)Convert.ToDouble(item.CIGLENGTH);
+                    info.TobaccoWidth = (float)Convert.ToDouble(item.CIGWIDTH);
+                    info.TobaccoHeight = (float)Convert.ToDouble(item.CIGHIGH);
+                    info.GlobalIndex = Convert.ToInt32(item.CIGNUM ?? 0);
+                    info.Speed = 1;
+                    info.OrderIndex = Convert.ToInt32(item.PACKAGEQTY ?? 0);
+                    info.CigType = item.CIGTYPE;//卷烟类型
+                    info.PostionX = (float)Convert.ToDouble(item.CIGWIDTHX ?? 0) * 2;//坐标X
+                    info.PostionY = Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0);//坐标Y 
+                    list.Add(info);
+                }
+                return list;
             }
             else
             {
-                return t_s;
+                return list;
             }
         }
+
+ 
     }
 }

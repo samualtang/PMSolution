@@ -36,7 +36,35 @@ namespace PackageMachine
             frm.Show();
            
         }
+        #region   任务的信息 在主窗体显示
+        delegate void HandleUpDate(string info);
+        private delegate void HandleDelegate(string strshow);
+        static HandleUpDate handle;
+        public static void GetTaskInfo(string Info)
+        {
+            handle(Info);
+        }
+        void upDateList(string info)
+        {
+            updateListBox(info);
+        }
 
+        public void updateListBox(string info)
+        {
+            String time = DateTime.Now.ToLongTimeString();
+
+            if (this.list_date.InvokeRequired)
+            {
+
+                this.list_date.Invoke(new HandleDelegate(updateListBox), info);
+            }
+            else
+            {
+                this.list_date.Items.Insert(0, time + "    " + info);
+
+            }
+        }
+        #endregion
         private void pbDx_Click(object sender, EventArgs e)
         {
            

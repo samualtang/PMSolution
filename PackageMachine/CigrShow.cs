@@ -79,7 +79,11 @@ namespace PackageMachine
                 this.CreateButton(7, 6);
             }
             else
-            { 
+            {
+                for (int i = 0; i < buttonList.Count; i++)
+                {
+                    buttonList[i].Visible = false;
+                }
                 Font font = this.buttonList[0].Font; 
                 float num = 530 * 200 / (float)( Width *  Height); 
                 int ListIndex = 0;
@@ -113,6 +117,7 @@ namespace PackageMachine
                                     ".",
                                     detail.TobaccoName,
                                 }); 
+                    
                     ListIndex++;
                     TabeltIndex++;
                      

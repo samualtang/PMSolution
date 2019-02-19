@@ -173,7 +173,7 @@ namespace General
                 Label lb = new Label();
                 lb.AutoSize = true; 
                 lb.Font = new System.Drawing.Font("微软雅黑", 11F);
-                lb.Location = new System.Drawing.Point( x-115, y +10);
+                lb.Location = new System.Drawing.Point( x-200, y +10);
                 lb.Name = "label_by_Mask";
                 lb.Size = new System.Drawing.Size(115, 15);
                 lb.Text = TitleInfo;

@@ -34,8 +34,6 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.btnLast = new System.Windows.Forms.Button();
             this.btnnext = new System.Windows.Forms.Button();
-            this.cs2 = new PackageMachine.CigrShow();
-            this.cs = new PackageMachine.CigrShow();
             this.panelInfo = new System.Windows.Forms.Panel();
             this.lblcutcount = new System.Windows.Forms.Label();
             this.lblcutname = new System.Windows.Forms.Label();
@@ -43,12 +41,14 @@
             this.lblallcount = new System.Windows.Forms.Label();
             this.lblorderdate = new System.Windows.Forms.Label();
             this.lbllinename = new System.Windows.Forms.Label();
+            this.cs2 = new PackageMachine.CigrShow();
+            this.cs = new PackageMachine.CigrShow();
             this.panelInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(688, 251);
+            this.button1.Location = new System.Drawing.Point(687, 194);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -59,7 +59,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(688, 280);
+            this.textBox1.Location = new System.Drawing.Point(687, 223);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 21);
             this.textBox1.TabIndex = 1;
@@ -67,7 +67,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(688, 307);
+            this.textBox2.Location = new System.Drawing.Point(687, 250);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 21);
             this.textBox2.TabIndex = 1;
@@ -75,7 +75,7 @@
             // 
             // btnLast
             // 
-            this.btnLast.Location = new System.Drawing.Point(403, 39);
+            this.btnLast.Location = new System.Drawing.Point(886, 156);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(75, 23);
             this.btnLast.TabIndex = 2;
@@ -85,33 +85,13 @@
             // 
             // btnnext
             // 
-            this.btnnext.Location = new System.Drawing.Point(495, 39);
+            this.btnnext.Location = new System.Drawing.Point(967, 156);
             this.btnnext.Name = "btnnext";
             this.btnnext.Size = new System.Drawing.Size(75, 23);
             this.btnnext.TabIndex = 2;
             this.btnnext.Text = "下一个";
             this.btnnext.UseVisualStyleBackColor = true;
             this.btnnext.Click += new System.EventHandler(this.btnnext_Click);
-            // 
-            // cs2
-            // 
-            this.cs2.BackColor = System.Drawing.Color.White;
-            this.cs2.H = 459;
-            this.cs2.Location = new System.Drawing.Point(12, 185);
-            this.cs2.Name = "cs2";
-            this.cs2.Size = new System.Drawing.Size(670, 459);
-            this.cs2.TabIndex = 4;
-            this.cs2.W = 670;
-            // 
-            // cs
-            // 
-            this.cs.BackColor = System.Drawing.Color.White;
-            this.cs.H = 459;
-            this.cs.Location = new System.Drawing.Point(768, 185);
-            this.cs.Name = "cs";
-            this.cs.Size = new System.Drawing.Size(670, 459);
-            this.cs.TabIndex = 3;
-            this.cs.W = 670;
             // 
             // panelInfo
             // 
@@ -122,7 +102,7 @@
             this.panelInfo.Controls.Add(this.lblallcount);
             this.panelInfo.Controls.Add(this.lblorderdate);
             this.panelInfo.Controls.Add(this.lbllinename);
-            this.panelInfo.Location = new System.Drawing.Point(12, 76);
+            this.panelInfo.Location = new System.Drawing.Point(12, 12);
             this.panelInfo.Name = "panelInfo";
             this.panelInfo.Size = new System.Drawing.Size(1426, 103);
             this.panelInfo.TabIndex = 5;
@@ -193,6 +173,26 @@
             this.lbllinename.TabIndex = 7;
             this.lbllinename.Text = "线路名称：0207[201-129] ";
             // 
+            // cs2
+            // 
+            this.cs2.BackColor = System.Drawing.Color.White;
+            this.cs2.H = 459;
+            this.cs2.Location = new System.Drawing.Point(12, 210);
+            this.cs2.Name = "cs2";
+            this.cs2.Size = new System.Drawing.Size(670, 434);
+            this.cs2.TabIndex = 4;
+            this.cs2.W = 670;
+            // 
+            // cs
+            // 
+            this.cs.BackColor = System.Drawing.Color.White;
+            this.cs.H = 459;
+            this.cs.Location = new System.Drawing.Point(768, 210);
+            this.cs.Name = "cs";
+            this.cs.Size = new System.Drawing.Size(670, 434);
+            this.cs.TabIndex = 3;
+            this.cs.W = 670;
+            // 
             // FmInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -211,6 +211,7 @@
             this.Name = "FmInfo";
             this.Text = "下一个";
             this.Load += new System.EventHandler(this.FmInfo_Load);
+            this.SizeChanged += new System.EventHandler(this.FmInfo_SizeChanged);
             this.Resize += new System.EventHandler(this.FmInfo_Resize);
             this.panelInfo.ResumeLayout(false);
             this.panelInfo.PerformLayout();

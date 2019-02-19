@@ -395,6 +395,7 @@
             this.pbDx.Size = new System.Drawing.Size(134, 90);
             this.pbDx.TabIndex = 1;
             this.pbDx.TabStop = false;
+            this.pbDx.Visible = false;
             this.pbDx.Click += new System.EventHandler(this.pbDx_Click);
             // 
             // pbInfo
