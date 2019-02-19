@@ -11,7 +11,7 @@ using Oracle.ManagedDataAccess.Client;
 using System.Configuration;
 using Functions;
 
-namespace PackageMachine.From
+namespace PackageMachine
 {
     public partial class FmSystemSetup : Form
     {
@@ -21,12 +21,8 @@ namespace PackageMachine.From
         }
          
         private void btn_linktest_Click(object sender, EventArgs e)
-        {
-            DataBase dataBase = new DataBase();
-            dataBase.Open();
+        { 
             
-            MessageBox.Show(dataBase.ConnState());
-            dataBase.Close(); 
         }
     }
 }

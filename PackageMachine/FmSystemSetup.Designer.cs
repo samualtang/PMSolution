@@ -1,4 +1,4 @@
-﻿namespace PackageMachine.From
+﻿namespace PackageMachine
 {
     partial class FmSystemSetup
     {

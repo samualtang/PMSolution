@@ -89,6 +89,12 @@
     <Compile Include="FmSystemSetup.Designer.cs">
       <DependentUpon>FmSystemSetup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Fm_Orderinfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fm_Orderinfo.Designer.cs">
+      <DependentUpon>Fm_Orderinfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FmCommoditySize.resx">
@@ -105,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FmSystemSetup.resx">
       <DependentUpon>FmSystemSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fm_Orderinfo.resx">
+      <DependentUpon>Fm_Orderinfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -165,7 +174,6 @@
     <None Include="Resources\上层背景.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="From\" />
     <Folder Include="PublicFun\" />
   </ItemGroup>
   <ItemGroup>

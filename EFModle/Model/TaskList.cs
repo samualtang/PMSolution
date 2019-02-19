@@ -33,7 +33,7 @@ namespace EFModle.Model
         /// <summary>
         /// 订单内包序
         /// </summary>
-        public decimal ORDERSEQ { get; set; }
+        public decimal SORTSEQ { get; set; }
 
         /// <summary>
         /// 订单总包数
@@ -41,8 +41,8 @@ namespace EFModle.Model
         public decimal ORDERPACKAGEQTY { get; set; }
 
         /// <summary>
-        /// 包装机整体包序
+        /// 订单总烟量
         /// </summary>
-        public decimal ALLPACKAGESEQ { get; set; }
+        public decimal ALLQTY { get; set; }
     }
 }
