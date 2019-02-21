@@ -58,17 +58,34 @@ namespace PackageMachine
 
         private void CreateButton()
         {
-            int num = 12;
+            int num = 20;
+            
             this.buttonList = new List<Button>();
             for (int i = 0; i < num; i++)
             {
                 Button button = ButtonCreator.Create(this.p_Main, i);
-                button.Text = "未扫描" + (i + 1).ToString();
+                button.Text = "默认" + (i + 1).ToString();
                 button.BackColor = Color.FromArgb(0, 255, 0);
                 button.ForeColor = Color.Black;
                 button.Font = new Font(button.Font.FontFamily, 11f, FontStyle.Bold);
+            
+                button.Width = 60;
+                button.Height = 60;
                 button.Visible = true;
+             
+     
                 this.buttonList.Add(button);
+            }
+            //num3 -= this.buttonList[i - 1].Width;
+            //button.Top = p_Main.Height - button.Height;
+            //button.Left = num3;
+            int width = Width;
+   
+            for (int i = 0; i < buttonList.Count; i++)
+            {
+                buttonList[i].Top = p_Main.Height - buttonList[i].Height-2;
+                width -= buttonList[i].Width;
+                buttonList[i].Left = width-4;
             }
         }
 
@@ -103,7 +120,11 @@ namespace PackageMachine
             //TobaccoListShow.TobaccoListAll.Clear();
             //this.UpdateTobaccoShow();
         }
-
+        public void UpdateValue(List<TobaccoInfo> Linfo)
+        {
+            TobaccoList = Linfo;
+            this.UpdateTobaccoShow();
+        }
         // Token: 0x060000E6 RID: 230 RVA: 0x0001018C File Offset: 0x0000E38C
         public void OnPosition(int TobaccoIndex)
         {
@@ -134,61 +155,30 @@ namespace PackageMachine
                 this.buttonList[i].Visible = false;
             }
             if (this.TobaccoList != null && this.TobaccoList.Count != 0)
-            {
-                float num = 0;// (float)base.Width / (SecretParam.RobitParam.WidthLimited * 2.5f);
-                int num2 = 0;
-                int num3 = base.Width;
-                int num4 = 0;
-                int num5 = 0;
+            { 
+                int listIndex = 0;
+                int Tishwidth = base.Width; 
                 foreach (TobaccoInfo tobaccoInfo in this.TobaccoList)
-                {
-                    bool flag;
-                    //if (tobaccoInfo.pack.PackageNO != num5)
-                    //{
-                    //    num5 = tobaccoInfo.pack.PackageNO;
-                    //    flag = true;
-                    //}
-                    //else
-                    //{
-                    //    flag = false;
-                    //}
-                    num4++;
+                { 
                     for (int j = 0; j < 1; j++)
                     {
-                        if (num2 >= this.buttonList.Count)
+                        if (listIndex >= this.buttonList.Count)
                         {
                             break;
-                        }
-                        this.buttonList[num2].ImageKey = tobaccoInfo.TobaccoName;
-                        this.buttonList[num2].Text = "tobaccoInfo.TobaccoIndexPackage "+ "." + tobaccoInfo.TobaccoName;
-                        this.buttonList[num2].Visible = true;
-                        this.buttonList[num2].TextAlign = ContentAlignment.MiddleCenter;
-                        this.buttonList[num2].ForeColor = Color.Black;
-                        this.buttonList[num2].Font = font;
-                        this.buttonList[num2].TabIndex = num2;
-                        //if (tobaccoInfo.OnPosition)
-                        //{
-                        //    this.buttonList[num2].BackColor = Color.FromArgb(0, 255, 0);
-                        //}
-                        //else
-                        //{
-                        //    this.buttonList[num2].BackColor = Color.White;
-                        //}
-                        //if (flag)
-                        //{
-                        //    this.buttonList[num2].BackColor = Color.Green;
-                        //}
-                        //this.buttonList[num2].Height = (int)(num * tobaccoInfo.Height + 10f);
-                        //this.buttonList[num2].Width = (int)(num * tobaccoInfo.Width);
-                        this.buttonList[num2].Top = this.p_Main.Height - this.buttonList[num2].Height;
-                        num3 -= this.buttonList[num2].Width;
-                        this.buttonList[num2].Left = num3;
-                        num2++;
-                    }
-                    if (num4 == 100)
-                    {
-                        break;
-                    }
+                        } 
+                        this.buttonList[listIndex].Text = tobaccoInfo.GlobalIndex + "."+ tobaccoInfo.OrderIndex+"." + tobaccoInfo.TobaccoName;
+                        this.buttonList[listIndex].Visible = true;
+                        this.buttonList[listIndex].TextAlign = ContentAlignment.MiddleCenter;
+                        this.buttonList[listIndex].ForeColor = Color.Black;
+                        this.buttonList[listIndex].Font = font;
+                        this.buttonList[listIndex].TabIndex = j;
+                        buttonList[listIndex].Width = (int)tobaccoInfo.TobaccoWidth;
+                        buttonList[listIndex].Height = (int)tobaccoInfo.TobaccoHeight;
+                        this.buttonList[listIndex].Top = this.p_Main.Height - this.buttonList[listIndex].Height;
+                        Tishwidth -= this.buttonList[listIndex].Width;
+                        this.buttonList[listIndex].Left = Tishwidth;
+                        listIndex++;
+                    } 
                 }
             }
         }

@@ -17,9 +17,14 @@ namespace EFModle.Model
         /// </summary>
         public int GlobalIndex { get; set; }
         /// <summary>
+        /// 包装机全局条烟索引
+        /// </summary>
+        public decimal GlobalCigIndex { get; set; }
+        /// <summary>
         /// 订单条烟索引
         /// </summary>
         public int OrderIndex { get; set; }
+     
         /// <summary>
         /// 任务流水号
         /// </summary>

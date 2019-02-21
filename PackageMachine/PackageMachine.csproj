@@ -75,8 +75,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CigrCache.cs">
-      
-<SubType>UserControl</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CigrCache.Designer.cs">
       <DependentUpon>CigrCache.cs</DependentUpon>
@@ -95,6 +94,12 @@
     </Compile>
     <Compile Include="FmSystemSetup.Designer.cs">
       <DependentUpon>FmSystemSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FmTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FmTest.Designer.cs">
+      <DependentUpon>FmTest.cs</DependentUpon>
     </Compile>
     <Compile Include="Fm_Orderinfo.cs">
       <SubType>Form</SubType>
@@ -118,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FmSystemSetup.resx">
       <DependentUpon>FmSystemSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FmTest.resx">
+      <DependentUpon>FmTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Fm_Orderinfo.resx">
       <DependentUpon>Fm_Orderinfo.cs</DependentUpon>

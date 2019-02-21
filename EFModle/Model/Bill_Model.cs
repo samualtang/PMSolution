@@ -13,9 +13,10 @@ namespace EFModle.Model
         /// </summary>
         public decimal SortNum { get; set; } 
         public  decimal PackageSeqLength { get; set; }
+        public decimal AllPackageSeq { get; set; }
         /// <summary>
         /// 任务
         /// </summary>
-        public List<T_PACKAGE_TASK> T_P_TASK;
+        public T_PACKAGE_TASK T_P_TASK;
     }
 }

@@ -19,6 +19,7 @@ namespace PackageMachine
             this.WindowState = FormWindowState.Maximized;
             CheckForIllegalCrossThreadCalls = false
                  ;
+             
         }
         private void pbInfo_Click(object sender, EventArgs e)
         {
@@ -39,7 +40,7 @@ namespace PackageMachine
         #region   任务的信息 在主窗体显示
         delegate void HandleUpDate(string info);
         private delegate void HandleDelegate(string strshow);
-        static HandleUpDate handle;
+        static HandleUpDate handle ;
         public static void GetTaskInfo(string Info)
         {
             handle(Info);

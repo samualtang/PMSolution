@@ -41,14 +41,15 @@
             this.lblallcount = new System.Windows.Forms.Label();
             this.lblorderdate = new System.Windows.Forms.Label();
             this.lbllinename = new System.Windows.Forms.Label();
-            this.cigrCache1 = new PackageMachine.CigrCache();
+            this.cigrShow1 = new PackageMachine.CigrShow();
+            this.cce1 = new PackageMachine.CigrCache();
             this.cs = new PackageMachine.CigrShow();
             this.panelInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(687, 194);
+            this.button1.Location = new System.Drawing.Point(840, 257);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -59,7 +60,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(687, 223);
+            this.textBox1.Location = new System.Drawing.Point(840, 286);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 21);
             this.textBox1.TabIndex = 1;
@@ -67,7 +68,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(687, 250);
+            this.textBox2.Location = new System.Drawing.Point(840, 313);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 21);
             this.textBox2.TabIndex = 1;
@@ -75,7 +76,7 @@
             // 
             // btnLast
             // 
-            this.btnLast.Location = new System.Drawing.Point(886, 156);
+            this.btnLast.Location = new System.Drawing.Point(273, 321);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(75, 23);
             this.btnLast.TabIndex = 2;
@@ -85,7 +86,7 @@
             // 
             // btnnext
             // 
-            this.btnnext.Location = new System.Drawing.Point(967, 156);
+            this.btnnext.Location = new System.Drawing.Point(354, 321);
             this.btnnext.Name = "btnnext";
             this.btnnext.Size = new System.Drawing.Size(75, 23);
             this.btnnext.TabIndex = 2;
@@ -104,7 +105,7 @@
             this.panelInfo.Controls.Add(this.lbllinename);
             this.panelInfo.Location = new System.Drawing.Point(12, 12);
             this.panelInfo.Name = "panelInfo";
-            this.panelInfo.Size = new System.Drawing.Size(1426, 103);
+            this.panelInfo.Size = new System.Drawing.Size(1574, 103);
             this.panelInfo.TabIndex = 5;
             // 
             // lblcutcount
@@ -173,31 +174,45 @@
             this.lbllinename.TabIndex = 7;
             this.lbllinename.Text = "线路名称：0207[201-129] ";
             // 
-            // cigrCache1
+            // cigrShow1
             // 
-            this.cigrCache1.BackColor = System.Drawing.Color.White;
-            this.cigrCache1.Location = new System.Drawing.Point(14, 121);
-            this.cigrCache1.Name = "cigrCache1";
-            this.cigrCache1.Size = new System.Drawing.Size(773, 87);
-            this.cigrCache1.TabIndex = 6;
+            this.cigrShow1.BackColor = System.Drawing.Color.White;
+            this.cigrShow1.H = 0;
+            this.cigrShow1.Location = new System.Drawing.Point(12, 357);
+            this.cigrShow1.Margin = new System.Windows.Forms.Padding(4);
+            this.cigrShow1.Name = "cigrShow1";
+            this.cigrShow1.Size = new System.Drawing.Size(670, 526);
+            this.cigrShow1.TabIndex = 7;
+            this.cigrShow1.Visible = false;
+            this.cigrShow1.W = 0;
+            // 
+            // cce1
+            // 
+            this.cce1.BackColor = System.Drawing.Color.White;
+            this.cce1.Location = new System.Drawing.Point(12, 121);
+            this.cce1.Name = "cce1";
+            this.cce1.Size = new System.Drawing.Size(1574, 87);
+            this.cce1.TabIndex = 6;
             // 
             // cs
             // 
             this.cs.BackColor = System.Drawing.Color.White;
-            this.cs.H = 459;
-            this.cs.Location = new System.Drawing.Point(562, 155);
+            this.cs.H = 489;
+            this.cs.Location = new System.Drawing.Point(1026, 321);
+            this.cs.Margin = new System.Windows.Forms.Padding(4);
             this.cs.Name = "cs";
-            this.cs.Size = new System.Drawing.Size(876, 489);
+            this.cs.Size = new System.Drawing.Size(559, 524);
             this.cs.TabIndex = 3;
-            this.cs.W = 670;
+            this.cs.W = 540;
             // 
             // FmInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1450, 656);
-            this.Controls.Add(this.cigrCache1);
+            this.ClientSize = new System.Drawing.Size(1598, 895);
+            this.Controls.Add(this.cigrShow1);
+            this.Controls.Add(this.cce1);
             this.Controls.Add(this.panelInfo);
             this.Controls.Add(this.cs);
             this.Controls.Add(this.btnnext);
@@ -234,7 +249,8 @@
         private System.Windows.Forms.Label lblallcount;
         private System.Windows.Forms.Label lblorderdate;
         private System.Windows.Forms.Label lbllinename;
-        private CigrCache cigrCache1;
+        private CigrCache cce1;
+        private CigrShow cigrShow1;
     }
     
 }

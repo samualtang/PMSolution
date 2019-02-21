@@ -17,21 +17,29 @@ namespace PackageMachine
 {
     public partial class FmInfo : Form
     {
+        FmTest ft = new FmTest();
         public FmInfo()
         {
             
             InitializeComponent();
-           // asfc.controllInitializeSize(this);
+            cs.H = 489;
+            cs.W = 540;
+            Hrs += BindBillInfo;
+            ft.Show();
+            AutoScroll = true;
+           
         }
+        //AutoSizeFormClass asfc = new AutoSizeFormClass();
         private void FmInfo_Load(object sender, EventArgs e)
         {
-             
+
+            //asfc.controllInitializeSize(this);
              Loading.Masklayer(this, delegate () { LoadFucn(); });
 
         }
         void LoadFucn()
         {
-            bill_s = br.GetBillInfos();//取出整个订单 
+            bill_s = br.GetBillInfos(1);//取出整个订单 
             BindBillInfo(packageIndex: 1);
            
         }
@@ -51,16 +59,20 @@ namespace PackageMachine
         {
            
            
-            BindBillInfo(x:Convert.ToInt32(textBox1.Text),y: Convert.ToInt32(textBox2.Text));
+            //BindBillInfo(x:Convert.ToInt32(textBox1.Text),y: Convert.ToInt32(textBox2.Text));
           
         }
-        void BindBillInfo(int packageIndex = 0 , int x = 0 , int y = 0)
+        void BindBillInfo(int packageIndex = 0 ,int CinNum = 0  )
         {
            
-            List<TobaccoInfo> list = br.GetTobaccoInfos(bill_s, packageIndex,cs.H,1);
-            LabBind( );
+            List<TobaccoInfo> list = br.GetTobaccoInfos(bill_s, packageIndex,cs.Height );
+            List<TobaccoInfo> UN_list = br.GetUnNormallSort(list, CinNum);
+             cce1.UpdateValue(UN_list);
             cs.UpdateValue(list);
             
+            LabBind();
+
+
         }
         /// <summary>
         /// 索引
@@ -68,7 +80,7 @@ namespace PackageMachine
         int pkIndex = 1;
         private void btnLast_Click(object sender, EventArgs e)
         {
-            if(bill_s.Count > 0 && pkIndex >= 1)
+            if(bill_s != null && pkIndex >= 1)
             {
                 pkIndex--;
                 if (pkIndex >= 1)
@@ -98,7 +110,8 @@ namespace PackageMachine
         }
         private void btnnext_Click(object sender, EventArgs e)
         {
-            if (bill_s.Count > 0 && pkIndex <= GetLeng)
+            
+            if (bill_s != null && pkIndex <= GetLeng)
             {
                 pkIndex++;
                 if (GetLeng  >= pkIndex )
@@ -118,7 +131,7 @@ namespace PackageMachine
                 lbllinename.Text = "线路名称："   ;
                 lblcutcount.Text = "总包号："  ;
                 lblcutcount.Text = "客户包数" ;
-            
+             
            
 
         }
@@ -129,7 +142,25 @@ namespace PackageMachine
 
         private void FmInfo_SizeChanged(object sender, EventArgs e)
         {
-           
+            //asfc.controlAutoSize(this);
         }
+        /// <summary>
+        /// 自动更新跺
+        /// </summary>
+        /// <param name="packageIndex"></param>
+        /// <param name="cigNum"></param>
+        public async static void AutoRefreshShow(int packageIndex, int cigNum)
+        { 
+         
+            Hrs(packageIndex, cigNum);
+            await Task.Delay(0); //GetDateByTask(packageIndex, cigNum);
+        }
+        delegate void HandeleRefrshShow(int p, int c);
+       static  HandeleRefrshShow Hrs;
+        //private static async Task GetDateByTask(int packageIndex, int cigNum)
+        //{
+
+        //    await Task.Delay(0);
+        //}
     }
 }
