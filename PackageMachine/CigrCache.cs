@@ -191,7 +191,8 @@ namespace PackageMachine
         // Token: 0x060000E9 RID: 233 RVA: 0x00010584 File Offset: 0x0000E784
         private void lb_ShowDetail_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
- 
+            FmCacheDetail fcd = new FmCacheDetail(TobaccoList);
+            fcd.ShowDialog();
         }
 
         // Token: 0x060000EA RID: 234 RVA: 0x000105A5 File Offset: 0x0000E7A5

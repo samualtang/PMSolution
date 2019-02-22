@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EFModle;
 using EFModle.Model;
+using Functions.PubFunction;
 namespace Functions.BLL
 {
    public class BillResolution
@@ -38,13 +39,12 @@ namespace Functions.BLL
         /// <param name="List">订单信息</param>
         /// <param name="PackageIndex">包内序号</param> 
         /// <returns></returns>
-        public List<TobaccoInfo> GetTobaccoInfos(List<Bill_Model> List, int PackageIndex , int Height )
+        public List<TobaccoInfo> GetTobaccoInfos( int PackageIndex , int Height )
         {
-            List<TobaccoInfo> list = new List<TobaccoInfo>(); 
-            if (List != null)
-            {
+            List<TobaccoInfo> list = new List<TobaccoInfo>();
+            int packageno = int.Parse(GlobalPara.GetConnectionStringsConfig("PackageNo"));
                 List<T_PACKAGE_TASK> t_s = new List<T_PACKAGE_TASK>();
-                foreach (var item in List.Where(a => a.AllPackageSeq == PackageIndex).ToList())
+                foreach (var item in GetBillInfos(packageno).Where(a => a.AllPackageSeq == PackageIndex).ToList())
                 {
                      
                         t_s.Add(item.T_P_TASK);
@@ -52,35 +52,50 @@ namespace Functions.BLL
                 }
                 foreach (var item in t_s)
                 {
-                    TobaccoInfo info = new TobaccoInfo();
-                    info.TobaccoName = item.CIGARETTENAME;
-                    info.TobaccoLength = (float)Convert.ToDouble(item.CIGLENGTH);
-                    info.TobaccoWidth = (float)Convert.ToDouble(item.CIGWIDTH);
-                    info.TobaccoHeight = (float)Convert.ToDouble(item.CIGHIGH);
-                    info.GlobalIndex = Convert.ToInt32(item.ALLPACKAGESEQ ?? 0);
-                    info.GlobalCigIndex = item.CIGNUM ?? 0;
-                    info.Speed = 1;
-                    info.OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0);
-                    info.CigType = item.CIGTYPE;//卷烟类型
-                    info.PostionX = (float)Convert.ToDouble(Math.Ceiling( item.CIGWIDTHX ?? 0 )) ;//坐标X
-                    info.PostionY = Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0);//坐标Y 
+                    TobaccoInfo info = new TobaccoInfo
+                    {
+                        TobaccoName = item.CIGARETTENAME,
+                        TobaccoLength = (float)Convert.ToDouble(item.CIGLENGTH),
+                        TobaccoWidth = (float)Convert.ToDouble(item.CIGWIDTH),
+                        TobaccoHeight = (float)Convert.ToDouble(item.CIGHIGH),
+                        GlobalIndex = Convert.ToInt32(item.ALLPACKAGESEQ ?? 0),
+                        CigNum = item.CIGNUM ?? 0,
+                        Speed = 1,
+                        OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0),
+                        CigType = item.CIGTYPE,//卷烟类型
+                        PostionX = (float)Convert.ToDouble(Math.Ceiling(item.CIGWIDTHX ?? 0)),//坐标X
+                        PostionY = Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0)//坐标Y 
+                    };
                     list.Add(info);
                 }
                 return list;
-            }
-            else
-            {
-                return list;
-            }
+         
         }
 
-        public List<TobaccoInfo> GetUnNormallSort ( List<TobaccoInfo> UnList, int CigNum)
+        public List<TobaccoInfo> GetUnNormallSort (  int CigNum)
         {
-            List<TobaccoInfo> list = UnList;
-            if(CigNum >= 1)
+            List<TobaccoInfo> list = new List<TobaccoInfo>();
+            using(Entities en = new Entities())
             {
-                return list.OrderBy(a=> a.CigNum).ToList();
-            }
+                var uninfo = (from item in en.T_PACKAGE_TASK where item.CIGNUM > CigNum
+                              orderby item.CIGNUM select item).ToList();
+                foreach (var item in uninfo)
+                {
+                    TobaccoInfo info = new TobaccoInfo
+                    {
+                        TobaccoName = item.CIGARETTENAME,
+                        TobaccoLength = (float)Convert.ToDouble(item.CIGLENGTH),
+                        TobaccoWidth = (float)Convert.ToDouble(item.CIGWIDTH),
+                        TobaccoHeight = (float)Convert.ToDouble(item.CIGHIGH),
+                        GlobalIndex = Convert.ToInt32(item.ALLPACKAGESEQ ?? 0),
+                        CigNum = item.CIGNUM ?? 0,
+                        Speed = 1,
+                        OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0),
+                        CigType = item.CIGTYPE,//卷烟类型 
+                    };
+                    list.Add(info);
+                }
+            }  
             return list;
         }
 

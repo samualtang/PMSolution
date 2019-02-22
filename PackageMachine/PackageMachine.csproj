@@ -59,6 +59,12 @@
     <Compile Include="Code\ButtonCreator.cs" />
     <Compile Include="Code\ColorTobacco.cs" />
     <Compile Include="Code\ImageHelper.cs" />
+    <Compile Include="FmCacheDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FmCacheDetail.Designer.cs">
+      <DependentUpon>FmCacheDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="FmCommoditySize.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +115,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FmCacheDetail.resx">
+      <DependentUpon>FmCacheDetail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FmCommoditySize.resx">
       <DependentUpon>FmCommoditySize.cs</DependentUpon>
     </EmbeddedResource>

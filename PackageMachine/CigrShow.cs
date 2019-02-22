@@ -91,7 +91,7 @@ namespace PackageMachine
                 TobaccoInfo detail;
                 foreach (var item in tbinfo)
                 {
-                    if(ListIndex > 36)
+                    if(ListIndex >= 36)
                     {
                         MessageBox.Show("包内烟数大于36！");
                         break;
@@ -108,7 +108,7 @@ namespace PackageMachine
                     this.buttonList[ListIndex].Width = (int) detail.TobaccoWidth   ;
                     //this.buttonList[ListIndex].Top = this.p_Main.Height - (int)(detail.PositionHeightLast * (1f + num)) - 4;
                     //this.buttonList[ListIndex].Left = this.p_Main.Width - (int)(detail.PositionWidthLast * (1f + num)) - 4; 
-                    buttonList[ListIndex].Location = new Point( (int)(( detail.PostionX - 40)), (int)(detail.PostionY ));
+                    buttonList[ListIndex].Location = new Point( (int)(( detail.PostionX - 40) ), (int)(detail.PostionY ));
                     //if (ListIndex == 0)
                     //{
 

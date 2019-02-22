@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FmMain));
-            this.panelSize = new System.Windows.Forms.Panel();
             this.lblrotcount = new System.Windows.Forms.Label();
             this.gbNormail = new System.Windows.Forms.GroupBox();
             this.lblcutcount = new System.Windows.Forms.Label();
@@ -41,9 +40,6 @@
             this.lblpackageCOunt = new System.Windows.Forms.Label();
             this.lblorderdate = new System.Windows.Forms.Label();
             this.lbllinename = new System.Windows.Forms.Label();
-            this.panelDx = new System.Windows.Forms.Panel();
-            this.panelUnionS = new System.Windows.Forms.Panel();
-            this.panelConn = new System.Windows.Forms.Panel();
             this.gbCache = new System.Windows.Forms.GroupBox();
             this.gbUnnorl = new System.Windows.Forms.GroupBox();
             this.panelMain = new System.Windows.Forms.Panel();
@@ -55,7 +51,6 @@
             this.pbSize = new System.Windows.Forms.PictureBox();
             this.pbConnSet = new System.Windows.Forms.PictureBox();
             this.pbUnionS = new System.Windows.Forms.PictureBox();
-            this.pbDx = new System.Windows.Forms.PictureBox();
             this.pbInfo = new System.Windows.Forms.PictureBox();
             this.pbmaintitle = new System.Windows.Forms.Panel();
             this.pbExit = new System.Windows.Forms.PictureBox();
@@ -70,7 +65,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbConnSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbUnionS)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbDx)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbInfo)).BeginInit();
             this.pbmaintitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbExit)).BeginInit();
@@ -78,15 +72,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbTitle)).BeginInit();
             this.SuspendLayout();
-            // 
-            // panelSize
-            // 
-            this.panelSize.BackColor = System.Drawing.Color.Crimson;
-            this.panelSize.Location = new System.Drawing.Point(261, 142);
-            this.panelSize.Name = "panelSize";
-            this.panelSize.Size = new System.Drawing.Size(729, 294);
-            this.panelSize.TabIndex = 83;
-            this.panelSize.Visible = false;
             // 
             // lblrotcount
             // 
@@ -218,33 +203,6 @@
             this.lbllinename.TabIndex = 0;
             this.lbllinename.Text = "线路名称：0207[201-129] ";
             // 
-            // panelDx
-            // 
-            this.panelDx.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panelDx.Location = new System.Drawing.Point(169, 442);
-            this.panelDx.Name = "panelDx";
-            this.panelDx.Size = new System.Drawing.Size(281, 168);
-            this.panelDx.TabIndex = 75;
-            this.panelDx.Visible = false;
-            // 
-            // panelUnionS
-            // 
-            this.panelUnionS.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panelUnionS.Location = new System.Drawing.Point(456, 442);
-            this.panelUnionS.Name = "panelUnionS";
-            this.panelUnionS.Size = new System.Drawing.Size(281, 168);
-            this.panelUnionS.TabIndex = 81;
-            this.panelUnionS.Visible = false;
-            // 
-            // panelConn
-            // 
-            this.panelConn.BackColor = System.Drawing.Color.Blue;
-            this.panelConn.Location = new System.Drawing.Point(761, 442);
-            this.panelConn.Name = "panelConn";
-            this.panelConn.Size = new System.Drawing.Size(281, 168);
-            this.panelConn.TabIndex = 82;
-            this.panelConn.Visible = false;
-            // 
             // gbCache
             // 
             this.gbCache.Dock = System.Windows.Forms.DockStyle.Top;
@@ -273,7 +231,7 @@
             this.panelMain.Controls.Add(this.gbNormail);
             this.panelMain.Controls.Add(this.groupBox4);
             this.panelMain.Controls.Add(this.gbCache);
-            this.panelMain.Location = new System.Drawing.Point(199, 102);
+            this.panelMain.Location = new System.Drawing.Point(225, 119);
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(1450, 656);
             this.panelMain.TabIndex = 80;
@@ -333,7 +291,6 @@
             this.mune.Controls.Add(this.pbSize);
             this.mune.Controls.Add(this.pbConnSet);
             this.mune.Controls.Add(this.pbUnionS);
-            this.mune.Controls.Add(this.pbDx);
             this.mune.Controls.Add(this.pbInfo);
             this.mune.Dock = System.Windows.Forms.DockStyle.Left;
             this.mune.Location = new System.Drawing.Point(0, 80);
@@ -348,7 +305,7 @@
             this.pbSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbSize.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbSize.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pbSize.Location = new System.Drawing.Point(0, 360);
+            this.pbSize.Location = new System.Drawing.Point(0, 270);
             this.pbSize.Name = "pbSize";
             this.pbSize.Size = new System.Drawing.Size(134, 90);
             this.pbSize.TabIndex = 4;
@@ -362,7 +319,7 @@
             this.pbConnSet.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbConnSet.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbConnSet.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pbConnSet.Location = new System.Drawing.Point(0, 270);
+            this.pbConnSet.Location = new System.Drawing.Point(0, 180);
             this.pbConnSet.Name = "pbConnSet";
             this.pbConnSet.Size = new System.Drawing.Size(134, 90);
             this.pbConnSet.TabIndex = 3;
@@ -376,27 +333,12 @@
             this.pbUnionS.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbUnionS.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbUnionS.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pbUnionS.Location = new System.Drawing.Point(0, 180);
+            this.pbUnionS.Location = new System.Drawing.Point(0, 90);
             this.pbUnionS.Name = "pbUnionS";
             this.pbUnionS.Size = new System.Drawing.Size(134, 90);
             this.pbUnionS.TabIndex = 2;
             this.pbUnionS.TabStop = false;
             this.pbUnionS.Click += new System.EventHandler(this.pbUnionS_Click);
-            // 
-            // pbDx
-            // 
-            this.pbDx.BackgroundImage = global::PackageMachine.Properties.Resources.垛型查询;
-            this.pbDx.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbDx.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbDx.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbDx.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pbDx.Location = new System.Drawing.Point(0, 90);
-            this.pbDx.Name = "pbDx";
-            this.pbDx.Size = new System.Drawing.Size(134, 90);
-            this.pbDx.TabIndex = 1;
-            this.pbDx.TabStop = false;
-            this.pbDx.Visible = false;
-            this.pbDx.Click += new System.EventHandler(this.pbDx_Click);
             // 
             // pbInfo
             // 
@@ -485,11 +427,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1370, 749);
-            this.Controls.Add(this.panelSize);
             this.Controls.Add(this.gbInfo);
-            this.Controls.Add(this.panelDx);
-            this.Controls.Add(this.panelUnionS);
-            this.Controls.Add(this.panelConn);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.mune);
             this.Controls.Add(this.pbmaintitle);
@@ -508,7 +446,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbConnSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbUnionS)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbDx)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbInfo)).EndInit();
             this.pbmaintitle.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbExit)).EndInit();
@@ -520,8 +457,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panelSize;
         private System.Windows.Forms.Label lblrotcount;
         private System.Windows.Forms.GroupBox gbNormail;
         private System.Windows.Forms.Label lblcutcount;
@@ -533,16 +468,12 @@
         private System.Windows.Forms.Label lblpackageCOunt;
         private System.Windows.Forms.Label lblorderdate;
         private System.Windows.Forms.Label lbllinename;
-        private System.Windows.Forms.Panel panelDx;
-        private System.Windows.Forms.Panel panelUnionS;
-        private System.Windows.Forms.Panel panelConn;
         private System.Windows.Forms.GroupBox gbCache;
         private System.Windows.Forms.GroupBox gbUnnorl;
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.PictureBox pbSize;
         private System.Windows.Forms.PictureBox pbConnSet;
         private System.Windows.Forms.PictureBox pbUnionS;
-        private System.Windows.Forms.PictureBox pbDx;
         private System.Windows.Forms.PictureBox pbInfo;
         private System.Windows.Forms.Panel mune;
         private System.Windows.Forms.PictureBox pbExit;

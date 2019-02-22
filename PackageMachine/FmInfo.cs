@@ -26,8 +26,7 @@ namespace PackageMachine
             cs.W = 540;
             Hrs += BindBillInfo;
             ft.Show();
-            AutoScroll = true;
-           
+            AutoScroll = true; 
         }
         //AutoSizeFormClass asfc = new AutoSizeFormClass();
         private void FmInfo_Load(object sender, EventArgs e)
@@ -39,7 +38,7 @@ namespace PackageMachine
         }
         void LoadFucn()
         {
-            bill_s = br.GetBillInfos(1);//取出整个订单 
+          //取出整个订单 
             BindBillInfo(packageIndex: 1);
            
         }
@@ -50,23 +49,19 @@ namespace PackageMachine
         {
             CompSizeChanged();
             cs.Location = new Point(this.Width - cs.Width - 4, Height - cs.Height-4);
-            //cs2.Location = new Point(   4, Height - cs2.Height - 4);
-            
-
+            //cs2.Location = new Point(   4, Height - cs2.Height - 4); 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
-           
             //BindBillInfo(x:Convert.ToInt32(textBox1.Text),y: Convert.ToInt32(textBox2.Text));
           
         }
         void BindBillInfo(int packageIndex = 0 ,int CinNum = 0  )
         {
            
-            List<TobaccoInfo> list = br.GetTobaccoInfos(bill_s, packageIndex,cs.Height );
-            List<TobaccoInfo> UN_list = br.GetUnNormallSort(list, CinNum);
+            List<TobaccoInfo> list = br.GetTobaccoInfos( packageIndex,cs.Height );
+            List<TobaccoInfo> UN_list = br.GetUnNormallSort( CinNum);
              cce1.UpdateValue(UN_list);
             cs.UpdateValue(list);
             
@@ -128,17 +123,21 @@ namespace PackageMachine
         }
          void LabBind()
         {
-                lbllinename.Text = "线路名称："   ;
-                lblcutcount.Text = "总包号："  ;
-                lblcutcount.Text = "客户包数" ;
-             
-           
-
+            lbllinename.Text = "线路名称："   ;
+            lblcutcount.Text = "总包号："  ;
+            lblcutcount.Text = "客户包数" ;
         }
         /// <summary>
         /// 总体长度
         /// </summary>
-        public decimal GetLeng { get => bill_s[0].PackageSeqLength;   }
+        public decimal GetLeng
+        {
+            
+            get
+            {
+                if (bill_s.Count == 0) return 1; else { return bill_s[0].PackageSeqLength; };
+            }
+        }
 
         private void FmInfo_SizeChanged(object sender, EventArgs e)
         {
@@ -150,17 +149,13 @@ namespace PackageMachine
         /// <param name="packageIndex"></param>
         /// <param name="cigNum"></param>
         public async static void AutoRefreshShow(int packageIndex, int cigNum)
-        { 
-         
+        {
+           
             Hrs(packageIndex, cigNum);
-            await Task.Delay(0); //GetDateByTask(packageIndex, cigNum);
+            await Task.Delay(0);  
         }
         delegate void HandeleRefrshShow(int p, int c);
-       static  HandeleRefrshShow Hrs;
-        //private static async Task GetDateByTask(int packageIndex, int cigNum)
-        //{
-
-        //    await Task.Delay(0);
-        //}
+        static  HandeleRefrshShow Hrs;
+ 
     }
 }

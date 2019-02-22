@@ -70,6 +70,7 @@
     <Compile Include="PubFunction\ByteToHexStrClass.cs" />
     <Compile Include="PubFunction\CommunicationWithPLC_test.cs" />
     <Compile Include="PubFunction\DataBase.cs" />
+    <Compile Include="PubFunction\GlobalPara.cs" />
     <Compile Include="PubFunction\Loading.cs" />
     <Compile Include="PubFunction\WriteLog.cs" />
   </ItemGroup>
