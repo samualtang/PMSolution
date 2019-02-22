@@ -13,26 +13,22 @@ namespace EFModle.Model
 
         }
         /// <summary>
-        /// 包装机全局索引
+        /// 包装机全局索引  整体包序
         /// </summary>
         public int GlobalIndex { get; set; }
         /// <summary>
-        /// 包装机全局条烟索引
-        /// </summary>
-        public decimal GlobalCigIndex { get; set; }
-        /// <summary>
-        /// 订单条烟索引
+        /// 订单条烟索引   订单内包序
         /// </summary>
         public int OrderIndex { get; set; }
-     
+        /// <summary>
+        /// 条烟流水号
+        /// </summary>
+        public decimal CigNum { get; set; }
         /// <summary>
         /// 任务流水号
         /// </summary>
         public decimal SortNum { get; set; }
-        /// <summary>
-        /// 条烟流水号
-        /// </summary>
-        public int CigNum {get;set;}
+
         /// <summary>
         /// 卷烟类型
         /// </summary>
@@ -54,9 +50,9 @@ namespace EFModle.Model
         /// </summary>
         public float TobaccoHeight { get; set; }
         /// <summary>
-        /// 卷烟状态
+        /// 卷烟状态  包装状态
         /// </summary>
-        public int TobaccoStatus { get; set; } 
+        public int TobaccoState { get; set; } 
 
         /// <summary>
         /// 卷烟名称

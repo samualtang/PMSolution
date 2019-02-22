@@ -103,7 +103,7 @@ namespace PackageMachine
                     this.buttonList[ListIndex].ForeColor = Color.Black;
                     this.buttonList[ListIndex].Font = font;
                     this.buttonList[ListIndex].TabIndex = TabeltIndex;
-                    this.buttonList[ListIndex].BackColor = ((detail.Speed == 0) ? Color.White : this.colorList[detail.TobaccoStatus].Color);
+                    this.buttonList[ListIndex].BackColor = ((detail.Speed == 0) ? Color.White : this.colorList[detail.TobaccoState].Color);
                     this.buttonList[ListIndex].Height = (int) detail.TobaccoHeight  ;
                     this.buttonList[ListIndex].Width = (int) detail.TobaccoWidth   ;
                     //this.buttonList[ListIndex].Top = this.p_Main.Height - (int)(detail.PositionHeightLast * (1f + num)) - 4;

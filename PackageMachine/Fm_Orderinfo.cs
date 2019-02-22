@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Functions.BLL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,6 +25,23 @@ namespace PackageMachine
             label_customername.Text = "客户名称："+task.CUSTOMERNAME;
             label_allpacksortnum.Text = "总条数：" + task.ALLQTY;
         }
+        private void Fm_Orderinfo_Load(object sender, EventArgs e)
+        {
+            
+        }
 
+        void ddd()
+        {
+             
+            //cigrShow1.UpdateValue()
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //BillResolution dd = new BillResolution();
+            //dd.GetTobaccoInfos()
+        }
+
+       
     }
 }

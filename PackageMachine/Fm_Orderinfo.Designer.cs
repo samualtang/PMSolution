@@ -52,17 +52,17 @@
             this.Dgv_datainfo.AllowUserToDeleteRows = false;
             this.Dgv_datainfo.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.Dgv_datainfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Dgv_datainfo.Location = new System.Drawing.Point(366, 101);
+            this.Dgv_datainfo.Location = new System.Drawing.Point(12, 100);
             this.Dgv_datainfo.Name = "Dgv_datainfo";
             this.Dgv_datainfo.ReadOnly = true;
             this.Dgv_datainfo.RowTemplate.Height = 23;
-            this.Dgv_datainfo.Size = new System.Drawing.Size(652, 312);
+            this.Dgv_datainfo.Size = new System.Drawing.Size(500, 371);
             this.Dgv_datainfo.TabIndex = 0;
             // 
             // label_packsortnum
             // 
             this.label_packsortnum.AutoSize = true;
-            this.label_packsortnum.Location = new System.Drawing.Point(289, 72);
+            this.label_packsortnum.Location = new System.Drawing.Point(621, 74);
             this.label_packsortnum.Name = "label_packsortnum";
             this.label_packsortnum.Size = new System.Drawing.Size(71, 12);
             this.label_packsortnum.TabIndex = 3;
@@ -89,7 +89,7 @@
             // label_customername
             // 
             this.label_customername.AutoSize = true;
-            this.label_customername.Location = new System.Drawing.Point(364, 13);
+            this.label_customername.Location = new System.Drawing.Point(452, 13);
             this.label_customername.Name = "label_customername";
             this.label_customername.Size = new System.Drawing.Size(203, 12);
             this.label_customername.TabIndex = 6;
@@ -98,7 +98,7 @@
             // label_customcode
             // 
             this.label_customcode.AutoSize = true;
-            this.label_customcode.Location = new System.Drawing.Point(192, 13);
+            this.label_customcode.Location = new System.Drawing.Point(280, 13);
             this.label_customcode.Name = "label_customcode";
             this.label_customcode.Size = new System.Drawing.Size(137, 12);
             this.label_customcode.TabIndex = 7;
@@ -107,7 +107,7 @@
             // label_packnum
             // 
             this.label_packnum.AutoSize = true;
-            this.label_packnum.Location = new System.Drawing.Point(10, 72);
+            this.label_packnum.Location = new System.Drawing.Point(1154, 74);
             this.label_packnum.Name = "label_packnum";
             this.label_packnum.Size = new System.Drawing.Size(47, 12);
             this.label_packnum.TabIndex = 8;
@@ -115,7 +115,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(482, 61);
+            this.button1.Location = new System.Drawing.Point(109, 63);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 10;
@@ -124,16 +124,17 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(586, 61);
+            this.button2.Location = new System.Drawing.Point(213, 63);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 11;
             this.button2.Text = "下一包";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(389, 61);
+            this.button3.Location = new System.Drawing.Point(16, 63);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 12;
@@ -142,7 +143,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(680, 61);
+            this.button4.Location = new System.Drawing.Point(307, 63);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(78, 23);
             this.button4.TabIndex = 13;
@@ -151,7 +152,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(950, 61);
+            this.button5.Location = new System.Drawing.Point(518, 63);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(66, 23);
             this.button5.TabIndex = 14;
@@ -160,7 +161,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(855, 61);
+            this.textBox1.Location = new System.Drawing.Point(423, 63);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(89, 21);
             this.textBox1.TabIndex = 15;
@@ -168,7 +169,7 @@
             // label_allpacksortnum
             // 
             this.label_allpacksortnum.AutoSize = true;
-            this.label_allpacksortnum.Location = new System.Drawing.Point(10, 42);
+            this.label_allpacksortnum.Location = new System.Drawing.Point(173, 13);
             this.label_allpacksortnum.Name = "label_allpacksortnum";
             this.label_allpacksortnum.Size = new System.Drawing.Size(71, 12);
             this.label_allpacksortnum.TabIndex = 16;
@@ -178,9 +179,10 @@
             // 
             this.cigrShow1.BackColor = System.Drawing.Color.White;
             this.cigrShow1.H = 0;
-            this.cigrShow1.Location = new System.Drawing.Point(12, 101);
+            this.cigrShow1.Location = new System.Drawing.Point(518, 100);
+            this.cigrShow1.Margin = new System.Windows.Forms.Padding(4);
             this.cigrShow1.Name = "cigrShow1";
-            this.cigrShow1.Size = new System.Drawing.Size(348, 312);
+            this.cigrShow1.Size = new System.Drawing.Size(707, 371);
             this.cigrShow1.TabIndex = 9;
             this.cigrShow1.W = 0;
             // 
@@ -188,7 +190,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1031, 425);
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.ClientSize = new System.Drawing.Size(1237, 483);
             this.Controls.Add(this.label_allpacksortnum);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button5);
@@ -206,6 +209,7 @@
             this.Controls.Add(this.Dgv_datainfo);
             this.Name = "Fm_Orderinfo";
             this.Text = "订单详情";
+            this.Load += new System.EventHandler(this.Fm_Orderinfo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Dgv_datainfo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

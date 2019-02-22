@@ -37,6 +37,8 @@ namespace Functions.BLL
                     (from item in et.T_PRODUCE_TASK
                      join item2 in et.T_PACKAGE_TASK
                      on item.SORTNUM equals item2.SORTNUM
+                     join item3 in et.T_UN_TASK
+                     on item.SORTNUM equals item3.SORTNUM
                      where item.BILLCODE.Contains( contentstr) || item.COMPANYNAME.Contains(contentstr) || item.CUSTOMERCODE.Contains(contentstr) 
                      || item.SORTNUM== content || item2.CIGARETTENAME.Contains(contentstr) || item2.CIGARETTECODE.Contains(contentstr)
                      select new TaskList
@@ -69,6 +71,36 @@ namespace Functions.BLL
                 return taskLists;
             }
         }
+        /// <summary>
+        /// 根据订单号来查询具体数据
+        /// </summary>
+        /// <param name="qureystr">任务号</param>
+        /// <returns></returns>
+        public static List<TaskList> QueryBySortnum(decimal qureystr)
+        {
+            List<TaskList> taskLists = new List<TaskList>();
+            using (Entities et =new Entities())
+            {
+                var lists =
+                    (from item in et.T_PRODUCE_TASK
+                     join item2 in et.T_PACKAGE_TASK
+                     on item.SORTNUM equals item2.SORTNUM
+                     join item3 in et.T_UN_TASK
+                     on item.SORTNUM equals item3.SORTNUM
+                     where item.SORTNUM == qureystr
+                     select new TaskList
+                     {
+                         SORTNUM = item2.SORTNUM ?? 0,
+                         CUSTOMERNAME = item.CUSTOMERNAME,
+                         CUSTOMERCODE = item.CUSTOMERCODE,
+                         REGIONCODE = item.REGIONCODE,
+                         SORTSEQ = item.SORTSEQ ?? 0,
+                         ORDERPACKAGEQTY = item2.ORDERPACKAGEQTY ?? 0,
+                         ALLQTY = item2.ORDERQTY ?? 0
+                     }).ToList();
 
+                return lists;
+            }
+        }
     }
 }

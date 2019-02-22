@@ -35,6 +35,14 @@
     <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="opcrcw.comn">
+      <HintPath>Lib\opcrcw.comn.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="opcrcw.da">
+      <HintPath>Lib\opcrcw.da.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Oracle.DataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -55,6 +63,8 @@
     <Compile Include="BLL\FmCommoditySizeFun.cs" />
     <Compile Include="BLL\FmOrderInofFun.cs" />
     <Compile Include="FormDataModle\FmOrderInfoFunCmbox.cs" />
+    <Compile Include="Model\Group.cs" />
+    <Compile Include="Model\ItemCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PubFunction\AutoSizeFormClass.cs" />
     <Compile Include="PubFunction\ByteToHexStrClass.cs" />
@@ -72,6 +82,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Lib\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
