@@ -85,6 +85,9 @@
     <Compile Include="T_PRODUCE_POKE.cs">
       <DependentUpon>EntityData.tt</DependentUpon>
     </Compile>
+    <Compile Include="T_PRODUCE_POKESEQ.cs">
+      <DependentUpon>EntityData.tt</DependentUpon>
+    </Compile>
     <Compile Include="T_PRODUCE_SORTTROUGH.cs">
       <DependentUpon>EntityData.tt</DependentUpon>
     </Compile>
