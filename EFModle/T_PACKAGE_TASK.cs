@@ -38,5 +38,7 @@ namespace EFModle
         public Nullable<decimal> PACKTASKNUM { get; set; }
         public Nullable<decimal> CIGNUM { get; set; }
         public string CIGTYPE { get; set; }
+        public string DOUBLETAKE { get; set; }
+        public Nullable<decimal> STATE { get; set; }
     }
 }
