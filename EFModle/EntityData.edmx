@@ -103,6 +103,8 @@
           <Property Name="PACKTASKNUM" Type="number" Precision="38" Scale="0" />
           <Property Name="CIGNUM" Type="number" Precision="38" Scale="0" />
           <Property Name="CIGTYPE" Type="nvarchar2" MaxLength="10" />
+          <Property Name="DOUBLETAKE" Type="varchar2" MaxLength="100" />
+          <Property Name="STATE" Type="number" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="T_PRODUCE_ORDER">
           <Key>
@@ -172,6 +174,25 @@
           <Property Name="SECSORTNUM" Type="number" Precision="38" Scale="0" />
           <Property Name="INVFLAG" Type="varchar2" MaxLength="10" />
           <Property Name="SENDPOKENUM" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_POKESEQ">
+          <Key>
+            <PropertyRef Name="POKEID" />
+          </Key>
+          <Property Name="POKEID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TROUGHNUM" Type="varchar2" MaxLength="30" />
+          <Property Name="POKENUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="SORTSTATE" Type="number" Precision="38" Scale="0" />
+          <Property Name="TASKNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="TASKQTY" Type="number" Precision="38" Scale="0" />
+          <Property Name="MACHINESEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="MAINBELT" Type="number" Precision="38" Scale="0" />
+          <Property Name="GROUPNO" Type="number" Precision="38" Scale="0" />
+          <Property Name="PACKAGEMACHINE" Type="number" Precision="38" Scale="0" />
+          <Property Name="SORTNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="BILLCODE" Type="varchar2" MaxLength="80" />
+          <Property Name="CIGARETTECODE" Type="varchar2" MaxLength="20" />
+          <Property Name="CIGARETTENAME" Type="varchar2" MaxLength="40" />
         </EntityType>
         <EntityType Name="T_PRODUCE_SORTTROUGH">
           <Key>
@@ -394,6 +415,7 @@
           <EntitySet Name="T_PRODUCE_ORDER" EntityType="Self.T_PRODUCE_ORDER" Schema="ZOOMTEL" store:Type="Tables" />
           <EntitySet Name="T_PRODUCE_ORDERLINE" EntityType="Self.T_PRODUCE_ORDERLINE" Schema="ZOOMTEL" store:Type="Tables" />
           <EntitySet Name="T_PRODUCE_POKE" EntityType="Self.T_PRODUCE_POKE" Schema="ZOOMTEL" store:Type="Tables" />
+          <EntitySet Name="T_PRODUCE_POKESEQ" EntityType="Self.T_PRODUCE_POKESEQ" Schema="ZOOMTEL" store:Type="Tables" />
           <EntitySet Name="T_PRODUCE_SORTTROUGH" EntityType="Self.T_PRODUCE_SORTTROUGH" Schema="ZOOMTEL" store:Type="Tables" />
           <EntitySet Name="T_PRODUCE_SYNSEQ" EntityType="Self.T_PRODUCE_SYNSEQ" Schema="ZOOMTEL" store:Type="Tables" />
           <EntitySet Name="T_PRODUCE_TASK" EntityType="Self.T_PRODUCE_TASK" Schema="ZOOMTEL" store:Type="Tables" />
@@ -722,6 +744,7 @@
           <EntitySet Name="T_UN_TASKLINE" EntityType="Self.T_UN_TASKLINE" />
           <EntitySet Name="T_WMS_ITEM" EntityType="Model.T_WMS_ITEM" />
           <EntitySet Name="T_PACKAGE_TASK" EntityType="Model.T_PACKAGE_TASK" />
+          <EntitySet Name="T_PRODUCE_POKESEQ" EntityType="Model.T_PRODUCE_POKESEQ" />
         </EntityContainer>
         <EntityType Name="T_WMS_ITEM">
           <Key>
@@ -804,6 +827,27 @@
           <Property Name="PACKTASKNUM" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="CIGNUM" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="CIGTYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DOUBLETAKE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="STATE" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_POKESEQ">
+          <Key>
+            <PropertyRef Name="POKEID" />
+          </Key>
+          <Property Name="POKEID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="TROUGHNUM" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="POKENUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SORTSTATE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="TASKNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="TASKQTY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="MACHINESEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="MAINBELT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="GROUPNO" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PACKAGEMACHINE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SORTNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="BILLCODE" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="CIGARETTECODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CIGARETTENAME" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1177,6 +1221,8 @@
           <EntitySetMapping Name="T_PACKAGE_TASK">
             <EntityTypeMapping TypeName="Model.T_PACKAGE_TASK">
               <MappingFragment StoreEntitySet="T_PACKAGE_TASK">
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="DOUBLETAKE" ColumnName="DOUBLETAKE" />
                 <ScalarProperty Name="CIGTYPE" ColumnName="CIGTYPE" />
                 <ScalarProperty Name="CIGNUM" ColumnName="CIGNUM" />
                 <ScalarProperty Name="PACKTASKNUM" ColumnName="PACKTASKNUM" />
@@ -1201,6 +1247,26 @@
                 <ScalarProperty Name="ORDERSEQ" ColumnName="ORDERSEQ" />
                 <ScalarProperty Name="BILLCODE" ColumnName="BILLCODE" />
                 <ScalarProperty Name="PTID" ColumnName="PTID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_PRODUCE_POKESEQ">
+            <EntityTypeMapping TypeName="Model.T_PRODUCE_POKESEQ">
+              <MappingFragment StoreEntitySet="T_PRODUCE_POKESEQ">
+                <ScalarProperty Name="CIGARETTENAME" ColumnName="CIGARETTENAME" />
+                <ScalarProperty Name="CIGARETTECODE" ColumnName="CIGARETTECODE" />
+                <ScalarProperty Name="BILLCODE" ColumnName="BILLCODE" />
+                <ScalarProperty Name="SORTNUM" ColumnName="SORTNUM" />
+                <ScalarProperty Name="PACKAGEMACHINE" ColumnName="PACKAGEMACHINE" />
+                <ScalarProperty Name="GROUPNO" ColumnName="GROUPNO" />
+                <ScalarProperty Name="MAINBELT" ColumnName="MAINBELT" />
+                <ScalarProperty Name="MACHINESEQ" ColumnName="MACHINESEQ" />
+                <ScalarProperty Name="TASKQTY" ColumnName="TASKQTY" />
+                <ScalarProperty Name="TASKNUM" ColumnName="TASKNUM" />
+                <ScalarProperty Name="SORTSTATE" ColumnName="SORTSTATE" />
+                <ScalarProperty Name="POKENUM" ColumnName="POKENUM" />
+                <ScalarProperty Name="TROUGHNUM" ColumnName="TROUGHNUM" />
+                <ScalarProperty Name="POKEID" ColumnName="POKEID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

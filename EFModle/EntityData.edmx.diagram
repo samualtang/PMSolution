@@ -18,6 +18,7 @@
         <EntityTypeShape EntityType="Model.T_UN_TASKLINE" Width="1.5" PointX="4.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.T_WMS_ITEM" Width="1.5" PointX="11.375" PointY="6.75" />
         <EntityTypeShape EntityType="Model.T_PACKAGE_TASK" Width="1.5" PointX="7.375" PointY="12.75" />
+        <EntityTypeShape EntityType="Model.T_PRODUCE_POKESEQ" Width="1.5" PointX="13.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -38,5 +38,6 @@ namespace EFModle
         public DbSet<T_UN_TASKLINE> T_UN_TASKLINE { get; set; }
         public DbSet<T_WMS_ITEM> T_WMS_ITEM { get; set; }
         public DbSet<T_PACKAGE_TASK> T_PACKAGE_TASK { get; set; }
+        public DbSet<T_PRODUCE_POKESEQ> T_PRODUCE_POKESEQ { get; set; }
     }
 }
