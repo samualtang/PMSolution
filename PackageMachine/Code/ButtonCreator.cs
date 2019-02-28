@@ -19,7 +19,7 @@ namespace PackageMachine.Code
 				}
 			}
 			Button button = new Button();
-			button.Location = new Point(257, 175);
+			button.Location = new Point(200, 150);
 			button.Name = "btn_" + index.ToString();
 			button.Size = new Size(75, 23);
 			button.Text = "button" + index;

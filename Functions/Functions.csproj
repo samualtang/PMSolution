@@ -35,6 +35,10 @@
     <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="HslCommunication, Version=5.8.0.0, Culture=neutral, PublicKeyToken=cdb2261fa039ed67, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\HslCommunication.dll</HintPath>
+    </Reference>
     <Reference Include="opcrcw.comn">
       <HintPath>Lib\opcrcw.comn.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -62,9 +66,12 @@
     <Compile Include="BLL\BillResolution.cs" />
     <Compile Include="BLL\FmCommoditySizeFun.cs" />
     <Compile Include="BLL\FmOrderInofFun.cs" />
+    <Compile Include="BLL\RobotTaskService.cs" />
+    <Compile Include="BLL\StackTypeCalculation.cs" />
     <Compile Include="FormDataModle\FmOrderInfoFunCmbox.cs" />
     <Compile Include="Model\Group.cs" />
     <Compile Include="Model\ItemCollection.cs" />
+    <Compile Include="Model\TcpIp_ConnPlc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PubFunction\AutoSizeFormClass.cs" />
     <Compile Include="PubFunction\ByteToHexStrClass.cs" />
@@ -75,17 +82,17 @@
     <Compile Include="PubFunction\WriteLog.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\EFModle\EFModle.csproj">
       <Project>{10c0351b-9da2-4cda-9d04-633a53108455}</Project>
       <Name>EFModle</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Lib\" />
+    <Content Include="Lib\HslCommunication.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

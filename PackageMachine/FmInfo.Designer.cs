@@ -185,10 +185,10 @@
             // 
             this.cs.BackColor = System.Drawing.Color.White;
             this.cs.H = 489;
-            this.cs.Location = new System.Drawing.Point(655, 234);
+            this.cs.Location = new System.Drawing.Point(674, 243);
             this.cs.Margin = new System.Windows.Forms.Padding(4);
             this.cs.Name = "cs";
-            this.cs.Size = new System.Drawing.Size(559, 451);
+            this.cs.Size = new System.Drawing.Size(540, 451);
             this.cs.TabIndex = 3;
             this.cs.W = 540;
             // 

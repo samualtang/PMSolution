@@ -25,6 +25,10 @@ namespace EFModle.Model
         /// </summary>
         public decimal CigNum { get; set; }
         /// <summary>
+        /// 条烟数量
+        /// </summary>
+        public decimal CigQuantity { get; set; }
+        /// <summary>
         /// 任务流水号
         /// </summary>
         public decimal SortNum { get; set; }
@@ -58,8 +62,10 @@ namespace EFModle.Model
         /// 卷烟名称
         /// </summary>
         public  string TobaccoName { get; set; }
-
- 
+        /// <summary>
+        /// 卷烟编码
+        /// </summary>
+        public string TobaccoCode { get; set; }
         /// <summary>
         /// 坐标X
         /// </summary>

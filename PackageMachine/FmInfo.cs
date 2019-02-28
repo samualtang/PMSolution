@@ -22,7 +22,7 @@ namespace PackageMachine
         {
             
             InitializeComponent();
-            cs.H = 489;
+            cs.H = 450;
             cs.W = 540;
             Hrs += BindBillInfo;
             ft.Show();
@@ -33,6 +33,7 @@ namespace PackageMachine
         {
 
             //asfc.controllInitializeSize(this);
+           // LoadFucn();
              Loading.Masklayer(this, delegate () { LoadFucn(); });
 
         }
@@ -42,7 +43,7 @@ namespace PackageMachine
             BindBillInfo(packageIndex: 1);
            
         }
-        List<Bill_Model> bill_s;
+       
         BillResolution br = new BillResolution();
  
         private void FmInfo_Resize(object sender, EventArgs e)
@@ -62,6 +63,7 @@ namespace PackageMachine
            
             List<TobaccoInfo> list = br.GetTobaccoInfos( packageIndex,cs.Height );
             List<TobaccoInfo> UN_list = br.GetUnNormallSort( CinNum);
+
              cce1.UpdateValue(UN_list);
             cs.UpdateValue(list);
             
@@ -75,7 +77,7 @@ namespace PackageMachine
         int pkIndex = 1;
         private void btnLast_Click(object sender, EventArgs e)
         {
-            if(bill_s != null && pkIndex >= 1)
+            if(  pkIndex >= 1)
             {
                 pkIndex--;
                 if (pkIndex >= 1)
@@ -106,7 +108,7 @@ namespace PackageMachine
         private void btnnext_Click(object sender, EventArgs e)
         {
             
-            if (bill_s != null && pkIndex <= GetLeng)
+            if (  pkIndex <= GetLeng)
             {
                 pkIndex++;
                 if (GetLeng  >= pkIndex )
@@ -132,11 +134,12 @@ namespace PackageMachine
         /// </summary>
         public decimal GetLeng
         {
-            
-            get
-            {
-                if (bill_s.Count == 0) return 1; else { return bill_s[0].PackageSeqLength; };
-            }
+
+            get => br.Length;
+            //{
+                
+                //if (bill_s.Count == 0) return 1; else { return bill_s[0].PackageSeqLength; };
+            //}
         }
 
         private void FmInfo_SizeChanged(object sender, EventArgs e)

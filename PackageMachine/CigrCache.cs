@@ -71,7 +71,7 @@ namespace PackageMachine
             
                 button.Width = 60;
                 button.Height = 60;
-                button.Visible = true;
+                button.Visible = false;
              
      
                 this.buttonList.Add(button);

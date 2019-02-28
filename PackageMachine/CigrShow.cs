@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PackageMachine.Code;
 using EFModle.Model;
+using Functions.PubFunction;
 
 namespace PackageMachine
 {
@@ -29,7 +30,7 @@ namespace PackageMachine
             this.p_Main.Location = new Point(0, 0);
             this.p_Main.Margin = new Padding(4);
             this.p_Main.Name = "p_Main";
-            this.p_Main.Size = new Size(876, 489);
+            this.p_Main.Size = new Size(540, 489);
             this.p_Main.TabIndex = 0; 
             this.lab_Line.AutoSize = true;
             this.lab_Line.Location = new Point(0, 208);
@@ -85,15 +86,16 @@ namespace PackageMachine
                     buttonList[i].Visible = false;
                 }
                 Font font = this.buttonList[0].Font  ; 
-                float num = 530 * 200 / (float)( Width *  Height); 
+                //float num = 530 * 200 / (float)( Width *  Height); 
                 int ListIndex = 0;
                 int TabeltIndex = 0;
+                
                 TobaccoInfo detail;
                 foreach (var item in tbinfo)
                 {
                     if(ListIndex >= 36)
                     {
-                        MessageBox.Show("包内烟数大于36！");
+                        FmMain.GetTaskInfo("包内烟数大于36！");
                         break;
                     }
                     detail = item;
@@ -105,15 +107,10 @@ namespace PackageMachine
                     this.buttonList[ListIndex].TabIndex = TabeltIndex;
                     this.buttonList[ListIndex].BackColor = ((detail.Speed == 0) ? Color.White : this.colorList[detail.TobaccoState].Color);
                     this.buttonList[ListIndex].Height = (int) detail.TobaccoHeight  ;
-                    this.buttonList[ListIndex].Width = (int) detail.TobaccoWidth   ;
+                    this.buttonList[ListIndex].Width = (int) detail.TobaccoWidth  ;
                     //this.buttonList[ListIndex].Top = this.p_Main.Height - (int)(detail.PositionHeightLast * (1f + num)) - 4;
-                    //this.buttonList[ListIndex].Left = this.p_Main.Width - (int)(detail.PositionWidthLast * (1f + num)) - 4; 
-                    buttonList[ListIndex].Location = new Point( (int)(( detail.PostionX - 40) ), (int)(detail.PostionY ));
-                    //if (ListIndex == 0)
-                    //{
-
-                    //    buttonList[ListIndex].Location = new Point((int)detail.PostionX - (int)detail.PostionX+2, (int)detail.PostionY  -2);
-                    //}
+                    //this.buttonList[ListIndex].Left = this.p_Main.Width - (int)(detail.PositionWidthLast * (1f + num)) - 4;  
+                    buttonList[ListIndex].Location = new Point((int)detail.PostionX, (int)detail.PostionY);
                     this.buttonList[ListIndex].Text = string.Concat(new string[]
                                 {
                                     detail.GlobalIndex.ToString(),
@@ -124,10 +121,16 @@ namespace PackageMachine
                                 }); 
                     
                     ListIndex++;
-                    TabeltIndex++;
-                     
-                }
+                    TabeltIndex++; 
+                } 
             }
+            int cigGap = GlobalPara.CigGap;//条烟之间间隙
+            for (int i = 0; i < tbinfo.Count; i++)//每条烟的位置坐标都减去自身的宽度
+            {
+                int X = (int)(buttonList[i].Location.X - Math.Ceiling((tbinfo[i].TobaccoWidth + cigGap) / 2));
+                buttonList[i].Location = new Point(X + cigGap, buttonList[i].Location.Y);
+            }
+
         }
         private void TobaccoShow_Resize(object sender, EventArgs e)
         {
@@ -232,7 +235,7 @@ namespace PackageMachine
         {
          
             Button btn = (Button)sender;
-            tp_CodeInfo.SetToolTip(btn, buttonList[btn.TabIndex].Location.X+40 + "  , " + (this.Height - buttonList[btn.TabIndex].Location.Y +"|"+ buttonList[btn.TabIndex].Height +","+ buttonList[btn.TabIndex].Width +"|" + buttonList[btn.TabIndex].Text));
+            tp_CodeInfo.SetToolTip(btn, buttonList[btn.TabIndex].Location.X + "  , " + (this.Height - buttonList[btn.TabIndex].Location.Y +"|"+ buttonList[btn.TabIndex].Height +","+ buttonList[btn.TabIndex].Width +"|" + buttonList[btn.TabIndex].Text));
           //  MessageBox.Show(buttonList[btn.TabIndex].Location.X + "  , " + buttonList[btn.TabIndex].Location.Y);
            // this.tp_CodeInfo.Show(button.ImageKey, button);
         }

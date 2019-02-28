@@ -4,19 +4,284 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+ 
 namespace Functions.PubFunction
 {
-   public static class GlobalPara
+    public static class GlobalPara
     {
-        public static string GetConnectionStringsConfig(string connectionName)
+        static string file = System.Windows.Forms.Application.ExecutablePath;
+        static System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(file);
+        /// <summary>
+        /// 条烟间隙 默认2
+        /// </summary>
+        public static int CigGap
         {
-            //指定config文件读取
-            string file = System.Windows.Forms.Application.ExecutablePath;
-            System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(file);
-            string connectionString =
-                config.ConnectionStrings.ConnectionStrings[connectionName].ConnectionString.ToString();
-            return connectionString;
+            get
+            {
+                if (config != null)
+                {
+                    try
+                    {
+                        int result = Convert.ToInt32(config.AppSettings.Settings["CigGap"].Value.ToString());
+                        if (result > 0)
+                        {
+                            return result;
+                        }
+                        else
+                        {
+                            return 2;
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        return 2;
+                    }
+
+                }
+                else
+                {
+                    return 2;
+                }
+            }
         }
+        /// <summary>
+        /// 工位高
+        /// </summary>
+        public static int BoxHeight { get
+            {
+                if (config != null)
+                {
+                    try
+                    {
+                        int result = Convert.ToInt32(config.AppSettings.Settings["BoxHeight"].Value.ToString());
+                        if (result > 0)
+                        {
+                            return result;
+                        }
+                        else
+                        {
+                            return 2;
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        return 2;
+                    }
+
+                }
+                else
+                {
+                    return 2;
+                }
+            } }
+        /// <summary>
+        /// 工位宽
+        /// </summary>
+        public static int BoxWidth { get
+            {
+                if (config != null)
+                {
+                    try
+                    {
+                        int result = Convert.ToInt32(config.AppSettings.Settings["BoxWidth"].Value.ToString());
+                        if (result > 0)
+                        {
+                            return result;
+                        }
+                        else
+                        {
+                            return 2;
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        return 2;
+                    }
+
+                }
+                else
+                {
+                    return 2;
+                }
+            } }
+        /// <summary>
+        /// 工位长
+        /// </summary>
+        public static int BoxLenght { get
+            {
+                if (config != null)
+                {
+                    try
+                    {
+                        int result = Convert.ToInt32(config.AppSettings.Settings["BoxLenght"].Value.ToString());
+                        if (result > 0)
+                        {
+                            return result;
+                        }
+                        else
+                        {
+                            return 2;
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        return 2;
+                    }
+
+                }
+                else
+                {
+                    return 2;
+                }
+            } }
+        /// <summary>
+        /// 包装机
+        /// </summary>
+        public static int PackageNo { get
+            {
+                if (config != null)
+                {
+                    try
+                    {
+                        int result = Convert.ToInt32(config.AppSettings.Settings["PackageNo"].Value.ToString());
+                        if (result > 0 && result <= 8)
+                        {
+                            return result;
+                        }
+                        else
+                        {
+                            return 1;
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        return 1;
+                    }
+
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+        }
+        /// <summary>
+        /// 最大顺序号
+        /// </summary>
+        public static decimal SortNum
+        {
+            get
+            {
+                if (config != null)
+                {
+                    try
+                    {
+                        decimal result = Convert.ToDecimal(config.AppSettings.Settings["SortNum"].Value.ToString());
+                        if (result > 0)
+                        {
+                            return result;
+                        }
+                        else
+                        {
+                            return 1;
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        return 1;
+                    }
+
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+            set
+            {
+                if (config != null)//存入最大顺序号
+                {
+                    config.AppSettings.Settings["SortNum"].Value = value.ToString();
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 机器人PLC_Ip地址
+        /// </summary>
+        public static string RobitPlc_Ip
+        {
+            get
+            {
+                if (config != null)
+                {
+                    try
+                    {
+                        string result = config.AppSettings.Settings["RotitIp"].Value.ToString();
+                        if (!string.IsNullOrWhiteSpace(result))
+                        {
+                            return result;
+                        }
+                        else
+                        {
+                            return "错误的IP地址";
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        return "错误的IP地址";
+                    }
+
+                }
+                else
+                {
+                    return "错误的IP地址";
+                }
+
+            }
+        }
+        /// <summary>
+        /// 机器人PLC端口
+        /// </summary>
+        public static string RobitPlc_Port { get
+            {
+                if (config != null)
+                {
+                    try
+                    {
+                        string result = config.AppSettings.Settings["RotitPort"].Value.ToString();
+                        if (!string.IsNullOrWhiteSpace(result))
+                        {
+                            return result;
+                        }
+                        else
+                        {
+                            return "错误的端口";
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        return "错误的端口";
+                    }
+
+                }
+                else
+                {
+                    return "错误的端口";
+                }
+
+            }
+        } 
+
     }
 }

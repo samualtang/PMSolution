@@ -57,6 +57,7 @@
             this.pbStop = new System.Windows.Forms.PictureBox();
             this.pbStart = new System.Windows.Forms.PictureBox();
             this.pbTitle = new System.Windows.Forms.PictureBox();
+            this.lblServerInfo = new System.Windows.Forms.Label();
             this.groupBox4.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.gbSysDate.SuspendLayout();
@@ -90,7 +91,7 @@
             this.gbNormail.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.gbNormail.Location = new System.Drawing.Point(0, 234);
             this.gbNormail.Name = "gbNormail";
-            this.gbNormail.Size = new System.Drawing.Size(293, 422);
+            this.gbNormail.Size = new System.Drawing.Size(293, 205);
             this.gbNormail.TabIndex = 6;
             this.gbNormail.TabStop = false;
             this.gbNormail.Text = "常规烟工位";
@@ -132,7 +133,7 @@
             this.groupBox4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox4.Location = new System.Drawing.Point(0, 100);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1450, 134);
+            this.groupBox4.Size = new System.Drawing.Size(962, 134);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "订单信息";
@@ -209,7 +210,7 @@
             this.gbCache.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.gbCache.Location = new System.Drawing.Point(0, 0);
             this.gbCache.Name = "gbCache";
-            this.gbCache.Size = new System.Drawing.Size(1450, 100);
+            this.gbCache.Size = new System.Drawing.Size(962, 100);
             this.gbCache.TabIndex = 4;
             this.gbCache.TabStop = false;
             this.gbCache.Text = "皮带缓存";
@@ -220,7 +221,7 @@
             this.gbUnnorl.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.gbUnnorl.Location = new System.Drawing.Point(293, 234);
             this.gbUnnorl.Name = "gbUnnorl";
-            this.gbUnnorl.Size = new System.Drawing.Size(1157, 422);
+            this.gbUnnorl.Size = new System.Drawing.Size(669, 205);
             this.gbUnnorl.TabIndex = 7;
             this.gbUnnorl.TabStop = false;
             this.gbUnnorl.Text = "异型烟工位";
@@ -231,9 +232,9 @@
             this.panelMain.Controls.Add(this.gbNormail);
             this.panelMain.Controls.Add(this.groupBox4);
             this.panelMain.Controls.Add(this.gbCache);
-            this.panelMain.Location = new System.Drawing.Point(225, 119);
+            this.panelMain.Location = new System.Drawing.Point(176, 112);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(1450, 656);
+            this.panelMain.Size = new System.Drawing.Size(962, 439);
             this.panelMain.TabIndex = 80;
             this.panelMain.Visible = false;
             // 
@@ -248,6 +249,7 @@
             // gbSysDate
             // 
             this.gbSysDate.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.gbSysDate.Controls.Add(this.lblServerInfo);
             this.gbSysDate.Controls.Add(this.label10);
             this.gbSysDate.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gbSysDate.Location = new System.Drawing.Point(0, 711);
@@ -410,6 +412,7 @@
             this.pbStart.Size = new System.Drawing.Size(118, 78);
             this.pbStart.TabIndex = 6;
             this.pbStart.TabStop = false;
+            this.pbStart.Click += new System.EventHandler(this.pbStart_Click);
             // 
             // pbTitle
             // 
@@ -421,6 +424,15 @@
             this.pbTitle.Size = new System.Drawing.Size(275, 78);
             this.pbTitle.TabIndex = 3;
             this.pbTitle.TabStop = false;
+            // 
+            // lblServerInfo
+            // 
+            this.lblServerInfo.AutoSize = true;
+            this.lblServerInfo.Location = new System.Drawing.Point(36, 17);
+            this.lblServerInfo.Name = "lblServerInfo";
+            this.lblServerInfo.Size = new System.Drawing.Size(53, 12);
+            this.lblServerInfo.TabIndex = 1;
+            this.lblServerInfo.Text = "系统信息";
             // 
             // FmMain
             // 
@@ -485,6 +497,7 @@
         private System.Windows.Forms.GroupBox gbSysDate;
         private System.Windows.Forms.GroupBox gbInfo;
         private System.Windows.Forms.ListBox list_date;
+        private System.Windows.Forms.Label lblServerInfo;
     }
 }
 
