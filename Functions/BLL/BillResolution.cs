@@ -105,7 +105,23 @@ namespace Functions.BLL
         }
 
 
+        /// <summary>
+        /// 返回客户信息
+        /// </summary>
+        /// <param name="billcode">订单号</param>
+        /// <returns></returns>
+        public CustomerModle GetCustomerInfos(string billcode)
+        {
+            CustomerModle list = new CustomerModle();
+            using (Entities et = new Entities())
+            {
+                if (!string.IsNullOrWhiteSpace(billcode))
+                {
+                    list = (from iten in et.T_PRODUCE_ORDER_H where iten.BILLCODE == billcode select new CustomerModle { Billcode = iten.BILLCODE, Customername = iten.CUSTOMERNAME, Customercode = iten.CUSTOMERCODE }).FirstOrDefault();
+                }
+            }
+            return list;
 
 
+        }
     }
-}
