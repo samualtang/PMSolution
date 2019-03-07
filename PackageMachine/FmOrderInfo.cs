@@ -88,6 +88,7 @@ namespace PackageMachine
                 task.SORTSEQ = Convert.ToDecimal(DGV_OrderInfo.Rows[e.RowIndex].Cells[4].Value.ToString());
                 task.ORDERPACKAGEQTY = Convert.ToDecimal(DGV_OrderInfo.Rows[e.RowIndex].Cells[5].Value.ToString());
                 task.ALLQTY = Convert.ToDecimal(DGV_OrderInfo.Rows[e.RowIndex].Cells[6].Value.ToString());
+                task.SORTNUM = Convert.ToDecimal(DGV_OrderInfo.Rows[e.RowIndex].Cells[0].Value.ToString());
             }
             
         }

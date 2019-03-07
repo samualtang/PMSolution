@@ -19,35 +19,34 @@ namespace Functions.BLL
         /// <param name="packageno">包装机编号</param>
         /// <returns></returns>
         public static List<TaskList> QueryTaskList(string qureystr, string contentstr,int packageno)
-        {
-            decimal? content = 0;
+        { 
+            decimal? content_decmail = 0;
+            string content_string = contentstr;
             try
-            {
-                content = Convert.ToDecimal(contentstr);
+            { 
+                content_decmail = Convert.ToDecimal(contentstr);
             }
             catch (Exception e)
             {
-                
+                content_decmail = 0;
             }
-            using (Entities et = new Entities())
+            using (Entities et = new Entities())//取出所有数据
             {
                 List<TaskList> taskLists = new List<TaskList>();
                 var lists =
                     from lisitem in
-                    (from item in et.T_PRODUCE_TASK
+                    (from item in et.T_PRODUCE_ORDER
                      join item2 in et.T_PACKAGE_TASK
-                     on item.SORTNUM equals item2.SORTNUM
-                     join item3 in et.T_UN_TASK
-                     on item.SORTNUM equals item3.SORTNUM
-                     where item.BILLCODE.Contains( contentstr) || item.COMPANYNAME.Contains(contentstr) || item.CUSTOMERCODE.Contains(contentstr) 
-                     || item.SORTNUM== content || item2.CIGARETTENAME.Contains(contentstr) || item2.CIGARETTECODE.Contains(contentstr)
+                     on item.BILLCODE equals item2.BILLCODE
+                     where item2.BILLCODE.Contains(content_string) //|| item.COMPANYNAME.Contains(contentstr) || item.CUSTOMERCODE.Contains(contentstr)
+                     //|| item.SORTNUM == content_decmail || item2.CIGARETTENAME.Contains(contentstr) || item2.CIGARETTECODE.Contains(contentstr)
                      select new TaskList
                      {
                          SORTNUM = item2.SORTNUM ?? 0,
                          CUSTOMERNAME = item.CUSTOMERNAME,
                          CUSTOMERCODE = item.CUSTOMERCODE,
                          REGIONCODE = item.REGIONCODE,
-                         SORTSEQ = item.SORTSEQ ?? 0,
+                         SORTSEQ = item.PRIORITY ?? 0,
                          ORDERPACKAGEQTY = item2.ORDERPACKAGEQTY ?? 0,
                          ALLQTY = item2.ORDERQTY ?? 0
                      })
@@ -55,6 +54,8 @@ namespace Functions.BLL
                      into dates
                     select new { dates.Key, dates }.Key;
 
+                int jjj = lists.Count();
+                int dsds = 1000;
 
                 foreach (var item in lists)
                 {
@@ -67,8 +68,9 @@ namespace Functions.BLL
                     taskList.ORDERPACKAGEQTY = item.ORDERPACKAGEQTY;
                     taskList.ALLQTY = item.ALLQTY; 
                     taskLists.Add(taskList); 
-                }
-                return taskLists;
+                } 
+
+                return taskLists.OrderBy(x=>x.SORTNUM).ToList();
             }
         }
         /// <summary>
@@ -76,28 +78,12 @@ namespace Functions.BLL
         /// </summary>
         /// <param name="qureystr">任务号</param>
         /// <returns></returns>
-        public static List<TaskList> QueryBySortnum(decimal qureystr)
+        public static List<T_PACKAGE_TASK> QueryBySortnum(decimal qureystr)
         {
-            List<TaskList> taskLists = new List<TaskList>();
+            List<T_PACKAGE_TASK> taskLists = new List<T_PACKAGE_TASK>();
             using (Entities et =new Entities())
             {
-                var lists =
-                    (from item in et.T_PRODUCE_TASK
-                     join item2 in et.T_PACKAGE_TASK
-                     on item.SORTNUM equals item2.SORTNUM
-                     join item3 in et.T_UN_TASK
-                     on item.SORTNUM equals item3.SORTNUM
-                     where item.SORTNUM == qureystr
-                     select new TaskList
-                     {
-                         SORTNUM = item2.SORTNUM ?? 0,
-                         CUSTOMERNAME = item.CUSTOMERNAME,
-                         CUSTOMERCODE = item.CUSTOMERCODE,
-                         REGIONCODE = item.REGIONCODE,
-                         SORTSEQ = item.SORTSEQ ?? 0,
-                         ORDERPACKAGEQTY = item2.ORDERPACKAGEQTY ?? 0,
-                         ALLQTY = item2.ORDERQTY ?? 0
-                     }).ToList();
+                var lists = et.T_PACKAGE_TASK.Where(x => x.SORTNUM == qureystr).Select(x => x).ToList();    
 
                 return lists;
             }

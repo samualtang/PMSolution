@@ -9,12 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using Functions.BLL;
 using EFModle.Model;
 
 namespace PackageMachine
 {
-    public partial class Fm_Orderinfo : Form
+    public partial class Fm_Orderinfo_All : Form
     {
         EFModle.Model.TaskList task = new EFModle.Model.TaskList();
         /// <summary>
@@ -31,31 +30,28 @@ namespace PackageMachine
         /// </summary>
         decimal ORDERPACKAGEQTY;
 
-        public Fm_Orderinfo(EFModle.Model.TaskList task)
+        public Fm_Orderinfo_All()
         {
-            this.task = task;
+            //this.task = task;
             InitializeComponent();
 
-            ORDERPACKAGEQTY = task.ORDERPACKAGEQTY;
-            SORTSEQ = task.SORTSEQ;
+            //ORDERPACKAGEQTY = task.ORDERPACKAGEQTY;
+            //SORTSEQ = task.SORTSEQ;
 
-            label_sortnum.Text = "任务号：" + task.SORTNUM;
-            label_regioncode.Text = "车组号：" + task.REGIONCODE;
-            label_sortseq.Text = "户序：" + task.SORTSEQ.ToString();
-            label_customcode.Text = "专卖证号：" + task.CUSTOMERCODE;
-            label_packnum.Text = "总包数：" + task.ORDERPACKAGEQTY.ToString();
-            label_customername.Text = "客户名称：" + task.CUSTOMERNAME;
-            label_allpacksortnum.Text = "总条数：" + task.ALLQTY;
-            label_packageseq.Text = "当前第：" + task.SORTSEQ + "包";
-
+            //label_sortnum.Text = "任务号：" + task.SORTNUM;
+            //label_regioncode.Text = "车组号：" + task.REGIONCODE;
+            //label_sortseq.Text = "户序：" + task.SORTSEQ.ToString();
+            //label_customcode.Text = "专卖证号：" + task.CUSTOMERCODE;
+            //label_packnum.Text = "总包数：" + task.ORDERPACKAGEQTY.ToString();
+            //label_customername.Text = "客户名称：" + task.CUSTOMERNAME;
+            //label_allpacksortnum.Text = "总条数：" + task.ALLQTY;
+            //label_packageseq.Text = "当前第：" + task.SORTSEQ + "包";
+            br = new BillResolution();
             //加载整个订单数据
             data1 = FmOrderInofFun.QueryBySortnum(task.SORTNUM);
 
         }
-        private void Fm_Orderinfo_Load(object sender, EventArgs e)
-        {
-            getvalues(3);
-        }
+         
         /// <summary>
         /// 获取数据绑定 数据控件datagridview
         /// </summary>
@@ -80,25 +76,24 @@ namespace PackageMachine
                     //最后一包
                     SORTSEQ = ORDERPACKAGEQTY;
                     break;
-            } 
+            }
             //获取总包数
             if (SORTSEQ <= ORDERPACKAGEQTY && SORTSEQ > 0)
             {
                 Dgv_datainfo.DataSource = data1.Where(x => x.PACKAGESEQ == SORTSEQ).OrderBy(x => x.CIGNUM).Select(x => new { x.CIGARETTENAME, x.CIGARETTECODE, x.CIGNUM });
-                //Dgv_datainfo.ColumnHeadersVisible = true;
-                //string sss = Dgv_datainfo.Columns.Count.ToString();
-                //Dgv_datainfo.Columns[0].HeaderText = "卷烟名称";
-                //Dgv_datainfo.Columns[0].Width = 300;
-                //Dgv_datainfo.Columns[1].HeaderText = "卷烟编码";
-                //Dgv_datainfo.Columns[1].Width = 105;
-                //Dgv_datainfo.Columns[2].HeaderText = "条烟流水号";
-                //Dgv_datainfo.Columns[2].Width = 105;
+                Dgv_datainfo.ColumnHeadersVisible = true;
+                Dgv_datainfo.Columns[0].HeaderText = "卷烟名称";
+                Dgv_datainfo.Columns[0].Width = 300;
+                Dgv_datainfo.Columns[1].HeaderText = "卷烟编码";
+                Dgv_datainfo.Columns[1].Width = 105;
+                Dgv_datainfo.Columns[2].HeaderText = "条烟流水号";
+                Dgv_datainfo.Columns[2].Width = 105;
             }
         }
-            
-                
 
-       
+
+
+
         int pkIndex = 1;
         public decimal GetLeng
         {
@@ -145,12 +140,16 @@ namespace PackageMachine
 
             }
         }
-        BillResolution br = new BillResolution();
+        BillResolution br = null;
         void BindBillInfo(int packageIndex = 0, int CinNum = 0)
         {
 
-            List<TobaccoInfo> list = br.GetTobaccoInfos(packageIndex, cigrShow1.Height);  
-            cigrShow1.UpdateValue(list); 
+            List<TobaccoInfo> list = br.GetTobaccoInfos(packageIndex, cigrShow1.Height); 
+            cigrShow1.UpdateValue(list);
+            label_sortnum.Text = "任务号："+list.Select(x => x.SortNum).FirstOrDefault().ToString();
+            label_billcode.Text = "订单号："+list.Select(x => x.BillCode).FirstOrDefault();
+            CustomerModle customerModles = br.GetCustomerInfos(list.Select(x => x.BillCode).FirstOrDefault());
+
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -161,6 +160,15 @@ namespace PackageMachine
                 BindBillInfo(pkIndex);
             }
         }
+
+        private void Fm_Orderinfo_All_Load(object sender, EventArgs e)
+        {
+             
+            pkIndex = 1;
+            BindBillInfo(1); 
+             
+        }
     }
 
 }
+

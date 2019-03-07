@@ -169,6 +169,15 @@ namespace Functions.PubFunction
                     return 1;
                 }
             }
+            set
+            {
+                if (config != null)//存入包装机号
+                {
+                    config.AppSettings.Settings["PackageNo"].Value = value.ToString();
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
         }
         /// <summary>
         /// 最大顺序号

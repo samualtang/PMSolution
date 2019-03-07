@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="Model\Bill_Model.cs" />
     <Compile Include="Model\CommoditySize.cs" />
+    <Compile Include="Model\CustomerModle.cs" />
     <Compile Include="Model\OrderInfoCmbox.cs" />
     <Compile Include="Model\TaskList.cs" />
     <Compile Include="Model\TobaccoInfo.cs" />
@@ -80,6 +81,12 @@
       <DependentUpon>EntityData.tt</DependentUpon>
     </Compile>
     <Compile Include="T_PRODUCE_ORDERLINE.cs">
+      <DependentUpon>EntityData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T_PRODUCE_ORDERLINE_H.cs">
+      <DependentUpon>EntityData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T_PRODUCE_ORDER_H.cs">
       <DependentUpon>EntityData.tt</DependentUpon>
     </Compile>
     <Compile Include="T_PRODUCE_POKE.cs">

@@ -132,6 +132,35 @@
           <Property Name="ORDERDATE" Type="date" />
           <Property Name="UNSTATE" Type="varchar2" MaxLength="10" />
         </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ZOOMTEL.T_PRODUCE_ORDER_H”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="T_PRODUCE_ORDER_H">
+          <Key>
+            <PropertyRef Name="BILLCODE" />
+          </Key>
+          <Property Name="BILLCODE" Type="varchar2" MaxLength="80" Nullable="false" />
+          <Property Name="COMPANYCODE" Type="varchar2" MaxLength="10" />
+          <Property Name="COMPANYNAME" Type="varchar2" MaxLength="20" />
+          <Property Name="BATCHCODE" Type="varchar2" MaxLength="12" />
+          <Property Name="SYNSEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="ORDERQUANTITY" Type="number" Precision="8" Scale="2" />
+          <Property Name="ORDERMONEY" Type="number" Precision="8" Scale="2" />
+          <Property Name="CUSTOMERCODE" Type="varchar2" MaxLength="20" />
+          <Property Name="CUSTOMERNAME" Type="varchar2" MaxLength="200" />
+          <Property Name="ADDRESS" Type="varchar2" MaxLength="200" />
+          <Property Name="TELEPHONE" Type="varchar2" MaxLength="20" />
+          <Property Name="PRIORITY" Type="number" Precision="38" Scale="0" />
+          <Property Name="REGIONCODE" Type="varchar2" MaxLength="20" />
+          <Property Name="TASKNUMBERS" Type="varchar2" MaxLength="3000" />
+          <Property Name="TASKBOXIES" Type="varchar2" MaxLength="3000" />
+          <Property Name="STATE" Type="varchar2" MaxLength="10" />
+          <Property Name="DEVSEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="ID" Type="number" Precision="38" Scale="0" />
+          <Property Name="CREATETIME" Type="date" />
+          <Property Name="ORDERDATE" Type="date" />
+          <Property Name="UNSTATE" Type="varchar2" MaxLength="10" />
+          <Property Name="INSERTTIME" Type="date" />
+        </EntityType>
         <EntityType Name="T_PRODUCE_ORDERLINE">
           <Key>
             <PropertyRef Name="BILLCODE" />
@@ -147,6 +176,26 @@
           <Property Name="MOENY" Type="number" Precision="8" Scale="2" />
           <Property Name="MULTIPLE" Type="number" Precision="38" Scale="0" />
           <Property Name="ALLOWSORT" Type="varchar2" MaxLength="4" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ZOOMTEL.T_PRODUCE_ORDERLINE_H”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="T_PRODUCE_ORDERLINE_H">
+          <Key>
+            <PropertyRef Name="BILLCODE" />
+            <PropertyRef Name="LINENUM" />
+            <PropertyRef Name="CIGARETTECODE" />
+          </Key>
+          <Property Name="BILLCODE" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="LINENUM" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CIGARETTECODE" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="CIGARETTENAME" Type="varchar2" MaxLength="30" />
+          <Property Name="QUANTITY" Type="number" Precision="8" Scale="1" />
+          <Property Name="PRICE" Type="number" Precision="8" Scale="2" />
+          <Property Name="UNIT" Type="varchar2" MaxLength="5" />
+          <Property Name="MOENY" Type="number" Precision="8" Scale="2" />
+          <Property Name="MULTIPLE" Type="number" Precision="38" Scale="0" />
+          <Property Name="ALLOWSORT" Type="varchar2" MaxLength="4" />
+          <Property Name="INSERTTIME" Type="date" />
         </EntityType>
         <EntityType Name="T_PRODUCE_POKE">
           <Key>
@@ -424,6 +473,47 @@
           <EntitySet Name="T_UN_TASK" EntityType="Self.T_UN_TASK" Schema="ZOOMTEL" store:Type="Tables" />
           <EntitySet Name="T_UN_TASKLINE" EntityType="Self.T_UN_TASKLINE" Schema="ZOOMTEL" store:Type="Tables" />
           <EntitySet Name="T_WMS_ITEM" EntityType="Self.T_WMS_ITEM" Schema="ZOOMTEL" store:Type="Tables" />
+          <EntitySet Name="T_PRODUCE_ORDER_H" EntityType="Self.T_PRODUCE_ORDER_H" store:Type="Tables" store:Schema="ZOOMTEL">
+            <DefiningQuery>SELECT 
+"T_PRODUCE_ORDER_H"."BILLCODE" AS "BILLCODE", 
+"T_PRODUCE_ORDER_H"."COMPANYCODE" AS "COMPANYCODE", 
+"T_PRODUCE_ORDER_H"."COMPANYNAME" AS "COMPANYNAME", 
+"T_PRODUCE_ORDER_H"."BATCHCODE" AS "BATCHCODE", 
+"T_PRODUCE_ORDER_H"."SYNSEQ" AS "SYNSEQ", 
+"T_PRODUCE_ORDER_H"."ORDERQUANTITY" AS "ORDERQUANTITY", 
+"T_PRODUCE_ORDER_H"."ORDERMONEY" AS "ORDERMONEY", 
+"T_PRODUCE_ORDER_H"."CUSTOMERCODE" AS "CUSTOMERCODE", 
+"T_PRODUCE_ORDER_H"."CUSTOMERNAME" AS "CUSTOMERNAME", 
+"T_PRODUCE_ORDER_H"."ADDRESS" AS "ADDRESS", 
+"T_PRODUCE_ORDER_H"."TELEPHONE" AS "TELEPHONE", 
+"T_PRODUCE_ORDER_H"."PRIORITY" AS "PRIORITY", 
+"T_PRODUCE_ORDER_H"."REGIONCODE" AS "REGIONCODE", 
+"T_PRODUCE_ORDER_H"."TASKNUMBERS" AS "TASKNUMBERS", 
+"T_PRODUCE_ORDER_H"."TASKBOXIES" AS "TASKBOXIES", 
+"T_PRODUCE_ORDER_H"."STATE" AS "STATE", 
+"T_PRODUCE_ORDER_H"."DEVSEQ" AS "DEVSEQ", 
+"T_PRODUCE_ORDER_H"."ID" AS "ID", 
+"T_PRODUCE_ORDER_H"."CREATETIME" AS "CREATETIME", 
+"T_PRODUCE_ORDER_H"."ORDERDATE" AS "ORDERDATE", 
+"T_PRODUCE_ORDER_H"."UNSTATE" AS "UNSTATE", 
+"T_PRODUCE_ORDER_H"."INSERTTIME" AS "INSERTTIME"
+FROM "ZOOMTEL"."T_PRODUCE_ORDER_H" "T_PRODUCE_ORDER_H"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="T_PRODUCE_ORDERLINE_H" EntityType="Self.T_PRODUCE_ORDERLINE_H" store:Type="Tables" store:Schema="ZOOMTEL">
+            <DefiningQuery>SELECT 
+"T_PRODUCE_ORDERLINE_H"."BILLCODE" AS "BILLCODE", 
+"T_PRODUCE_ORDERLINE_H"."LINENUM" AS "LINENUM", 
+"T_PRODUCE_ORDERLINE_H"."CIGARETTECODE" AS "CIGARETTECODE", 
+"T_PRODUCE_ORDERLINE_H"."CIGARETTENAME" AS "CIGARETTENAME", 
+"T_PRODUCE_ORDERLINE_H"."QUANTITY" AS "QUANTITY", 
+"T_PRODUCE_ORDERLINE_H"."PRICE" AS "PRICE", 
+"T_PRODUCE_ORDERLINE_H"."UNIT" AS "UNIT", 
+"T_PRODUCE_ORDERLINE_H"."MOENY" AS "MOENY", 
+"T_PRODUCE_ORDERLINE_H"."MULTIPLE" AS "MULTIPLE", 
+"T_PRODUCE_ORDERLINE_H"."ALLOWSORT" AS "ALLOWSORT", 
+"T_PRODUCE_ORDERLINE_H"."INSERTTIME" AS "INSERTTIME"
+FROM "ZOOMTEL"."T_PRODUCE_ORDERLINE_H" "T_PRODUCE_ORDERLINE_H"</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -745,6 +835,8 @@
           <EntitySet Name="T_WMS_ITEM" EntityType="Model.T_WMS_ITEM" />
           <EntitySet Name="T_PACKAGE_TASK" EntityType="Model.T_PACKAGE_TASK" />
           <EntitySet Name="T_PRODUCE_POKESEQ" EntityType="Model.T_PRODUCE_POKESEQ" />
+          <EntitySet Name="T_PRODUCE_ORDER_H" EntityType="Model.T_PRODUCE_ORDER_H" />
+          <EntitySet Name="T_PRODUCE_ORDERLINE_H" EntityType="Model.T_PRODUCE_ORDERLINE_H" />
         </EntityContainer>
         <EntityType Name="T_WMS_ITEM">
           <Key>
@@ -848,6 +940,51 @@
           <Property Name="BILLCODE" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
           <Property Name="CIGARETTECODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="CIGARETTENAME" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_ORDER_H">
+          <Key>
+            <PropertyRef Name="BILLCODE" />
+          </Key>
+          <Property Name="BILLCODE" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="COMPANYCODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="COMPANYNAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BATCHCODE" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="SYNSEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ORDERQUANTITY" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="ORDERMONEY" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="CUSTOMERCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMERNAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TELEPHONE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PRIORITY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="REGIONCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TASKNUMBERS" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <Property Name="TASKBOXIES" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <Property Name="STATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DEVSEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CREATETIME" Type="DateTime" />
+          <Property Name="ORDERDATE" Type="DateTime" />
+          <Property Name="UNSTATE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="INSERTTIME" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="T_PRODUCE_ORDERLINE_H">
+          <Key>
+            <PropertyRef Name="BILLCODE" />
+            <PropertyRef Name="LINENUM" />
+            <PropertyRef Name="CIGARETTECODE" />
+          </Key>
+          <Property Name="BILLCODE" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LINENUM" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="CIGARETTECODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CIGARETTENAME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="QUANTITY" Type="Decimal" Precision="8" Scale="1" />
+          <Property Name="PRICE" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="UNIT" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="MOENY" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="MULTIPLE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ALLOWSORT" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="INSERTTIME" Type="DateTime" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1267,6 +1404,51 @@
                 <ScalarProperty Name="POKENUM" ColumnName="POKENUM" />
                 <ScalarProperty Name="TROUGHNUM" ColumnName="TROUGHNUM" />
                 <ScalarProperty Name="POKEID" ColumnName="POKEID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_PRODUCE_ORDER_H">
+            <EntityTypeMapping TypeName="Model.T_PRODUCE_ORDER_H">
+              <MappingFragment StoreEntitySet="T_PRODUCE_ORDER_H">
+                <ScalarProperty Name="INSERTTIME" ColumnName="INSERTTIME" />
+                <ScalarProperty Name="UNSTATE" ColumnName="UNSTATE" />
+                <ScalarProperty Name="ORDERDATE" ColumnName="ORDERDATE" />
+                <ScalarProperty Name="CREATETIME" ColumnName="CREATETIME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DEVSEQ" ColumnName="DEVSEQ" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="TASKBOXIES" ColumnName="TASKBOXIES" />
+                <ScalarProperty Name="TASKNUMBERS" ColumnName="TASKNUMBERS" />
+                <ScalarProperty Name="REGIONCODE" ColumnName="REGIONCODE" />
+                <ScalarProperty Name="PRIORITY" ColumnName="PRIORITY" />
+                <ScalarProperty Name="TELEPHONE" ColumnName="TELEPHONE" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="CUSTOMERNAME" ColumnName="CUSTOMERNAME" />
+                <ScalarProperty Name="CUSTOMERCODE" ColumnName="CUSTOMERCODE" />
+                <ScalarProperty Name="ORDERMONEY" ColumnName="ORDERMONEY" />
+                <ScalarProperty Name="ORDERQUANTITY" ColumnName="ORDERQUANTITY" />
+                <ScalarProperty Name="SYNSEQ" ColumnName="SYNSEQ" />
+                <ScalarProperty Name="BATCHCODE" ColumnName="BATCHCODE" />
+                <ScalarProperty Name="COMPANYNAME" ColumnName="COMPANYNAME" />
+                <ScalarProperty Name="COMPANYCODE" ColumnName="COMPANYCODE" />
+                <ScalarProperty Name="BILLCODE" ColumnName="BILLCODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_PRODUCE_ORDERLINE_H">
+            <EntityTypeMapping TypeName="Model.T_PRODUCE_ORDERLINE_H">
+              <MappingFragment StoreEntitySet="T_PRODUCE_ORDERLINE_H">
+                <ScalarProperty Name="INSERTTIME" ColumnName="INSERTTIME" />
+                <ScalarProperty Name="ALLOWSORT" ColumnName="ALLOWSORT" />
+                <ScalarProperty Name="MULTIPLE" ColumnName="MULTIPLE" />
+                <ScalarProperty Name="MOENY" ColumnName="MOENY" />
+                <ScalarProperty Name="UNIT" ColumnName="UNIT" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="QUANTITY" ColumnName="QUANTITY" />
+                <ScalarProperty Name="CIGARETTENAME" ColumnName="CIGARETTENAME" />
+                <ScalarProperty Name="CIGARETTECODE" ColumnName="CIGARETTECODE" />
+                <ScalarProperty Name="LINENUM" ColumnName="LINENUM" />
+                <ScalarProperty Name="BILLCODE" ColumnName="BILLCODE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

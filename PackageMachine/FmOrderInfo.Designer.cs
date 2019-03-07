@@ -94,7 +94,7 @@
             this.comboBox_QueryCriteria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_QueryCriteria.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.comboBox_QueryCriteria.FormattingEnabled = true;
-            this.comboBox_QueryCriteria.Location = new System.Drawing.Point(23, 36);
+            this.comboBox_QueryCriteria.Location = new System.Drawing.Point(102, 36);
             this.comboBox_QueryCriteria.Name = "comboBox_QueryCriteria";
             this.comboBox_QueryCriteria.Size = new System.Drawing.Size(121, 25);
             this.comboBox_QueryCriteria.TabIndex = 4;
@@ -283,7 +283,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox_efficiency);
             this.Controls.Add(this.groupBox_order);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FmOrderInfo";
             this.Text = "FmOrderInfo";
             this.groupBox_order.ResumeLayout(false);

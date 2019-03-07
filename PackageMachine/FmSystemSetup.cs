@@ -24,5 +24,18 @@ namespace PackageMachine
         { 
             
         }
+
+        private void FmSystemSetup_Load(object sender, EventArgs e)
+        {
+            textBox_packageno.Text = Functions.PubFunction.GlobalPara.PackageNo.ToString();
+
+
+        }
+
+        private void btn_updateLinkString_Click(object sender, EventArgs e)
+        {
+            Functions.PubFunction.GlobalPara.PackageNo = Convert.ToInt32(textBox_packageno.Text);
+
+        }
     }
 }

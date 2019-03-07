@@ -29,22 +29,24 @@
         private void InitializeComponent()
         {
             this.gbox_DB = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btn_updateLinkString = new System.Windows.Forms.Button();
+            this.btn_linktest = new System.Windows.Forms.Button();
             this.textBox_password = new System.Windows.Forms.TextBox();
             this.label_password = new System.Windows.Forms.Label();
             this.textBox_username = new System.Windows.Forms.TextBox();
             this.textBox_DBName = new System.Windows.Forms.TextBox();
             this.label_username = new System.Windows.Forms.Label();
             this.label_DBName = new System.Windows.Forms.Label();
-            this.btn_linktest = new System.Windows.Forms.Button();
+            this.btn_updateLinkString = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox_packageno = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.gbox_DB.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbox_DB
             // 
             this.gbox_DB.Controls.Add(this.btn_linktest);
-            this.gbox_DB.Controls.Add(this.btn_updateLinkString);
             this.gbox_DB.Controls.Add(this.textBox_password);
             this.gbox_DB.Controls.Add(this.label_password);
             this.gbox_DB.Controls.Add(this.textBox_username);
@@ -59,26 +61,17 @@
             this.gbox_DB.TabStop = false;
             this.gbox_DB.Text = "数据库设置";
             // 
-            // groupBox1
+            // btn_linktest
             // 
-            this.groupBox1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox1.Location = new System.Drawing.Point(346, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(395, 400);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "机械参数设置";
-            // 
-            // btn_updateLinkString
-            // 
-            this.btn_updateLinkString.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_updateLinkString.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_updateLinkString.Location = new System.Drawing.Point(44, 181);
-            this.btn_updateLinkString.Name = "btn_updateLinkString";
-            this.btn_updateLinkString.Size = new System.Drawing.Size(75, 23);
-            this.btn_updateLinkString.TabIndex = 7;
-            this.btn_updateLinkString.Text = "修  改";
-            this.btn_updateLinkString.UseVisualStyleBackColor = true;
+            this.btn_linktest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_linktest.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_linktest.Location = new System.Drawing.Point(197, 181);
+            this.btn_linktest.Name = "btn_linktest";
+            this.btn_linktest.Size = new System.Drawing.Size(75, 23);
+            this.btn_linktest.TabIndex = 8;
+            this.btn_linktest.Text = "测试连接";
+            this.btn_linktest.UseVisualStyleBackColor = true;
+            this.btn_linktest.Click += new System.EventHandler(this.btn_linktest_Click);
             // 
             // textBox_password
             // 
@@ -135,17 +128,47 @@
             this.label_DBName.TabIndex = 2;
             this.label_DBName.Text = "数据库名称：";
             // 
-            // btn_linktest
+            // btn_updateLinkString
             // 
-            this.btn_linktest.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_linktest.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_linktest.Location = new System.Drawing.Point(197, 181);
-            this.btn_linktest.Name = "btn_linktest";
-            this.btn_linktest.Size = new System.Drawing.Size(75, 23);
-            this.btn_linktest.TabIndex = 8;
-            this.btn_linktest.Text = "测试连接";
-            this.btn_linktest.UseVisualStyleBackColor = true;
-            this.btn_linktest.Click += new System.EventHandler(this.btn_linktest_Click);
+            this.btn_updateLinkString.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_updateLinkString.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_updateLinkString.Location = new System.Drawing.Point(898, 12);
+            this.btn_updateLinkString.Name = "btn_updateLinkString";
+            this.btn_updateLinkString.Size = new System.Drawing.Size(123, 48);
+            this.btn_updateLinkString.TabIndex = 7;
+            this.btn_updateLinkString.Text = "保存全部配置";
+            this.btn_updateLinkString.UseVisualStyleBackColor = true;
+            this.btn_updateLinkString.Click += new System.EventHandler(this.btn_updateLinkString_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.textBox_packageno);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox1.Location = new System.Drawing.Point(346, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(326, 232);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "其他参数设置";
+            // 
+            // textBox_packageno
+            // 
+            this.textBox_packageno.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_packageno.Location = new System.Drawing.Point(102, 37);
+            this.textBox_packageno.Name = "textBox_packageno";
+            this.textBox_packageno.Size = new System.Drawing.Size(193, 23);
+            this.textBox_packageno.TabIndex = 10;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(30, 40);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(68, 17);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "包装机号：";
             // 
             // FmSystemSetup
             // 
@@ -153,11 +176,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1033, 488);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.btn_updateLinkString);
             this.Controls.Add(this.gbox_DB);
             this.Name = "FmSystemSetup";
-            this.Text = "FmSystemSetup";
+            this.Text = "系统设置";
+            this.Load += new System.EventHandler(this.FmSystemSetup_Load);
             this.gbox_DB.ResumeLayout(false);
             this.gbox_DB.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -174,5 +201,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btn_updateLinkString;
         private System.Windows.Forms.Button btn_linktest;
+        private System.Windows.Forms.TextBox textBox_packageno;
+        private System.Windows.Forms.Label label1;
     }
 }
