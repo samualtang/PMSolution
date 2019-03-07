@@ -33,10 +33,15 @@ namespace EFModle.Model
         /// </summary>
         public decimal SortNum { get; set; }
 
+       
         /// <summary>
         /// 卷烟类型
         /// </summary>
         public string CigType { get; set; }
+        /// <summary>
+        /// 双抓
+        /// </summary>
+        public string DoubleTake { get; set; }
         /// <summary>
         /// 速度
         /// </summary>
@@ -70,6 +75,10 @@ namespace EFModle.Model
         /// 坐标X
         /// </summary>
         public float PostionX { get; set; }
+        /// <summary>
+        /// 常规烟层数
+        /// </summary>
+        public decimal NormalLayerNum { get; set; }
         /// <summary>
         /// 坐标Y
         /// </summary>

@@ -18,14 +18,14 @@ namespace PackageMachine
         } 
         private void button1_Click(object sender, EventArgs e)
         {
-            int a = 0;
-             a++;
+           
+            
             //string b =  textBox1.Text ;
             //bool result = true;
              
             //result = (b == "1");
             
-            MessageBox.Show(a.ToString());
+            MessageBox.Show("");
             
             ////Functions.BLL.StackTypeCalculation.GetInfos();
             //int a = b % 36;

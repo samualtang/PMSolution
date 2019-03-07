@@ -30,10 +30,10 @@ namespace PackageMachine
             this.p_Main.Location = new Point(0, 0);
             this.p_Main.Margin = new Padding(4);
             this.p_Main.Name = "p_Main";
-            this.p_Main.Size = new Size(540, 489);
+            this.p_Main.Size = new Size(W, H);
             this.p_Main.TabIndex = 0; 
             this.lab_Line.AutoSize = true;
-            this.lab_Line.Location = new Point(0, 208);
+            this.lab_Line.Location = new Point(0, 300); 
             this.lab_Line.Margin = new Padding(4, 0, 4, 0);
             this.lab_Line.Name = "lab_Line";
             this.lab_Line.Size = new Size(1029, 15);
@@ -50,8 +50,7 @@ namespace PackageMachine
             base.Resize += this.TobaccoShow_Resize;
             this.p_Main.ResumeLayout(false);
             this.p_Main.PerformLayout();
-            base.ResumeLayout(false);
-          
+            base.ResumeLayout(false); 
             ShowLoad();
         }
 
@@ -85,41 +84,66 @@ namespace PackageMachine
                 {
                     buttonList[i].Visible = false;
                 }
-                Font font = this.buttonList[0].Font  ; 
-                //float num = 530 * 200 / (float)( Width *  Height); 
+                Font font = this.buttonList[0].Font  ;  
                 int ListIndex = 0;
                 int TabeltIndex = 0;
-                
-                TobaccoInfo detail;
-                foreach (var item in tbinfo)
+                int colorIndex = 0;
+                int normalHeight = 48;
+                int normalWidth = 90;
+                foreach (var detail in tbinfo)
                 {
                     if(ListIndex >= 36)
                     {
-                        FmMain.GetTaskInfo("包内烟数大于36！");
+                        //FmMain.GetTaskInfo("包内烟数大于36！");
                         break;
-                    }
-                    detail = item;
-                    this.buttonList[ListIndex].Text = "123";
-                    this.buttonList[ListIndex].Visible = true;
-                    this.buttonList[ListIndex].BackgroundImage = null;
-                    this.buttonList[ListIndex].ForeColor = Color.Black;
-                    this.buttonList[ListIndex].Font = font;
-                    this.buttonList[ListIndex].TabIndex = TabeltIndex;
-                    this.buttonList[ListIndex].BackColor = ((detail.Speed == 0) ? Color.White : this.colorList[detail.TobaccoState].Color);
-                    this.buttonList[ListIndex].Height = (int) detail.TobaccoHeight  ;
-                    this.buttonList[ListIndex].Width = (int) detail.TobaccoWidth  ;
-                    //this.buttonList[ListIndex].Top = this.p_Main.Height - (int)(detail.PositionHeightLast * (1f + num)) - 4;
-                    //this.buttonList[ListIndex].Left = this.p_Main.Width - (int)(detail.PositionWidthLast * (1f + num)) - 4;  
-                    buttonList[ListIndex].Location = new Point((int)detail.PostionX, (int)detail.PostionY);
-                    this.buttonList[ListIndex].Text = string.Concat(new string[]
+                    } 
+                    buttonList[ListIndex].Text = "123";
+                    buttonList[ListIndex].Visible = true;
+                    buttonList[ListIndex].BackgroundImage = null;
+                    buttonList[ListIndex].ForeColor = Color.Black;
+                    buttonList[ListIndex].Font = font;
+                    buttonList[ListIndex].TabIndex = TabeltIndex;
+                    buttonList[ListIndex].BackColor = Color.LightGreen;// ((detail.Speed == 0) ? Color.White : this.colorList[detail.TobaccoState].Color);
+                    buttonList[ListIndex].Height = (int) detail.TobaccoHeight  ;
+                    buttonList[ListIndex].Width = (int) detail.TobaccoWidth  ;
+                    buttonList[ListIndex].AccessibleDescription = detail.CigType;
+                    buttonList[ListIndex].Text = string.Concat(new string[]
                                 {
                                     detail.GlobalIndex.ToString(),
                                     ".",
                                     detail.OrderIndex.ToString(),
                                     ".",
                                     detail.TobaccoName,
-                                }); 
-                    
+                                });
+                    int x = 0;
+                    int y = 0;
+                    if (detail.CigType == "1")//常规烟
+                    { 
+                         
+                    }
+                    else if(detail.CigType =="2")//异形烟
+                    {
+                        if (detail.DoubleTake == "1")//是双抓
+                        {
+                          
+                            if (colorIndex == 1)//双抓第二条的时候
+                            {
+                                buttonList[ListIndex].BackColor = Color.Gray;
+                                buttonList[ListIndex].Location = new Point((int)detail.PostionX + (int)(detail.TobaccoWidth / 2 )   , (int)detail.PostionY );
+                                colorIndex = 0;
+                            }
+                            else
+                            {
+                                buttonList[ListIndex].Location = new Point((int)detail.PostionX - (int)(detail.TobaccoWidth / 2), (int)detail.PostionY );
+                                buttonList[ListIndex].BackColor = Color.LightGreen;
+                                colorIndex++;
+                            }
+                        }
+                        else
+                        {
+                            buttonList[ListIndex].Location = new Point((int)detail.PostionX  , (int)detail.PostionY );
+                        }
+                    } 
                     ListIndex++;
                     TabeltIndex++; 
                 } 
@@ -127,8 +151,21 @@ namespace PackageMachine
             int cigGap = GlobalPara.CigGap;//条烟之间间隙
             for (int i = 0; i < tbinfo.Count; i++)//每条烟的位置坐标都减去自身的宽度
             {
-                int X = (int)(buttonList[i].Location.X - Math.Ceiling((tbinfo[i].TobaccoWidth + cigGap) / 2));
-                buttonList[i].Location = new Point(X + cigGap, buttonList[i].Location.Y);
+                if( i >= buttonList.Count)
+                {
+                    FmInfo.GetTaskInfo("包内烟数大于36！");
+                    break;
+                } 
+                if(buttonList[i].AccessibleDescription == "2")
+                {
+                    int X = (int)(buttonList[i].Location.X - Math.Ceiling((tbinfo[i].TobaccoWidth + cigGap) / 2));
+                    buttonList[i].Location = new Point(X + cigGap, buttonList[i].Location.Y - cigGap);
+                } 
+            }
+
+            foreach (var item in tbinfo.Where(a=> a.CigType =="1").ToList())//对合包的车常规烟进行处理
+            {
+
             }
 
         }

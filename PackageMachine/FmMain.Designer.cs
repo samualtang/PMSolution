@@ -45,8 +45,7 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
             this.gbSysDate = new System.Windows.Forms.GroupBox();
-            this.gbInfo = new System.Windows.Forms.GroupBox();
-            this.list_date = new System.Windows.Forms.ListBox();
+            this.lblServerInfo = new System.Windows.Forms.Label();
             this.mune = new System.Windows.Forms.Panel();
             this.pbSize = new System.Windows.Forms.PictureBox();
             this.pbConnSet = new System.Windows.Forms.PictureBox();
@@ -57,11 +56,9 @@
             this.pbStop = new System.Windows.Forms.PictureBox();
             this.pbStart = new System.Windows.Forms.PictureBox();
             this.pbTitle = new System.Windows.Forms.PictureBox();
-            this.lblServerInfo = new System.Windows.Forms.Label();
             this.groupBox4.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.gbSysDate.SuspendLayout();
-            this.gbInfo.SuspendLayout();
             this.mune.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbConnSet)).BeginInit();
@@ -252,39 +249,21 @@
             this.gbSysDate.Controls.Add(this.lblServerInfo);
             this.gbSysDate.Controls.Add(this.label10);
             this.gbSysDate.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gbSysDate.Location = new System.Drawing.Point(0, 711);
+            this.gbSysDate.Location = new System.Drawing.Point(0, 703);
             this.gbSysDate.Name = "gbSysDate";
-            this.gbSysDate.Size = new System.Drawing.Size(1370, 38);
+            this.gbSysDate.Size = new System.Drawing.Size(1362, 38);
             this.gbSysDate.TabIndex = 76;
             this.gbSysDate.TabStop = false;
             this.gbSysDate.Text = "系统信息：";
             // 
-            // gbInfo
+            // lblServerInfo
             // 
-            this.gbInfo.BackgroundImage = global::PackageMachine.Properties.Resources.菜单背景;
-            this.gbInfo.Controls.Add(this.list_date);
-            this.gbInfo.Dock = System.Windows.Forms.DockStyle.Right;
-            this.gbInfo.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.gbInfo.Location = new System.Drawing.Point(1186, 80);
-            this.gbInfo.Name = "gbInfo";
-            this.gbInfo.Size = new System.Drawing.Size(184, 631);
-            this.gbInfo.TabIndex = 83;
-            this.gbInfo.TabStop = false;
-            this.gbInfo.Text = "任务信息";
-            // 
-            // list_date
-            // 
-            this.list_date.BackColor = System.Drawing.SystemColors.Control;
-            this.list_date.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.list_date.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.list_date.FormattingEnabled = true;
-            this.list_date.ItemHeight = 17;
-            this.list_date.Items.AddRange(new object[] {
-            "数据库连接成功。。。"});
-            this.list_date.Location = new System.Drawing.Point(3, 19);
-            this.list_date.Name = "list_date";
-            this.list_date.Size = new System.Drawing.Size(178, 609);
-            this.list_date.TabIndex = 0;
+            this.lblServerInfo.AutoSize = true;
+            this.lblServerInfo.Location = new System.Drawing.Point(36, 17);
+            this.lblServerInfo.Name = "lblServerInfo";
+            this.lblServerInfo.Size = new System.Drawing.Size(53, 12);
+            this.lblServerInfo.TabIndex = 1;
+            this.lblServerInfo.Text = "系统信息";
             // 
             // mune
             // 
@@ -297,7 +276,7 @@
             this.mune.Dock = System.Windows.Forms.DockStyle.Left;
             this.mune.Location = new System.Drawing.Point(0, 80);
             this.mune.Name = "mune";
-            this.mune.Size = new System.Drawing.Size(134, 631);
+            this.mune.Size = new System.Drawing.Size(134, 623);
             this.mune.TabIndex = 79;
             // 
             // pbSize
@@ -370,7 +349,7 @@
             this.pbmaintitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.pbmaintitle.Location = new System.Drawing.Point(0, 0);
             this.pbmaintitle.Name = "pbmaintitle";
-            this.pbmaintitle.Size = new System.Drawing.Size(1370, 80);
+            this.pbmaintitle.Size = new System.Drawing.Size(1362, 80);
             this.pbmaintitle.TabIndex = 77;
             // 
             // pbExit
@@ -386,6 +365,7 @@
             this.pbExit.Size = new System.Drawing.Size(114, 78);
             this.pbExit.TabIndex = 8;
             this.pbExit.TabStop = false;
+            this.pbExit.Click += new System.EventHandler(this.pbExit_Click);
             // 
             // pbStop
             // 
@@ -399,6 +379,7 @@
             this.pbStop.Size = new System.Drawing.Size(120, 78);
             this.pbStop.TabIndex = 7;
             this.pbStop.TabStop = false;
+            this.pbStop.Click += new System.EventHandler(this.pbStop_Click);
             // 
             // pbStart
             // 
@@ -425,21 +406,11 @@
             this.pbTitle.TabIndex = 3;
             this.pbTitle.TabStop = false;
             // 
-            // lblServerInfo
-            // 
-            this.lblServerInfo.AutoSize = true;
-            this.lblServerInfo.Location = new System.Drawing.Point(36, 17);
-            this.lblServerInfo.Name = "lblServerInfo";
-            this.lblServerInfo.Size = new System.Drawing.Size(53, 12);
-            this.lblServerInfo.TabIndex = 1;
-            this.lblServerInfo.Text = "系统信息";
-            // 
             // FmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1370, 749);
-            this.Controls.Add(this.gbInfo);
+            this.ClientSize = new System.Drawing.Size(1362, 741);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.mune);
             this.Controls.Add(this.pbmaintitle);
@@ -453,7 +424,6 @@
             this.panelMain.ResumeLayout(false);
             this.gbSysDate.ResumeLayout(false);
             this.gbSysDate.PerformLayout();
-            this.gbInfo.ResumeLayout(false);
             this.mune.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbConnSet)).EndInit();
@@ -495,8 +465,6 @@
         private System.Windows.Forms.PictureBox pbStart;
         private System.Windows.Forms.PictureBox pbTitle;
         private System.Windows.Forms.GroupBox gbSysDate;
-        private System.Windows.Forms.GroupBox gbInfo;
-        private System.Windows.Forms.ListBox list_date;
         private System.Windows.Forms.Label lblServerInfo;
     }
 }

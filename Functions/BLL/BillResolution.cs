@@ -43,7 +43,7 @@ namespace Functions.BLL
             List<TobaccoInfo> list = new List<TobaccoInfo>(); 
             using (Entities ne = new Entities())
             {
-                var allInfo = (from item in ne.T_PACKAGE_TASK where item.ALLPACKAGESEQ == PackageIndex && item .PACKAGENO == packageno orderby item.CIGNUM select item).ToList();
+                var allInfo = (from item in ne.T_PACKAGE_TASK where item.ALLPACKAGESEQ == PackageIndex && item .PACKAGENO == packageno orderby item.CIGNUM select item).ToList() ;
 
                 foreach (var item in allInfo)
                 {
@@ -55,12 +55,19 @@ namespace Functions.BLL
                         TobaccoHeight = (float)Convert.ToDouble(item.CIGHIGH),
                         GlobalIndex = Convert.ToInt32(item.ALLPACKAGESEQ ?? 0),
                         CigNum = item.CIGNUM ?? 0,
+                        DoubleTake = item.DOUBLETAKE  ,
+                        SortNum = item.SORTNUM ?? 0,
+                       
                         Speed = 1,
                         OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0),
                         CigType = item.CIGTYPE,//卷烟类型
                         PostionX = (float)Convert.ToDouble(Math.Ceiling(item.CIGWIDTHX ?? 0)),//坐标X
-                        PostionY = Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0)//坐标Y 
+                        PostionY = Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0)//坐标Y  
                     };
+                    if(item .CIGTYPE == "1")//常规烟 
+                    {
+
+                    }
                     list.Add(info);
                 }
             
@@ -76,7 +83,7 @@ namespace Functions.BLL
             using(Entities en = new Entities())
             {
                 var uninfo = (from item in en.T_PACKAGE_TASK where item.CIGNUM > CigNum && item.PACKAGENO == packageno
-                              orderby item.CIGNUM select item).ToList();
+                              orderby item.CIGNUM select item).ToList().Take(25);
                 foreach (var item in uninfo)
                 {
                     TobaccoInfo info = new TobaccoInfo

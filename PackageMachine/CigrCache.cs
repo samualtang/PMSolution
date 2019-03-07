@@ -157,7 +157,7 @@ namespace PackageMachine
             if (this.TobaccoList != null && this.TobaccoList.Count != 0)
             { 
                 int listIndex = 0;
-                int Tishwidth = base.Width; 
+                int Tishwidth =0; 
                 foreach (TobaccoInfo tobaccoInfo in this.TobaccoList)
                 { 
                     for (int j = 0; j < 1; j++)
@@ -172,11 +172,16 @@ namespace PackageMachine
                         this.buttonList[listIndex].ForeColor = Color.Black;
                         this.buttonList[listIndex].Font = font;
                         this.buttonList[listIndex].TabIndex = j;
-                        buttonList[listIndex].Width = (int)tobaccoInfo.TobaccoWidth;
-                        buttonList[listIndex].Height = (int)tobaccoInfo.TobaccoHeight;
-                        this.buttonList[listIndex].Top = this.p_Main.Height - this.buttonList[listIndex].Height;
-                        Tishwidth -= this.buttonList[listIndex].Width;
-                        this.buttonList[listIndex].Left = Tishwidth;
+                        buttonList[listIndex].BackColor = Color.WhiteSmoke;
+                        buttonList[listIndex].Width = (int)tobaccoInfo.TobaccoWidth;// + (int)(tobaccoInfo.TobaccoWidth*0.2);
+                        buttonList[listIndex].Height = (int)tobaccoInfo.TobaccoHeight;// + (int)(tobaccoInfo.TobaccoHeight *0.2);
+                        this.buttonList[listIndex].Left =  base.Width/2 -buttonList[listIndex].Width/2;
+                        Tishwidth += this.buttonList[listIndex].Height;
+                        this.buttonList[listIndex].Top = Tishwidth;
+                        if(tobaccoInfo.OrderIndex == 1)
+                        {
+                            this.buttonList[listIndex].BackColor = Color.LightGreen; 
+                        }
                         listIndex++;
                     } 
                 }

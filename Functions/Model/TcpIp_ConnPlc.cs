@@ -44,6 +44,7 @@ namespace Functions.Model
                 plc_Socket = new TcpClient();
                 plc_Socket.Connect(IPAddress.Parse(Plc_IP), int.Parse(Tcp_Port));
                 myNetworkStream = plc_Socket.GetStream();
+                
             }
             catch (SocketException ex)
             {

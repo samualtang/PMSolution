@@ -1,17 +1,12 @@
 ﻿using EFModle.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using EFModle;
 using Functions.BLL;
 using General;
-using Functions;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PackageMachine
 {
@@ -25,8 +20,10 @@ namespace PackageMachine
             cs.H = 450;
             cs.W = 540;
             Hrs += BindBillInfo;
+            ftd = new FmTaskDetail();
+            handle += updateListBox;
             ft.Show();
-            AutoScroll = true; 
+           // AutoScroll = true; 
         }
         //AutoSizeFormClass asfc = new AutoSizeFormClass();
         private void FmInfo_Load(object sender, EventArgs e)
@@ -49,25 +46,37 @@ namespace PackageMachine
         private void FmInfo_Resize(object sender, EventArgs e)
         {
             CompSizeChanged();
-            cs.Location = new Point(this.Width - cs.Width - 4, Height - cs.Height-4);
+            cce1.Height = Convert.ToInt32(Width * 0.45);
             //cs2.Location = new Point(   4, Height - cs2.Height - 4); 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(textBox1.Text))
+            {
+                return;
+            }
+            pkIndex = Convert.ToInt32(textBox1.Text);
+           BindBillInfo(packageIndex: pkIndex);
+           
             //BindBillInfo(x:Convert.ToInt32(textBox1.Text),y: Convert.ToInt32(textBox2.Text));
-          
+
         }
         void BindBillInfo(int packageIndex = 0 ,int CinNum = 0  )
         {
            
             List<TobaccoInfo> list = br.GetTobaccoInfos( packageIndex,cs.Height );
-            List<TobaccoInfo> UN_list = br.GetUnNormallSort( CinNum);
+            if( list!= null && list .Count > 0)
+            {
 
+          
+            List<TobaccoInfo> UN_list = br.GetUnNormallSort( CinNum);
+            lblcutcode.Text = "任务流水号：" + list.FirstOrDefault().SortNum;
              cce1.UpdateValue(UN_list);
             cs.UpdateValue(list);
-            
+    
             LabBind();
+            }
 
 
         }
@@ -93,17 +102,72 @@ namespace PackageMachine
               
             }
         }
+
+        #region   任务的信息 在主窗体显示
+        FmTaskDetail ftd;
+        delegate void HandleUpDate(string info);
+        private delegate void HandleDelegate(string strshow);
+        static HandleUpDate handle;
+        public static void GetTaskInfo(string Info)
+        {
+
+            // FmTaskDetail.GetTaskInfo_Detail(Info);
+            handle(Info);
+        }
+        //void upDateList(string info)
+        //{
+
+        //    updateListBox(info);
+        //}
+
+        public void updateListBox(string info)
+        {
+            String time = DateTime.Now.ToLongTimeString();
+
+            if (this.list_date.InvokeRequired)
+            {
+
+                this.list_date.Invoke(new HandleDelegate(updateListBox), info);
+            }
+            else
+            {
+                ftd.updateListBox(info);
+                this.list_date.Items.Insert(0, time + "    " + info);
+
+            }
+        }
+        #endregion
         void CompSizeChanged()
         {
-            //float width =  Width;
-            //float height = Height;
+            float width =  Width;
+            float height = Height;
         
             //panelInfo.Size = new Size(Width - 20, Convert.ToInt32(Height * 0.15) );
-            //cs.Size = new Size(Convert.ToInt32(Width * ((float)cs.Height / width)), Convert.ToInt32( Height * ((float)cs.Height / height )));
 
+            int widthToCs = Convert.ToInt32(Width * (0.5));
+            if( widthToCs > 500)
+            {
+                cs.Size = new Size(520, Convert.ToInt32(Height * 0.65));
+            }
+            else
+            {
+                cs.Size = new Size(widthToCs, Convert.ToInt32(Height * 0.65));
+            }
+            if(cs.Created)
+            {
+                BindBillInfo(packageIndex: pkIndex);
+            }
+            panel2.Height = (Height - panelInfo.Height - cs.Height) -20;
+            panel3.Width = (Width - panel1.Width - cs.Width) - 20;
+            gbInfo.Width = panel1.Width;
+            //cce1.Size = new Size(Convert.ToInt32(Width * 0.1), Convert.ToInt32(Height * 0.80));
+            //cce1.Top = panelInfo.Height + 40; 
+            //lblCache.Top = panelInfo.Height+20;
+            cs.Location = new Point(this.Width - cs.Width - 4 - panel1.Width, Height - cs.Height - 4);
+            
             //cs2.Size = new Size(Convert.ToInt32(Width * ((float)cs2.Height / width)), Convert.ToInt32(Height * ((float)cs2.Height / height)));
             //btnLast.Location = new Point(cs.Location.X, cs.Location.Y + btnLast.Height + 10);
-            //btnnext.Location = new Point(Width - cs.Location.X + btnLast.Width, Height - cs.Location.Y);
+            //btnnext.Location = new Point(Width - cs.Location.X + btnLast.Width, Height - cs.Location.Y); 
         }
         private void btnnext_Click(object sender, EventArgs e)
         {
@@ -144,6 +208,7 @@ namespace PackageMachine
 
         private void FmInfo_SizeChanged(object sender, EventArgs e)
         {
+         
             //asfc.controlAutoSize(this);
         }
         /// <summary>
@@ -159,6 +224,14 @@ namespace PackageMachine
         }
         delegate void HandeleRefrshShow(int p, int c);
         static  HandeleRefrshShow Hrs;
- 
+
+        private void list_date_Click(object sender, EventArgs e)
+        {
+            if(ftd != null)
+            {
+                ftd.StartPosition = FormStartPosition.CenterScreen;
+                ftd.Show();
+            }
+        }
     }
 }
