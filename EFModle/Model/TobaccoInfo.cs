@@ -16,6 +16,11 @@ namespace EFModle.Model
         /// 包装机全局索引  整体包序
         /// </summary>
         public int GlobalIndex { get; set; }
+
+        /// <summary>
+        /// 订单编码
+        /// </summary>
+        public string BillCode { get; set; }
         /// <summary>
         /// 订单条烟索引   订单内包序
         /// </summary>
