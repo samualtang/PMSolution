@@ -40,5 +40,8 @@ namespace EFModle
         public string CIGTYPE { get; set; }
         public string DOUBLETAKE { get; set; }
         public Nullable<decimal> STATE { get; set; }
+        public Nullable<System.DateTime> ORDERDATE { get; set; }
+        public Nullable<decimal> PUSHSPACE { get; set; }
+        public Nullable<decimal> UNIONPACKAGESTATE { get; set; }
     }
 }

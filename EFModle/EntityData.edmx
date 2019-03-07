@@ -105,6 +105,9 @@
           <Property Name="CIGTYPE" Type="nvarchar2" MaxLength="10" />
           <Property Name="DOUBLETAKE" Type="varchar2" MaxLength="100" />
           <Property Name="STATE" Type="number" Precision="38" Scale="0" />
+          <Property Name="ORDERDATE" Type="date" />
+          <Property Name="PUSHSPACE" Type="number" Precision="38" Scale="0" />
+          <Property Name="UNIONPACKAGESTATE" Type="number" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="T_PRODUCE_ORDER">
           <Key>
@@ -921,6 +924,9 @@ FROM "ZOOMTEL"."T_PRODUCE_ORDERLINE_H" "T_PRODUCE_ORDERLINE_H"</DefiningQuery>
           <Property Name="CIGTYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="DOUBLETAKE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="STATE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ORDERDATE" Type="DateTime" />
+          <Property Name="PUSHSPACE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="UNIONPACKAGESTATE" Type="Decimal" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="T_PRODUCE_POKESEQ">
           <Key>
@@ -1358,6 +1364,9 @@ FROM "ZOOMTEL"."T_PRODUCE_ORDERLINE_H" "T_PRODUCE_ORDERLINE_H"</DefiningQuery>
           <EntitySetMapping Name="T_PACKAGE_TASK">
             <EntityTypeMapping TypeName="Model.T_PACKAGE_TASK">
               <MappingFragment StoreEntitySet="T_PACKAGE_TASK">
+                <ScalarProperty Name="UNIONPACKAGESTATE" ColumnName="UNIONPACKAGESTATE" />
+                <ScalarProperty Name="PUSHSPACE" ColumnName="PUSHSPACE" />
+                <ScalarProperty Name="ORDERDATE" ColumnName="ORDERDATE" />
                 <ScalarProperty Name="STATE" ColumnName="STATE" />
                 <ScalarProperty Name="DOUBLETAKE" ColumnName="DOUBLETAKE" />
                 <ScalarProperty Name="CIGTYPE" ColumnName="CIGTYPE" />
