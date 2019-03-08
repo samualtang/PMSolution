@@ -461,6 +461,40 @@
           <Property Name="IHEIGHT" Type="number" Precision="38" Scale="0" />
           <Property Name="DOUBLETAKE" Type="varchar2" MaxLength="100" />
         </EntityType>
+        <!--生成过程中发现错误:
+警告 6013: 表/视图“ZOOMTEL.V_PRODUCE_PACKAGEINFO”未定义主键，并且无法推断有效的主键。已排除了此表/视图。若要使用实体，将需要检查您的架构、添加正确的键并取消对实体的注释。
+        <EntityType Name="V_PRODUCE_PACKAGEINFO">
+          <Property Name="TASKNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="EXPORT" Type="number" Precision="38" Scale="0" />
+          <Property Name="REGIONCODE" Type="varchar2" MaxLength="20" />
+          <Property Name="REGIONNAME" Type="varchar2" MaxLength="30" />
+          <Property Name="CONTACTADDRESS" Type="nvarchar2" MaxLength="300" />
+          <Property Name="SORTDATE" Type="varchar2" MaxLength="16" />
+          <Property Name="ORDERDATE" Type="date" />
+          <Property Name="PRIORITY" Type="number" Precision="8" Scale="0" />
+          <Property Name="CUSTOMERNAME" Type="nvarchar2" MaxLength="200" />
+          <Property Name="CUSTOMERCODE" Type="varchar2" MaxLength="20" />
+          <Property Name="BILLCODE" Type="varchar2" MaxLength="80" />
+          <Property Name="CIGARETTECODE" Type="varchar2" MaxLength="20" />
+          <Property Name="CIGARETTENAME" Type="varchar2" MaxLength="180" />
+          <Property Name="QUANTITY" Type="number" Precision="38" Scale="0" />
+          <Property Name="ALLOWSORT" Type="char" MaxLength="4" />
+          <Property Name="SORTSEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="MACHINESEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="TROUGHNUM" Type="varchar2" MaxLength="30" />
+          <Property Name="ORDERCOUNT" Type="number" Precision="38" Scale="0" />
+          <Property Name="SEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="URL" Type="varchar2" MaxLength="4000" />
+          <Property Name="SENDSEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="SENDTASKNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="POKEID" Type="number" Precision="38" Scale="0" />
+          <Property Name="CUSTTYPE" Type="varchar2" MaxLength="6" />
+          <Property Name="TOTALAMOUNT" Type="number" Precision="16" Scale="6" />
+          <Property Name="COMPLAINNUM" Type="char" MaxLength="8" />
+          <Property Name="SERVICENUM" Type="char" MaxLength="8" />
+          <Property Name="SYNSEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="ORDERQUANTITY" Type="number" Precision="10" Scale="2" />
+        </EntityType>-->
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="PROJ_PRODUCT" EntityType="Self.PROJ_PRODUCT" Schema="ZOOMTEL" store:Type="Tables" />
           <EntitySet Name="T_PACKAGE_TASK" EntityType="Self.T_PACKAGE_TASK" Schema="ZOOMTEL" store:Type="Tables" />
