@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8794da629e84444d9e64fbff76d2351b" Name="Diagram1" ZoomLevel="43">
+      <Diagram DiagramId="8794da629e84444d9e64fbff76d2351b" Name="Diagram1" ZoomLevel="56">
         <EntityTypeShape EntityType="Model.PROJ_PRODUCT" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.T_PRODUCE_ORDER" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.T_PRODUCE_ORDERLINE" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
@@ -21,6 +21,7 @@
         <EntityTypeShape EntityType="Model.T_PRODUCE_POKESEQ" Width="1.5" PointX="13.375" PointY="0.75" />
         <EntityTypeShape EntityType="Model.T_PRODUCE_ORDER_H" Width="1.5" PointX="13.375" PointY="5.75" />
         <EntityTypeShape EntityType="Model.T_PRODUCE_ORDERLINE_H" Width="1.5" PointX="13.375" PointY="11.75" />
+        <EntityTypeShape EntityType="Model.V_PRODUCE_PACKAGEINFO" Width="1.5" PointX="15.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

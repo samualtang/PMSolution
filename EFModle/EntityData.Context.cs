@@ -41,5 +41,6 @@ namespace EFModle
         public DbSet<T_PRODUCE_POKESEQ> T_PRODUCE_POKESEQ { get; set; }
         public DbSet<T_PRODUCE_ORDER_H> T_PRODUCE_ORDER_H { get; set; }
         public DbSet<T_PRODUCE_ORDERLINE_H> T_PRODUCE_ORDERLINE_H { get; set; }
+        public DbSet<V_PRODUCE_PACKAGEINFO> V_PRODUCE_PACKAGEINFO { get; set; }
     }
 }

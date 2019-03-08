@@ -122,6 +122,12 @@
     <Compile Include="Fm_Orderinfo.Designer.cs">
       <DependentUpon>Fm_Orderinfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Fm_Orderinfo_All.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fm_Orderinfo_All.Designer.cs">
+      <DependentUpon>Fm_Orderinfo_All.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FmCacheDetail.resx">
@@ -150,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Fm_Orderinfo.resx">
       <DependentUpon>Fm_Orderinfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fm_Orderinfo_All.resx">
+      <DependentUpon>Fm_Orderinfo_All.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

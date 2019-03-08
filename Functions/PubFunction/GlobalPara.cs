@@ -44,11 +44,21 @@ namespace Functions.PubFunction
                     return 2;
                 }
             }
+            set
+            {
+                if (config != null)
+                {
+                    config.AppSettings.Settings["CigGap"].Value = value.ToString();
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
         }
         /// <summary>
         /// 工位高
         /// </summary>
-        public static int BoxHeight { get
+        public static int BoxHeight {
+            get
             {
                 if (config != null)
                 {
@@ -75,7 +85,17 @@ namespace Functions.PubFunction
                 {
                     return 2;
                 }
-            } }
+            }
+            set
+            {
+                if (config != null)
+                {
+                    config.AppSettings.Settings["BoxHeight"].Value = value.ToString();
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+        }
         /// <summary>
         /// 工位宽
         /// </summary>
@@ -106,7 +126,17 @@ namespace Functions.PubFunction
                 {
                     return 2;
                 }
-            } }
+            }
+            set
+            {
+                if (config != null)
+                {
+                    config.AppSettings.Settings["BoxWidth"].Value = value.ToString();
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+        }
         /// <summary>
         /// 工位长
         /// </summary>
@@ -137,7 +167,17 @@ namespace Functions.PubFunction
                 {
                     return 2;
                 }
-            } }
+            }
+            set
+            {
+                if (config != null)
+                {
+                    config.AppSettings.Settings["BoxLenght"].Value = value.ToString();
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+        }
         /// <summary>
         /// 包装机
         /// </summary>
@@ -257,6 +297,15 @@ namespace Functions.PubFunction
                 }
 
             }
+            set
+            {
+                if (config != null)
+                {
+                    config.AppSettings.Settings["RotitIp"].Value = value.ToString();
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
         }
         /// <summary>
         /// 机器人PLC端口
@@ -290,7 +339,63 @@ namespace Functions.PubFunction
                 }
 
             }
-        } 
+            set
+            {
+                if (config != null)
+                {
+                    config.AppSettings.Settings["RotitPort"].Value = value.ToString();
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+        }
 
+        /// <summary>
+        /// opc服务别名
+        /// </summary>
+        public static string Opc_Name
+        {
+            get
+            {
+                if (config != null)
+                {
+                    try
+                    {
+                        string result = config.AppSettings.Settings["OpcName"].Value.ToString();
+                        if (!string.IsNullOrWhiteSpace(result))
+                        {
+                            return result;
+                        }
+                        else
+                        {
+                            return "错误的opc服务名称";
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        return "错误的opc服务名称";
+                    }
+
+                }
+                else
+                {
+                    return "错误的opc服务名称";
+                }
+
+            }
+            set
+            {
+                if (config != null)
+                {
+                    config.AppSettings.Settings["OpcName"].Value = value.ToString();
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+        }
     }
-}
+
+} 
+
+
