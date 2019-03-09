@@ -32,13 +32,13 @@ namespace PackageMachine
             this.p_Main.Size = new Size(1031, 109);
             this.p_Main.TabIndex = 0;
             this.lb_ShowDetail.AutoSize = true;
-            this.lb_ShowDetail.Location = new Point(21, 14);
+            this.lb_ShowDetail.Location = new Point(11, 5);
             this.lb_ShowDetail.Margin = new Padding(4, 0, 4, 0);
             this.lb_ShowDetail.Name = "lb_ShowDetail";
             this.lb_ShowDetail.Size = new Size(67, 15);
             this.lb_ShowDetail.TabIndex = 0;
             this.lb_ShowDetail.TabStop = true;
-            this.lb_ShowDetail.Text = "显示更多";
+            this.lb_ShowDetail.Text = "显\r\n示\r\n更\r\n多";
             this.lb_ShowDetail.LinkClicked += this.lb_ShowDetail_LinkClicked;
             this.timer1.Enabled = true;
             this.timer1.Interval = 500;
@@ -79,14 +79,14 @@ namespace PackageMachine
             //num3 -= this.buttonList[i - 1].Width;
             //button.Top = p_Main.Height - button.Height;
             //button.Left = num3;
-            int width = Width;
+            //int width = 0;
    
-            for (int i = 0; i < buttonList.Count; i++)
-            {
-                buttonList[i].Top = p_Main.Height - buttonList[i].Height-2;
-                width -= buttonList[i].Width;
-                buttonList[i].Left = width-4;
-            }
+            //for (int i = 0; i < buttonList.Count; i++)
+            //{
+            //    buttonList[i].Top = p_Main.Height - buttonList[i].Height-2;
+            //    width += buttonList[i].Width;
+            //    buttonList[i].Top = width-4;
+            //}
         }
 
         // Token: 0x060000E3 RID: 227 RVA: 0x000100C8 File Offset: 0x0000E2C8
@@ -175,13 +175,18 @@ namespace PackageMachine
                         buttonList[listIndex].BackColor = Color.WhiteSmoke;
                         buttonList[listIndex].Width = (int)tobaccoInfo.TobaccoWidth;// + (int)(tobaccoInfo.TobaccoWidth*0.2);
                         buttonList[listIndex].Height = (int)tobaccoInfo.TobaccoHeight;// + (int)(tobaccoInfo.TobaccoHeight *0.2);
-                        this.buttonList[listIndex].Left =  base.Width/2 -buttonList[listIndex].Width/2;
-                        Tishwidth += this.buttonList[listIndex].Height;
-                        this.buttonList[listIndex].Top = Tishwidth;
+                       /// this.buttonList[listIndex].Left =  base.Width/2 -buttonList[listIndex].Width/2;
+                        
+                       // this.buttonList[listIndex].Top = Tishwidth;
                         if(tobaccoInfo.OrderIndex == 1)
                         {
-                            this.buttonList[listIndex].BackColor = Color.LightGreen; 
+                            //this.buttonList[listIndex].Top = 0;
+                            //Tishwidth -= buttonList[listIndex].Height;
+                          this.buttonList[listIndex].BackColor = Color.Green; 
                         }
+                        buttonList[listIndex].Location = new Point(base.Width / 2 - buttonList[listIndex].Width / 2, Tishwidth);
+                        Tishwidth += this.buttonList[listIndex].Height;
+                        //FmInfo.GetTaskInfo(buttonList[listIndex].Text+" | "+ buttonList[listIndex].Top);
                         listIndex++;
                     } 
                 }

@@ -17,21 +17,22 @@ namespace PackageMachine
         {
             
             InitializeComponent();
+         
+           // AutoScroll = true; 
+        }
+        //AutoSizeFormClass asfc = new AutoSizeFormClass();
+        private void FmInfo_Load(object sender, EventArgs e)
+        {
             cs.H = 450;
             cs.W = 540;
             Hrs += BindBillInfo;
             ftd = new FmTaskDetail();
             handle += updateListBox;
             ft.Show();
-           // AutoScroll = true; 
-        }
-        //AutoSizeFormClass asfc = new AutoSizeFormClass();
-        private void FmInfo_Load(object sender, EventArgs e)
-        {
-
             //asfc.controllInitializeSize(this);
-           // LoadFucn();
-             Loading.Masklayer(this, delegate () { LoadFucn(); });
+            // LoadFucn();
+            
+            Loading.Masklayer(this, delegate () { LoadFucn(); });
 
         }
         void LoadFucn()
@@ -147,7 +148,7 @@ namespace PackageMachine
             int widthToCs = Convert.ToInt32(Width * (0.5));
             if( widthToCs > 500)
             {
-                cs.Size = new Size(520, Convert.ToInt32(Height * 0.65));
+                cs.Size = new Size(555, Convert.ToInt32(Height * 0.65));
             }
             else
             {
@@ -232,6 +233,16 @@ namespace PackageMachine
                 ftd.StartPosition = FormStartPosition.CenterScreen;
                 ftd.Show();
             }
+        }
+
+        private void btnRemake_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAuto_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

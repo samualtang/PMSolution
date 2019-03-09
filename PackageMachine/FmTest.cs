@@ -33,6 +33,26 @@ namespace PackageMachine
             //FmInfo.AutoRefreshShow( int.Parse(textBox1.Text),  int.Parse(textBox2.Text));  
         }
 
+        private async void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int a = await GetTask();
+                MessageBox.Show("1" + a);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+          
+         
+        }
 
+        async Task<int> GetTask()
+        {
+           
+              await GetTask(); 
+            return 1;
+        }
     }
 }

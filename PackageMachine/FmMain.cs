@@ -89,11 +89,11 @@ namespace PackageMachine
             return blResult;
         }
 
-        private async void pbStart_Click(object sender, EventArgs e)
+        private  void pbStart_Click(object sender, EventArgs e)
         {
             try
             {
-                await Task.Run(Connection);
+                 Task.Run(Connection);
             }
             catch (NotSupportedException EX)
             {
@@ -131,6 +131,7 @@ namespace PackageMachine
         private NetComplexClient complexClient = null;
         private async Task Connection()
         {
+            
             CreateConn(GlobalPara.RobitPlc_Ip,GlobalPara.RobitPlc_Port, out string ErrMsg); 
             if(string.IsNullOrWhiteSpace(ErrMsg ) )
             {
@@ -208,11 +209,12 @@ namespace PackageMachine
             {
                 if (arrData[0] == "1")//机器人自动运行 状态 1 是， 0 否
                 {
-
+                    System.Collections.Generic.List<string> list = new System.Collections.Generic.List<string>();
+               
                 }
             }
         }
-
+         
         /// <summary>
         /// 服务器的异常，启动，等等一般消息产生的时候，出发此事件
         /// </summary>

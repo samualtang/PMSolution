@@ -16,6 +16,8 @@ namespace PackageMachine
         {
             InitializeComponent();
             handle += GetTaskInfo_Detail;
+            cbIsorNo.Checked = true;
+            this.TopMost = true;
         }
       
       
