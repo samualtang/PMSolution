@@ -19,10 +19,9 @@ namespace Functions.BLL
         /// <returns></returns>
         public static string[] doubletasklist()
         {
-            string[] vs = new string[3];
+            string[] vs = new string[2];
             vs[0] = "否";
             vs[1] = "是";
-            vs[2] = "";
             return vs;
         }
         /// <summary>

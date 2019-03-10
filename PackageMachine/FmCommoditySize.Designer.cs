@@ -59,9 +59,11 @@
             this.DGV_OrderInfo.Name = "DGV_OrderInfo";
             this.DGV_OrderInfo.ReadOnly = true;
             this.DGV_OrderInfo.RowTemplate.Height = 23;
+            this.DGV_OrderInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullColumnSelect;
             this.DGV_OrderInfo.Size = new System.Drawing.Size(633, 357);
             this.DGV_OrderInfo.TabIndex = 4;
             this.DGV_OrderInfo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_OrderInfo_CellClick);
+            this.DGV_OrderInfo.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DGV_OrderInfo_CellFormatting);
             // 
             // textBox_QueryText
             // 
@@ -138,6 +140,7 @@
             // 
             this.txt_lenght.Location = new System.Drawing.Point(761, 186);
             this.txt_lenght.Name = "txt_lenght";
+            this.txt_lenght.ReadOnly = true;
             this.txt_lenght.Size = new System.Drawing.Size(100, 21);
             this.txt_lenght.TabIndex = 14;
             // 
@@ -154,6 +157,7 @@
             // 
             this.txt_weight.Location = new System.Drawing.Point(761, 234);
             this.txt_weight.Name = "txt_weight";
+            this.txt_weight.ReadOnly = true;
             this.txt_weight.Size = new System.Drawing.Size(100, 21);
             this.txt_weight.TabIndex = 16;
             // 
@@ -170,6 +174,7 @@
             // 
             this.txt_height.Location = new System.Drawing.Point(761, 284);
             this.txt_height.Name = "txt_height";
+            this.txt_height.ReadOnly = true;
             this.txt_height.Size = new System.Drawing.Size(100, 21);
             this.txt_height.TabIndex = 18;
             // 

@@ -119,7 +119,9 @@
     <Compile Include="T_WMS_ITEM.cs">
       <DependentUpon>EntityData.tt</DependentUpon>
     </Compile>
-    <Compile Include="V_PRODUCE_PACKAGEINFO.cs" />
+    <Compile Include="V_PRODUCE_PACKAGEINFO.cs">
+      <DependentUpon>EntityData.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="EntityData.edmx">

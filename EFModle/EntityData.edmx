@@ -107,7 +107,9 @@
           <Property Name="STATE" Type="number" Precision="38" Scale="0" />
           <Property Name="ORDERDATE" Type="date" />
           <Property Name="PUSHSPACE" Type="number" Precision="38" Scale="0" />
-          <Property Name="UNIONPACKAGESTATE" Type="number" Precision="38" Scale="0" />
+          <Property Name="UNIONPACKAGETAG" Type="number" Precision="38" Scale="0" />
+          <Property Name="CIGSTATE" Type="number" Precision="38" Scale="0" />
+          <Property Name="NORMAILSTATE" Type="number" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="T_PRODUCE_ORDER">
           <Key>
@@ -907,11 +909,11 @@ FROM "ZOOMTEL"."V_PRODUCE_PACKAGEINFO" "V_PRODUCE_PACKAGEINFO"</DefiningQuery>
           <EntitySet Name="T_UN_TASK" EntityType="Self.T_UN_TASK" />
           <EntitySet Name="T_UN_TASKLINE" EntityType="Self.T_UN_TASKLINE" />
           <EntitySet Name="T_WMS_ITEM" EntityType="Model.T_WMS_ITEM" />
-          <EntitySet Name="T_PACKAGE_TASK" EntityType="Model.T_PACKAGE_TASK" />
           <EntitySet Name="T_PRODUCE_POKESEQ" EntityType="Model.T_PRODUCE_POKESEQ" />
           <EntitySet Name="T_PRODUCE_ORDER_H" EntityType="Model.T_PRODUCE_ORDER_H" />
           <EntitySet Name="T_PRODUCE_ORDERLINE_H" EntityType="Model.T_PRODUCE_ORDERLINE_H" />
           <EntitySet Name="V_PRODUCE_PACKAGEINFO" EntityType="Model.V_PRODUCE_PACKAGEINFO" />
+          <EntitySet Name="T_PACKAGE_TASK" EntityType="Model.T_PACKAGE_TASK" />
         </EntityContainer>
         <EntityType Name="T_WMS_ITEM">
           <Key>
@@ -965,40 +967,6 @@ FROM "ZOOMTEL"."V_PRODUCE_PACKAGEINFO" "V_PRODUCE_PACKAGEINFO"</DefiningQuery>
           <Property Name="IWIDTH" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="IHEIGHT" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="DOUBLETAKE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="T_PACKAGE_TASK">
-          <Key>
-            <PropertyRef Name="PTID" />
-          </Key>
-          <Property Name="PTID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
-          <Property Name="BILLCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="ORDERSEQ" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="PACKAGESEQ" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="CIGARETTECODE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CIGARETTENAME" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
-          <Property Name="PACKAGEQTY" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="CIGSEQ" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="CIGHIGH" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="CIGWIDTH" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="CIGLENGTH" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="CIGWIDTHX" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="CIGHIGHY" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="CIGZ" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="SORTNUM" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="ALLPACKAGESEQ" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="STARTTIME" Type="DateTime" />
-          <Property Name="FINISHTIME" Type="DateTime" />
-          <Property Name="ORDERPACKAGEQTY" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="ORDERQTY" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="PACKAGENO" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="PACKTASKNUM" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="CIGNUM" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="CIGTYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="DOUBLETAKE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="STATE" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="ORDERDATE" Type="DateTime" />
-          <Property Name="PUSHSPACE" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="UNIONPACKAGESTATE" Type="Decimal" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="T_PRODUCE_POKESEQ">
           <Key>
@@ -1098,6 +1066,42 @@ FROM "ZOOMTEL"."V_PRODUCE_PACKAGEINFO" "V_PRODUCE_PACKAGEINFO"</DefiningQuery>
           <Property Name="SERVICENUM" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
           <Property Name="SYNSEQ" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="ORDERQUANTITY" Type="Decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="T_PACKAGE_TASK">
+          <Key>
+            <PropertyRef Name="PTID" />
+          </Key>
+          <Property Name="PTID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="BILLCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ORDERSEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PACKAGESEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGARETTECODE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CIGARETTENAME" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="PACKAGEQTY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGSEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGHIGH" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGWIDTH" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGLENGTH" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGWIDTHX" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGHIGHY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGZ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SORTNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ALLPACKAGESEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="STARTTIME" Type="DateTime" />
+          <Property Name="FINISHTIME" Type="DateTime" />
+          <Property Name="ORDERPACKAGEQTY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ORDERQTY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PACKAGENO" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PACKTASKNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGTYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DOUBLETAKE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="STATE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ORDERDATE" Type="DateTime" />
+          <Property Name="PUSHSPACE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="UNIONPACKAGETAG" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGSTATE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="NORMAILSTATE" Type="Decimal" Precision="38" Scale="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1468,41 +1472,6 @@ FROM "ZOOMTEL"."V_PRODUCE_PACKAGEINFO" "V_PRODUCE_PACKAGEINFO"</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="T_PACKAGE_TASK">
-            <EntityTypeMapping TypeName="Model.T_PACKAGE_TASK">
-              <MappingFragment StoreEntitySet="T_PACKAGE_TASK">
-                <ScalarProperty Name="UNIONPACKAGESTATE" ColumnName="UNIONPACKAGESTATE" />
-                <ScalarProperty Name="PUSHSPACE" ColumnName="PUSHSPACE" />
-                <ScalarProperty Name="ORDERDATE" ColumnName="ORDERDATE" />
-                <ScalarProperty Name="STATE" ColumnName="STATE" />
-                <ScalarProperty Name="DOUBLETAKE" ColumnName="DOUBLETAKE" />
-                <ScalarProperty Name="CIGTYPE" ColumnName="CIGTYPE" />
-                <ScalarProperty Name="CIGNUM" ColumnName="CIGNUM" />
-                <ScalarProperty Name="PACKTASKNUM" ColumnName="PACKTASKNUM" />
-                <ScalarProperty Name="PACKAGENO" ColumnName="PACKAGENO" />
-                <ScalarProperty Name="ORDERQTY" ColumnName="ORDERQTY" />
-                <ScalarProperty Name="ORDERPACKAGEQTY" ColumnName="ORDERPACKAGEQTY" />
-                <ScalarProperty Name="FINISHTIME" ColumnName="FINISHTIME" />
-                <ScalarProperty Name="STARTTIME" ColumnName="STARTTIME" />
-                <ScalarProperty Name="ALLPACKAGESEQ" ColumnName="ALLPACKAGESEQ" />
-                <ScalarProperty Name="SORTNUM" ColumnName="SORTNUM" />
-                <ScalarProperty Name="CIGZ" ColumnName="CIGZ" />
-                <ScalarProperty Name="CIGHIGHY" ColumnName="CIGHIGHY" />
-                <ScalarProperty Name="CIGWIDTHX" ColumnName="CIGWIDTHX" />
-                <ScalarProperty Name="CIGLENGTH" ColumnName="CIGLENGTH" />
-                <ScalarProperty Name="CIGWIDTH" ColumnName="CIGWIDTH" />
-                <ScalarProperty Name="CIGHIGH" ColumnName="CIGHIGH" />
-                <ScalarProperty Name="CIGSEQ" ColumnName="CIGSEQ" />
-                <ScalarProperty Name="PACKAGEQTY" ColumnName="PACKAGEQTY" />
-                <ScalarProperty Name="CIGARETTENAME" ColumnName="CIGARETTENAME" />
-                <ScalarProperty Name="CIGARETTECODE" ColumnName="CIGARETTECODE" />
-                <ScalarProperty Name="PACKAGESEQ" ColumnName="PACKAGESEQ" />
-                <ScalarProperty Name="ORDERSEQ" ColumnName="ORDERSEQ" />
-                <ScalarProperty Name="BILLCODE" ColumnName="BILLCODE" />
-                <ScalarProperty Name="PTID" ColumnName="PTID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="T_PRODUCE_POKESEQ">
             <EntityTypeMapping TypeName="Model.T_PRODUCE_POKESEQ">
               <MappingFragment StoreEntitySet="T_PRODUCE_POKESEQ">
@@ -1601,6 +1570,43 @@ FROM "ZOOMTEL"."V_PRODUCE_PACKAGEINFO" "V_PRODUCE_PACKAGEINFO"</DefiningQuery>
                 <ScalarProperty Name="REGIONCODE" ColumnName="REGIONCODE" />
                 <ScalarProperty Name="EXPORT" ColumnName="EXPORT" />
                 <ScalarProperty Name="TASKNUM" ColumnName="TASKNUM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_PACKAGE_TASK">
+            <EntityTypeMapping TypeName="Model.T_PACKAGE_TASK">
+              <MappingFragment StoreEntitySet="T_PACKAGE_TASK">
+                <ScalarProperty Name="NORMAILSTATE" ColumnName="NORMAILSTATE" />
+                <ScalarProperty Name="CIGSTATE" ColumnName="CIGSTATE" />
+                <ScalarProperty Name="UNIONPACKAGETAG" ColumnName="UNIONPACKAGETAG" />
+                <ScalarProperty Name="PUSHSPACE" ColumnName="PUSHSPACE" />
+                <ScalarProperty Name="ORDERDATE" ColumnName="ORDERDATE" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="DOUBLETAKE" ColumnName="DOUBLETAKE" />
+                <ScalarProperty Name="CIGTYPE" ColumnName="CIGTYPE" />
+                <ScalarProperty Name="CIGNUM" ColumnName="CIGNUM" />
+                <ScalarProperty Name="PACKTASKNUM" ColumnName="PACKTASKNUM" />
+                <ScalarProperty Name="PACKAGENO" ColumnName="PACKAGENO" />
+                <ScalarProperty Name="ORDERQTY" ColumnName="ORDERQTY" />
+                <ScalarProperty Name="ORDERPACKAGEQTY" ColumnName="ORDERPACKAGEQTY" />
+                <ScalarProperty Name="FINISHTIME" ColumnName="FINISHTIME" />
+                <ScalarProperty Name="STARTTIME" ColumnName="STARTTIME" />
+                <ScalarProperty Name="ALLPACKAGESEQ" ColumnName="ALLPACKAGESEQ" />
+                <ScalarProperty Name="SORTNUM" ColumnName="SORTNUM" />
+                <ScalarProperty Name="CIGZ" ColumnName="CIGZ" />
+                <ScalarProperty Name="CIGHIGHY" ColumnName="CIGHIGHY" />
+                <ScalarProperty Name="CIGWIDTHX" ColumnName="CIGWIDTHX" />
+                <ScalarProperty Name="CIGLENGTH" ColumnName="CIGLENGTH" />
+                <ScalarProperty Name="CIGWIDTH" ColumnName="CIGWIDTH" />
+                <ScalarProperty Name="CIGHIGH" ColumnName="CIGHIGH" />
+                <ScalarProperty Name="CIGSEQ" ColumnName="CIGSEQ" />
+                <ScalarProperty Name="PACKAGEQTY" ColumnName="PACKAGEQTY" />
+                <ScalarProperty Name="CIGARETTENAME" ColumnName="CIGARETTENAME" />
+                <ScalarProperty Name="CIGARETTECODE" ColumnName="CIGARETTECODE" />
+                <ScalarProperty Name="PACKAGESEQ" ColumnName="PACKAGESEQ" />
+                <ScalarProperty Name="ORDERSEQ" ColumnName="ORDERSEQ" />
+                <ScalarProperty Name="BILLCODE" ColumnName="BILLCODE" />
+                <ScalarProperty Name="PTID" ColumnName="PTID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

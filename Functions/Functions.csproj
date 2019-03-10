@@ -72,6 +72,7 @@
     <Compile Include="Model\Group.cs" />
     <Compile Include="Model\ItemCollection.cs" />
     <Compile Include="Model\TcpIp_ConnPlc.cs" />
+    <Compile Include="OPC_ToYXYPLC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PubFunction\AutoSizeFormClass.cs" />
     <Compile Include="PubFunction\ByteToHexStrClass.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="PubFunction\DataBase.cs" />
     <Compile Include="PubFunction\GlobalPara.cs" />
     <Compile Include="PubFunction\Loading.cs" />
+    <Compile Include="PubFunction\ObjectExtensions.cs" />
     <Compile Include="PubFunction\WriteLog.cs" />
   </ItemGroup>
   <ItemGroup>

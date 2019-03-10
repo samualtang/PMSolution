@@ -42,6 +42,8 @@ namespace EFModle
         public Nullable<decimal> STATE { get; set; }
         public Nullable<System.DateTime> ORDERDATE { get; set; }
         public Nullable<decimal> PUSHSPACE { get; set; }
-        public Nullable<decimal> UNIONPACKAGESTATE { get; set; }
+        public Nullable<decimal> UNIONPACKAGETAG { get; set; }
+        public Nullable<decimal> CIGSTATE { get; set; }
+        public Nullable<decimal> NORMAILSTATE { get; set; }
     }
 }

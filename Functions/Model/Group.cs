@@ -6,7 +6,7 @@
         using OpcRcw.Comn;
         using System.Runtime.InteropServices;
 
-namespace SpecialShapeSmoke.Model
+namespace Functions.Model
 {
     public class Group : IOPCDataCallback
         {

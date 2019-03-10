@@ -21,12 +21,14 @@ namespace PackageMachine
 
         private void btn_Query_Click(object sender, EventArgs e)
         {
-            
+            databinging();
+        }
+        void databinging()
+        {
             DGV_OrderInfo.ColumnHeadersVisible = true;
             DGV_OrderInfo.RowHeadersVisible = false;
 
-
-            DGV_OrderInfo.DataSource = FmCommoditySizeFun.Commodity(textBox_QueryText.Text); 
+            DGV_OrderInfo.DataSource = FmCommoditySizeFun.Commodity(textBox_QueryText.Text);
 
             foreach (DataGridViewColumn column in this.DGV_OrderInfo.Columns)
             {
@@ -45,9 +47,8 @@ namespace PackageMachine
             DGV_OrderInfo.Columns[4].Width = 60;
             DGV_OrderInfo.Columns[5].HeaderText = "双抓";
             DGV_OrderInfo.Columns[5].Width = 60;
-            
-        }
 
+        }
       
 
         private void btn_update_Click(object sender, EventArgs e)
@@ -81,7 +82,7 @@ namespace PackageMachine
             }
             string str = FmCommoditySizeFun.UpdateCommodity(commoditySize) == true ? "更新成功！" : "更新失败！";
             MessageBox.Show(str);
-
+            databinging();
         }
 
         private void DGV_OrderInfo_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -90,9 +91,9 @@ namespace PackageMachine
             {
                 txt_name.Text = DGV_OrderInfo.Rows[e.RowIndex].Cells[0].Value.ToString();
                 txt_code.Text = DGV_OrderInfo.Rows[e.RowIndex].Cells[1].Value.ToString();
-                txt_lenght.Text = DGV_OrderInfo.Rows[e.RowIndex].Cells[2].Value.ToString();
+                txt_lenght.Text = DGV_OrderInfo.Rows[e.RowIndex].Cells[4].Value.ToString();
                 txt_weight.Text = DGV_OrderInfo.Rows[e.RowIndex].Cells[3].Value.ToString();
-                txt_height.Text = DGV_OrderInfo.Rows[e.RowIndex].Cells[4].Value.ToString();
+                txt_height.Text = DGV_OrderInfo.Rows[e.RowIndex].Cells[2].Value.ToString();
                 comboBox_doubletask.Items.Clear();
                 comboBox_doubletask.Items.AddRange(FmCommoditySizeFun.doubletasklist());
 
@@ -111,7 +112,7 @@ namespace PackageMachine
                             comboBox_doubletask.SelectedIndex = 1;
                             break;
                         default:
-                            comboBox_doubletask.SelectedIndex = 2;
+                            MessageBox.Show("选取超出索引！");
                             break;
                     }
                 }
@@ -119,7 +120,12 @@ namespace PackageMachine
             
         }
 
-
-
+        private void DGV_OrderInfo_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 5)
+            {
+                e.Value = Convert.ToInt32(e.Value) == 1 ? "双抓" : "";
+            }
+        }
     }
 }
