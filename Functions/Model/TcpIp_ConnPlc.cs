@@ -12,7 +12,7 @@ using HslCommunication.Core.Net;
 
 namespace Functions.Model
 {
-   public static class TcpIp_ConnPlc
+    public static class TcpIp_ConnPlc
     {
         #region TPC_Ip
         private static TcpClient plc_Socket = null;
@@ -33,7 +33,7 @@ namespace Functions.Model
             return destination;
         }
         public static bool CreatConn(string Plc_IP, string Tcp_Port, out string ErrMsg)
-        { 
+        {
             bool execResu = true;
             ErrMsg = "";
             //创建Socket连接
@@ -44,12 +44,12 @@ namespace Functions.Model
                 plc_Socket = new TcpClient();
                 plc_Socket.Connect(IPAddress.Parse(Plc_IP), int.Parse(Tcp_Port));
                 myNetworkStream = plc_Socket.GetStream();
-                
+
             }
             catch (SocketException ex)
             {
                 ErrMsg = ex.Message;
-                execResu = false; 
+                execResu = false;
                 return execResu;
             }
             WriteData(fins_tcp_header);
@@ -72,9 +72,9 @@ namespace Functions.Model
             }
             return execResu;
         }
-        public static bool Read(ref int[] data,out string ErrMsg)
+        public static bool Read(ref int[] data, out string ErrMsg)
         {
-            ErrMsg = ""; 
+            ErrMsg = "";
             string Ssend_header = "46494E530000001A";
             Ssend_header += "0000000200000000";
             byte[] send_header = StringToBytes16(Ssend_header);
@@ -112,14 +112,14 @@ namespace Functions.Model
             }
             object[] aaa = new object[2];
             data[0] = Convert.ToInt32(Reseponse[Reseponse.Length - 2].ToString("X2") + Reseponse[Reseponse.Length - 1].ToString("X2"), 16);
-          
+
             int a = 20;
             long b = 60;
             aaa[0] = a;
             aaa[1] = b;
-            data[1] = (int) aaa[0]   ;
-            data[2] = (int)aaa[1]   ;
- 
+            data[1] = (int)aaa[0];
+            data[2] = (int)aaa[1];
+
             return true;
         }
 
@@ -170,7 +170,7 @@ namespace Functions.Model
                 || Reseponse[26] != 1 || Reseponse[27] != 2 || Reseponse[28] != 0 || Reseponse[29] != 0
                 || Reseponse[25] != Convert.ToByte(SID.ToString(), 16))
             {
-                ErrMsg =Reseponse[8].ToString() + Reseponse[9].ToString() + Reseponse[10].ToString() + Reseponse[11].ToString();
+                ErrMsg = Reseponse[8].ToString() + Reseponse[9].ToString() + Reseponse[10].ToString() + Reseponse[11].ToString();
                 return false;
             }
             return true;
@@ -198,6 +198,17 @@ namespace Functions.Model
         #endregion
         private static NetComplexClient complexClient = null;
 
- 
+
+    }
+
+    public class HslConnection
+    {
+        HslConnection()
+        {
+
+        }
+
+
+
     }
 }

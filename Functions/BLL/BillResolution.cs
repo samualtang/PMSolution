@@ -19,7 +19,7 @@ namespace Functions.BLL
                 var list = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item).ToList();
                 if (list.Any())
                 {
-                    Length = (int)list.Max(a => a.ALLPACKAGESEQ ?? 0);
+                    Length = (int)list.Max(a => a.ALLPACKAGESEQ ?? 0);//这台包装机的最大包序
 
                 }
                 else
@@ -29,8 +29,13 @@ namespace Functions.BLL
 
             }
         }
-
+        /// <summary>
+        /// 包装机一共有多少包
+        /// </summary>
         public int Length { get; }
+        /// <summary>
+        /// 包装机编号
+        /// </summary>
         int packageno = 0;
         /// <summary>
         /// 根据订单号包序返回订单详细
@@ -59,6 +64,7 @@ namespace Functions.BLL
                         SortNum = item.SORTNUM ?? 0,
                         NormalLayerNum = item.PUSHSPACE ?? 0,
                         Speed = 1,
+                        CigQuantity = item.NORMALQTY ?? 0,
                         OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0),
                         CigType = item.CIGTYPE,//卷烟类型
                         PostionX = (float)Convert.ToDouble(Math.Ceiling(item.CIGWIDTHX ?? 0)),//坐标X
@@ -127,8 +133,7 @@ namespace Functions.BLL
             return list;
 
 
-        }
-
+        } 
          
         /// <summary>
         /// 自动获取任务
@@ -138,12 +143,9 @@ namespace Functions.BLL
         {
             ErrMsg = "";
             try
-            {
-
-
+            { 
                 using (Entities en = new Entities())
-                {
-                    decimal packageno = GlobalPara.PackageNo;
+                { 
                     //取出订单日期
                     var task = (from ITEM in en.T_PRODUCE_ORDER select ITEM).GroupBy(a => a.ORDERDATE).Select(a => new { orderdate = a.Key }).FirstOrDefault();
                     if (task != null)
@@ -154,7 +156,7 @@ namespace Functions.BLL
                         if (synseq != null)
                         { 
                             //根据包装机 批次号 订单日期 获取 订单信息 
-                            var orderinfo = (from item in en.V_PRODUCE_PACKAGEINFO select item).Where(a => a.EXPORT == packageno  && a.TASKNUM > GlobalPara.SortNum && a.SYNSEQ == synseq.synseq && a.ORDERDATE == task.orderdate).ToList();
+                            var orderinfo = (from item in en.V_PRODUCE_PACKAGEINFO select item).Where(a => a.EXPORT == packageno && a.TASKNUM > GlobalPara.SortNum && a.SYNSEQ == synseq.synseq && a.ORDERDATE == task.orderdate).ToList();
                             int i = 0;
                             if (orderinfo.Any() )
                             {
@@ -184,12 +186,9 @@ namespace Functions.BLL
                                     temp.CIGTYPE = "2";
                                     temp.STATE = 0;//0 新增  10 确定
                                     temp.CIGZ = Convert.ToDecimal(tempItem.DOUBLETAKE);
-                                    GlobalPara.SortNum = v_orderinfo.TASKNUM ?? 0;
+                                    GlobalPara.SortNum = v_orderinfo.TASKNUM ?? 0;  //存入这一批次最大任务号 
                                     p_task.Add(temp);
-                                }
-                                //存入这一批次最大任务号
-
-
+                                } 
                             }
                             else
                             {
@@ -213,7 +212,9 @@ namespace Functions.BLL
                 ErrMsg += "错误：未连接至数据库"+ex.Message;
             }
         }
-        public static T_WMS_ITEM GetItemByCode(String code)
+   
+
+        public   T_WMS_ITEM GetItemByCode(String code)
         {
             using (Entities entity = new Entities())
             {

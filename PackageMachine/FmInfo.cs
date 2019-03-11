@@ -1,4 +1,5 @@
 ﻿using EFModle.Model;
+using Functions;
 using Functions.BLL;
 using General;
 using System;
@@ -113,6 +114,7 @@ namespace PackageMachine
         {
 
             // FmTaskDetail.GetTaskInfo_Detail(Info);
+            WriteLog.GetLog().Write(Info);
             handle(Info);
         }
         //void upDateList(string info)

@@ -59,10 +59,16 @@ namespace PackageMachine
         /// <summary>
         /// 更新垛型显示层
         /// </summary>
-        /// <param name="Linfo">卷烟垛型信息</param>
-        public void UpdateValue(List<TobaccoInfo> Linfo)
+        /// <param name="ListInfo">卷烟垛型信息</param>
+        public void UpdateValue(List<TobaccoInfo> ListInfo)
         { 
-            tbinfo = Linfo;
+            tbinfo = SecondaryCalculation(ListInfo);
+            if(tbinfo .Count > 64)
+            {
+                FmInfo.GetTaskInfo("包内条数大于64,实际数量：" + tbinfo.Count + "，包烟流水号：" + tbinfo[0].GlobalIndex);
+                
+                return;
+            }
             this.UpdateTobaccoShow();
         }
         /// <summary>
@@ -135,6 +141,7 @@ namespace PackageMachine
                     {
 
                         buttonList[ListIndex].Location = new Point(buttonList[ListIndex].Width + lastX, base.Height - buttonList[ListIndex].Height - layerHeight);
+
                         if (NormalCount % 6 == 0)
                         {
                             layerHeight = 48 * (NormalCount / 6);
@@ -192,26 +199,33 @@ namespace PackageMachine
                     buttonList[i].Location = new Point(X + cigGap,( buttonList[i].Location.Y  ) - (int)(tbinfo[i].NormalLayerNum * 48));
                 } 
                 
-            }
-
-          
-            //if( list != null)
-            //{
-            //    decimal layer = list.NormalLayerNum;
-
-            //    for (int i = 1; i <= layer; i++)
-            //    {
-            //        Button button = ButtonCreator.Create(this.p_Main , buttonList.Count + i);
-            //        buttonList.Add(button);
-
-            //    }
-            //}
-             
-            
-
+            } 
 
         }
-
+        List<TobaccoInfo> SecondaryCalculation(List<TobaccoInfo> list)
+        {
+            List<TobaccoInfo> Newlist = new List<TobaccoInfo>();
+            if (list.Any())
+            {
+                foreach (var item in list)
+                {
+                    if (item.CigType == "1")//常规烟
+                    {
+                        if (item.CigQuantity > 1)
+                        {
+                            for (int i = 0; i < item.CigQuantity; i++)//看常规烟数量有多少条
+                            {
+                                item.CigQuantity = 1;
+                                Newlist.Add(item);
+                            }
+                        }
+                        Newlist.Add(item);
+                    } 
+                    Newlist.Add(item); 
+                }
+            }
+            return Newlist;
+        }
         void CreatePosition(List<TobaccoInfo> tobaccoInfos,List<Button> buttons)
         {
             for (int i = 0; i < tobaccoInfos.Count; i++)
@@ -333,11 +347,10 @@ namespace PackageMachine
          
             Button btn = (Button)sender;
             tp_CodeInfo.SetToolTip(btn, buttonList[btn.TabIndex].Location.X + "  , " + (this.Height - buttonList[btn.TabIndex].Location.Y +"|"+ buttonList[btn.TabIndex].Height +","+ buttonList[btn.TabIndex].Width +"|" + buttonList[btn.TabIndex].Text));
-          //  MessageBox.Show(buttonList[btn.TabIndex].Location.X + "  , " + buttonList[btn.TabIndex].Location.Y);
-           // this.tp_CodeInfo.Show(button.ImageKey, button);
+        
         }
 
-        // Token: 0x06000157 RID: 343 RVA: 0x000183A8 File Offset: 0x000165A8
+    
         private void btn_MouseLeave(object sender, EventArgs e)
         {
             Button win = (Button)sender;
@@ -350,28 +363,20 @@ namespace PackageMachine
         public int H { get; set; }
 
 
-        // Token: 0x0400014F RID: 335
+ 
         private int lineCount;
-
-        // Token: 0x04000150 RID: 336
+ 
         private int coloumCount;
 
 
 
-        // Token: 0x04000154 RID: 340
-        private List<ColorTobacco> colorList = new List<ColorTobacco>();
          
-
-        // Token: 0x04000156 RID: 342
-        private Panel p_Main;
-
-        // Token: 0x04000157 RID: 343
-        private Timer timer1;
-
-        // Token: 0x04000158 RID: 344
-        private Label lab_Line;
-
-        // Token: 0x04000159 RID: 345
+        private List<ColorTobacco> colorList = new List<ColorTobacco>();
+          
+       
+        private Panel p_Main; 
+        private Timer timer1; 
+        private Label lab_Line; 
         private ToolTip tp_CodeInfo;
 
         public List<TobaccoInfo> tbinfo = null;
