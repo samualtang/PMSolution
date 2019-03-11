@@ -45,5 +45,6 @@ namespace EFModle
         public Nullable<decimal> UNIONPACKAGETAG { get; set; }
         public Nullable<decimal> CIGSTATE { get; set; }
         public Nullable<decimal> NORMAILSTATE { get; set; }
+        public Nullable<decimal> NORMALQTY { get; set; }
     }
 }

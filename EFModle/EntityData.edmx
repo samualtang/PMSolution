@@ -110,6 +110,7 @@
           <Property Name="UNIONPACKAGETAG" Type="number" Precision="38" Scale="0" />
           <Property Name="CIGSTATE" Type="number" Precision="38" Scale="0" />
           <Property Name="NORMAILSTATE" Type="number" Precision="38" Scale="0" />
+          <Property Name="NORMALQTY" Type="number" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="T_PRODUCE_ORDER">
           <Key>
@@ -1102,6 +1103,7 @@ FROM "ZOOMTEL"."V_PRODUCE_PACKAGEINFO" "V_PRODUCE_PACKAGEINFO"</DefiningQuery>
           <Property Name="UNIONPACKAGETAG" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="CIGSTATE" Type="Decimal" Precision="38" Scale="0" />
           <Property Name="NORMAILSTATE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="NORMALQTY" Type="Decimal" Precision="38" Scale="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1576,6 +1578,7 @@ FROM "ZOOMTEL"."V_PRODUCE_PACKAGEINFO" "V_PRODUCE_PACKAGEINFO"</DefiningQuery>
           <EntitySetMapping Name="T_PACKAGE_TASK">
             <EntityTypeMapping TypeName="Model.T_PACKAGE_TASK">
               <MappingFragment StoreEntitySet="T_PACKAGE_TASK">
+                <ScalarProperty Name="NORMALQTY" ColumnName="NORMALQTY" />
                 <ScalarProperty Name="NORMAILSTATE" ColumnName="NORMAILSTATE" />
                 <ScalarProperty Name="CIGSTATE" ColumnName="CIGSTATE" />
                 <ScalarProperty Name="UNIONPACKAGETAG" ColumnName="UNIONPACKAGETAG" />
