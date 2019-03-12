@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks; 
 
 
@@ -38,12 +39,11 @@ namespace Functions
                 pIOPCServer = (IOPCServer)Activator.CreateInstance(svrComponenttyp);            //创建服务器连接对象
 
                 ShapeGroup1 = new Group(pIOPCServer, 1, "group1", 1, LOCALE_ID);           //创建组
-                ShapeGroup1.addItem(ItemCollection.GetTaskStatusBySend());           //添加项到组  包装机异型烟链板机（合包）数据写入DB块
+                ShapeGroup1.addItem(ItemCollection.GetTaskStatusBySend_yxy());           //添加项到组  包装机异型烟链板机（合包）数据写入DB块
                 ShapeGroup2 = new Group(pIOPCServer, 1, "group2", 2, LOCALE_ID);           //创建组
-                ShapeGroup2.addItem(ItemCollection.GetTaskStatusByComplete());           //添加项到组  (合包)完成信号的DB块
+                ShapeGroup2.addItem(ItemCollection.GetTaskStatusByComplete_yxy());           //添加项到组  (合包)完成信号的DB块
 
-                CheckConnection();
-                strmessage[0] += "异型烟链板机plc连接成功！";
+                strmessage[0] += CheckConnection();
                 strmessage[1] = "1";
                 return strmessage;
             }
@@ -107,14 +107,14 @@ namespace Functions
         {
             string strmessage = "";
             int[] result = new int[10];
-            for (int i = 0; i < ItemCollection.GetTaskStatusByComplete().Count(); i++)
+            for (int i = 0; i < ItemCollection.GetTaskStatusByComplete_yxy().Count(); i++)
             {
                 //读取完成标志
                 result[i] = ShapeGroup2.ReadD(i).CastTo<int>(-1);
                 //如果完成标志块内有大于0的值
                 if (result[i] > 0)
                 {
-                    strmessage += "读取到电控DB块：" + ItemCollection.GetTaskStatusByComplete()[i] + "  值：" + result[i];
+                    strmessage += "读取到电控DB块：" + ItemCollection.GetTaskStatusByComplete_yxy()[i] + "  值：" + result[i];
                     //数据库置完成该任务
                     bool tag = BLL.PLCDataGet.UpdataTask(result[i]);
                     if (tag)
@@ -134,10 +134,22 @@ namespace Functions
         /// 根据完成信号更新数据库单包任务
         /// </summary>
         /// <param name="packtasknum">完成任务号</param>
-        /// <returns></returns>
-        public  bool ReadAndWriteYXYTaskConpelte(int packtasknum)
-        { 
-            return  BLL.PLCDataGet.UpdataTask(packtasknum);
+        /// <param name="index">当前完成任务号的DB块索引</param>
+        /// <returns>完成/失败</returns>
+        public string ReadAndWriteYXYTaskConpelte(int packtasknum,int index)
+        {
+            string strmessage = "";
+            if (BLL.PLCDataGet.UpdataTask(packtasknum))
+            {
+                strmessage = packtasknum + "号任务数据库更新完成成功";
+                ShapeGroup2.Write(0, index);
+                strmessage += packtasknum + ",电控数据更新成功!";
+            }
+            else
+            {
+                strmessage = packtasknum + "号任务数据库更新完成失败";
+            }
+            return strmessage;
         }
 
         /// <summary>
@@ -150,7 +162,7 @@ namespace Functions
             string Strmessage ="";
             try
             {
-                object[] vs = new object[ItemCollection.GetTaskStatusBySend().Count()];
+                object[] vs = new object[ItemCollection.GetTaskStatusBySend_yxy().Count()];
                 using (EFModle.Entities et = new EFModle.Entities())
                 {
                     //取当前包装机未发送的的异型烟链板机（合包）任务
@@ -187,7 +199,9 @@ namespace Functions
                     writeLog.Write(ex.InnerException.Message);  
                 }
                 Strmessage += "发生异常，从新发送任务；";
-                WriteTaskSend_YXY();//异常后重新发送
+                DateTime endtime = DateTime.Now.AddSeconds(10);
+                Thread.Sleep(10000);
+                WriteTaskSend_YXY();//异常后重新发送  没有考虑失败暂停
             }
             return Strmessage;
         }

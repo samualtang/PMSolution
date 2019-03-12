@@ -30,11 +30,11 @@ namespace PackageMachine
 
             DGV_OrderInfo.DataSource = FmCommoditySizeFun.Commodity(textBox_QueryText.Text);
 
-            foreach (DataGridViewColumn column in this.DGV_OrderInfo.Columns)
-            {
-                //设置自动排序
-                column.SortMode = DataGridViewColumnSortMode.Automatic;
-            }
+            //foreach (DataGridViewColumn column in this.DGV_OrderInfo.Columns)
+            //{
+            //    //设置自动排序
+            //    column.SortMode = DataGridViewColumnSortMode.Automatic;
+            //}
             DGV_OrderInfo.Columns[0].HeaderText = "品牌名称";
             DGV_OrderInfo.Columns[0].Width = 180;
             DGV_OrderInfo.Columns[1].HeaderText = "品牌编码";

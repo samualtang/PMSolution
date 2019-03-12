@@ -222,8 +222,16 @@ namespace PackageMachine
             {
                 complexClient.AcceptString += ComplexClient_AcceptString;//收到文本时 触发事件 
                 complexClient.MessageAlerts += ComplexClient_MessageAlerts;//服务器的异常，启动，等等一般消息产生的时候，出发此事件
-                plc.ShapeGroup1.callback += OnDataChange;
-                plc.ShapeGroup2.callback += OnDataChange;
+                try
+                {
+                    plc.ShapeGroup1.callback += OnDataChange;
+                    plc.ShapeGroup2.callback += OnDataChange;
+                }
+                catch (Exception)
+                {
+                    FmInfo.GetTaskInfo("异型烟链板机任务发送失败");
+                }
+                
                 return "";
             }
             catch (Exception ex)
@@ -302,9 +310,16 @@ namespace PackageMachine
                 complexClient.AcceptString -= ComplexClient_AcceptString;//收到文本时 触发事件 
                 complexClient.MessageAlerts -= ComplexClient_MessageAlerts;//服务器的异常，启动，等等一般消息产生的时候，出发此事件
                 FmInfo.GetTaskInfo("断开与机器人的连接！");
-                plc.ShapeGroup1.callback += OnDataChange;
-                plc.ShapeGroup2.callback += OnDataChange;
-                FmInfo.GetTaskInfo("异型烟链板机断开连接！");
+                try
+                {
+                    plc.ShapeGroup1.callback += OnDataChange;
+                    plc.ShapeGroup2.callback += OnDataChange;
+                    FmInfo.GetTaskInfo("异型烟链板机断开连接！");
+                }
+                catch (Exception)
+                {
+                    FmInfo.GetTaskInfo("异型烟链板机任务停止失败！");
+                }
             }
             else
             {
@@ -320,28 +335,31 @@ namespace PackageMachine
         /// <param name="group">plc的DB块组</param>
         /// <param name="clientId">DB块集合</param>
         /// <param name="values">返回的值</param>
-        public void OnDataChange(int group, int[] clientId, object[] values)
+        public async void OnDataChange(int group, int[] clientId, object[] values)
         {
             if (group == 1)//任务发送块组
             {
-                int packtasknum = int.Parse(values[0].ToString());//任务号
-                int tempvalue = int.Parse(values[7].ToString());//接收信号
-                if (tempvalue == 0 )//如果有接收信号
+                for (int i = 0; i < clientId.Length; i++)
                 {
-                    try
+                    if (clientId[i] == 8)//接收信号位
                     {
-                        if (tempvalue != 0)
+                        int packtasknum = int.Parse(values[0].ToString());//任务号
+                        int tempvalue = int.Parse(values[7].ToString());//接收信号
+                        if (tempvalue == 0)//如果有接收信号
                         {
-                            //读取接收信号的任务 数据库置接收 更改标志位
-                            FmInfo.GetTaskInfo(plc.WriteDBReceive_YXY(packtasknum));
-                            //写入新任务
-                            FmInfo.GetTaskInfo(plc.WriteTaskSend_YXY());
+                            try
+                            {
+                                //读取接收信号的任务 数据库置接收 
+                                FmInfo.GetTaskInfo(plc.WriteDBReceive_YXY(packtasknum));
+                                //更改标志位 写入新任务
+                                await Task.Run(() => FmInfo.GetTaskInfo(plc.WriteTaskSend_YXY()));
+                            }
+                            catch (Exception ex)
+                            {
+                                FmInfo.GetTaskInfo("服务器连接失败！" + ex.Message);
+                                return;
+                            }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        FmInfo.GetTaskInfo("服务器连接失败！" + ex.Message);
-                        return;
                     }
                 }
             }
@@ -357,7 +375,7 @@ namespace PackageMachine
                         {
                             if (tempvalue != 0)
                             {
-                                plc.ReadAndWriteYXYTaskConpelte(tempvalue);
+                                FmInfo.GetTaskInfo(plc.ReadAndWriteYXYTaskConpelte(tempvalue, i));//更新数据库 更新DB块
                             }
                         }
                         catch (Exception ex)
@@ -370,7 +388,7 @@ namespace PackageMachine
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
             FmInfo.GetTaskInfo("触发定时器，"+plc.timerSendTask());
             timer1.Stop();

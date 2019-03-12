@@ -11,7 +11,7 @@ namespace Functions.Model
         /// 包装机异型烟链板机数据写入DB块 5个
         /// </summary>
         /// <returns></returns>
-        public static List<string> GetTaskStatusBySend()  //8个
+        public static List<string> GetTaskStatusBySend_yxy()  //8个
         {
             string S7Name = PubFunction.GlobalPara.Opc_Name;
             List<string> list = new List<string>();
@@ -27,10 +27,10 @@ namespace Functions.Model
         }
 
         /// <summary>
-        /// 完成信号的DB块 10个
+        /// 包装机异型烟链板机完成信号的DB块 10个
         /// </summary>
         /// <returns></returns>
-        public static List<string> GetTaskStatusByComplete()  //10个
+        public static List<string> GetTaskStatusByComplete_yxy()  //10个
         {
             string S7Name = PubFunction.GlobalPara.Opc_Name;
             List<string> list = new List<string>();
@@ -38,6 +38,28 @@ namespace Functions.Model
             {
                 list.Add(S7Name + "DB30,DINT" + i);
             }
+            return list;
+        }
+        /// <summary>
+        /// 包装机常规烟翻板机数据写入DB块  --待定
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> GetTaskStatusByComplete_cgy()
+        {
+            string S7Name = PubFunction.GlobalPara.Opc_Name;
+            List<string> list = new List<string>();
+
+            return list;
+        }
+        /// <summary>
+        /// 包装机常规烟翻板机完成信号的DB块  --待定
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> GetTaskStatusBySend_cgy()
+        {
+            string S7Name = PubFunction.GlobalPara.Opc_Name;
+            List<string> list = new List<string>();
+
             return list;
         }
     }

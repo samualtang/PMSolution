@@ -283,6 +283,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox_efficiency);
             this.Controls.Add(this.groupBox_order);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FmOrderInfo";
             this.Text = "综合查询";
             this.groupBox_order.ResumeLayout(false);
