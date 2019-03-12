@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FmMain));
             this.lblrotcount = new System.Windows.Forms.Label();
             this.gbNormail = new System.Windows.Forms.GroupBox();
@@ -56,6 +57,7 @@
             this.pbStop = new System.Windows.Forms.PictureBox();
             this.pbStart = new System.Windows.Forms.PictureBox();
             this.pbTitle = new System.Windows.Forms.PictureBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox4.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.gbSysDate.SuspendLayout();
@@ -406,6 +408,10 @@
             this.pbTitle.TabIndex = 3;
             this.pbTitle.TabStop = false;
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // FmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -466,6 +472,7 @@
         private System.Windows.Forms.PictureBox pbTitle;
         private System.Windows.Forms.GroupBox gbSysDate;
         private System.Windows.Forms.Label lblServerInfo;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

@@ -284,7 +284,7 @@
             this.Controls.Add(this.groupBox_efficiency);
             this.Controls.Add(this.groupBox_order);
             this.Name = "FmOrderInfo";
-            this.Text = "FmOrderInfo";
+            this.Text = "综合查询";
             this.groupBox_order.ResumeLayout(false);
             this.groupBox_order.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_OrderInfo)).EndInit();

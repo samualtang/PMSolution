@@ -66,6 +66,7 @@
     <Compile Include="BLL\BillResolution.cs" />
     <Compile Include="BLL\FmCommoditySizeFun.cs" />
     <Compile Include="BLL\FmOrderInofFun.cs" />
+    <Compile Include="BLL\PLCDataGet.cs" />
     <Compile Include="BLL\RobotTaskService.cs" />
     <Compile Include="BLL\StackTypeCalculation.cs" />
     <Compile Include="FormDataModle\FmOrderInfoFunCmbox.cs" />
