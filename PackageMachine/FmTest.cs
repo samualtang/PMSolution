@@ -16,6 +16,7 @@ namespace PackageMachine
         public FmTest()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
         } 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -49,21 +50,51 @@ namespace PackageMachine
         }
         private    void button2_ClickAsync(object sender, EventArgs e)
         {
-            try
+
+        //try
+        //{
+        //FuncTest()
+         if (true)
             {
-
-               GetTask() ;
-
-                
-              
+                MessageBox.Show(";;");
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            } 
+
           
-         
+            MessageBox.Show("" + func("哈哈哈"));
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //} 
+
+
         }
+        public Func<string  , int> func;
+
+        int getFuncTest(string a )
+        {
+
+            return 0;
+        }
+      void FuncTest()
+        {
+         
+            Task<int> task = new Task<int>(() =>
+            {
+                int sum = 0;
+                listBox1.Items.Add("使用Task执行异步操作."); 
+                for (int i = 0; i < 100; i++)
+                {
+                    sum += i;
+                    listBox1.Items.Add(sum);
+                }
+                return sum;
+            });
+
+            //启动任务,并安排到当前任务队列线程中执行任务(System.Threading.Tasks.TaskScheduler)
+            task.Start();
+        }
+    
 
         async Task<int>GetTask()
         {
@@ -98,16 +129,26 @@ namespace PackageMachine
             TextBox tx = (TextBox)sender;
             if (tx.Text.Any())
             {
-                listBox1.Items.Add(DateTime.Now.ToString() + ":事件开始");
-                WritToTxt(tx.Text);
-                listBox1.Items.Add(DateTime.Now.ToString()+ ":Textchange:"+tx.Text);
+                Task.Run(() => TaskAsync(tx));
+              
             }
         }
-
+        async Task TaskAsync(TextBox tx)
+        { 
+            listBox1.Items.Add(DateTime.Now.ToString() + ":事件开始");
+            Thread.Sleep(10000);
+            WritToTxt(tx.Text);
+            listBox1.Items.Add(DateTime.Now.ToString() + ":Textchange:" + tx.Text);
+        }
         private void button3_Click(object sender, EventArgs e)
         {
             textBox2.TextChanged -= textBox2_TextChanged;
             listBox1.Items.Add("停止文本改变事件");
+        }
+
+        private void FmTest_Load(object sender, EventArgs e)
+        {
+              func = (str) => { return str.Length; };
         }
     }
 }

@@ -146,7 +146,7 @@ namespace Functions.BLL
             using (Entities entity = new Entities())
             {
                 //获取这个包号的条烟信息
-                var query = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM == packagenum && item.CIGNUM == cigseq select item).ToList();
+                var query = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM == packagenum && item.PACKAGENO == packageno && item.CIGNUM == cigseq select item).ToList();
                 if (query.Any())
                 {
                     foreach (var item in query)
@@ -188,6 +188,45 @@ namespace Functions.BLL
                 }
                 //更新这个包号和之后的任务为新增
                 var query1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= packagenum && item.PACKAGENO == packageno select item).ToList();
+                if (query.Any())
+                {
+                    foreach (var item in query1)
+                    {
+                        item.STATE = 10;//合包状态
+                        item.CIGSTATE = 10;//机器人条烟状态
+                        item.NORMAILSTATE = 10;//常规烟翻盘状态
+                    }
+                    entity.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("未查询到这个包号之前的任务信息");
+                }
+            }
+        }
+
+        public void UpdateTask(decimal Nomarlpackagenum,decimal unNomarlPackageNum)
+        {
+            using (Entities entity = new Entities())
+            {
+                //更新这个常规烟 包号之前的任务为完成
+                var query = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < Nomarlpackagenum && item.PACKAGENO == packageno && item.CIGTYPE =="1" select item).ToList();
+                if (query.Any())
+                {
+                    foreach (var item in query)
+                    {
+                        item.STATE = 20;//合包状态
+                        item.CIGSTATE = 20;//机器人条烟状态
+                        item.NORMAILSTATE = 20;//常规烟翻盘状态
+                    }
+                    entity.SaveChanges();
+                }
+                else
+                {
+                    //throw new Exception("未查询到这个包号之前的任务信息");//有可能从第一个任务开始，这肯定会报错
+                }
+                //更新这个包号和之后的任务为新增
+                var query1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= unNomarlPackageNum && item.PACKAGENO == packageno && item.CIGTYPE == "2"  select item).ToList();
                 if (query.Any())
                 {
                     foreach (var item in query1)

@@ -79,7 +79,7 @@ namespace General
             //传入函数分支运行
             IAsyncResult result = action.BeginInvoke(null, null);
             //函数分支创建一个遮罩层  
-            await MaskControls(f1, result, control);
+            await Task.Run(()=> MaskControls(f1, result, control));
 
         }
        
@@ -90,7 +90,7 @@ namespace General
         /// <param name="result"></param>
         /// <param name="control"></param>
         /// <returns></returns>
-        private static async Task MaskControls(Form f1, IAsyncResult result, Control control)
+        private static void MaskControls(Form f1, IAsyncResult result, Control control)
         {
             try
             {
@@ -147,7 +147,7 @@ namespace General
                         MessageBox.Show(FinshiInfo, "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     }
-                    await Task.Delay(10);
+                   
                 }
             }
             catch (Exception ex)

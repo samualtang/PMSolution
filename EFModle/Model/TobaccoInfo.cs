@@ -38,7 +38,14 @@ namespace EFModle.Model
         /// </summary>
         public decimal SortNum { get; set; }
 
-       
+        /// <summary>
+        /// 订单内包序
+        /// </summary>
+        public decimal PackgeSeq { get; set; }
+        /// <summary>
+        /// 订单总包数
+        /// </summary>
+       public decimal OrderPackageQty { get; set; }
         /// <summary>
         /// 卷烟类型
         /// </summary>

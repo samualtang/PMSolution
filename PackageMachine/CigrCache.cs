@@ -58,7 +58,7 @@ namespace PackageMachine
 
         private void CreateButton()
         {
-            int num = 20;
+            int num = 40;
             
             this.buttonList = new List<Button>();
             for (int i = 0; i < num; i++)

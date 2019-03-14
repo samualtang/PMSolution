@@ -374,7 +374,7 @@
             this.pbStop.BackgroundImage = global::PackageMachine.Properties.Resources.暂停任务;
             this.pbStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbStop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbStop.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbStop.Cursor = System.Windows.Forms.Cursors.No;
             this.pbStop.Dock = System.Windows.Forms.DockStyle.Left;
             this.pbStop.Location = new System.Drawing.Point(393, 0);
             this.pbStop.Name = "pbStop";

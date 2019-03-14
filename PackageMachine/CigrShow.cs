@@ -76,7 +76,9 @@ namespace PackageMachine
         /// </summary>
         public void UpdateTobaccoShow()
         {
-            int layerHeight = 0;
+            int layerHeight = 0; //常规烟有多少层
+            int AddHeight =   0;
+            int AddWidth =    0;
             if (buttonList == null)
             {
                 this.CreateButton(7, 6);
@@ -97,17 +99,13 @@ namespace PackageMachine
                 int colorIndex = 0;
                 int normalHeight = 48;
                 int normalWidth = 91;
-                 
+              
                 int lastX = 0;
                 int NormalCount = 1;
-           
+                int normalIndex = 1;
                 foreach (var detail in tbinfo)
                 {
-                    //if(ListIndex >= 36)
-                    //{
-                    //    //FmMain.GetTaskInfo("包内烟数大于36！");
-                    //    break;
-                    //} 
+                    
                     buttonList[ListIndex].Text = "123";
                     buttonList[ListIndex].Visible = true;
                     buttonList[ListIndex].BackgroundImage = null;
@@ -117,45 +115,53 @@ namespace PackageMachine
                     buttonList[ListIndex].BackColor = Color.Red;// ((detail.Speed == 0) ? Color.White : this.colorList[detail.TobaccoState].Color);
                     if(detail.CigType == "1")
                     {
-                        buttonList[ListIndex].Height = normalHeight;
-                        buttonList[ListIndex].Width = normalWidth;
+                        buttonList[ListIndex].Height = normalHeight + AddHeight;
+                        buttonList[ListIndex].Width = normalWidth  +AddWidth;
+                        buttonList[ListIndex].Text = string.Concat(new string[]
+                               {
+                                    detail.GlobalIndex.ToString(),
+                                    ".",
+                                   normalIndex++.ToString(),
+                                    ".",
+                                    detail.TobaccoName,
+                               });
+
                     }
                     else
                     {
-                        buttonList[ListIndex].Height = (int)detail.TobaccoHeight;
-                        buttonList[ListIndex].Width = (int)detail.TobaccoWidth;
-                    } 
-                    buttonList[ListIndex].AccessibleDescription = detail.CigType;
-                    buttonList[ListIndex].Text = string.Concat(new string[]
-                                {
+                        buttonList[ListIndex].Height = (int)detail.TobaccoHeight + AddHeight;
+                        buttonList[ListIndex].Width = (int)detail.TobaccoWidth + AddWidth;
+                        buttonList[ListIndex].Text = string.Concat(new string[]
+                               {
                                     detail.GlobalIndex.ToString(),
                                     ".",
                                     detail.OrderIndex.ToString(),
                                     ".",
                                     detail.TobaccoName,
-                                });
-                    int x = 0;
-                    int y = 0;
+                               }); 
 
+                    }
+                    buttonList[ListIndex].AccessibleDescription = detail.CigType;
+                   
+                   
                     if (detail.CigType == "1")//常规烟
                     {
-
+                        //新的坐标等于 = 原坐标减去烟本身宽度除以2 加上新的宽度除以二
+                        //detail.PostionX = (detail.PostionX - (detail.TobaccoWidth / 2)) + buttonList[ListIndex].Width / 2;
+                        //detail.PostionY = detail.PostionY - AddHeight;
                         buttonList[ListIndex].Location = new Point(buttonList[ListIndex].Width + lastX, base.Height - buttonList[ListIndex].Height - layerHeight);
-
+                       // buttonList[ListIndex].Visible = false;
                         if (NormalCount % 6 == 0)
                         {
-                            layerHeight = 48 * (NormalCount / 6);
-                            lastX = -buttonList[ListIndex].Width;  
-                            //buttonList[ListIndex].Location = new Point(buttonList[ListIndex].Width + lastX, base.Height - buttonList[ListIndex].Height + layerHeight);
-                            // lastY = 0;
-                        } 
-                        //lastY += buttonList[ListIndex].Location.Y;
+                            layerHeight = (48+AddHeight ) * (NormalCount / 6);
+                            lastX = -buttonList[ListIndex].Width;   
+                        }  
                         NormalCount++;
                         lastX += buttonList[ListIndex].Width;
                     }
                     else if(detail.CigType =="2")//异形烟
                     {
-                        if (detail.DoubleTake == "21")//是双抓
+                        if (detail.DoubleTake == "1")//是双抓
                         {
                           
                             if (colorIndex == 1)//双抓第二条的时候
@@ -172,7 +178,7 @@ namespace PackageMachine
                             }
                         }
                         else
-                        {
+                        { 
                             buttonList[ListIndex].Location = new Point((int)detail.PostionX  , (int)detail.PostionY );
                         }
                         if(detail.TobaccoState == 20)
@@ -184,27 +190,46 @@ namespace PackageMachine
                     TabeltIndex++; 
                 } 
             }
-           
+
+            if (tbinfo.Where(a => a.CigType == "2").Count() == 0)
+            {
+                tbinfo[0].NormalLayerNum = Math.Ceiling(tbinfo.Sum(a => a.CigQuantity) / 6)  ;
+            }
+
             int cigGap = GlobalPara.CigGap;//条烟之间间隙
             for (int i = 0; i < tbinfo.Count; i++)//每条烟的位置坐标都减去自身的宽度
             { 
                 if (buttonList[i].AccessibleDescription == "1")
                 {
                     int X = (int)(buttonList[i].Location.X - buttonList[i].Width);
-                    buttonList[i].Location = new Point(X + cigGap, (buttonList[i].Location.Y - cigGap));
+                    buttonList[i].Location = new Point(X + cigGap, (buttonList[i].Location.Y ));
                 } 
                 if (buttonList[i].AccessibleDescription == "2")
                 {
-                    int X = (int)(buttonList[i].Location.X - Math.Ceiling((tbinfo[i].TobaccoWidth + cigGap) / 2));
-                    buttonList[i].Location = new Point(X + cigGap,( buttonList[i].Location.Y  ) - (int)(tbinfo[i].NormalLayerNum * 48));
-                } 
+                    int X = (int)((buttonList[i].Location.X ) - (buttonList[i].Width) / 2);
+                    buttonList[i].Location = new Point(X + cigGap, (buttonList[i].Location.Y  ) - (int)tbinfo[0].NormalLayerNum * (48+AddHeight  ));
+                }
                 
-            } 
+            }
+            //foreach (var item in buttonList)
+            //{
+            //    if (item.Location.X > 0)
+            //    {
+            //        if (item.AccessibleDescription == "2")
+            //        {
+            //            int x = item.Location.X;// + AddWidth / 2;
+            //            int y = item.Location.Y - AddHeight ;
+            //            item.Location = new Point(x, y); 
+            //        }
+
+            //    }
+            //}
 
         }
         List<TobaccoInfo> SecondaryCalculation(List<TobaccoInfo> list)
         {
             List<TobaccoInfo> Newlist = new List<TobaccoInfo>();
+          
             if (list.Any())
             {
                 foreach (var item in list)
@@ -213,35 +238,29 @@ namespace PackageMachine
                     {
                         if (item.CigQuantity > 1)
                         {
-                            for (int i = 0; i < item.CigQuantity; i++)//看常规烟数量有多少条
+                            int index =(int) item.CigQuantity;
+                            for (int i = 0; i < index ; i++)//看常规烟数量有多少条
                             {
-                                item.CigQuantity = 1;
+                                item.CigQuantity = 1; 
                                 Newlist.Add(item);
+                             
                             }
                         }
+                        else
+                        { 
+                            Newlist.Add(item);
+                         
+                        } 
+                    }
+                    else
+                    {
                         Newlist.Add(item);
                     } 
-                    Newlist.Add(item); 
                 }
             }
             return Newlist;
         }
-        void CreatePosition(List<TobaccoInfo> tobaccoInfos,List<Button> buttons)
-        {
-            for (int i = 0; i < tobaccoInfos.Count; i++)
-            {
-                buttons[i].Text = "123";
-                buttons[i].Visible = true;
-                buttons[i].Text = string.Concat(new string[]
-                              {
-                                    tobaccoInfos[i].GlobalIndex.ToString(),
-                                    ".",
-                                     tobaccoInfos[i].OrderIndex.ToString(),
-                                    ".",
-                                     tobaccoInfos[i].TobaccoName,
-                              });
-            }
-        }
+    
         private void TobaccoShow_Resize(object sender, EventArgs e)
         {
             
@@ -332,10 +351,16 @@ namespace PackageMachine
                 button.Visible = true;
                 button.MouseEnter += this.btn_MouseEnter;
                 button.MouseLeave += this.btn_MouseLeave;
+                button.Click += Button_Click;
                 this.buttonList.Add(button);
             }
         }
-  
+
+        private void Button_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            MessageBox.Show("" + btn.Location.X + " | " + btn.Location.Y + " | " + btn.Width + " | " + btn.Height +" | "+base.Height);
+        }
 
         private int GetPositionIndex(int index)
         {

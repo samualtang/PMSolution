@@ -62,6 +62,8 @@ namespace Functions.BLL
                         CigNum = item.CIGNUM ?? 0,
                         DoubleTake = item.DOUBLETAKE,
                         SortNum = item.SORTNUM ?? 0,
+                        OrderPackageQty = item.ORDERPACKAGEQTY ?? 0,
+                        PackgeSeq = item.PACKAGESEQ ?? 0,
                         NormalLayerNum = item.PUSHSPACE ?? 0,
                         Speed = 1,
                         CigQuantity = item.NORMALQTY ?? 0,
@@ -82,7 +84,21 @@ namespace Functions.BLL
             return list;
 
         }
-
+        public List<T_PACKAGE_TASK> GetTaskAllInfo()
+        {
+            using(Entities en = new Entities())
+            {
+                var query = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item).ToList();
+                 if(query.Any())
+                {
+                    return query;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
         public List<TobaccoInfo> GetUnNormallSort(int CigNum)
         {
             List<TobaccoInfo> list = new List<TobaccoInfo>();
@@ -91,7 +107,7 @@ namespace Functions.BLL
                 var uninfo = (from item in en.T_PACKAGE_TASK
                               where item.CIGNUM > CigNum && item.PACKAGENO == packageno && item.CIGTYPE == "2"
                               orderby item.CIGNUM
-                              select item) .Take(25);
+                              select item) .Take(40);
                 foreach (var item in uninfo)
                 {
                     TobaccoInfo info = new TobaccoInfo

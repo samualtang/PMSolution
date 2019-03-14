@@ -20,9 +20,17 @@ namespace PackageMachine
             this.StartPosition = FormStartPosition.CenterScreen;
             this.WindowState = FormWindowState.Maximized;
             CheckForIllegalCrossThreadCalls = false;
-            plc = new Functions.OPC_ToPLC();
-            CreateHslClinet();
             pbInfo_Click(null, null);
+            plc = new Functions.OPC_ToPLC();
+            string[] strmessage = plc.ConnectionToPLCYXY();
+            FmInfo.GetTaskInfo(strmessage[0]); //创建plc连接
+            if (strmessage[1] == "1")
+            {
+                timer1.Interval = 10000;
+                timer1.Start(); //启动定时器
+            }
+            CreateHslClinet();
+          
         }
         /// <summary>
         /// 创建Tcp客户端
@@ -151,6 +159,10 @@ namespace PackageMachine
 
         private void pbStart_Click(object sender, EventArgs e)
         {
+            if(pbStart.Cursor == Cursors.No)
+            {
+                return;
+            }
             try
             {
               Task a =  ConnectionAsync();//异步开始创建事件 
@@ -194,16 +206,12 @@ namespace PackageMachine
         private NetComplexClient complexClient = null;
         private async Task   ConnectionAsync()
         {
-            string[] strmessage = plc.ConnectionToPLCYXY();
-            FmInfo.GetTaskInfo(strmessage[0]); //创建plc连接
-            if (strmessage[1] == "1")
-            {
-                timer1.Interval = 10000;
-                timer1.Start(); //启动定时器
-            }
+           
             string ErrMsg =  await Task.Run( ()=> CreateDataChange()); //创建 
-            if (string.IsNullOrWhiteSpace(ErrMsg) )
+            if (string.IsNullOrWhiteSpace(ErrMsg) )//事件创建成功
             {
+                FmInfo.Func(1);
+                EnabletStartAndStop(1);
                 FmInfo.GetTaskInfo("机器人文本触发事件创建成功...");
             }
             else
@@ -211,6 +219,28 @@ namespace PackageMachine
                 FmInfo.GetTaskInfo("客户端初始化失败！错误：" + ErrMsg);
             }
              
+        }
+        /// <summary>
+        /// 启用开始任务和暂停任务
+        /// </summary>
+        /// <param name="i">1是开始任务，2是暂停任务</param>
+        void EnabletStartAndStop(int i)
+        {
+            if( i == 1) //开始任务
+            {
+              //  pbStart.Enabled = false;
+                pbStart.Cursor = Cursors.No;
+              //  pbStop.Enabled = true;
+                pbStop.Cursor = Cursors.Hand;
+
+            }
+            else if(i == 2)//暂停任务
+            {
+             //   pbStart.Enabled = true;
+                pbStart.Cursor = Cursors.Hand;
+               // pbStop.Enabled = false;
+                pbStop.Cursor = Cursors.No;
+            }
         }
         /// <summary>
         /// 创建数据变化事件
@@ -229,7 +259,7 @@ namespace PackageMachine
                 }
                 catch (Exception)
                 {
-                    FmInfo.GetTaskInfo("异型烟链板机任务发送失败");
+                    FmInfo.GetTaskInfo("异型烟链板机触发事件绑定失败");
                 }
                 
                 return "";
@@ -295,12 +325,37 @@ namespace PackageMachine
 
         private void pbExit_Click(object sender, EventArgs e)
         {
-            CloseDataChange();
+          
+            DialogResult MsgBoxResult = MessageBox.Show("确定要退出程序?",//对话框的显示内容 
+                                                          "确认完成后再关闭，否则可能会导致任务丢失！",//对话框的标题 
+                                                          MessageBoxButtons.YesNo,//定义对话框的按钮，这里定义了YSE和NO两个按钮 
+                                                          MessageBoxIcon.Question,//定义对话框内的图表式样，这里是一个黄色三角型内加一个感叹号 
+                                                          MessageBoxDefaultButton.Button2);//定义对话框的按钮式样
+            if (DialogResult.Yes == MsgBoxResult)
+            {
+                CloseDataChange();
+                FmInfo.GetTaskInfo("程序关闭！");
+                this.Close();
+
+            }
         }
 
         private void pbStop_Click(object sender, EventArgs e)
         {
-            CloseDataChange();
+            if (pbStop.Cursor == Cursors.No)
+            {
+                return;
+            }
+            DialogResult MsgBoxResult = MessageBox.Show("确定要停止发送任务?",//对话框的显示内容 
+                                                        "操作提示",//对话框的标题 
+                                                        MessageBoxButtons.YesNo,//定义对话框的按钮，这里定义了YSE和NO两个按钮 
+                                                        MessageBoxIcon.Question,//定义对话框内的图表式样，这里是一个黄色三角型内加一个感叹号 
+                                                        MessageBoxDefaultButton.Button2);//定义对话框的按钮式样
+            if (DialogResult.Yes == MsgBoxResult)
+            {
+                EnabletStartAndStop(2);
+                CloseDataChange();
+            }
         }
 
         void CloseDataChange()
@@ -316,10 +371,16 @@ namespace PackageMachine
                     plc.ShapeGroup2.callback += OnDataChange;
                     FmInfo.GetTaskInfo("异型烟链板机断开连接！");
                 }
+                catch(NullReferenceException nuller)
+                {
+                    FmInfo.GetTaskInfo("OPC未能创建成功！"+nuller.Message);
+                }
                 catch (Exception)
                 {
                     FmInfo.GetTaskInfo("异型烟链板机任务停止失败！");
                 }
+                FmInfo.Func(2);
+                FmInfo.GetTaskInfo("任务停止发送与接收！");
             }
             else
             {

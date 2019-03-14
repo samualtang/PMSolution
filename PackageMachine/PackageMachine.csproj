@@ -110,6 +110,12 @@
     <Compile Include="FmTaskDetail.Designer.cs">
       <DependentUpon>FmTaskDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="FmTaskLocate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FmTaskLocate.Designer.cs">
+      <DependentUpon>FmTaskLocate.cs</DependentUpon>
+    </Compile>
     <Compile Include="FmTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FmTaskDetail.resx">
       <DependentUpon>FmTaskDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FmTaskLocate.resx">
+      <DependentUpon>FmTaskLocate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FmTest.resx">
       <DependentUpon>FmTest.cs</DependentUpon>

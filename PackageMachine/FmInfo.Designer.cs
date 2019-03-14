@@ -30,12 +30,13 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FmInfo));
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnJump = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.txtInTask = new System.Windows.Forms.TextBox();
             this.btnLast = new System.Windows.Forms.Button();
             this.btnnext = new System.Windows.Forms.Button();
             this.panelInfo = new System.Windows.Forms.Panel();
+            this.btnAuto = new System.Windows.Forms.Button();
             this.btnRemake = new System.Windows.Forms.Button();
             this.gbInfo = new System.Windows.Forms.GroupBox();
             this.list_date = new System.Windows.Forms.ListBox();
@@ -50,14 +51,13 @@
             this.lblorderdate = new System.Windows.Forms.Label();
             this.lbllinename = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblNotFish = new System.Windows.Forms.Label();
+            this.lbFinsh = new System.Windows.Forms.Label();
+            this.lblUnNormal = new System.Windows.Forms.Label();
+            this.lblNormalcOUNT = new System.Windows.Forms.Label();
+            this.lblCigCount = new System.Windows.Forms.Label();
             this.cce1 = new PackageMachine.CigrCache();
             this.cs = new PackageMachine.CigrShow();
-            this.btnAuto = new System.Windows.Forms.Button();
             this.panelInfo.SuspendLayout();
             this.gbInfo.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -66,16 +66,16 @@
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // btnJump
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Location = new System.Drawing.Point(314, 34);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "跳转";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnJump.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnJump.Location = new System.Drawing.Point(314, 34);
+            this.btnJump.Name = "btnJump";
+            this.btnJump.Size = new System.Drawing.Size(75, 23);
+            this.btnJump.TabIndex = 0;
+            this.btnJump.Text = "跳转";
+            this.btnJump.UseVisualStyleBackColor = true;
+            this.btnJump.Click += new System.EventHandler(this.btnJump_Click);
             // 
             // textBox1
             // 
@@ -90,6 +90,7 @@
             this.txtInTask.Name = "txtInTask";
             this.txtInTask.Size = new System.Drawing.Size(100, 21);
             this.txtInTask.TabIndex = 1;
+            this.txtInTask.Visible = false;
             // 
             // btnLast
             // 
@@ -122,7 +123,7 @@
             this.panelInfo.Controls.Add(this.gbInfo);
             this.panelInfo.Controls.Add(this.btnnext);
             this.panelInfo.Controls.Add(this.btnLast);
-            this.panelInfo.Controls.Add(this.button1);
+            this.panelInfo.Controls.Add(this.btnJump);
             this.panelInfo.Controls.Add(this.textBox1);
             this.panelInfo.Controls.Add(this.txtInTask);
             this.panelInfo.Dock = System.Windows.Forms.DockStyle.Top;
@@ -130,6 +131,18 @@
             this.panelInfo.Name = "panelInfo";
             this.panelInfo.Size = new System.Drawing.Size(1194, 90);
             this.panelInfo.TabIndex = 5;
+            // 
+            // btnAuto
+            // 
+            this.btnAuto.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAuto.Location = new System.Drawing.Point(63, 34);
+            this.btnAuto.Name = "btnAuto";
+            this.btnAuto.Size = new System.Drawing.Size(75, 23);
+            this.btnAuto.TabIndex = 87;
+            this.btnAuto.Text = "自动获取";
+            this.btnAuto.UseVisualStyleBackColor = true;
+            this.btnAuto.Visible = false;
+            this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
             // 
             // btnRemake
             // 
@@ -215,7 +228,7 @@
             this.lblcutcount.Name = "lblcutcount";
             this.lblcutcount.Size = new System.Drawing.Size(115, 21);
             this.lblcutcount.TabIndex = 19;
-            this.lblcutcount.Text = "客户包数：2-2";
+            this.lblcutcount.Text = "客户包数：0-0";
             // 
             // pictureBox1
             // 
@@ -235,9 +248,9 @@
             this.lblcutname.ForeColor = System.Drawing.Color.Red;
             this.lblcutname.Location = new System.Drawing.Point(21, 62);
             this.lblcutname.Name = "lblcutname";
-            this.lblcutname.Size = new System.Drawing.Size(154, 21);
+            this.lblcutname.Size = new System.Drawing.Size(130, 21);
             this.lblcutname.TabIndex = 18;
-            this.lblcutname.Text = "客户名称：芙蓉兴盛";
+            this.lblcutname.Text = "客户名称：XXXX";
             // 
             // lblcutcode
             // 
@@ -246,9 +259,9 @@
             this.lblcutcode.ForeColor = System.Drawing.Color.Red;
             this.lblcutcode.Location = new System.Drawing.Point(21, 33);
             this.lblcutcode.Name = "lblcutcode";
-            this.lblcutcode.Size = new System.Drawing.Size(251, 21);
+            this.lblcutcode.Size = new System.Drawing.Size(169, 21);
             this.lblcutcode.TabIndex = 17;
-            this.lblcutcode.Text = "任务流水号：2=》430101119472";
+            this.lblcutcode.Text = "任务流水号：0000000";
             // 
             // lblallcount
             // 
@@ -257,9 +270,9 @@
             this.lblallcount.ForeColor = System.Drawing.Color.Red;
             this.lblallcount.Location = new System.Drawing.Point(507, 33);
             this.lblallcount.Name = "lblallcount";
-            this.lblallcount.Size = new System.Drawing.Size(163, 21);
+            this.lblallcount.Size = new System.Drawing.Size(154, 21);
             this.lblallcount.TabIndex = 16;
-            this.lblallcount.Text = "总 包 号：1844-1119";
+            this.lblallcount.Text = "总 包 号：0000-000";
             // 
             // lblorderdate
             // 
@@ -268,9 +281,9 @@
             this.lblorderdate.ForeColor = System.Drawing.Color.Black;
             this.lblorderdate.Location = new System.Drawing.Point(507, 11);
             this.lblorderdate.Name = "lblorderdate";
-            this.lblorderdate.Size = new System.Drawing.Size(284, 21);
+            this.lblorderdate.Size = new System.Drawing.Size(191, 21);
             this.lblorderdate.TabIndex = 15;
-            this.lblorderdate.Text = "订单日期：2019/1/28（包装机任务） ";
+            this.lblorderdate.Text = "订单日期：yyyy/mm/dd ";
             // 
             // lbllinename
             // 
@@ -279,78 +292,78 @@
             this.lbllinename.ForeColor = System.Drawing.Color.Black;
             this.lbllinename.Location = new System.Drawing.Point(21, 11);
             this.lbllinename.Name = "lbllinename";
-            this.lbllinename.Size = new System.Drawing.Size(202, 21);
+            this.lbllinename.Size = new System.Drawing.Size(117, 21);
             this.lbllinename.TabIndex = 14;
-            this.lbllinename.Text = "线路名称：0207[201-129] ";
+            this.lbllinename.Text = "线路名称：000";
             // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.label5);
-            this.panel3.Controls.Add(this.label4);
-            this.panel3.Controls.Add(this.label3);
-            this.panel3.Controls.Add(this.label2);
-            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.lblNotFish);
+            this.panel3.Controls.Add(this.lbFinsh);
+            this.panel3.Controls.Add(this.lblUnNormal);
+            this.panel3.Controls.Add(this.lblNormalcOUNT);
+            this.panel3.Controls.Add(this.lblCigCount);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel3.Location = new System.Drawing.Point(0, 212);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(491, 486);
+            this.panel3.Size = new System.Drawing.Size(366, 486);
             this.panel3.TabIndex = 10;
             // 
-            // label5
+            // lblNotFish
             // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.LightGreen;
-            this.label5.Font = new System.Drawing.Font("微软雅黑", 16.25F);
-            this.label5.Location = new System.Drawing.Point(20, 142);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(145, 30);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "未包装数量：";
+            this.lblNotFish.AutoSize = true;
+            this.lblNotFish.BackColor = System.Drawing.Color.LightGreen;
+            this.lblNotFish.Font = new System.Drawing.Font("微软雅黑", 16.25F);
+            this.lblNotFish.Location = new System.Drawing.Point(3, 122);
+            this.lblNotFish.Name = "lblNotFish";
+            this.lblNotFish.Size = new System.Drawing.Size(187, 30);
+            this.lblNotFish.TabIndex = 0;
+            this.lblNotFish.Text = "未包装数量：      ";
             // 
-            // label4
+            // lbFinsh
             // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.LightGreen;
-            this.label4.Font = new System.Drawing.Font("微软雅黑", 16.25F);
-            this.label4.Location = new System.Drawing.Point(20, 112);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(187, 30);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "已包装数量：      ";
+            this.lbFinsh.AutoSize = true;
+            this.lbFinsh.BackColor = System.Drawing.Color.LightGreen;
+            this.lbFinsh.Font = new System.Drawing.Font("微软雅黑", 16.25F);
+            this.lbFinsh.Location = new System.Drawing.Point(3, 92);
+            this.lbFinsh.Name = "lbFinsh";
+            this.lbFinsh.Size = new System.Drawing.Size(187, 30);
+            this.lbFinsh.TabIndex = 0;
+            this.lbFinsh.Text = "已包装数量：      ";
             // 
-            // label3
+            // lblUnNormal
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.LightGreen;
-            this.label3.Font = new System.Drawing.Font("微软雅黑", 16.25F);
-            this.label3.Location = new System.Drawing.Point(20, 82);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(187, 30);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "异型烟总量：      ";
+            this.lblUnNormal.AutoSize = true;
+            this.lblUnNormal.BackColor = System.Drawing.Color.LightGreen;
+            this.lblUnNormal.Font = new System.Drawing.Font("微软雅黑", 16.25F);
+            this.lblUnNormal.Location = new System.Drawing.Point(3, 62);
+            this.lblUnNormal.Name = "lblUnNormal";
+            this.lblUnNormal.Size = new System.Drawing.Size(187, 30);
+            this.lblUnNormal.TabIndex = 0;
+            this.lblUnNormal.Text = "异型烟总量：      ";
             // 
-            // label2
+            // lblNormalcOUNT
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.LightGreen;
-            this.label2.Font = new System.Drawing.Font("微软雅黑", 16.25F);
-            this.label2.Location = new System.Drawing.Point(20, 52);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(187, 30);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "常规烟总量：      ";
+            this.lblNormalcOUNT.AutoSize = true;
+            this.lblNormalcOUNT.BackColor = System.Drawing.Color.LightGreen;
+            this.lblNormalcOUNT.Font = new System.Drawing.Font("微软雅黑", 16.25F);
+            this.lblNormalcOUNT.Location = new System.Drawing.Point(3, 32);
+            this.lblNormalcOUNT.Name = "lblNormalcOUNT";
+            this.lblNormalcOUNT.Size = new System.Drawing.Size(187, 30);
+            this.lblNormalcOUNT.TabIndex = 0;
+            this.lblNormalcOUNT.Text = "常规烟总量：      ";
             // 
-            // label1
+            // lblCigCount
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.LightGreen;
-            this.label1.Font = new System.Drawing.Font("微软雅黑", 16.25F);
-            this.label1.Location = new System.Drawing.Point(20, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(186, 30);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "卷烟总量：         ";
+            this.lblCigCount.AutoSize = true;
+            this.lblCigCount.BackColor = System.Drawing.Color.LightGreen;
+            this.lblCigCount.Font = new System.Drawing.Font("微软雅黑", 16.25F);
+            this.lblCigCount.Location = new System.Drawing.Point(3, 2);
+            this.lblCigCount.Name = "lblCigCount";
+            this.lblCigCount.Size = new System.Drawing.Size(186, 30);
+            this.lblCigCount.TabIndex = 0;
+            this.lblCigCount.Text = "卷烟总量：         ";
             // 
             // cce1
             // 
@@ -364,23 +377,12 @@
             // 
             this.cs.BackColor = System.Drawing.Color.White;
             this.cs.H = 489;
-            this.cs.Location = new System.Drawing.Point(500, 248);
+            this.cs.Location = new System.Drawing.Point(491, 248);
             this.cs.Margin = new System.Windows.Forms.Padding(4);
             this.cs.Name = "cs";
-            this.cs.Size = new System.Drawing.Size(511, 437);
+            this.cs.Size = new System.Drawing.Size(520, 437);
             this.cs.TabIndex = 3;
             this.cs.W = 540;
-            // 
-            // btnAuto
-            // 
-            this.btnAuto.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAuto.Location = new System.Drawing.Point(63, 34);
-            this.btnAuto.Name = "btnAuto";
-            this.btnAuto.Size = new System.Drawing.Size(75, 23);
-            this.btnAuto.TabIndex = 87;
-            this.btnAuto.Text = "自动获取";
-            this.btnAuto.UseVisualStyleBackColor = true;
-            this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
             // 
             // FmInfo
             // 
@@ -415,7 +417,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnJump;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox txtInTask;
         private System.Windows.Forms.Button btnLast;
@@ -437,11 +439,11 @@
         private System.Windows.Forms.GroupBox gbInfo;
         private System.Windows.Forms.ListBox list_date;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblNotFish;
+        private System.Windows.Forms.Label lbFinsh;
+        private System.Windows.Forms.Label lblUnNormal;
+        private System.Windows.Forms.Label lblNormalcOUNT;
+        private System.Windows.Forms.Label lblCigCount;
         private System.Windows.Forms.Button btnRemake;
         private System.Windows.Forms.Button btnAuto;
     }

@@ -103,6 +103,7 @@
             this.Controls.Add(this.button1);
             this.Name = "FmTest";
             this.Text = "FmTest";
+            this.Load += new System.EventHandler(this.FmTest_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
