@@ -20,7 +20,7 @@ namespace PackageMachine
             this.StartPosition = FormStartPosition.CenterScreen;
             this.WindowState = FormWindowState.Maximized;
             CheckForIllegalCrossThreadCalls = false;
-            pbInfo_Click(null, null);
+        
             plc = new Functions.OPC_ToPLC();
             string[] strmessage = plc.ConnectionToPLCYXY();
             FmInfo.GetTaskInfo(strmessage[0]); //创建plc连接
@@ -30,7 +30,7 @@ namespace PackageMachine
                 timer1.Start(); //启动定时器
             }
             CreateHslClinet();
-          
+            pbInfo_Click(null, null);
         }
         /// <summary>
         /// 创建Tcp客户端
@@ -68,7 +68,7 @@ namespace PackageMachine
         private void pbInfo_Click(object sender, EventArgs e)
         {
             // ContrlCtrl(panelMain);
-            FmInfo frm = new FmInfo();
+            FmInfo frm = new FmInfo(plc);
             if (CheckExist(frm) == true)
             {
                 frm.Dispose();

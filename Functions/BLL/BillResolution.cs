@@ -22,6 +22,7 @@ namespace Functions.BLL
         /// <summary>
         /// 包装机编号
         /// </summary>
+        int packageno = GlobalPara.PackageNo;
 
         decimal GetMaxLenght()
         {
