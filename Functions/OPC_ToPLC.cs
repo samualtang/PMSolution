@@ -35,7 +35,7 @@ namespace Functions
         /// </summary>
         public string[] ConnectionToPLCYXY()
         {
-            string[] strmessage =new string[2];
+            string[] strmessage = new string[2];
             try
             {
                 svrComponenttyp = Type.GetTypeFromProgID(SERVER_NAME);
@@ -45,6 +45,9 @@ namespace Functions
                 ShapeGroup1.addItem(ItemCollection.GetTaskStatusBySend_yxy());           //添加项到组  包装机异型烟链板机（合包）数据写入DB块
                 ShapeGroup2 = new Group(pIOPCServer, 1, "group2", 2, LOCALE_ID);           //创建组
                 ShapeGroup2.addItem(ItemCollection.GetTaskStatusByComplete_yxy());           //添加项到组  (合包)完成信号的DB块
+
+                UnNormalGroup = new Group(pIOPCServer, 1, "group5", 5, LOCALE_ID);
+                UnNormalGroup.addItem(ItemCollection.GetUnNormalWorkPlaceItem());
 
                 strmessage[0] += CheckConnection();//写入校验plc连接尝试结果
                 strmessage[1] = "1";
@@ -58,10 +61,10 @@ namespace Functions
             }
             catch (Exception ex)
             {
-                strmessage[0] += "plc连接建立失败；"+ex.Message;
+                strmessage[0] += "plc连接建立失败；" + ex.Message;
                 strmessage[1] = "0";
                 return strmessage;
-            }    
+            }
         }
 
         /// <summary>
@@ -80,7 +83,10 @@ namespace Functions
         /// 常规烟翻板 完成信号
         /// </summary>
         public Group ShapeGroup3 { get => shapeGroup3; set => shapeGroup3 = value; }
-
+        /// <summary>
+        /// 异形烟缓存工位工位
+        /// </summary>
+        public Group UnNormalGroup { get => UnNormalGroup; set => UnNormalGroup = value; }
         /// <summary>
         /// 检验opc连接  
         /// </summary>

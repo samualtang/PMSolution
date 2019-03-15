@@ -33,12 +33,12 @@ namespace PackageMachine
             this.p_Main.Size = new Size(W, H);
             this.p_Main.TabIndex = 0; 
             this.lab_Line.AutoSize = true;
-            this.lab_Line.Location = new Point(0, 300); 
+            this.lab_Line.Location = new Point(0, 88); 
             this.lab_Line.Margin = new Padding(4, 0, 4, 0);
             this.lab_Line.Name = "lab_Line";
             this.lab_Line.Size = new Size(1029, 15);
             this.lab_Line.TabIndex = 0;
-          //  this.lab_Line.Text = "限高----------------------------------------------------------------------------------------------------------------------------";
+            this.lab_Line.Text = "限高----------------------------------------------------------------------------------------------------------------------------";
             this.timer1.Enabled = true;
             this.timer1.Interval = 500;
             base.AutoScaleDimensions = new SizeF(8f, 15f); 
@@ -112,7 +112,7 @@ namespace PackageMachine
                     buttonList[ListIndex].ForeColor = Color.Black;
                     buttonList[ListIndex].Font = font;
                     buttonList[ListIndex].TabIndex = TabeltIndex;
-                    buttonList[ListIndex].BackColor = Color.Red;// ((detail.Speed == 0) ? Color.White : this.colorList[detail.TobaccoState].Color);
+            // ((detail.Speed == 0) ? Color.White : this.colorList[detail.TobaccoState].Color);
                     if(detail.CigType == "1")
                     {
                         buttonList[ListIndex].Height = normalHeight + AddHeight;
@@ -125,7 +125,7 @@ namespace PackageMachine
                                     ".",
                                     detail.TobaccoName,
                                });
-
+                        buttonList[ListIndex].BackColor = Color.Gray;
                     }
                     else
                     {
@@ -138,8 +138,8 @@ namespace PackageMachine
                                     detail.OrderIndex.ToString(),
                                     ".",
                                     detail.TobaccoName,
-                               }); 
-
+                               });
+                        buttonList[ListIndex].BackColor = Color.White;
                     }
                     buttonList[ListIndex].AccessibleDescription = detail.CigType;
                    
@@ -166,16 +166,16 @@ namespace PackageMachine
                           
                             if (colorIndex == 1)//双抓第二条的时候
                             {
-                                buttonList[ListIndex].BackColor = Color.White;
+                                buttonList[ListIndex].BackColor = Color.Yellow;
                                 buttonList[ListIndex].Location = new Point((int)detail.PostionX + (int)(detail.TobaccoWidth / 2 )   , (int)detail.PostionY );
                                 colorIndex = 0;
                             }
                             else
                             {
                                 buttonList[ListIndex].Location = new Point((int)detail.PostionX - (int)(detail.TobaccoWidth / 2), (int)detail.PostionY );
-                                buttonList[ListIndex].BackColor = Color.Red;
+                                buttonList[ListIndex].BackColor = Color.Yellow;
                                 colorIndex++;
-                            }
+                            } 
                         }
                         else
                         { 
@@ -207,7 +207,7 @@ namespace PackageMachine
                 if (buttonList[i].AccessibleDescription == "2")
                 {
                     int X = (int)((buttonList[i].Location.X ) - (buttonList[i].Width) / 2);
-                    buttonList[i].Location = new Point(X + cigGap, (buttonList[i].Location.Y  ) - (int)tbinfo[0].NormalLayerNum * (48+AddHeight  ));
+                    buttonList[i].Location = new Point(X + cigGap+AddWidth, (buttonList[i].Location.Y  ) - (int)tbinfo[0].NormalLayerNum * (48+AddHeight  ) -AddHeight);
                 }
                 
             }
@@ -218,13 +218,13 @@ namespace PackageMachine
             //        if (item.AccessibleDescription == "2")
             //        {
             //            int x = item.Location.X;// + AddWidth / 2;
-            //            int y = item.Location.Y - AddHeight ;
-            //            item.Location = new Point(x, y); 
+            //            int y = item.Location.Y - AddHeight;
+            //            item.Location = new Point(x, y);
             //        }
 
             //    }
             //}
-
+            //MessageBox.Show("" + p_Main.Width + "|" + p_Main.Height);
         }
         List<TobaccoInfo> SecondaryCalculation(List<TobaccoInfo> list)
         {
@@ -263,7 +263,7 @@ namespace PackageMachine
     
         private void TobaccoShow_Resize(object sender, EventArgs e)
         {
-            
+           // lab_Line.Location = new Point(lab_Line.Location.X,  p_Main.Height /4  );
         }
         /// <summary>
         /// 包类总烟数

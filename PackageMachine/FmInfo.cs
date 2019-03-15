@@ -18,26 +18,42 @@ namespace PackageMachine
         public FmInfo()
         {
             
-            InitializeComponent();
+            InitializeComponent(); 
             ftd = new FmTaskDetail();
             Func += ChangeControlEnabled;
             handle += updateListBox;
             // AutoScroll = true; 
         }
+
+        public FmInfo(OPC_ToPLC pLC)
+        {
+
+            InitializeComponent();
+            ftd = new FmTaskDetail();
+            Func += ChangeControlEnabled;
+            handle += updateListBox;
+            OPC_ToPLC = pLC;
+            
+            // AutoScroll = true; 
+        }
+        /// <summary>
+        /// OPC服务器
+        /// </summary>
+        OPC_ToPLC OPC_ToPLC = null;
+
         /// <summary>
         /// 取消按钮使用(传入1停用，传入2使用)
         /// </summary>
         public static Func<int,int> Func;
         //AutoSizeFormClass asfc = new AutoSizeFormClass();
         private void FmInfo_Load(object sender, EventArgs e)
-        {
-            cs.H = 450;
-            cs.W = 540;
+        { 
             Hrs += BindBillInfo;
-           
-         
+            HrsUbs += BindUInfo;
+            HrsUbs(1);
             ft.Show(); 
-            Loading.Masklayer(this, delegate () { LoadFucn(); }); 
+            Loading.Masklayer(this, delegate () { LoadFucn(); });
+          
         }
 
         /// <summary>
@@ -109,16 +125,21 @@ namespace PackageMachine
         /// <param name="CinNum"></param>
         void BindBillInfo(int packageIndex = 0 )
         { 
-            List<TobaccoInfo> list = br.GetTobaccoInfos( packageIndex,cs.Height );
+            List<TobaccoInfo> list = br.GetTobaccoInfos( packageIndex,cs.Height ) ;
             if (list.Any())
-            { 
-                lblcutcode.Text = "任务流水号：" + list.FirstOrDefault().SortNum;
-                lblcutcount.Text = "客户包数："+list.FirstOrDefault().PackgeSeq  +"/" + list.FirstOrDefault().OrderPackageQty;
-                lblallcount.Text = "总 包 号:" + list.FirstOrDefault().GlobalIndex + "/" + br.Length; 
+            {
+                var firstList = list.FirstOrDefault();
+                lblcutcode.Text = "任务流水号：" + firstList .SortNum;
+                lblcutcount.Text = "客户包数："+ firstList.PackgeSeq  +"/" + firstList.OrderPackageQty;
+                lblallcount.Text = "总 包 号:" + firstList.GlobalIndex + "/" + br.Length; 
                 cs.UpdateValue(list);
                 LabBind();
             } 
         }
+        /// <summary>
+        /// 根据当前包装机，的整体包序，和条烟流水号获取数据显示到异型烟缓存
+        /// </summary>
+        /// <param name="cigNum"></param> 
         void BindUInfo(int CinNum = 0)
         {
             List<TobaccoInfo> UN_list = br.GetUnNormallSort(CinNum);
@@ -126,8 +147,7 @@ namespace PackageMachine
             {
                 cce1.UpdateValue(UN_list);
             } 
-        }
-    
+        } 
         /// <summary>
         /// 索引
         /// </summary>
@@ -193,28 +213,58 @@ namespace PackageMachine
         void CompSizeChanged()
         {
             float width =  Width;
-            float height = Height;
-        
-            //panelInfo.Size = new Size(Width - 20, Convert.ToInt32(Height * 0.15) );
-
-            int widthToCs = Convert.ToInt32(Width * (0.5));
-            if (widthToCs > 500)
+            float height = Height; 
+            int widthToCs = Convert.ToInt32(Width * (0.5)); 
+            if (cs.Created)
             {
-                cs.Size = new Size(555, Convert.ToInt32(Height * 0.65));
+                BindBillInfo(packageIndex: pkIndex); 
             }
             else
             {
-                cs.Size = new Size(widthToCs, Convert.ToInt32(Height * 0.65));
+                cs.Size = new Size(555, 6 * 48 + 20);
             }
-            if (cs.Created)
-            {
-                BindBillInfo(packageIndex: pkIndex);
-            }
-            panel2.Height = (Height - panelInfo.Height - cs.Height) -20;
-            panel3.Width = (Width - panel1.Width - cs.Width) - 20;
+          //  panel3.Width = (Width - panel1.Width - cs.Width) - 20;
             gbInfo.Width = panel1.Width;
             cce1.Height = Convert.ToInt32(Width * 0.45); 
-            cs.Location = new Point(this.Width - cs.Width - 4 - panel1.Width, Height - cs.Height - 4); 
+            cs.Location = new Point(this.Width - cs.Width - 4 - panel1.Width, Height - cs.Height - 4);
+            plcrtl.Height = this.Height - panelInfo.Height - cs.Height;
+
+
+            ChangeLabelLocation( );
+           // panelUN.Location = new Point();
+        }
+        /// <summary>
+        /// 改变文本显示位置
+        /// </summary>
+        void ChangeLabelLocation( )
+        {
+            int allHeight = 0;
+            int height = plcrtl.Height +20;
+            int left = 10;
+
+            lblCigCount.Top = panelInfo.Height+ height;
+            lblCigCount.Left = left;
+
+            allHeight += lblCigCount.Height;
+            lblNormalcOUNT.Top = panelInfo.Height + height + allHeight;
+            lblNormalcOUNT.Left = left;
+
+            allHeight += lblNormalcOUNT.Height;
+            lblUnNormal.Top = panelInfo.Height + height + allHeight;
+            lblUnNormal.Left = left;
+
+            allHeight += lblUnNormal.Height;
+            lbFinsh.Top = panelInfo.Height + height + allHeight;
+            lbFinsh.Left = left;
+
+            allHeight += lbFinsh.Height;
+            lblNotFish.Top = panelInfo.Height + height + allHeight;
+            lblNotFish.Left = left;
+            //lblCigCount.Left = panel3.Width +gbInfo.Width;
+            //lblNormalcOUNT.Left = panel3.Width + gbInfo.Width;
+            //lblUnNormal.Left = panel3.Width + gbInfo.Width;
+            //lbFinsh.Left = panel3.Width + gbInfo.Width;
+            //lblNotFish.Left = panel3.Width + gbInfo.Width;
         }
         private void btnnext_Click(object sender, EventArgs e)
         {
@@ -222,16 +272,16 @@ namespace PackageMachine
             {
                 return;
             }
-            if (  pkIndex <= GetLeng)
+            if (  pkIndex <= br.Length)
             {
                 pkIndex++;
-                if (GetLeng  >= pkIndex )
+                if (br.Length >= pkIndex )
                 { 
                     BindBillInfo(pkIndex);
                 }
                 else
                 {
-                    pkIndex =int.Parse( GetLeng.ToString());
+                    pkIndex =int.Parse(br.Length.ToString());
                     MessageBox.Show("已经是最后一个订单的了");
                 }
                
@@ -249,20 +299,14 @@ namespace PackageMachine
                 lbFinsh.Text = "已包装数量：" + list.Distinct().Where(a => a.UNIONPACKAGETAG == 20).Count();
                 lblNotFish.Text = "未包装数量：" + list.Distinct().Where(a => a.UNIONPACKAGETAG != 20).Count();
 
+               
+
             } 
         }
         /// <summary>
         /// 总体长度
         /// </summary>
-        public decimal GetLeng
-        {
-
-            get => br.Length;
-            //{
-                
-                //if (bill_s.Count == 0) return 1; else { return bill_s[0].PackageSeqLength; };
-            //}
-        }
+ 
 
         private void FmInfo_SizeChanged(object sender, EventArgs e)
         {
@@ -270,17 +314,27 @@ namespace PackageMachine
             //asfc.controlAutoSize(this);
         }
         /// <summary>
-        /// 自动更新跺
+        /// 自动更新常规烟跺
         /// </summary>
         /// <param name="packageIndex"></param>
         /// <param name="cigNum"></param>
-        public  static void AutoRefreshShow(int packageIndex, int cigNum)
+        public  static void AutoRefreshShow(int packageIndex)
         { 
             Hrs(packageIndex);   
         }
+        /// <summary>
+        /// 自动更新异型烟
+        /// </summary>
+        /// <param name="packageIndex"></param>
+        /// <param name="cigNum"></param>
+        public static void AutoRefreshUnShow(int cigIndex)
+        {
+            HrsUbs(cigIndex);
+        }
+
         delegate void HandeleRefrshShow(int p);
         static  HandeleRefrshShow Hrs;
-
+        static HandeleRefrshShow HrsUbs;
         private void list_date_Click(object sender, EventArgs e)
         {
             if(ftd != null)
@@ -314,5 +368,11 @@ namespace PackageMachine
         {
 
         }
+
+        private void gbtnw1_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+        }
     }
+    
 }

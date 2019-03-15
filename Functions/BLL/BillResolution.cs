@@ -13,30 +13,33 @@ namespace Functions.BLL
 
         public BillResolution()
         {
-            using (Entities en = new Entities())
-            {
-                packageno = GlobalPara.PackageNo;
-                var list = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item).ToList();
-                if (list.Any())
-                {
-                    Length = (int)list.Max(a => a.ALLPACKAGESEQ ?? 0);//这台包装机的最大包序
-
-                }
-                else
-                {
-                    Length = 1;
-                }
-
-            }
+          
         }
         /// <summary>
         /// 包装机一共有多少包
         /// </summary>
-        public int Length { get; }
+        public int Length { get => (int)GetMaxLenght();   }
         /// <summary>
         /// 包装机编号
         /// </summary>
-        int packageno = 0;
+
+        decimal GetMaxLenght()
+        {
+            using (Entities en = new Entities())
+            { 
+                var list = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item).ToList();
+                if (list.Any())
+                {
+                  return     (int)list.Max(a => a.ALLPACKAGESEQ ?? 0);//这台包装机的最大包序
+
+                }
+                else
+                {
+                  return    0; 
+                }
+
+            }
+        }
         /// <summary>
         /// 根据订单号包序返回订单详细
         /// </summary>
@@ -69,7 +72,7 @@ namespace Functions.BLL
                         CigQuantity = item.NORMALQTY ?? 0,
                         OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0),
                         CigType = item.CIGTYPE,//卷烟类型
-                        PostionX = (float)Convert.ToDouble(Math.Ceiling(item.CIGWIDTHX ?? 0)),//坐标X
+                        PostionX = (float)( item.CIGWIDTHX ?? 0 ) ,//坐标X
                         PostionY = Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0)//坐标Y  
                     };
                     if (item.CIGTYPE == "1")//常规烟 
@@ -95,7 +98,7 @@ namespace Functions.BLL
                 }
                 else
                 {
-                    return null;
+                    return new List<T_PACKAGE_TASK>();
                 }
             }
         }
