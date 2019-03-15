@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,6 +19,20 @@ namespace PackageMachine
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
+         
+          
+            
+            listBtn.Add(bt5);
+            listBtn.Add(bt4);
+            listBtn.Add(bt3);
+            listBtn.Add(bt2);
+            listBtn.Add(bt1);
+
+            queue.Enqueue(1);
+            queue.Enqueue(2);
+            queue.Enqueue(3);
+            queue.Enqueue(4);
+            queue.Enqueue(5);
         } 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -37,6 +53,8 @@ namespace PackageMachine
             //MessageBox.Show("a=" + a);
             //FmInfo.AutoRefreshShow( int.Parse(textBox1.Text),  int.Parse(textBox2.Text));  
         }
+        List<Button> listBtn = new List<Button>();
+        Queue queue = new Queue();
        async void AutoTxtChang()
         {
             while (true)
@@ -46,6 +64,15 @@ namespace PackageMachine
 
                 textBox2.Text = "随机写入数字" + rd.Next(0, 1000);
                 await    Task.Delay(5000);
+            }
+        }
+        void get(Queue queue)
+        {
+            int index = queue.Count;
+            var newque = queue.ToArray();
+            for (int i = index -1; i >= 0; i--)
+            {
+                listBtn[i].Text = newque[i].ToString();
             }
         }
         private    void button2_ClickAsync(object sender, EventArgs e)
@@ -148,7 +175,12 @@ namespace PackageMachine
 
         private void FmTest_Load(object sender, EventArgs e)
         {
-              func = (str) => { return str.Length; };
+            
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            get(queue);
         }
     }
 }

@@ -54,69 +54,74 @@ namespace PackageMachine
             ShowLoad();
         }
 
- 
+
 
         /// <summary>
         /// 更新垛型显示层
         /// </summary>
-        /// <param name="ListInfo">卷烟垛型信息</param>
-        public void UpdateValue(List<TobaccoInfo> ListInfo)
+        /// <param name="ListInfo">卷烟垛型信息</param>\
+        /// <param name="type">显示类型（0为全部），1为常规烟，2为异形烟</param>
+        public void UpdateValue(List<TobaccoInfo> ListInfo,int type = 0)
         { 
             tbinfo = SecondaryCalculation(ListInfo);
+            switch (type)
+            { 
+                case 1:
+                    tbinfo = tbinfo.Where(a => a.CigType == "1").ToList();
+                    break;
+                case 2:
+                    tbinfo = tbinfo.Where(a => a.CigType == "2").ToList();
+                    break; 
+            }
             if(tbinfo .Count > 64)
             {
                 FmInfo.GetTaskInfo("包内条数大于64,实际数量：" + tbinfo.Count + "，包烟流水号：" + tbinfo[0].GlobalIndex);
                 
                 return;
             }
-            this.UpdateTobaccoShow();
+            this.UpdateTobaccoShow( );
         }
         /// <summary>
         /// 显示层算法实现
         /// </summary>
-        public void UpdateTobaccoShow()
+         void UpdateTobaccoShow( )
         {
             int layerHeight = 0; //常规烟有多少层
-            int AddHeight =   0;
-            int AddWidth =    0;
-            if (buttonList == null)
+            int AddHeight =  0;
+            int AddWidth = 0;
+            if (!buttonList.Any())
             {
-                this.CreateButton(7, 6);
-            }
-            else if (buttonList.Count == 0)
-            {
-                this.CreateButton(7, 6);
+                CreateButton(6, 6);
             }
             else
-            { 
+            {
                 for (int i = 0; i < buttonList.Count; i++)
                 {
                     buttonList[i].Visible = false;
                 }
-                Font font = this.buttonList[0].Font  ;  
+                Font font = this.buttonList[0].Font;
                 int ListIndex = 0;
                 int TabeltIndex = 0;
                 int colorIndex = 0;
                 int normalHeight = 48;
                 int normalWidth = 91;
-              
+
                 int lastX = 0;
                 int NormalCount = 1;
                 int normalIndex = 1;
                 foreach (var detail in tbinfo)
                 {
-                    
+
                     buttonList[ListIndex].Text = "123";
                     buttonList[ListIndex].Visible = true;
                     buttonList[ListIndex].BackgroundImage = null;
                     buttonList[ListIndex].ForeColor = Color.Black;
                     buttonList[ListIndex].Font = font;
                     buttonList[ListIndex].TabIndex = TabeltIndex;
-            // ((detail.Speed == 0) ? Color.White : this.colorList[detail.TobaccoState].Color);
-                    if(detail.CigType == "1")
+                    if (detail.CigType == "1")
                     {
                         buttonList[ListIndex].Height = normalHeight + AddHeight;
-                        buttonList[ListIndex].Width = normalWidth  +AddWidth;
+                        buttonList[ListIndex].Width = normalWidth + AddWidth;
                         buttonList[ListIndex].Text = string.Concat(new string[]
                                {
                                     detail.GlobalIndex.ToString(),
@@ -142,58 +147,58 @@ namespace PackageMachine
                         buttonList[ListIndex].BackColor = Color.White;
                     }
                     buttonList[ListIndex].AccessibleDescription = detail.CigType;
-                   
-                   
+
+
                     if (detail.CigType == "1")//常规烟
                     {
                         //新的坐标等于 = 原坐标减去烟本身宽度除以2 加上新的宽度除以二
                         //detail.PostionX = (detail.PostionX - (detail.TobaccoWidth / 2)) + buttonList[ListIndex].Width / 2;
                         //detail.PostionY = detail.PostionY - AddHeight;
                         buttonList[ListIndex].Location = new Point(buttonList[ListIndex].Width + lastX, base.Height - buttonList[ListIndex].Height - layerHeight);
-                       // buttonList[ListIndex].Visible = false;
+                        // buttonList[ListIndex].Visible = false;
                         if (NormalCount % 6 == 0)
                         {
-                            layerHeight = (48+AddHeight ) * (NormalCount / 6);
-                            lastX = -buttonList[ListIndex].Width;   
-                        }  
+                            layerHeight = (48 + AddHeight) * (NormalCount / 6);
+                            lastX = -buttonList[ListIndex].Width;
+                        }
                         NormalCount++;
                         lastX += buttonList[ListIndex].Width;
                     }
-                    else if(detail.CigType =="2")//异形烟
+                    else if (detail.CigType == "2")//异形烟
                     {
                         if (detail.DoubleTake == "1")//是双抓
                         {
-                          
+
                             if (colorIndex == 1)//双抓第二条的时候
                             {
                                 buttonList[ListIndex].BackColor = Color.Yellow;
-                                buttonList[ListIndex].Location = new Point((int)detail.PostionX + (int)(detail.TobaccoWidth / 2 )   , (int)detail.PostionY );
+                                buttonList[ListIndex].Location = new Point((int)detail.PostionX + (int)(detail.TobaccoWidth / 2), (int)detail.PostionY);
                                 colorIndex = 0;
                             }
                             else
                             {
-                                buttonList[ListIndex].Location = new Point((int)detail.PostionX - (int)(detail.TobaccoWidth / 2), (int)detail.PostionY );
+                                buttonList[ListIndex].Location = new Point((int)detail.PostionX - (int)(detail.TobaccoWidth / 2), (int)detail.PostionY);
                                 buttonList[ListIndex].BackColor = Color.Yellow;
                                 colorIndex++;
-                            } 
+                            }
                         }
                         else
-                        { 
-                            buttonList[ListIndex].Location = new Point((int)detail.PostionX  , (int)detail.PostionY );
+                        {
+                            buttonList[ListIndex].Location = new Point((int)detail.PostionX, (int)detail.PostionY);
                         }
-                        if(detail.TobaccoState == 20)
+                        if (detail.TobaccoState == 20)
                         {
                             buttonList[ListIndex].BackColor = Color.LightGreen;
                         }
-                    } 
+                    }
                     ListIndex++;
-                    TabeltIndex++; 
-                } 
+                    TabeltIndex++;
+                }
             }
 
-            if (tbinfo.Where(a => a.CigType == "2").Count() == 0)
+            if (tbinfo.Where(a => a.CigType == "1").Count() == 0)
             {
-                tbinfo[0].NormalLayerNum = Math.Ceiling(tbinfo.Sum(a => a.CigQuantity) / 6)  ;
+                tbinfo[0].NormalLayerNum = 0  ;
             }
 
             int cigGap = GlobalPara.CigGap;//条烟之间间隙

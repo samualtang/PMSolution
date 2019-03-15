@@ -1,14 +1,18 @@
 ﻿using EFModle.Model;
 using Functions;
 using Functions.BLL;
+using Functions.Model;
 using General;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Group = Functions.Model.Group;
 
 namespace PackageMachine
 {
@@ -22,38 +26,35 @@ namespace PackageMachine
             ftd = new FmTaskDetail();
             Func += ChangeControlEnabled;
             handle += updateListBox;
+            GetGroup = GetOpcServerGroup;
             // AutoScroll = true; 
-        }
-
-        public FmInfo(OPC_ToPLC pLC)
-        {
-
-            InitializeComponent();
-            ftd = new FmTaskDetail();
-            Func += ChangeControlEnabled;
-            handle += updateListBox;
-            OPC_ToPLC = pLC;
-            
-            // AutoScroll = true; 
-        }
+        } 
         /// <summary>
         /// OPC服务器
-        /// </summary>
-        OPC_ToPLC OPC_ToPLC = null;
+        /// </summary> 
+        Group opcGroup;
 
+        /// <summary>
+        /// 获取OPC组
+        /// </summary>
+        public static Func<Group, int> GetGroup;
         /// <summary>
         /// 取消按钮使用(传入1停用，传入2使用)
         /// </summary>
         public static Func<int,int> Func;
-        //AutoSizeFormClass asfc = new AutoSizeFormClass();
+        /// <summary>
+        /// 存入缓存工位的包号
+        /// </summary>
+        Queue  queue = new Queue(7);
+        /// <summary>
+        /// 界面工位按钮显示集合
+        /// </summary>
+        List<Button> listBtn = new List<Button>();
         private void FmInfo_Load(object sender, EventArgs e)
         { 
-            Hrs += BindBillInfo;
-            HrsUbs += BindUInfo;
-            HrsUbs(1);
-            ft.Show(); 
-            Loading.Masklayer(this, delegate () { LoadFucn(); });
           
+            Loading.Masklayer(this, delegate () { LoadFucn(); });
+            ft.Show();
         }
 
         /// <summary>
@@ -81,13 +82,88 @@ namespace PackageMachine
             }
             return 1;
         }
+        int GetOpcServerGroup(Group group)
+        {
+            if( group != null)
+            {
+                opcGroup = group;
+                opcGroup.callback = OnDataChange;
+                return 1;
+            }
+            else
+            {
+
+                GetTaskInfo("任务信息界面：OPC服务获取失败，将无法获取异形烟缓存工位信息！");
+                return 0;
+            }
+        }
+        /// <summary>
+        /// opc监控PLC中的值，当发生改变时进入
+        /// </summary>
+        /// <param name="group"></param>
+        /// <param name="clientId"></param>
+        /// <param name="values"></param>
+        public   void OnDataChange(int group, int[] clientId, object[] values)
+        {
+            if(group == 5)
+            {
+                for (int i = 0; i < clientId.Length; i++)
+                {
+                    int tempvalue = int.Parse((values[i].ToString()));
+                    string info = "";
+                    if ( tempvalue > 1)
+                    {
+                        try
+                        {
+                            if (queue.Count == 7)
+                            { 
+                               GetTaskInfo("异形烟缓存工位,包号" + queue.Dequeue() + "完成，队列移除该包号"); 
+                            } 
+
+                            queue.Enqueue(tempvalue);//将新取到的包号 存入 
+                            ChangeBtnInfo(queue);
+                        }
+                        catch (Exception ex)
+
+                        {
+                            GetTaskInfo("缓存工位队列不包含任何元素" + ex.Message);
+                        } 
+                    }
+                    else { GetTaskInfo("读取缓存工位值异常，值为："+tempvalue); }
+                }
+            }
+        }
+        /// <summary>
+        /// 根据包号 改变按钮显示信息
+        /// </summary>
+        /// <param name="qe"></param>
+        void ChangeBtnInfo(Queue qe  )
+        {
+            int index = qe.Count   ;
+            var newqe = qe.ToArray();
+            for (int j = index-1; j >= 0; j--)
+            {
+                listBtn[j].Text = newqe[j].ToString() ;
+                
+            }
+        }
         void LoadFucn()
         {
-          //取出整个订单 
-            BindBillInfo(packageIndex: 1);
-           
-        }
-       
+            Hrs += BindBillInfo;
+            HrsUbs += BindUInfo;
+            HrsUbs(1);
+    
+            //取出整个订单 
+            BindBillInfo(packageIndex: 1);  
+            listBtn.Add(btngw7); 
+            listBtn.Add(btngw6);
+            listBtn.Add(btngw5);
+            listBtn.Add(btngw4);
+            listBtn.Add(btngw3);
+            listBtn.Add(btngw2);
+            listBtn.Add(btngw1); 
+
+        }       
         BillResolution br = new BillResolution();
  
         private void FmInfo_Resize(object sender, EventArgs e)
@@ -149,7 +225,7 @@ namespace PackageMachine
             } 
         } 
         /// <summary>
-        /// 索引
+        /// 当前索引
         /// </summary>
         int pkIndex = 1;
         private void btnLast_Click(object sender, EventArgs e)
@@ -310,8 +386,7 @@ namespace PackageMachine
 
         private void FmInfo_SizeChanged(object sender, EventArgs e)
         {
-         
-            //asfc.controlAutoSize(this);
+          
         }
         /// <summary>
         /// 自动更新常规烟跺
@@ -331,7 +406,10 @@ namespace PackageMachine
         {
             HrsUbs(cigIndex);
         }
-
+        /// <summary>
+        /// 自动刷新
+        /// </summary>
+        /// <param name="p"></param>
         delegate void HandeleRefrshShow(int p);
         static  HandeleRefrshShow Hrs;
         static HandeleRefrshShow HrsUbs;
@@ -371,7 +449,26 @@ namespace PackageMachine
 
         private void gbtnw1_Click(object sender, EventArgs e)
         {
+            Button btn = (Button)sender; 
+            if (queue.Count > 0)
+            { 
+                decimal pmNum = Convert.ToDecimal(btn.Text);
+                if (Regex.IsMatch(btn.Text, @"^[+-]?\d*[.]?\d*$"))
+                {
+                    var list = br.GetTobaccoInfos(pmNum, cs.Height);
+                    cs.UpdateValue(list, 2);
+                }
+                else
+                {
+                    GetTaskInfo("工位：" + btn.Name + "的包号不为数值类型" + btn.Text);
+                }
+            }
+        }
+
+        private void btngw1_MouseEnter(object sender, EventArgs e)
+        {
             Button btn = (Button)sender;
+          
         }
     }
     

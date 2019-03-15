@@ -26,6 +26,7 @@ namespace Functions
 
         private Group shapeGroup3;
         private Group shapeGroup4;
+
         /// <summary>
         /// 是否开始自动发送过任务：true有，false没有
         /// </summary>
@@ -86,7 +87,7 @@ namespace Functions
         /// <summary>
         /// 异形烟缓存工位工位
         /// </summary>
-        public Group UnNormalGroup { get => UnNormalGroup; set => UnNormalGroup = value; }
+        public Group UnNormalGroup { get; set; }
         /// <summary>
         /// 检验opc连接  
         /// </summary>

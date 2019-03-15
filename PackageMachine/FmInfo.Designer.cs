@@ -49,21 +49,21 @@
             this.lblCache = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.plcrtl = new System.Windows.Forms.Panel();
-            this.gbtnw6 = new System.Windows.Forms.Button();
-            this.gbtnw5 = new System.Windows.Forms.Button();
-            this.gbtnw9 = new System.Windows.Forms.Button();
+            this.btngw6 = new System.Windows.Forms.Button();
+            this.btngw5 = new System.Windows.Forms.Button();
+            this.btngw9 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.gbtnw8 = new System.Windows.Forms.Button();
-            this.gbtnw7 = new System.Windows.Forms.Button();
-            this.gbtnw4 = new System.Windows.Forms.Button();
-            this.gbtnw3 = new System.Windows.Forms.Button();
-            this.gbtnw2 = new System.Windows.Forms.Button();
+            this.btngw8 = new System.Windows.Forms.Button();
+            this.btngw7 = new System.Windows.Forms.Button();
+            this.btngw4 = new System.Windows.Forms.Button();
+            this.btngw3 = new System.Windows.Forms.Button();
+            this.btngw2 = new System.Windows.Forms.Button();
             this.lblNotFish = new System.Windows.Forms.Label();
             this.lbFinsh = new System.Windows.Forms.Label();
             this.lblUnNormal = new System.Windows.Forms.Label();
             this.lblNormalcOUNT = new System.Windows.Forms.Label();
             this.lblCigCount = new System.Windows.Forms.Label();
-            this.gbtnw1 = new System.Windows.Forms.Button();
+            this.btngw1 = new System.Windows.Forms.Button();
             this.panelUN = new System.Windows.Forms.Panel();
             this.panelLb = new System.Windows.Forms.Panel();
             this.cce1 = new PackageMachine.CigrCache();
@@ -287,16 +287,16 @@
             // plcrtl
             // 
             this.plcrtl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.plcrtl.Controls.Add(this.gbtnw6);
-            this.plcrtl.Controls.Add(this.gbtnw5);
-            this.plcrtl.Controls.Add(this.gbtnw9);
+            this.plcrtl.Controls.Add(this.btngw6);
+            this.plcrtl.Controls.Add(this.btngw5);
+            this.plcrtl.Controls.Add(this.btngw9);
             this.plcrtl.Controls.Add(this.pictureBox1);
-            this.plcrtl.Controls.Add(this.gbtnw8);
-            this.plcrtl.Controls.Add(this.gbtnw7);
-            this.plcrtl.Controls.Add(this.gbtnw4);
-            this.plcrtl.Controls.Add(this.gbtnw3);
-            this.plcrtl.Controls.Add(this.gbtnw1);
-            this.plcrtl.Controls.Add(this.gbtnw2);
+            this.plcrtl.Controls.Add(this.btngw8);
+            this.plcrtl.Controls.Add(this.btngw7);
+            this.plcrtl.Controls.Add(this.btngw4);
+            this.plcrtl.Controls.Add(this.btngw3);
+            this.plcrtl.Controls.Add(this.btngw1);
+            this.plcrtl.Controls.Add(this.btngw2);
             this.plcrtl.Controls.Add(this.panelLb);
             this.plcrtl.Controls.Add(this.panelUN);
             this.plcrtl.Dock = System.Windows.Forms.DockStyle.Top;
@@ -305,41 +305,43 @@
             this.plcrtl.Size = new System.Drawing.Size(1018, 172);
             this.plcrtl.TabIndex = 9;
             // 
-            // gbtnw6
+            // btngw6
             // 
-            this.gbtnw6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.gbtnw6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.gbtnw6.Location = new System.Drawing.Point(509, 88);
-            this.gbtnw6.Name = "gbtnw6";
-            this.gbtnw6.Size = new System.Drawing.Size(83, 47);
-            this.gbtnw6.TabIndex = 0;
-            this.gbtnw6.Text = "工位6";
-            this.gbtnw6.UseVisualStyleBackColor = false;
-            this.gbtnw6.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btngw6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw6.Location = new System.Drawing.Point(509, 88);
+            this.btngw6.Name = "btngw6";
+            this.btngw6.Size = new System.Drawing.Size(83, 47);
+            this.btngw6.TabIndex = 0;
+            this.btngw6.Text = "工位6";
+            this.btngw6.UseVisualStyleBackColor = false;
+            this.btngw6.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw6.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
             // 
-            // gbtnw5
+            // btngw5
             // 
-            this.gbtnw5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.gbtnw5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.gbtnw5.Location = new System.Drawing.Point(420, 88);
-            this.gbtnw5.Name = "gbtnw5";
-            this.gbtnw5.Size = new System.Drawing.Size(83, 47);
-            this.gbtnw5.TabIndex = 0;
-            this.gbtnw5.Text = "工位5";
-            this.gbtnw5.UseVisualStyleBackColor = false;
-            this.gbtnw5.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btngw5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw5.Location = new System.Drawing.Point(420, 88);
+            this.btngw5.Name = "btngw5";
+            this.btngw5.Size = new System.Drawing.Size(83, 47);
+            this.btngw5.TabIndex = 0;
+            this.btngw5.Text = "工位5";
+            this.btngw5.UseVisualStyleBackColor = false;
+            this.btngw5.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw5.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
             // 
-            // gbtnw9
+            // btngw9
             // 
-            this.gbtnw9.BackColor = System.Drawing.Color.Gray;
-            this.gbtnw9.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.gbtnw9.Location = new System.Drawing.Point(509, 24);
-            this.gbtnw9.Name = "gbtnw9";
-            this.gbtnw9.Size = new System.Drawing.Size(83, 47);
-            this.gbtnw9.TabIndex = 0;
-            this.gbtnw9.Text = "常规烟";
-            this.gbtnw9.UseVisualStyleBackColor = false;
-            this.gbtnw9.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw9.BackColor = System.Drawing.Color.Gray;
+            this.btngw9.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw9.Location = new System.Drawing.Point(509, 24);
+            this.btngw9.Name = "btngw9";
+            this.btngw9.Size = new System.Drawing.Size(83, 47);
+            this.btngw9.TabIndex = 0;
+            this.btngw9.Text = "常规烟";
+            this.btngw9.UseVisualStyleBackColor = false;
+            this.btngw9.Click += new System.EventHandler(this.gbtnw1_Click);
             // 
             // pictureBox1
             // 
@@ -352,65 +354,69 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
             // 
-            // gbtnw8
+            // btngw8
             // 
-            this.gbtnw8.BackColor = System.Drawing.Color.Gray;
-            this.gbtnw8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.gbtnw8.Location = new System.Drawing.Point(607, 24);
-            this.gbtnw8.Name = "gbtnw8";
-            this.gbtnw8.Size = new System.Drawing.Size(83, 47);
-            this.gbtnw8.TabIndex = 0;
-            this.gbtnw8.Text = "合包";
-            this.gbtnw8.UseVisualStyleBackColor = false;
-            this.gbtnw8.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw8.BackColor = System.Drawing.Color.Gray;
+            this.btngw8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw8.Location = new System.Drawing.Point(607, 24);
+            this.btngw8.Name = "btngw8";
+            this.btngw8.Size = new System.Drawing.Size(83, 47);
+            this.btngw8.TabIndex = 0;
+            this.btngw8.Text = "合包";
+            this.btngw8.UseVisualStyleBackColor = false;
+            this.btngw8.Click += new System.EventHandler(this.gbtnw1_Click);
             // 
-            // gbtnw7
+            // btngw7
             // 
-            this.gbtnw7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.gbtnw7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.gbtnw7.Location = new System.Drawing.Point(607, 88);
-            this.gbtnw7.Name = "gbtnw7";
-            this.gbtnw7.Size = new System.Drawing.Size(83, 47);
-            this.gbtnw7.TabIndex = 0;
-            this.gbtnw7.Text = "工位7";
-            this.gbtnw7.UseVisualStyleBackColor = false;
-            this.gbtnw7.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btngw7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw7.Location = new System.Drawing.Point(607, 88);
+            this.btngw7.Name = "btngw7";
+            this.btngw7.Size = new System.Drawing.Size(83, 47);
+            this.btngw7.TabIndex = 0;
+            this.btngw7.Text = "工位7";
+            this.btngw7.UseVisualStyleBackColor = false;
+            this.btngw7.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw7.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
             // 
-            // gbtnw4
+            // btngw4
             // 
-            this.gbtnw4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.gbtnw4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.gbtnw4.Location = new System.Drawing.Point(331, 88);
-            this.gbtnw4.Name = "gbtnw4";
-            this.gbtnw4.Size = new System.Drawing.Size(83, 47);
-            this.gbtnw4.TabIndex = 0;
-            this.gbtnw4.Text = "工位4";
-            this.gbtnw4.UseVisualStyleBackColor = false;
-            this.gbtnw4.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btngw4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw4.Location = new System.Drawing.Point(331, 88);
+            this.btngw4.Name = "btngw4";
+            this.btngw4.Size = new System.Drawing.Size(83, 47);
+            this.btngw4.TabIndex = 0;
+            this.btngw4.Text = "工位4";
+            this.btngw4.UseVisualStyleBackColor = false;
+            this.btngw4.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw4.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
             // 
-            // gbtnw3
+            // btngw3
             // 
-            this.gbtnw3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.gbtnw3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.gbtnw3.Location = new System.Drawing.Point(242, 88);
-            this.gbtnw3.Name = "gbtnw3";
-            this.gbtnw3.Size = new System.Drawing.Size(83, 47);
-            this.gbtnw3.TabIndex = 0;
-            this.gbtnw3.Text = "工位3";
-            this.gbtnw3.UseVisualStyleBackColor = false;
-            this.gbtnw3.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btngw3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw3.Location = new System.Drawing.Point(242, 88);
+            this.btngw3.Name = "btngw3";
+            this.btngw3.Size = new System.Drawing.Size(83, 47);
+            this.btngw3.TabIndex = 0;
+            this.btngw3.Text = "工位3";
+            this.btngw3.UseVisualStyleBackColor = false;
+            this.btngw3.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw3.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
             // 
-            // gbtnw2
+            // btngw2
             // 
-            this.gbtnw2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.gbtnw2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.gbtnw2.Location = new System.Drawing.Point(153, 88);
-            this.gbtnw2.Name = "gbtnw2";
-            this.gbtnw2.Size = new System.Drawing.Size(83, 47);
-            this.gbtnw2.TabIndex = 0;
-            this.gbtnw2.Text = "工位2";
-            this.gbtnw2.UseVisualStyleBackColor = false;
-            this.gbtnw2.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btngw2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw2.Location = new System.Drawing.Point(153, 88);
+            this.btngw2.Name = "btngw2";
+            this.btngw2.Size = new System.Drawing.Size(83, 47);
+            this.btngw2.TabIndex = 0;
+            this.btngw2.Text = "工位2";
+            this.btngw2.UseVisualStyleBackColor = false;
+            this.btngw2.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw2.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
             // 
             // lblNotFish
             // 
@@ -467,17 +473,18 @@
             this.lblCigCount.TabIndex = 0;
             this.lblCigCount.Text = "卷烟总量：         ";
             // 
-            // gbtnw1
+            // btngw1
             // 
-            this.gbtnw1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.gbtnw1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.gbtnw1.Location = new System.Drawing.Point(62, 88);
-            this.gbtnw1.Name = "gbtnw1";
-            this.gbtnw1.Size = new System.Drawing.Size(83, 47);
-            this.gbtnw1.TabIndex = 0;
-            this.gbtnw1.Text = "工位1";
-            this.gbtnw1.UseVisualStyleBackColor = false;
-            this.gbtnw1.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btngw1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw1.Location = new System.Drawing.Point(62, 88);
+            this.btngw1.Name = "btngw1";
+            this.btngw1.Size = new System.Drawing.Size(83, 47);
+            this.btngw1.TabIndex = 0;
+            this.btngw1.Text = "工位1";
+            this.btngw1.UseVisualStyleBackColor = false;
+            this.btngw1.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw1.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
             // 
             // panelUN
             // 
@@ -577,15 +584,15 @@
         private System.Windows.Forms.Label lblCigCount;
         private System.Windows.Forms.Button btnRemake;
         private System.Windows.Forms.Button btnAuto;
-        private System.Windows.Forms.Button gbtnw5;
-        private System.Windows.Forms.Button gbtnw4;
-        private System.Windows.Forms.Button gbtnw3;
-        private System.Windows.Forms.Button gbtnw2;
-        private System.Windows.Forms.Button gbtnw6;
-        private System.Windows.Forms.Button gbtnw9;
-        private System.Windows.Forms.Button gbtnw8;
-        private System.Windows.Forms.Button gbtnw7;
-        private System.Windows.Forms.Button gbtnw1;
+        private System.Windows.Forms.Button btngw5;
+        private System.Windows.Forms.Button btngw4;
+        private System.Windows.Forms.Button btngw3;
+        private System.Windows.Forms.Button btngw2;
+        private System.Windows.Forms.Button btngw6;
+        private System.Windows.Forms.Button btngw9;
+        private System.Windows.Forms.Button btngw8;
+        private System.Windows.Forms.Button btngw7;
+        private System.Windows.Forms.Button btngw1;
         private System.Windows.Forms.Panel panelLb;
         private System.Windows.Forms.Panel panelUN;
     }

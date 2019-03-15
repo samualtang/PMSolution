@@ -22,16 +22,19 @@ namespace PackageMachine
             CheckForIllegalCrossThreadCalls = false;
         
             plc = new Functions.OPC_ToPLC();
-            string[] strmessage = plc.ConnectionToPLCYXY();
-            FmInfo.GetTaskInfo(strmessage[0]); //创建plc连接
+            string[] strmessage = plc.ConnectionToPLCYXY();//创建plc连接
+            pbInfo_Click(null, null);
+            FmInfo.GetTaskInfo(strmessage[0]); 
+            FmInfo.GetGroup(plc.UnNormalGroup);//传入OPC组到信息显示界面
             if (strmessage[1] == "1")
             {
                 timer1.Interval = 10000;
                 timer1.Start(); //启动定时器
             }
             CreateHslClinet();
-            pbInfo_Click(null, null);
+        
         }
+        FmInfo frm = null;
         /// <summary>
         /// 创建Tcp客户端
         /// </summary>
@@ -68,7 +71,7 @@ namespace PackageMachine
         private void pbInfo_Click(object sender, EventArgs e)
         {
             // ContrlCtrl(panelMain);
-            FmInfo frm = new FmInfo(plc);
+            frm = new FmInfo();
             if (CheckExist(frm) == true)
             {
                 frm.Dispose();
