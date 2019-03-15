@@ -38,7 +38,9 @@
             this.label_DBName = new System.Windows.Forms.Label();
             this.btn_updateLinkString = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox_Opc_Name = new System.Windows.Forms.TextBox();
+            this.textBox_Opc_Namecgy = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox_Opc_Nameyxy = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.textBox_RobitPlc_Port = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -54,8 +56,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_packageno = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.gbox_DB.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -159,9 +159,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.textBox_Opc_Namecgy);
             this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.textBox_Opc_Name);
+            this.groupBox1.Controls.Add(this.textBox_Opc_Nameyxy);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.textBox_RobitPlc_Port);
             this.groupBox1.Controls.Add(this.label7);
@@ -185,13 +185,31 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "其他参数设置";
             // 
-            // textBox_Opc_Name
+            // textBox_Opc_Namecgy
             // 
-            this.textBox_Opc_Name.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_Opc_Name.Location = new System.Drawing.Point(170, 357);
-            this.textBox_Opc_Name.Name = "textBox_Opc_Name";
-            this.textBox_Opc_Name.Size = new System.Drawing.Size(193, 23);
-            this.textBox_Opc_Name.TabIndex = 24;
+            this.textBox_Opc_Namecgy.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_Opc_Namecgy.Location = new System.Drawing.Point(170, 402);
+            this.textBox_Opc_Namecgy.Name = "textBox_Opc_Namecgy";
+            this.textBox_Opc_Namecgy.Size = new System.Drawing.Size(193, 23);
+            this.textBox_Opc_Namecgy.TabIndex = 26;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label9.Location = new System.Drawing.Point(47, 402);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(90, 17);
+            this.label9.TabIndex = 25;
+            this.label9.Text = "常规烟opc别名";
+            // 
+            // textBox_Opc_Nameyxy
+            // 
+            this.textBox_Opc_Nameyxy.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_Opc_Nameyxy.Location = new System.Drawing.Point(170, 357);
+            this.textBox_Opc_Nameyxy.Name = "textBox_Opc_Nameyxy";
+            this.textBox_Opc_Nameyxy.Size = new System.Drawing.Size(193, 23);
+            this.textBox_Opc_Nameyxy.TabIndex = 24;
             // 
             // label8
             // 
@@ -329,28 +347,11 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "包装机号";
             // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox1.Location = new System.Drawing.Point(170, 402);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(193, 23);
-            this.textBox1.TabIndex = 26;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label9.Location = new System.Drawing.Point(47, 402);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(90, 17);
-            this.label9.TabIndex = 25;
-            this.label9.Text = "常规烟opc别名";
-            // 
             // FmSystemSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1033, 488);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btn_updateLinkString);
@@ -381,7 +382,7 @@
         private System.Windows.Forms.Button btn_linktest;
         private System.Windows.Forms.TextBox textBox_packageno;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox_Opc_Name;
+        private System.Windows.Forms.TextBox textBox_Opc_Nameyxy;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox_RobitPlc_Port;
         private System.Windows.Forms.Label label7;
@@ -395,7 +396,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox_BoxLenght;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox_Opc_Namecgy;
         private System.Windows.Forms.Label label9;
     }
 }

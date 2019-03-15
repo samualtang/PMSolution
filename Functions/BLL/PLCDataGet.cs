@@ -10,11 +10,11 @@ namespace Functions.BLL
     public static class PLCDataGet
     {
         /// <summary>
-        /// 更新合包任务状态
+        /// 更新合包任务状态  异型烟
         /// </summary>
         /// <param name="vs">包任务号</param>
         /// <returns></returns>
-        public static bool UpdataTask(int vs)
+        public static bool UpdataTask_yxy(int vs)
         {
             //数据库置完成该任务
             using (Entities et = new Entities())
@@ -35,11 +35,36 @@ namespace Functions.BLL
             }
         }
         /// <summary>
-        /// 获取数据库内未发送的任务
+        /// 更新合包任务状态  常规烟
+        /// </summary>
+        /// <param name="vs">包任务号</param>
+        /// <returns></returns>
+        public static bool UpdataTask_cgy(int vs)
+        {
+            //数据库置完成该任务
+            using (Entities et = new Entities())
+            {
+                List<T_PACKAGE_TASK> lists = et.T_PACKAGE_TASK.Where(x => x.PACKTASKNUM == vs).Select(x => x).ToList();
+                foreach (var item in lists)
+                {
+                    item.NORMAILSTATE = 20;
+                }
+                if (et.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        /// <summary>
+        /// 获取数据库内未发送的任务 异型烟
         /// </summary>
         /// <param name="PackageNo">包装机号</param>
         /// <returns></returns>
-        public static List< T_PACKAGE_TASK> GetAllNotSendTask(int PackageNo)
+        public static List< T_PACKAGE_TASK> GetAllNotSendTask_YXY(int PackageNo)
         {            
             using (Entities et = new Entities())
             {
@@ -47,7 +72,19 @@ namespace Functions.BLL
             }
         }
         /// <summary>
-        /// 根据接收信号的任务，数据库置接收
+        /// 获取数据库内未发送的任务 异型烟
+        /// </summary>
+        /// <param name="PackageNo">包装机号</param>
+        /// <returns></returns>
+        public static List<T_PACKAGE_TASK> GetAllNotSendTask_CGY(int PackageNo)
+        {
+            using (Entities et = new Entities())
+            {
+                return et.T_PACKAGE_TASK.Where(x => x.NORMAILSTATE == 10 && x.PACKAGENO == PackageNo).ToList();
+            }
+        }
+        /// <summary>
+        /// 根据接收信号的任务，数据库置接收  异型烟
         /// </summary>
         /// <param name="Packtasknum"></param>
         /// <returns></returns>
@@ -59,6 +96,31 @@ namespace Functions.BLL
                 foreach (var item in lists)
                 {
                     item.STATE = 15;
+                }
+                if (et.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 根据接收信号的任务，数据库置接收  常规烟
+        /// </summary>
+        /// <param name="Packtasknum"></param>
+        /// <returns></returns>
+        public static bool WriteReceive_CGY(int Packtasknum)
+        {
+            using (Entities et = new Entities())
+            {
+                List<T_PACKAGE_TASK> lists = et.T_PACKAGE_TASK.Where(x => x.PACKTASKNUM == Packtasknum).Select(x => x).ToList();
+                foreach (var item in lists)
+                {
+                    item.NORMAILSTATE = 15;
                 }
                 if (et.SaveChanges() > 0)
                 {

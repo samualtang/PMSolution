@@ -13,7 +13,7 @@ namespace Functions.Model
         /// <returns></returns>
         public static List<string> GetTaskStatusBySend_yxy()  //8个
         {
-            string S7Name = PubFunction.GlobalPara.Opc_Name;
+            string S7Name = PubFunction.GlobalPara.Opc_Nameyxy;
             List<string> list = new List<string>();
             list.Add(S7Name + "DB1,DINT0");//包号  0
             list.Add(S7Name + "DB1,W4");//数量 1
@@ -32,7 +32,7 @@ namespace Functions.Model
         /// <returns></returns>
         public static List<string> GetTaskStatusByComplete_yxy()  //10个
         {
-            string S7Name = PubFunction.GlobalPara.Opc_Name;
+            string S7Name = PubFunction.GlobalPara.Opc_Nameyxy;
             List<string> list = new List<string>();
             for (int i = 0; i < 40; i += 4)
             {
@@ -44,10 +44,15 @@ namespace Functions.Model
         /// 包装机常规烟翻板机数据写入DB块  --待定
         /// </summary>
         /// <returns></returns>
-        public static List<string> GetTaskStatusByComplete_cgy()
+        public static List<string> GetTaskStatusBySend_cgy()
         {
-            string S7Name = PubFunction.GlobalPara.Opc_Name;
+            string S7Name = PubFunction.GlobalPara.Opc_Namecgy;
             List<string> list = new List<string>();
+            list.Add(S7Name + "DB30,DINT500");//整包任务号
+            list.Add(S7Name + "DB30,W504");//包内烟条数
+            list.Add(S7Name + "DB30,W506");//合包标志
+            list.Add(S7Name + "DB30,WT508");//合包数量
+            list.Add(S7Name + "DB30,W510");//接收标志
 
             return list;
         }
@@ -55,10 +60,11 @@ namespace Functions.Model
         /// 包装机常规烟翻板机完成信号的DB块  --待定
         /// </summary>
         /// <returns></returns>
-        public static List<string> GetTaskStatusBySend_cgy()
+        public static List<string> GetTaskStatusByComplete_cgy()
         {
-            string S7Name = PubFunction.GlobalPara.Opc_Name;
+            string S7Name = PubFunction.GlobalPara.Opc_Namecgy;
             List<string> list = new List<string>();
+            list.Add(S7Name + "DB30,DINT520");//完成信号  
 
             return list;
         }

@@ -164,6 +164,7 @@
             this.groupBox_efficiency.TabIndex = 5;
             this.groupBox_efficiency.TabStop = false;
             this.groupBox_efficiency.Text = "效率统计";
+            this.groupBox_efficiency.Visible = false;
             // 
             // lbl_Remainingtime_content
             // 
@@ -276,6 +277,7 @@
             // 
             // FmOrderInfo
             // 
+            this.AcceptButton = this.btn_Query;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;

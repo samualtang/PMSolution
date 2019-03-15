@@ -413,7 +413,8 @@ namespace PackageMachine
                                 //读取接收信号的任务 数据库置接收 
                                 FmInfo.GetTaskInfo(plc.WriteDBReceive_YXY(packtasknum));
                                 //更改标志位 写入新任务
-                                await Task.Run(() => FmInfo.GetTaskInfo(plc.WriteTaskSend_YXY()));
+                                var x = await Task.Run(() => plc.WriteTaskSend_YXY());
+                                FmInfo.GetTaskInfo(x);
                             }
                             catch (Exception ex)
                             {

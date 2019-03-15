@@ -351,9 +351,9 @@ namespace Functions.PubFunction
         }
 
         /// <summary>
-        /// opc服务别名
+        /// opc服务别名 异型烟
         /// </summary>
-        public static string Opc_Name
+        public static string Opc_Nameyxy
         {
             get
             {
@@ -361,7 +361,7 @@ namespace Functions.PubFunction
                 {
                     try
                     {
-                        string result = config.AppSettings.Settings["OpcName"].Value.ToString();
+                        string result = config.AppSettings.Settings["OpcName_yxy"].Value.ToString();
                         if (!string.IsNullOrWhiteSpace(result))
                         {
                             return result;
@@ -388,12 +388,57 @@ namespace Functions.PubFunction
             {
                 if (config != null)
                 {
-                    config.AppSettings.Settings["OpcName"].Value = value.ToString();
+                    config.AppSettings.Settings["OpcName_yxy"].Value = value.ToString();
                     config.Save(ConfigurationSaveMode.Modified);
                     ConfigurationManager.RefreshSection("appSettings");
                 }
             }
         }
+        /// <summary>
+        /// opc服务别名 异型烟
+        /// </summary>
+        public static string Opc_Namecgy
+        {
+            get
+            {
+                if (config != null)
+                {
+                    try
+                    {
+                        string result = config.AppSettings.Settings["OpcName_cgy"].Value.ToString();
+                        if (!string.IsNullOrWhiteSpace(result))
+                        {
+                            return result;
+                        }
+                        else
+                        {
+                            return "错误的opc服务名称";
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        return "错误的opc服务名称";
+                    }
+
+                }
+                else
+                {
+                    return "错误的opc服务名称";
+                }
+
+            }
+            set
+            {
+                if (config != null)
+                {
+                    config.AppSettings.Settings["OpcName_cgy"].Value = value.ToString();
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+        }
+
     }
 
 } 

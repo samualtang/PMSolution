@@ -34,8 +34,8 @@ namespace PackageMachine
             textBox_BoxLenght.Text = Functions.PubFunction.GlobalPara.BoxLenght.ToString();
             textBox_RobitPlc_Ip.Text = Functions.PubFunction.GlobalPara.RobitPlc_Ip.ToString();
             textBox_RobitPlc_Port.Text = Functions.PubFunction.GlobalPara.RobitPlc_Port.ToString();
-            textBox_Opc_Name.Text = Functions.PubFunction.GlobalPara.Opc_Name.ToString();
-
+            textBox_Opc_Nameyxy.Text = Functions.PubFunction.GlobalPara.Opc_Nameyxy.ToString();
+            textBox_Opc_Namecgy.Text = Functions.PubFunction.GlobalPara.Opc_Namecgy.ToString();
 
         }
 
@@ -50,7 +50,8 @@ namespace PackageMachine
                 Functions.PubFunction.GlobalPara.CigGap = Convert.ToInt32(textBox_CigGap.Text);
                 Functions.PubFunction.GlobalPara.RobitPlc_Ip = textBox_RobitPlc_Ip.Text;
                 Functions.PubFunction.GlobalPara.RobitPlc_Port = textBox_RobitPlc_Port.Text;
-                Functions.PubFunction.GlobalPara.Opc_Name = textBox_Opc_Name.Text;
+                Functions.PubFunction.GlobalPara.Opc_Nameyxy = textBox_Opc_Nameyxy.Text;
+                Functions.PubFunction.GlobalPara.Opc_Namecgy = textBox_Opc_Namecgy.Text;
             }
             catch (Exception ex)
             {
