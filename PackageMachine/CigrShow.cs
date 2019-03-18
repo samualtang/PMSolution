@@ -105,13 +105,11 @@ namespace PackageMachine
                 int colorIndex = 0;
                 int normalHeight = 48;
                 int normalWidth = 91;
-
                 int lastX = 0;
                 int NormalCount = 1;
                 int normalIndex = 1;
                 foreach (var detail in tbinfo)
                 {
-
                     buttonList[ListIndex].Text = "123";
                     buttonList[ListIndex].Visible = true;
                     buttonList[ListIndex].BackgroundImage = null;
@@ -146,16 +144,10 @@ namespace PackageMachine
                                });
                         buttonList[ListIndex].BackColor = Color.White;
                     }
-                    buttonList[ListIndex].AccessibleDescription = detail.CigType;
-
-
+                    buttonList[ListIndex].AccessibleDescription = detail.CigType; 
                     if (detail.CigType == "1")//常规烟
                     {
-                        //新的坐标等于 = 原坐标减去烟本身宽度除以2 加上新的宽度除以二
-                        //detail.PostionX = (detail.PostionX - (detail.TobaccoWidth / 2)) + buttonList[ListIndex].Width / 2;
-                        //detail.PostionY = detail.PostionY - AddHeight;
                         buttonList[ListIndex].Location = new Point(buttonList[ListIndex].Width + lastX, base.Height - buttonList[ListIndex].Height - layerHeight);
-                        // buttonList[ListIndex].Visible = false;
                         if (NormalCount % 6 == 0)
                         {
                             layerHeight = (48 + AddHeight) * (NormalCount / 6);

@@ -110,7 +110,6 @@ namespace PackageMachine
                 for (int i = 0; i < clientId.Length; i++)
                 {
                     int tempvalue = int.Parse((values[i].ToString()));
-                    string info = "";
                     if ( tempvalue > 1)
                     {
                         try
@@ -204,11 +203,11 @@ namespace PackageMachine
             List<TobaccoInfo> list = br.GetTobaccoInfos( packageIndex,cs.Height ) ;
             if (list.Any())
             {
+                cs.UpdateValue(list);
                 var firstList = list.FirstOrDefault();
                 lblcutcode.Text = "任务流水号：" + firstList .SortNum;
                 lblcutcount.Text = "客户包数："+ firstList.PackgeSeq  +"/" + firstList.OrderPackageQty;
-                lblallcount.Text = "总 包 号:" + firstList.GlobalIndex + "/" + br.Length; 
-                cs.UpdateValue(list);
+                lblallcount.Text = "总 包 号:" + firstList.GlobalIndex + "/" + br.Length;  
                 LabBind();
             } 
         }
@@ -303,10 +302,11 @@ namespace PackageMachine
             gbInfo.Width = panel1.Width;
             cce1.Height = Convert.ToInt32(Width * 0.45); 
             cs.Location = new Point(this.Width - cs.Width - 4 - panel1.Width, Height - cs.Height - 4);
-            plcrtl.Height = this.Height - panelInfo.Height - cs.Height;
-
+            plcrtl.Height = this.Height - panelInfo.Height - cs.Height - 20;
+     
 
             ChangeLabelLocation( );
+            lblDxdetail.Location = new Point(cs.Location.X - lblDxdetail.Width - 10, cs.Location.Y +2  );
            // panelUN.Location = new Point();
         }
         /// <summary>
@@ -369,14 +369,11 @@ namespace PackageMachine
             var list = br.GetTaskAllInfo();
             if (list.Any())
             {
-                lblCigCount.Text = "卷烟总量："+ list.Distinct().Sum(a=> a.ORDERQTY)   ;
-                lblNormalcOUNT.Text = "常规烟总量：" +list.Where(a=> a.CIGTYPE =="2" ) .Sum(a=> a.NORMALQTY) ;
-                lblUnNormal.Text = "异型烟总量：" + list.Where(a => a.CIGTYPE == "1").Sum(a => a.NORMALQTY);
-                lbFinsh.Text = "已包装数量：" + list.Distinct().Where(a => a.UNIONPACKAGETAG == 20).Count();
-                lblNotFish.Text = "未包装数量：" + list.Distinct().Where(a => a.UNIONPACKAGETAG != 20).Count();
-
-               
-
+                    lblCigCount.Text = "卷烟总量：" + list[0];// list.Distinct().Sum(a => a.ORDERQTY);
+                    lblNormalcOUNT.Text = "常规烟总量：" + list[1];// list.Where(a => a.CIGTYPE == "2").Sum(a => a.NORMALQTY);
+                    lblUnNormal.Text = "异型烟总量：" + list[2];// list.Where(a => a.CIGTYPE == "1").Sum(a => a.NORMALQTY);
+                    lbFinsh.Text = "已包装数量：" + list[3];// list.Distinct().Where(a => a.UNIONPACKAGETAG == 20).Count();
+                    lblNotFish.Text = "未包装数量：" + list[4]; //list.Distinct().Where(a => a.UNIONPACKAGETAG != 20).Count();
             } 
         }
         /// <summary>
@@ -464,11 +461,11 @@ namespace PackageMachine
                 }
             }
         }
-
+        private ToolTip tp_CodeInfo;
         private void btngw1_MouseEnter(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-          
+            tp_CodeInfo.SetToolTip(btn, "");
         }
     }
     

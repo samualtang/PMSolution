@@ -15,6 +15,33 @@ namespace PackageMachine
         public FmTaskLocate()
         {
             InitializeComponent();
+            MaximizeBox = false;
+            MinimizeBox = false;
+        }
+
+        private void btnDw_Click(object sender, EventArgs e)
+        {
+            DialogResult MsgBoxResult = MessageBox.Show("确定要定位任务?",//对话框的显示内容 
+                                                         "定位后电控任务将会清除，可能会导致任务丢失！",//对话框的标题 
+                                                         MessageBoxButtons.YesNo,//定义对话框的按钮，这里定义了YSE和NO两个按钮 
+                                                         MessageBoxIcon.Question,//定义对话框内的图表式样，这里是一个黄色三角型内加一个感叹号 
+                                                         MessageBoxDefaultButton.Button2);//定义对话框的按钮式样
+            if (DialogResult.Yes == MsgBoxResult)
+            { 
+                DialogResult MsgBoxResult2 = MessageBox.Show( "翻版从"+txtFb.Text+" 包号开始 \r\n异型烟从"+txtYxy.Text+"包号开始", 
+                                                                 "确认定位",
+                                                                 MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if(DialogResult.OK  == MsgBoxResult2)
+                {
+
+                }
+                else
+                {
+                    MessageBox.Show("取消成功！","任务定位",MessageBoxButtons.OK,MessageBoxIcon.Stop);
+                    return;
+                }
+
+            }
         }
     }
 }

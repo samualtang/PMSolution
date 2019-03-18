@@ -28,16 +28,12 @@ namespace Functions.BLL
         {
             using (Entities en = new Entities())
             { 
-                var list = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item).ToList();
-                if (list.Any())
-                {
-                  return     (int)list.Max(a => a.ALLPACKAGESEQ ?? 0);//这台包装机的最大包序
+                var list =  (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item).Max(a => a.ALLPACKAGESEQ ?? 0);
+              
+                 
+                  return     (int)list;//这台包装机的最大包序
 
-                }
-                else
-                {
-                  return    0; 
-                }
+             
 
             }
         }
@@ -129,19 +125,26 @@ namespace Functions.BLL
             return list;
         }
 
-        public List<T_PACKAGE_TASK> GetTaskAllInfo()
+        public List<decimal> GetTaskAllInfo()
         {
+            List<decimal> list = new List<decimal>();
             using(Entities en = new Entities())
             {
-                var query = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item).ToList();
-                 if(query.Any())
-                {
-                    return query;
-                }
-                else
-                {
-                    return new List<T_PACKAGE_TASK>();
-                }
+                
+
+                var orderQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item).Distinct().Sum(a => a.ORDERQTY);
+                var normalQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno && item.CIGTYPE =="1" select item).Distinct().Sum(a => a.NORMALQTY);
+                var UnnormalQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno && item.CIGTYPE == "2" select item).Distinct().Sum(a => a.NORMALQTY);
+                var FinshQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno   select item).Distinct().Where(a => a.UNIONPACKAGETAG == 20).Count();
+                var NotFinshQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno   select item).Distinct().Where(a => a.UNIONPACKAGETAG != 20).Count();
+
+                list.Add(orderQty ?? 0);
+                list.Add(normalQty ?? 0);
+                list.Add(UnnormalQty ?? 0);
+                list.Add(FinshQty  );
+                list.Add(NotFinshQty  );
+
+                return list;
             }
         }
         public List<TobaccoInfo> GetUnNormallSort(int CigNum)
