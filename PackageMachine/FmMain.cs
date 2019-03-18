@@ -22,7 +22,7 @@ namespace PackageMachine
             CheckForIllegalCrossThreadCalls = false;
         
             plc = new Functions.OPC_ToPLC();
-            string[] strmessage = plc.ConnectionToPLCYXY();//创建plc连接
+            string[] strmessage = plc.ConnectionToPLC();//创建plc连接
             pbInfo_Click(null, null);
             FmInfo.GetTaskInfo(strmessage[0]); 
             FmInfo.GetGroup(plc.UnNormalGroup);//传入OPC组到信息显示界面

@@ -34,38 +34,43 @@ namespace Functions
         /// <summary>
         /// 创建opc连接
         /// </summary>
-        public string[] ConnectionToPLCYXY()
+        public string[] ConnectionToPLC()
         {
             string[] strmessage = new string[2];
             try
             {
                 svrComponenttyp = Type.GetTypeFromProgID(SERVER_NAME);
                 pIOPCServer = (IOPCServer)Activator.CreateInstance(svrComponenttyp);            //创建服务器连接对象
-
-                ShapeGroup1 = new Group(pIOPCServer, 1, "group1", 1, LOCALE_ID);           //创建组
-                ShapeGroup1.addItem(ItemCollection.GetTaskStatusBySend_yxy());           //添加项到组  包装机异型烟链板机（合包）数据写入DB块
-                ShapeGroup2 = new Group(pIOPCServer, 1, "group2", 2, LOCALE_ID);           //创建组
-                ShapeGroup2.addItem(ItemCollection.GetTaskStatusByComplete_yxy());           //添加项到组  (合包)完成信号的DB块
-
-                UnNormalGroup = new Group(pIOPCServer, 1, "group5", 5, LOCALE_ID);
-                UnNormalGroup.addItem(ItemCollection.GetUnNormalWorkPlaceItem());
-
-                strmessage[0] += CheckConnection();//写入校验plc连接尝试结果
-                strmessage[1] = "1";
-                return strmessage;
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentNullException)
             {
-                strmessage[0] += "服务器对象创建失败,未能建立plc连接，请检查plc连接与opc服务是否正常";
+                strmessage[0] += "服务器对象创建失败,未能建立异型烟链板机plc连接，请检查plc连接与opc服务是否正常";
                 strmessage[1] = "0";
                 return strmessage;
             }
             catch (Exception ex)
             {
-                strmessage[0] += "plc连接建立失败；" + ex.Message;
+                strmessage[0] += ex;
                 strmessage[1] = "0";
                 return strmessage;
             }
+            ShapeGroup1 = new Group(pIOPCServer, 1, "group1", 1, LOCALE_ID);           //创建组
+            ShapeGroup1.addItem(ItemCollection.GetTaskStatusBySend_yxy());           //添加项到组  包装机异型烟链板机（合包）数据写入DB块
+            ShapeGroup2 = new Group(pIOPCServer, 1, "group2", 2, LOCALE_ID);           //创建组
+            ShapeGroup2.addItem(ItemCollection.GetTaskStatusByComplete_yxy());           //添加项到组  (合包)完成信号的DB块
+
+            ShapeGroup3 = new Group(pIOPCServer, 1, "group3", 3, LOCALE_ID);           //创建组
+            ShapeGroup3.addItem(ItemCollection.GetTaskStatusBySend_cgy());           //添加项到组  包装机常规烟翻板数据写入DB块
+            ShapeGroup4 = new Group(pIOPCServer, 1, "group4", 4, LOCALE_ID);           //创建组
+            ShapeGroup4.addItem(ItemCollection.GetTaskStatusByComplete_cgy());           //添加项到组  翻板机完成信号的DB块
+
+            UnNormalGroup = new Group(pIOPCServer, 1, "group5", 5, LOCALE_ID);
+            UnNormalGroup.addItem(ItemCollection.GetUnNormalWorkPlaceItem());
+
+            strmessage[0] += CheckConnection();//写入校验plc连接尝试结果
+            strmessage[1] = "1";
+            return strmessage;
+
         }
 
         /// <summary>
@@ -104,6 +109,7 @@ namespace Functions
             else
             {
                 strmssage += "异型烟链板机plc连接成功！";
+                strmssage += "/r/n" + ReadAndWriteYXYTaskConpelte();
             }
             int flag2 = ShapeGroup3.ReadD(0).CastTo<int>(-1);
             if (flag1 == -1)
@@ -114,21 +120,32 @@ namespace Functions
             {
                 strmssage += "常规烟翻板plc连接成功！";
             }
-            strmssage += "/r/n" + ReadAndWriteYXYTaskConpelte()+"/r/n";//获取所有缓存的完成信号
-            //强制跳变任务发送区标志
-
-
+            strmssage +="/r/n"+ ReadAndWriteCGYTaskConpelte();//获取所有缓存的完成信号
+            
             return strmssage;
         }
-
+        /// <summary>
+        /// 强制跳变任务交互区
+        /// </summary>
+        /// <returns></returns>
         public string timerSendTask()
         {
             if (!startatg && ShapeGroup1.ReadD(7).CastTo<int>(-1) != 1)
             {
                 ShapeGroup1.Write(2, 0);
                 ShapeGroup1.Write(0, 0);
+                return "发送异型烟链板机任务";
             }
-            return "发送异型烟链板机任务";
+            else if (!startatg && ShapeGroup3.ReadD(6).CastTo<int>(-1) != 1)
+            {
+                ShapeGroup3.Write(2, 0);
+                ShapeGroup3.Write(0, 0);
+                return "发送常规烟翻板机任务";
+            }
+            else
+            {
+                return "任务强制发送失败";
+            }
         }
 
         /// <summary>
@@ -138,7 +155,7 @@ namespace Functions
         public string ReadAndWriteYXYTaskConpelte()
         {
             string strmessage = "";
-            int[] result = new int[10];
+            int[] result = new int[ItemCollection.GetTaskStatusByComplete_yxy().Count];
             for (int i = 0; i < ItemCollection.GetTaskStatusByComplete_yxy().Count(); i++)
             {
                 //读取完成标志
@@ -172,7 +189,7 @@ namespace Functions
             for (int i = 0; i < ItemCollection.GetTaskStatusByComplete_cgy().Count(); i++)
             {
                 //读取完成标志
-                result[i] = ShapeGroup2.ReadD(i).CastTo<int>(-1);
+                result[i] = ShapeGroup4.ReadD(i).CastTo<int>(-1);
                 //如果完成标志块内有大于0的值
                 if (result[i] > 0)
                 {
@@ -185,7 +202,7 @@ namespace Functions
                     }
 
                     //更新电控完成标志块
-                    ShapeGroup2.Write(0, i);
+                    ShapeGroup4.Write(0, i);
                     strmessage += "，电控PLC数据已重置/r/n";
                 }
             }

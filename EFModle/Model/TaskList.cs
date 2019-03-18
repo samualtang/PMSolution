@@ -31,7 +31,7 @@ namespace EFModle.Model
         public string REGIONCODE { get; set; }
 
         /// <summary>
-        /// 订单内包序
+        /// 户序
         /// </summary>
         public decimal SORTSEQ { get; set; }
 

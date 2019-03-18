@@ -41,7 +41,7 @@ namespace Functions.Model
             return list;
         }
         /// <summary>
-        /// 包装机常规烟翻板机数据写入DB块  --待定
+        /// 包装机常规烟翻板机数据写入DB块  --7个
         /// </summary>
         /// <returns></returns>
         public static List<string> GetTaskStatusBySend_cgy()
@@ -52,20 +52,24 @@ namespace Functions.Model
             list.Add(S7Name + "DB30,W504");//包内烟条数
             list.Add(S7Name + "DB30,W506");//合包标志
             list.Add(S7Name + "DB30,WT508");//合包数量
-            list.Add(S7Name + "DB30,W510");//接收标志
+            list.Add(S7Name + "DB30,DINT510");//预留
+            list.Add(S7Name + "DB30,W514");//预留
+            list.Add(S7Name + "DB30,W516");//接收标志
 
             return list;
         }
         /// <summary>
-        /// 包装机常规烟翻板机完成信号的DB块  --待定
+        /// 包装机常规烟翻板机完成信号的DB块  --10个
         /// </summary>
         /// <returns></returns>
         public static List<string> GetTaskStatusByComplete_cgy()
         {
-            string S7Name = PubFunction.GlobalPara.Opc_Namecgy;
+            string S7Name = PubFunction.GlobalPara.Opc_Namecgy;//10个
             List<string> list = new List<string>();
-            list.Add(S7Name + "DB30,DINT520");//完成信号  
-
+            for (int i = 0; i < 40; i += 4)
+            {
+                list.Add(S7Name + "DB30,W" + 530 + i * 4);
+            }
             return list;
         }
 
@@ -85,6 +89,23 @@ namespace Functions.Model
                 list.Add(S7Name + "DB30,INT" + (8 + (i * 12)));//推烟位置
                 list.Add(S7Name + "DB30,INT" +( 10 + (i * 12)));//顺序标志
             } 
+            return list;
+        }
+
+        public static List<string> ClearAndStop_cgy()
+        {
+            string S7Name = PubFunction.GlobalPara.Opc_Nameyxy;
+            List<string> list = new List<string>();
+            list.Add(S7Name + "DB30,W518");//清空任务
+            list.Add(S7Name + "DB30,W520");//停止设备运行
+            return list;
+        }
+
+        public static List<string> ClearAndStop_yxy()
+        {
+            string S7Name = PubFunction.GlobalPara.Opc_Nameyxy;
+            List<string> list = new List<string>();
+            
             return list;
         }
     }
