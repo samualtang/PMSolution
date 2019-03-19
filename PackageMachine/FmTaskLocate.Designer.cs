@@ -51,7 +51,7 @@
             this.gbcgy.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.gbcgy.Location = new System.Drawing.Point(12, 12);
             this.gbcgy.Name = "gbcgy";
-            this.gbcgy.Size = new System.Drawing.Size(776, 185);
+            this.gbcgy.Size = new System.Drawing.Size(410, 185);
             this.gbcgy.TabIndex = 0;
             this.gbcgy.TabStop = false;
             this.gbcgy.Text = "操作";
@@ -79,7 +79,7 @@
             // btnDw
             // 
             this.btnDw.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnDw.Location = new System.Drawing.Point(341, 145);
+            this.btnDw.Location = new System.Drawing.Point(163, 147);
             this.btnDw.Name = "btnDw";
             this.btnDw.Size = new System.Drawing.Size(75, 23);
             this.btnDw.TabIndex = 1;
@@ -110,7 +110,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(800, 206);
+            this.ClientSize = new System.Drawing.Size(438, 206);
             this.Controls.Add(this.gbcgy);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "FmTaskLocate";

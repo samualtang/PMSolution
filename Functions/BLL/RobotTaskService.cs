@@ -11,18 +11,22 @@ namespace Functions.BLL
    public class RobotTaskService
     {
 
-        RobotTaskService()
+      public  RobotTaskService()
         {
             packageno = GlobalPara.PackageNo;
 
         }
-
+        /// <summary>
+        /// 获取机器人任务
+        /// </summary>
+        /// <param name="ErrMsg">错误信息</param>
+        /// <returns></returns>
         public object[] GetRobitInfo(out string ErrMsg)
         {
             try
             {
                 ErrMsg = "";
-                object[] ArrInfo = new object[11];
+                object[] ArrInfo = new object[12];
                 for (int i = 0; i < ArrInfo.Length; i++)//初始化
                 {
                     ArrInfo[i] = 0;
@@ -32,30 +36,31 @@ namespace Functions.BLL
                     var query = (from item in en.T_PACKAGE_TASK
                                  where item.PACKAGENO == GlobalPara.PackageNo && item.STATE == 10
                                  orderby item.CIGNUM
-                                 select item).ToList();
-                    if (query != null)
+                                 select item).Take(10).ToList();
+                    if (query.Any())
                     {
                         int index = 0;//双抓的索引
                         foreach (var item in query)
                         {
                             if (item.DOUBLETAKE == "1")
                             {
-                                ArrInfo = new object[22];
+                                ArrInfo = new object[23];
                                 for (int i = 0; i < ArrInfo.Length; i++)//初始化
                                 {
                                     ArrInfo[i] = 0;
                                 }
-                                ArrInfo[index * 11] = item.PACKTASKNUM + ",";//包装机包号
-                                ArrInfo[index * 11 + 1] = item.CIGSEQ + ",";//包内条烟流水号
-                                ArrInfo[index * 11 + 2] = item.CIGWIDTHX + ",";//坐标X
-                                ArrInfo[index * 11 + 3] = (GlobalPara.BoxWidth / 2) + ",";//坐标Y
-                                ArrInfo[index * 11 + 4] = item.CIGHIGHY + ",";//坐标z
-                                ArrInfo[index * 11 + 5] = item.DOUBLETAKE + ",";//是否双抓
-                                ArrInfo[index * 11 + 6] = item.PACKAGEQTY + ",";//包内总数
-                                ArrInfo[index * 11 + 7] = item.CIGARETTECODE + ",";//条烟编码
-                                ArrInfo[index * 11 + 8] = item.CIGLENGTH + ",";//长
-                                ArrInfo[index * 11 + 9] = item.CIGWIDTH + ",";//宽
-                                ArrInfo[index * 11 + 10] = item.CIGHIGH + "|";//高
+                                ArrInfo[index * 12] =  "T,";//头部T 代表这是机器人任务
+                                ArrInfo[index * 12 + 1] = item.PACKTASKNUM + ",";//包装机包号
+                                ArrInfo[index * 12 + 2] = item.CIGSEQ + ",";//包内条烟流水号
+                                ArrInfo[index * 12 + 3] = item.CIGWIDTHX + ",";//坐标X
+                                ArrInfo[index * 12 + 4] = (GlobalPara.BoxWidth / 2) + ",";//坐标Y
+                                ArrInfo[index * 12 + 5] = item.CIGHIGHY + ",";//坐标z
+                                ArrInfo[index * 12 + 6] = item.DOUBLETAKE + ",";//是否双抓
+                                ArrInfo[index * 12 + 7] = item.PACKAGEQTY + ",";//包内总数
+                                ArrInfo[index * 12 + 8] = item.CIGARETTECODE + ",";//条烟编码
+                                ArrInfo[index * 12 + 9] = item.CIGLENGTH + ",";//长
+                                ArrInfo[index * 12 + 10] = item.CIGWIDTH + ",";//宽
+                                ArrInfo[index * 12 + 11] = item.CIGHIGH + "|";//高
                                 if (index == 2)//最多循环两次
                                 {
                                     break;
@@ -76,21 +81,25 @@ namespace Functions.BLL
                             }
                             else
                             {
-                                ArrInfo[0] = item.PACKTASKNUM + ",";//任务流水号 
-                                ArrInfo[1] = item.CIGNUM + ",";//包内条烟流水号
-                                ArrInfo[2] = item.CIGWIDTHX + ",";//坐标X
-                                ArrInfo[3] = (GlobalPara.BoxWidth / 2) + ",";//坐标Y
-                                ArrInfo[4] = item.CIGHIGHY + ",";//坐标z
-                                ArrInfo[5] = item.DOUBLETAKE + ",";//是否双抓
-                                ArrInfo[6] = item.PACKAGEQTY + ",";//包内总数
-                                ArrInfo[7] = item.CIGARETTECODE + ",";//条烟编码
-                                ArrInfo[8] = item.CIGLENGTH + ",";//长
-                                ArrInfo[9] = item.CIGWIDTH + ",";//宽
-                                ArrInfo[10] = item.CIGHIGH;//高
+                                ArrInfo[0] = "T,";//头部T 代表这是机器人任务
+                                ArrInfo[1] = item.PACKTASKNUM + ",";//任务流水号 
+                                ArrInfo[2] = item.CIGNUM + ",";//包内条烟流水号
+                                ArrInfo[3] = item.CIGWIDTHX + ",";//坐标X
+                                ArrInfo[4] = (GlobalPara.BoxWidth / 2) + ",";//坐标Y
+                                ArrInfo[5] = item.CIGHIGHY + ",";//坐标z
+                                ArrInfo[6] = item.DOUBLETAKE + ",";//是否双抓
+                                ArrInfo[7] = item.PACKAGEQTY + ",";//包内总数
+                                ArrInfo[8] = item.CIGARETTECODE + ",";//条烟编码
+                                ArrInfo[9] = item.CIGLENGTH + ",";//长
+                                ArrInfo[10] = item.CIGWIDTH + ",";//宽
+                                ArrInfo[11] = item.CIGHIGH;//高
                                 break;//但抓的情况 只需要取一条的信息
                             }
-                        }
-
+                        } 
+                    }
+                    else//如果不包含元素， 任务已经做完
+                    {
+                        return  ArrInfo;
                     }
                 }
                 return ArrInfo;
@@ -109,15 +118,14 @@ namespace Functions.BLL
                 decimal taskNum = Convert.ToDecimal(task[0]);
                 int CigSeq = (int)task[1];
                 using (Entities en = new Entities())
-                {
-                    var query = (from item in en.T_PACKAGE_TASK
-                                 where item.PACKTASKNUM == taskNum && item.CIGSEQ == CigSeq
-                                 select item).ToList();
-                    if (query != null && query.Count > 0)
+                { 
+                    var query1 = (from item in en.T_PACKAGE_TASK
+                                 where item.PACKTASKNUM == taskNum && item.PACKAGENO == packageno && item.CIGNUM == CigSeq
+                                  select item).ToList();
+                    if (query1.Any()  )
                     {
-                        foreach (var item in query)
-                        {
-                            item.FINISHTIME = DateTime.Now;
+                        foreach (var item in query1)
+                        { 
                             item.STATE = 20;
                         }
                         en.SaveChanges();

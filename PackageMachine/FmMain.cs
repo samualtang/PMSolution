@@ -8,6 +8,9 @@ using HslCommunication;
 using System.Net;
 using HslCommunication.Core.Net;
 using System.Threading;
+using Functions.BLL;
+using System.Text;
+using System.Linq;
 
 namespace PackageMachine
 {
@@ -32,9 +35,18 @@ namespace PackageMachine
                 timer1.Start(); //启动定时器
             }
             CreateHslClinet();
-        
+            robotTask = new RobotTaskService();
         }
         FmInfo frm = null;
+        /// <summary>
+        /// 机器人任务处理类
+        /// </summary>
+        RobotTaskService robotTask = null;
+
+        /// <summary>
+        /// 机器人状态
+        /// </summary>
+        bool RoBotState = false;
         /// <summary>
         /// 创建Tcp客户端
         /// </summary>
@@ -293,18 +305,128 @@ namespace PackageMachine
         private void ComplexClient_AcceptString(AppSession session, NetHandle handle, string data)
         {
             // 接收字符串
-            ShowTextInfo($"[{session.IpEndPoint}] [{handle}] {data}");
-            string[] arrData = data.Split(',');
-            for (int i = 0; i < arrData.Length; i++)
+            //ShowTextInfo($"[{session.IpEndPoint}] [{handle}] {data}");
+            string[] arrData = data.Trim().Split(',');
+            string outStr = "";//错误信息
+            if (arrData[0] == "F")//F头部 代表机器人完成
             {
-                if (arrData[0] == "1")//机器人自动运行 状态 1 是， 0 否
+                if(!RoBotState)
                 {
-                    System.Collections.Generic.List<string> list = new System.Collections.Generic.List<string>();
-               
+                    FmInfo.GetTaskInfo("读取机器人自动运行状态关闭！");
+                    return;
+                }
+                if (data.Contains("|"))//如果包含双抓
+                {
+                    var newArr = data.Substring(2).Trim().Split('|');
+                    if (newArr.Length == 2)
+                    {
+                        for (int i = 0; i < newArr.Length; i++)
+                        {
+                            var arr = newArr[i].Trim().Split(',');
+                            robotTask.UpDateFinishTask(arr, out outStr);
+                            if (!string.IsNullOrWhiteSpace(outStr))
+                            {
+                                FmInfo.GetTaskInfo("任务包号数据更新失败错误：" + outStr);
+                            }
+                            else
+                            {
+                                FmInfo.GetTaskInfo("任务包号" + arr[0] + "完成，数据库更新完成！");
+                            }
+                        }
+                        if (!string.IsNullOrWhiteSpace(outStr))//如果更新任务无异常 则发送任务
+                        {
+                            FmInfo.GetTaskInfo(outStr);
+                        }
+                        else//发送任务
+                        {
+                            SendRobotTask();
+                        }
+                    }
+                    else
+                    {
+                        FmInfo.GetTaskInfo("双抓任务完成信号有误,完成信号长度为" + newArr.Length);
+                    }
+                }
+                else//单抓的情况下
+                {
+                    var newArr = data.Substring(2).Trim().Split(',');
+                    robotTask.UpDateFinishTask(newArr, out outStr);
+                    if (string.IsNullOrWhiteSpace(outStr))
+                    {
+
+                        FmInfo.GetTaskInfo(outStr);
+                    }
+                    else//无错误的情况下 发送任务
+                    {
+                        FmInfo.GetTaskInfo("任务包号" + newArr[0] + "完成，数据库更新完成！");
+                        SendRobotTask();
+                    }
+                } 
+            }
+            else if (arrData[0] == "S")//S头部 代表机器人状态
+            {
+                var newArr = data.Substring(2).Trim().Split(',');
+                if (newArr[0] == "1")
+                {
+                    SendRobotTask();
+                    FmInfo.GetTaskInfo("读取到自动运行状态开启！");
+                    RoBotState = true;
+                }
+                else  if(newArr[0] == "0")
+                {
+                    FmInfo.GetTaskInfo("读取到自动运行状态关闭！");
+                    RoBotState = false;
                 }
             }
+            else if (arrData[0] == "")// 备用
+            {
+                FmInfo.GetTaskInfo("进入备用");
+            }
+            else
+            {
+                FmInfo.GetTaskInfo("未找到对应的暗号头部"+arrData[0]);
+            }
+
+
         }
-         
+        /// <summary>
+        /// 发送机器人任务
+        /// </summary>
+        /// <returns></returns>
+         async  Task SendRobotTask()
+        {
+            if (RoBotState)//读取机器人状态为自动运行
+            {
+                try
+                {
+                    string outStr = "";
+                    // 数据发送
+                    NetHandle Nethandle = new NetHandle();
+                    byte[] bytes = await Task.Run(()=>   robotTask.GetRobitInfo(out outStr).Select(o => Convert.ToByte(o)).ToArray() );//获取机器人任务
+                    if (!string.IsNullOrWhiteSpace(outStr))
+                    {
+                        FmInfo.GetTaskInfo("获取机器人任务方法，错误："+outStr);
+                        return;
+                    }
+                    if (bytes[0] == 0)
+                    {
+                        FmInfo.GetTaskInfo("机器人任务发送完毕！");
+                        return;
+                    }
+
+                    complexClient.Send(Nethandle, bytes);//发送任务至服务器
+                }
+                catch (Exception ex)
+                {
+
+                    FmInfo.GetTaskInfo("发送机器人任务方法，未知错误：" + ex.Message);
+                }
+            }
+            else
+            {
+                FmInfo.GetTaskInfo("机器人自动运行状态为关闭");
+            }
+        }
         /// <summary>
         /// 服务器的异常，启动，等等一般消息产生的时候，出发此事件
         /// </summary>

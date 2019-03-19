@@ -27,14 +27,17 @@ namespace Functions.BLL
         decimal GetMaxLenght()
         {
             using (Entities en = new Entities())
-            { 
-                var list =  (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item).Max(a => a.ALLPACKAGESEQ ?? 0);
-              
-                 
-                  return     (int)list;//这台包装机的最大包序
+            {
+                var list = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item);
+                    if(list.Count() > 0)
+                {
+                 return   list.Max(a => a.ALLPACKAGESEQ ?? 0);
+                }
+                else
+                {
+                    return 1;//这台包装机的最大包序
 
-             
-
+                } 
             }
         }
         /// <summary>

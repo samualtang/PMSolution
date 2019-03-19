@@ -25,7 +25,7 @@ namespace PackageMachine
             this.p_Main.SuspendLayout();
             base.SuspendLayout();
             this.p_Main.BorderStyle = BorderStyle.FixedSingle;
-            this.p_Main.Controls.Add(this.lab_Line);
+           
             this.p_Main.Dock = DockStyle.Fill;
             this.p_Main.Location = new Point(0, 0);
             this.p_Main.Margin = new Padding(4);
@@ -38,7 +38,10 @@ namespace PackageMachine
             this.lab_Line.Name = "lab_Line";
             this.lab_Line.Size = new Size(1029, 15);
             this.lab_Line.TabIndex = 0;
+           
             this.lab_Line.Text = "限高----------------------------------------------------------------------------------------------------------------------------";
+            lab_Line.BackColor = Color.Transparent;
+            lab_Line.Parent = p_Main;
             this.timer1.Enabled = true;
             this.timer1.Interval = 500;
             base.AutoScaleDimensions = new SizeF(8f, 15f); 
@@ -50,7 +53,8 @@ namespace PackageMachine
             base.Resize += this.TobaccoShow_Resize;
             this.p_Main.ResumeLayout(false);
             this.p_Main.PerformLayout();
-            base.ResumeLayout(false); 
+            base.ResumeLayout(false);
+            this.p_Main.Controls.Add(this.lab_Line);
             ShowLoad();
         }
 

@@ -146,6 +146,9 @@ namespace PackageMachine
                 
             }
         }
+        /// <summary>
+        /// 载入时做的事情
+        /// </summary>
         void LoadFucn()
         {
             Hrs += BindBillInfo;
@@ -160,8 +163,8 @@ namespace PackageMachine
             listBtn.Add(btngw4);
             listBtn.Add(btngw3);
             listBtn.Add(btngw2);
-            listBtn.Add(btngw1); 
-
+            listBtn.Add(btngw1);
+            new ToolTip(this.components);
         }       
         BillResolution br = new BillResolution();
  
@@ -255,6 +258,10 @@ namespace PackageMachine
         delegate void HandleUpDate(string info);
         private delegate void HandleDelegate(string strshow);
         static HandleUpDate handle;
+        /// <summary>
+        /// 信息显示到界面 和记录到日记
+        /// </summary>
+        /// <param name="Info"></param>
         public static void GetTaskInfo(string Info)
         {
 
@@ -465,7 +472,7 @@ namespace PackageMachine
         private void btngw1_MouseEnter(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            tp_CodeInfo.SetToolTip(btn, "");
+           // tp_CodeInfo.SetToolTip(btn, "");
         }
     }
     
