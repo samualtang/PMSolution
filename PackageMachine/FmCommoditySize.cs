@@ -29,12 +29,7 @@ namespace PackageMachine
             DGV_OrderInfo.RowHeadersVisible = false;
 
             DGV_OrderInfo.DataSource = FmCommoditySizeFun.Commodity(textBox_QueryText.Text);
-
-            //foreach (DataGridViewColumn column in this.DGV_OrderInfo.Columns)
-            //{
-            //    //设置自动排序
-            //    column.SortMode = DataGridViewColumnSortMode.Automatic;
-            //}
+             
             DGV_OrderInfo.Columns[0].HeaderText = "品牌名称";
             DGV_OrderInfo.Columns[0].Width = 180;
             DGV_OrderInfo.Columns[1].HeaderText = "品牌编码";
@@ -48,6 +43,7 @@ namespace PackageMachine
             DGV_OrderInfo.Columns[5].HeaderText = "双抓";
             DGV_OrderInfo.Columns[5].Width = 60;
 
+            TextboxDataClear();
         }
       
 
@@ -80,14 +76,28 @@ namespace PackageMachine
                     commoditySize.DOUBLETAKE = "";
                     break;
             }
+            DialogResult result = MessageBox.Show("确认修改" + commoditySize.ITEMNAME + "的尺寸信息？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.Cancel)
+            {
+                return;
+            }
             string str = FmCommoditySizeFun.UpdateCommodity(commoditySize) == true ? "更新成功！" : "更新失败！";
             MessageBox.Show(str);
             databinging();
         }
 
+        private void TextboxDataClear()
+        {
+            txt_code.Text = null;
+            txt_height.Text = null;
+            txt_lenght.Text = null;
+            txt_name.Text = null;
+            txt_weight.Text = null;
+        }
+
         private void DGV_OrderInfo_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if ( e.RowIndex > 0 )
+            if ( e.RowIndex > -1 )
             {
                 txt_name.Text = DGV_OrderInfo.Rows[e.RowIndex].Cells[0].Value.ToString();
                 txt_code.Text = DGV_OrderInfo.Rows[e.RowIndex].Cells[1].Value.ToString();
@@ -99,7 +109,7 @@ namespace PackageMachine
 
                 if (DGV_OrderInfo.Rows[e.RowIndex].Cells[5].Value == null)
                 {
-                    comboBox_doubletask.SelectedIndex = 2;
+                    comboBox_doubletask.SelectedIndex = 0;
                 }
                 else
                 {

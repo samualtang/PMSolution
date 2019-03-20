@@ -70,8 +70,12 @@ namespace PackageMachine
         /// <summary>
         /// 获取数据绑定 数据控件datagridview 
         /// </summary>
-        public void GetValues()
+        public void GetValues(bool tag = false)
         {
+            if (tag)
+            {
+                return;
+            }
             SORTSEQ = pkIndex;
             //获最大包数 最小包数
             if (SORTSEQ <= MaxAllpackageseq && SORTSEQ >= MinAllpackageseq)
@@ -79,16 +83,16 @@ namespace PackageMachine
                 switch (DataType)
                 {
                     case 1:
-                        Dgv_datainfo.DataSource = data1.Where(x => x.ALLPACKAGESEQ == SORTSEQ).OrderBy(x => x.CIGNUM).Select(x => new { x.CIGARETTENAME, x.CIGARETTECODE, x.CIGTYPE, x.NORMALQTY, x.PACKAGESEQ }).ToList();
+                        Dgv_datainfo.DataSource = data1.Where(x => x.ALLPACKAGESEQ == SORTSEQ).OrderBy(x => x.CIGNUM).Select(x => new { x.CIGARETTENAME, x.CIGARETTECODE, CIGTYPE = x.CIGTYPE == "1" ? "常规烟" : "异型烟", x.NORMALQTY, x.PACKAGESEQ }).ToList();
                         break;
                     case 2:
-                        Dgv_datainfo.DataSource = data1.Where(x => x.ALLPACKAGESEQ == SORTSEQ && x.CIGTYPE == "1").OrderBy(x => x.CIGNUM).Select(x => new { x.CIGARETTENAME, x.CIGARETTECODE, x.CIGTYPE, x.NORMALQTY, x.PACKAGESEQ }).ToList();
+                        Dgv_datainfo.DataSource = data1.Where(x => x.ALLPACKAGESEQ == SORTSEQ && x.CIGTYPE == "1").OrderBy(x => x.CIGNUM).Select(x => new { x.CIGARETTENAME, x.CIGARETTECODE, CIGTYPE = x.CIGTYPE == "1" ? "常规烟" : "异型烟", x.NORMALQTY, x.PACKAGESEQ }).ToList();
                         break;
                     case 3:
-                        Dgv_datainfo.DataSource = data1.Where(x => x.ALLPACKAGESEQ == SORTSEQ && x.CIGTYPE == "2").OrderBy(x => x.CIGNUM).Select(x => new { x.CIGARETTENAME, x.CIGARETTECODE, x.CIGTYPE, x.NORMALQTY, x.PACKAGESEQ }).ToList();
+                        Dgv_datainfo.DataSource = data1.Where(x => x.ALLPACKAGESEQ == SORTSEQ && x.CIGTYPE == "2").OrderBy(x => x.CIGNUM).Select(x => new { x.CIGARETTENAME, x.CIGARETTECODE, CIGTYPE = x.CIGTYPE == "1" ? "常规烟" : "异型烟", x.NORMALQTY, x.PACKAGESEQ }).ToList();
                         break;
                     case 4:
-                        Dgv_datainfo.DataSource = data1.OrderBy(x => x.CIGNUM).Select(x => new { x.CIGARETTENAME, x.CIGARETTECODE, x.CIGTYPE, x.NORMALQTY, x.PACKAGESEQ }).ToList();
+                        Dgv_datainfo.DataSource = data1.OrderBy(x => x.PACKTASKNUM).ThenBy(x=>x.CIGNUM).Select(x => new { x.CIGARETTENAME, x.CIGARETTECODE, CIGTYPE = x.CIGTYPE == "1" ? "常规烟" : "异型烟" , x.NORMALQTY, x.PACKAGESEQ }).ToList();
                         break;
                     default:
                         break;
@@ -162,6 +166,14 @@ namespace PackageMachine
                 {
                     pkIndex --;
                     BindBillInfo(packageIndex: pkIndex);
+                    if (checkBox_display.Checked)
+                    {
+                        GetValues(true);
+                    }
+                    else
+                    {
+                        GetValues();
+                    }
                     labelChange();
                 }
                 else
@@ -170,7 +182,6 @@ namespace PackageMachine
                 }
 
             }
-            GetValues();
         }
 
         private void button_next_Click(object sender, EventArgs e)
@@ -181,7 +192,14 @@ namespace PackageMachine
                 if (MaxAllpackageseq >= pkIndex)
                 {
                     BindBillInfo(pkIndex);
-                    GetValues();
+                    if (checkBox_display.Checked)
+                    {
+                        GetValues(true);
+                    }
+                    else
+                    {
+                        GetValues();
+                    }
                     labelChange();
                 }
                 else
@@ -232,7 +250,14 @@ namespace PackageMachine
             {
                 pkIndex = MinAllpackageseq;
                 BindBillInfo(pkIndex);
-                GetValues();
+                if (checkBox_display.Checked)
+                    {
+                        GetValues(true);
+                    }
+                    else
+                    {
+                        GetValues();
+                    }
                 labelChange();
             }
             else
@@ -247,6 +272,8 @@ namespace PackageMachine
         {
             label_nowpackageseq.Text = "当前包装机第：" + pkIndex + "包";
             label_packageseq.Text = "当前订单第：" + (pkIndex - MinAllpackageseq + 1) + "包";
+            label_normul.Text = "常规烟：" + data1.Where(x => x.ALLPACKAGESEQ == pkIndex && x.CIGTYPE == "1").Sum(x => x.NORMALQTY).ToString();
+            label_unnormul.Text = "异型烟：" + data1.Where(x => x.ALLPACKAGESEQ == pkIndex && x.CIGTYPE == "2").Sum(x => x.NORMALQTY).ToString();
         }
 
         private void button_end_Click(object sender, EventArgs e)
@@ -255,7 +282,14 @@ namespace PackageMachine
             {
                 pkIndex = MaxAllpackageseq;
                 BindBillInfo(pkIndex);
-                GetValues();
+                if (checkBox_display.Checked)
+                {
+                    GetValues(true);
+                }
+                else
+                {
+                    GetValues();
+                }
                 labelChange();
             }
             else
@@ -264,28 +298,14 @@ namespace PackageMachine
             }
 
         }
-
-        private void Dgv_datainfo_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        { 
-            if (e.ColumnIndex == 2)
-            {
-                if (e.Value.ToString() =="2")
-                {
-                    e.Value = "异型烟";
-                }
-                else
-                {
-                    e.Value = "常规烟";
-                }
-            } 
-        }
-
+        
         private void checkBox_display_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox_display.Checked)
             {
                 DataType = 4;
                 GetValues();
+                radioButton_all.Checked = true;
             }
             else
             {
@@ -299,6 +319,7 @@ namespace PackageMachine
             if (radioButton_cgy.Checked)
             {
                 DataType = 2;
+                checkBox_display.Checked = false;
                 GetValues();
             }
         }
@@ -307,6 +328,7 @@ namespace PackageMachine
             if (radioButton_yxy.Checked)
             {
                 DataType = 3;
+                checkBox_display.Checked = false;
                 GetValues();
             }
         }

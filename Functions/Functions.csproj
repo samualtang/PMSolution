@@ -74,6 +74,7 @@
     <Compile Include="Model\ItemCollection.cs" />
     <Compile Include="Model\TcpIp_ConnPlc.cs" />
     <Compile Include="OPC_ToPLC.cs" />
+    <Compile Include="PackageAlgorithm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PubFunction\AutoSizeFormClass.cs" />
     <Compile Include="PubFunction\ByteToHexStrClass.cs" />

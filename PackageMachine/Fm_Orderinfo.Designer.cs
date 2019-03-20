@@ -51,8 +51,8 @@
             this.radioButton_all = new System.Windows.Forms.RadioButton();
             this.radioButton_yxy = new System.Windows.Forms.RadioButton();
             this.radioButton_cgy = new System.Windows.Forms.RadioButton();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label_normul = new System.Windows.Forms.Label();
+            this.label_unnormul = new System.Windows.Forms.Label();
             this.label_nowpackageseq = new System.Windows.Forms.Label();
             this.cigrShow1 = new PackageMachine.CigrShow();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv_datainfo)).BeginInit();
@@ -215,7 +215,6 @@
             this.Dgv_datainfo.RowTemplate.Height = 23;
             this.Dgv_datainfo.Size = new System.Drawing.Size(601, 385);
             this.Dgv_datainfo.TabIndex = 20;
-            this.Dgv_datainfo.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.Dgv_datainfo_RowStateChanged);
             // 
             // checkBox_display
             // 
@@ -283,23 +282,23 @@
             this.radioButton_cgy.UseVisualStyleBackColor = true;
             this.radioButton_cgy.CheckedChanged += new System.EventHandler(this.radioButton_cgy_CheckedChanged);
             // 
-            // label2
+            // label_normul
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(841, 120);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 12);
-            this.label2.TabIndex = 24;
-            this.label2.Text = "常规烟000";
+            this.label_normul.AutoSize = true;
+            this.label_normul.Location = new System.Drawing.Point(841, 120);
+            this.label_normul.Name = "label_normul";
+            this.label_normul.Size = new System.Drawing.Size(59, 12);
+            this.label_normul.TabIndex = 24;
+            this.label_normul.Text = "常规烟000";
             // 
-            // label3
+            // label_unnormul
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(938, 120);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 12);
-            this.label3.TabIndex = 25;
-            this.label3.Text = "异型烟000";
+            this.label_unnormul.AutoSize = true;
+            this.label_unnormul.Location = new System.Drawing.Point(938, 120);
+            this.label_unnormul.Name = "label_unnormul";
+            this.label_unnormul.Size = new System.Drawing.Size(59, 12);
+            this.label_unnormul.TabIndex = 25;
+            this.label_unnormul.Text = "异型烟000";
             // 
             // label_nowpackageseq
             // 
@@ -329,8 +328,8 @@
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1186, 488);
             this.Controls.Add(this.label_nowpackageseq);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label_unnormul);
+            this.Controls.Add(this.label_normul);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBox_display);
@@ -388,8 +387,8 @@
         private System.Windows.Forms.RadioButton radioButton_all;
         private System.Windows.Forms.RadioButton radioButton_yxy;
         private System.Windows.Forms.RadioButton radioButton_cgy;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label_normul;
+        private System.Windows.Forms.Label label_unnormul;
         private System.Windows.Forms.Label label_nowpackageseq;
     }
 }

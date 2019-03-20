@@ -57,12 +57,11 @@
             this.DGV_OrderInfo.AllowUserToAddRows = false;
             this.DGV_OrderInfo.AllowUserToDeleteRows = false;
             this.DGV_OrderInfo.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.DGV_OrderInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV_OrderInfo.Location = new System.Drawing.Point(12, 82);
             this.DGV_OrderInfo.Name = "DGV_OrderInfo";
             this.DGV_OrderInfo.ReadOnly = true;
             this.DGV_OrderInfo.RowTemplate.Height = 23;
-            this.DGV_OrderInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullColumnSelect;
+            this.DGV_OrderInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGV_OrderInfo.Size = new System.Drawing.Size(652, 428);
             this.DGV_OrderInfo.TabIndex = 4;
             this.DGV_OrderInfo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_OrderInfo_CellClick);
@@ -126,6 +125,7 @@
             this.btn_update.TabIndex = 34;
             this.btn_update.Text = "更  新";
             this.btn_update.UseVisualStyleBackColor = true;
+            this.btn_update.Click += new System.EventHandler(this.btn_update_Click);
             // 
             // comboBox_doubletask
             // 

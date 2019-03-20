@@ -15,14 +15,14 @@ namespace Functions.Model
         {
             string S7Name = PubFunction.GlobalPara.Opc_Nameyxy;
             List<string> list = new List<string>();
-            list.Add(S7Name + "DB1,DINT0");//包号  0
-            list.Add(S7Name + "DB1,W4");//数量 1
-            list.Add(S7Name + "DB1,W6");//合包标志 2
-            list.Add(S7Name + "DB1,W8");//合包数量 3
-            list.Add(S7Name + "DB1,W12");//推烟位置（层数） 4
-            list.Add(S7Name + "DB1,DINT14");//预留  5
-            list.Add(S7Name + "DB1,W18");//预留  6
-            list.Add(S7Name + "DB1,W20");//交互标志  7
+            list.Add(S7Name + "DB3,DINT0");//包号  0
+            list.Add(S7Name + "DB3,W4");//数量 1
+            list.Add(S7Name + "DB3,W6");//合包标志 2
+            list.Add(S7Name + "DB3,W8");//合包数量 3
+            list.Add(S7Name + "DB3,W12");//推烟位置（层数） 4
+            list.Add(S7Name + "DB3,DINT14");//预留  5
+            list.Add(S7Name + "DB3,W18");//预留  6
+            list.Add(S7Name + "DB3,W20");//交互标志  7
             return list;
         }
 

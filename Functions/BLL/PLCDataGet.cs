@@ -20,9 +20,16 @@ namespace Functions.BLL
             using (Entities et = new Entities())
             {
                 List<T_PACKAGE_TASK> lists = et.T_PACKAGE_TASK.Where(x => x.PACKTASKNUM == vs).Select(x => x).ToList();
+                if (lists.Count <= 0)
+                {
+                    return false;
+                }
                 foreach (var item in lists)
                 {
-                    item.STATE = 20;
+                    if (item.STATE == 15)
+                    {
+                        item.STATE = 20;
+                    }
                 }
                 if (et.SaveChanges() > 0)
                 {
@@ -45,9 +52,16 @@ namespace Functions.BLL
             using (Entities et = new Entities())
             {
                 List<T_PACKAGE_TASK> lists = et.T_PACKAGE_TASK.Where(x => x.PACKTASKNUM == vs).Select(x => x).ToList();
+                if (lists.Count <= 0)
+                {
+                    return false;
+                }
                 foreach (var item in lists)
                 {
-                    item.NORMAILSTATE = 20;
+                    if (item.NORMAILSTATE == 15)
+                    {
+                        item.NORMAILSTATE = 20;
+                    }
                 }
                 if (et.SaveChanges() > 0)
                 {
@@ -80,7 +94,7 @@ namespace Functions.BLL
         {
             using (Entities et = new Entities())
             {
-                return et.T_PACKAGE_TASK.Where(x => x.NORMAILSTATE == 10 && x.PACKAGENO == PackageNo).ToList();
+                return et.T_PACKAGE_TASK.Where(x => x.NORMAILSTATE == 10 && x.PACKAGENO == PackageNo).OrderBy(x => x.PACKTASKNUM).ToList();
             }
         }
         /// <summary>
@@ -95,7 +109,10 @@ namespace Functions.BLL
                 List<T_PACKAGE_TASK> lists = et.T_PACKAGE_TASK.Where(x => x.PACKTASKNUM == Packtasknum).Select(x => x).ToList();
                 foreach (var item in lists)
                 {
-                    item.STATE = 15;
+                    if (item.STATE == 10)
+                    {
+                        item.STATE = 15;
+                    }
                 }
                 if (et.SaveChanges() > 0)
                 {
@@ -120,7 +137,10 @@ namespace Functions.BLL
                 List<T_PACKAGE_TASK> lists = et.T_PACKAGE_TASK.Where(x => x.PACKTASKNUM == Packtasknum).Select(x => x).ToList();
                 foreach (var item in lists)
                 {
-                    item.NORMAILSTATE = 15;
+                    if (item.NORMAILSTATE == 10)
+                    {
+                        item.NORMAILSTATE = 15;
+                    }
                 }
                 if (et.SaveChanges() > 0)
                 {
