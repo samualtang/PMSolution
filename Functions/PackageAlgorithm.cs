@@ -68,7 +68,7 @@ namespace Functions
                     matching.CigWidthX = 0;
                     matching.CigHighY = 0;
                     matching.CurrentHigh = xydata[i].IHEIGHT ?? 0;
-                    matching.CurrentWidth = xydata[i].IWIDTH  ?? 0;
+                    matching.CurrentWidth = xydata[i].IWIDTH ?? 0;
                     matching.DoubleTake = doubFlag;
                     matching.GapWidth = gapWidth;
                     matching.Highnum = highnum;
@@ -76,7 +76,7 @@ namespace Functions
                     Matching newmatching = packageVo(sortN, xydata, matching, i);
 
                     //若所有平面宽度不满足来烟宽度则跳出并记录当前对象数组数据存入当前订单的集合中并开始下一包异型烟
-                    if (newmatching.CigWidthX == 0 && newmatching.CigHighY ==0)
+                    if (newmatching.CigWidthX == 0 && newmatching.CigHighY == 0)
                     {
                         //if (!normalList.isEmpty())
                         //{
@@ -92,17 +92,17 @@ namespace Functions
                         //}
                         //else
                         //{
-                            //纯异型烟
-                                                                                    //for (int j = 0; j < PVO.size(); j++)
-                                                                                    //{
-                                                                                    //    PackageVo vo1 = PVO.get(j);
-                                                                                    //    if (vo1.getPACKAGEQTY() == 0)
-                                                                                    //    {
-                                                                                    //        vo1.setPACKAGEQTY(CIGSEQ - 1);
-                                                                                    //        cignum = cignum + 1;
-                                                                                    //        vo1.setCignum(cignum);
-                                                                                    //    }
-                                                                                    //}
+                        //纯异型烟
+                        //for (int j = 0; j < PVO.size(); j++)
+                        //{
+                        //    PackageVo vo1 = PVO.get(j);
+                        //    if (vo1.getPACKAGEQTY() == 0)
+                        //    {
+                        //        vo1.setPACKAGEQTY(CIGSEQ - 1);
+                        //        cignum = cignum + 1;
+                        //        vo1.setCignum(cignum);
+                        //    }
+                        //}
                         //}
                     }
 
@@ -112,7 +112,7 @@ namespace Functions
                     //平面剩余宽度=来烟宽度,y=最低平面y轴坐标+来烟高度)
                     //并 计算当前最低平面剩余宽度(最低平面剩余宽度=最低平面剩余宽度-(来烟宽度+gapWidth*2));
                     nowtask.SORTNUM = xydata[i].PACKAGEINFO.TASKNUM;
-                    nowtask.BILLCODE= xydata[i].PACKAGEINFO.BILLCODE;
+                    nowtask.BILLCODE = xydata[i].PACKAGEINFO.BILLCODE;
                     nowtask.ALLPACKAGESEQ = ALLPACKAGESEQ;
                     nowtask.PACKAGENO = ORDERPACKAGENUM;
                     nowtask.CIGHIGH = xydata[i].IHEIGHT;
@@ -126,50 +126,53 @@ namespace Functions
                     nowtask.ORDERDATE = xydata[i].PACKAGEINFO.ORDERDATE;
                     nowtask.PACKAGENO = xydata[i].PACKAGEINFO.EXPORT;
                     nowtask.ORDERQTY = xydata[i].PACKAGEINFO.QUANTITY;
-//                    if (doubFlag=="0")
-//                    {
-//                        nowtask.DOUBLETAKE = doubFlag;
-//                        nowtask.CIGSEQ = CIGSEQ;
-//                        //条烟宽度的一半 + （平面的X坐标-平面宽度） +已用宽度 
-//                        nowtask.CIGWIDTHX = (xydata[i].IWIDTH/2)+ newmatching.CigHighY + newmatching.CurrentWidth
-//;
-//                        packageVo1.setCigWidthX(((unnormalList.get(i).getCigWidth().add(gapWidth.multiply(new BigDecimal(2))))
-//                            .divide(new BigDecimal(2), 0, BigDecimal.ROUND_CEILING)).add(widthx.subtract(sortN.get(index).getCigWidth()
-//                            .divide(new BigDecimal(2), 0, BigDecimal.ROUND_CEILING))).add(sortN.get(index).getCigWidth()
-//                            .subtract(sortN.get(index).getSurplusWidth())));
-//                        packageVo1.setSurplusWidth(packageVo1.getCigWidth().add(gapWidth.multiply(new BigDecimal(2))));
-//                    }
-//                    else
-//                    {
-//                        packageVo1.setDoubleTake(doubFlag);
-//                        packageVo1.setCIGSEQ(CIGSEQ);
-//                        packageVo1.setCigWidthX((unnormalList.get(i).getCigWidth().add(unnormalList.get(i + 1).getCigWidth()).add(gapWidth.multiply(new BigDecimal(2)))).divide(new BigDecimal(2), 0, BigDecimal.ROUND_CEILING).add(widthx.subtract(sortN.get(index).getCigWidth().divide(new BigDecimal(2), 0, BigDecimal.ROUND_CEILING))).add(sortN.get(index).getCigWidth().subtract(sortN.get(index).getSurplusWidth())));
-//                        packageVo1.setSurplusWidth(packageVo1.getCigWidth().add(gapWidth));
+                    if (doubFlag == "0")
+                    {
+                        nowtask.DOUBLETAKE = doubFlag;
+                        nowtask.CIGSEQ = CIGSEQ;
+                        //条烟的X坐标： 条烟宽度的一半 + （平面的X坐标-平面宽度/2） +已用宽度 
+                        nowtask.CIGWIDTHX = (xydata[i].IWIDTH / 2) + (newmatching.CigWidthX - newmatching.CurrentWidth / 2) + newmatching.GapWidth;
+                        ;
+                        //packageVo1.setCigWidthX(((unnormalList.get(i).getCigWidth().add(gapWidth.multiply(new BigDecimal(2))))
+                        //    .divide(new BigDecimal(2), 0, BigDecimal.ROUND_CEILING)).add(widthx.subtract(sortN.get(index).getCigWidth()
+                        //    .divide(new BigDecimal(2), 0, BigDecimal.ROUND_CEILING))).add(sortN.get(index).getCigWidth()
 
-//                        CIGSEQ++;
-//                        packageVo2.setOrderdate(unnormalList.get(i).getOrderdate());
-//                        packageVo2.setPackageno(unnormalList.get(i + 1).getPackageno());
-//                        packageVo2.setOrderqty(orderqty);
-//                        packageVo2.setCigtype(2);
-//                        packageVo2.setPokenum(1);
-//                        packageVo2.setTasknum(unnormalList.get(i + 1).getTasknum());
-//                        packageVo2.setDoubleTake(doubFlag);
-//                        packageVo2.setBillcode(unnormalList.get(i + 1).getBillcode());
-//                        packageVo2.setCIGSEQ(CIGSEQ);
-//                        packageVo2.setPackageseq(ORDERPACKAGENUM);
-//                        packageVo2.setALLPACKAGESEQ(ALLPACKAGESEQ);
-//                        packageVo2.setCigWidth(unnormalList.get(i + 1).getCigWidth());
-//                        packageVo2.setCigHigh(unnormalList.get(i + 1).getCigHigh());
-//                        packageVo2.setCigLength(unnormalList.get(i + 1).getCigLength());
-//                        packageVo2.setCigHighY(highy.add(packageVo1.getCigHigh()));
-//                        packageVo2.setCigarettecode(unnormalList.get(i + 1).getCigarettecode());
-//                        packageVo2.setCIGARETTENAME(unnormalList.get(i + 1).getCIGARETTENAME());
-//                        packageVo2.setSurplusWidth(packageVo2.getCigWidth().add(gapWidth));
-//                        packageVo2.setCigWidthX(packageVo1.getCigWidthX());
-//                    }
+                        //    .subtract(sortN.get(index).getSurplusWidth())));
+                        //    nowtask
+                        //    packageVo1.setSurplusWidth(packageVo1.getCigWidth().add(gapWidth.multiply(new BigDecimal(2))));//剩余宽度=已用宽度+条烟宽度
+                        //}
+                        //else
+                        //{
+                        //    packageVo1.setDoubleTake(doubFlag);
+                        //    packageVo1.setCIGSEQ(CIGSEQ);
+                        //    packageVo1.setCigWidthX((unnormalList.get(i).getCigWidth().add(unnormalList.get(i + 1).getCigWidth()).add(gapWidth.multiply(new BigDecimal(2)))).divide(new BigDecimal(2), 0, BigDecimal.ROUND_CEILING).add(widthx.subtract(sortN.get(index).getCigWidth().divide(new BigDecimal(2), 0, BigDecimal.ROUND_CEILING))).add(sortN.get(index).getCigWidth().subtract(sortN.get(index).getSurplusWidth())));
+                        //    packageVo1.setSurplusWidth(packageVo1.getCigWidth().add(gapWidth));
+
+                        //    CIGSEQ++;
+                        //    packageVo2.setOrderdate(unnormalList.get(i).getOrderdate());
+                        //    packageVo2.setPackageno(unnormalList.get(i + 1).getPackageno());
+                        //    packageVo2.setOrderqty(orderqty);
+                        //    packageVo2.setCigtype(2);
+                        //    packageVo2.setPokenum(1);
+                        //    packageVo2.setTasknum(unnormalList.get(i + 1).getTasknum());
+                        //    packageVo2.setDoubleTake(doubFlag);
+                        //    packageVo2.setBillcode(unnormalList.get(i + 1).getBillcode());
+                        //    packageVo2.setCIGSEQ(CIGSEQ);
+                        //    packageVo2.setPackageseq(ORDERPACKAGENUM);
+                        //    packageVo2.setALLPACKAGESEQ(ALLPACKAGESEQ);
+                        //    packageVo2.setCigWidth(unnormalList.get(i + 1).getCigWidth());
+                        //    packageVo2.setCigHigh(unnormalList.get(i + 1).getCigHigh());
+                        //    packageVo2.setCigLength(unnormalList.get(i + 1).getCigLength());
+                        //    packageVo2.setCigHighY(highy.add(packageVo1.getCigHigh()));
+                        //    packageVo2.setCigarettecode(unnormalList.get(i + 1).getCigarettecode());
+                        //    packageVo2.setCIGARETTENAME(unnormalList.get(i + 1).getCIGARETTENAME());
+                        //    packageVo2.setSurplusWidth(packageVo2.getCigWidth().add(gapWidth));
+                        //    packageVo2.setCigWidthX(packageVo1.getCigWidthX());
+                        //                    }
+                    }
+
+
                 }
-
-
             }
         }
 

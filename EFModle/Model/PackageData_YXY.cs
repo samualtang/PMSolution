@@ -24,13 +24,37 @@ namespace EFModle.Model
     /// </summary>
     public class Matching
     {
+        /// <summary>
+        /// 平面X
+        /// </summary>
         public int CigWidthX { get; set; }
+        /// <summary>
+        /// 平面Y
+        /// </summary>
         public int CigHighY { get; set; }
+        /// <summary>
+        /// 平面高
+        /// </summary>
         public decimal CurrentHigh { get; set; }
+        /// <summary>
+        /// 平面宽
+        /// </summary>
         public decimal CurrentWidth { get; set; }
+        /// <summary>
+        /// 双爪
+        /// </summary>
         public string DoubleTake { get; set; }
+        /// <summary>
+        /// 已用宽度
+        /// </summary>
         public decimal GapWidth { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public decimal Highnum { get; set; }
+        /// <summary>
+        /// 条烟索引
+        /// </summary>
         public int Index { get; set; }
     }
 
