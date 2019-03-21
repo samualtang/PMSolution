@@ -8,91 +8,163 @@ namespace EFModle.Model
 {
     public class PackageVo
     {
-        /*
         /// <summary>
-        /// 烟之间间隙变量单位毫米
+        /// 主键
         /// </summary>
-        public decimal gapWidth { get; set; }
+        public int Ptid { get; set; }
         /// <summary>
-        /// 允许超出限高的浮动范围单位毫米
+        /// 订单号
         /// </summary>
-        public decimal floatScope { get; set; }
+        public string Billcode{ get; set; }
         /// <summary>
-        /// 异型烟限高单位毫米
+        /// 户序
         /// </summary>
-        public decimal umaxhigh { get; set; }
+        public int Orderseq{ get; set; }
         /// <summary>
-        /// 同一平面中允许的烟高度差(双抓高度差)
+        /// 订单包序
         /// </summary>
-        public decimal highnum { get; set; }
-        /// <summary>
-        /// 同一平面中允许烟之间相隔宽度差
-        /// </summary>
-        public decimal widthnum { get; set; }
-        /// <summary>
-        /// 同一平面中允许烟之间相隔宽度差
-        /// </summary>
-        public decimal minwidth { get; set; }
-        /// <summary>
-        /// 总高度
-        /// </summary>
-        public decimal allhigh { get; set; }
-        /// <summary>
-        /// 工位宽度
-        /// </summary>
-        public decimal width { get; set; }
-        */
-        /// <summary>
-        /// 每包卷烟顺序
-        /// </summary>
-        public decimal CIGSEQ { get; set; }
-        /// <summary>
-        /// 条烟流水号
-        /// </summary>
-        public decimal cignum { get; set; }
+        public int Packageseq{ get; set; }
         /// <summary>
         /// 订单总包数
         /// </summary>
-        public decimal ORDERPACKAGENUM { get; set; }
+        public int ORDERPACKAGENUM{ get; set; } //
+        /// <summary>
+        /// 卷烟编码
+        /// </summary>
+        public string Cigarettecode{ get; set; }//卷烟编码
+        /// <summary>
+        /// 卷烟名称
+        /// </summary>
+        public string CIGARETTENAME{ get; set; } //卷烟名称
+        /// <summary>
+        /// 每包条烟数
+        /// </summary>
+        public int PACKAGEQTY{ get; set; } //每包条烟数
+        /// <summary>
+        /// 每包卷烟顺序
+        /// </summary>
+        public int CIGSEQ { get; set; }
+        /// <summary>
+        /// 卷烟高度
+        /// </summary>
+        public decimal CigHigh{ get; set; }
+        /// <summary>
+        /// 卷烟宽度  /  平面宽度
+        /// </summary>
+        public decimal CigWidth{ get; set; }
+        /// <summary>
+        /// 卷烟长度
+        /// </summary>
+        public decimal CigLength{ get; set; }
+        /// <summary>
+        /// 卷烟y轴坐标
+        /// </summary>
+        public decimal CigHighY{ get; set; } //
+        /// <summary>
+        /// 卷烟x轴坐标
+        /// </summary>
+        public decimal CigWidthX{ get; set; }
+        /// <summary>
+        /// 卷烟z轴坐标
+        /// </summary>
+        public decimal CigZ{ get; set; }
+        /// <summary>
+        /// 平面剩余宽度
+        /// </summary>
+        public decimal SurplusWidth{ get; set; }
+        /// <summary>
+        /// 正常烟高度
+        /// </summary>
+        public decimal NormalCigHigh{ get; set; }
+        public decimal SubWidth{ get; set; }
         /// <summary>
         /// 整体包序
         /// </summary>
-        public decimal ALLPACKAGESEQ { get; set; }
+        public int ALLPACKAGESEQ{ get; set; }
         /// <summary>
-        /// 双抓标志位
+        /// 是否双抓（0：单抓，1双抓）
         /// </summary>
-        public decimal doubFlag { get; set; }
+        public string DoubleTake{ get; set; }
         /// <summary>
-        /// 订单总条烟数
+        /// 条烟流水号
         /// </summary>
-        public decimal orderqty { get; set; }
+        public int Cignum{ get; set; }
+        /// <summary>
+        /// 订单任务号
+        /// </summary>
+        public decimal Tasknum{ get; set; }
+        /// <summary>
+        /// 订单日期
+        /// </summary>
+        public DateTime? Orderdate{ get; set; }
+        /// <summary>
+        /// 推烟层数
+        /// </summary>
+        public int Pushspace{ get; set; }
+        /// <summary>
+        /// 合包标志
+        /// </summary>
+        public int Unionpackagestate{ get; set; }
+        /// <summary>
+        /// 卷烟类型
+        /// </summary>
+        public int Cigtype{ get; set; }
+        /// <summary>
+        /// 正常烟条数
+        /// </summary>
+        public int Pokenum{ get; set; }
+        /// <summary>
+        /// 当前平面的Y轴坐标
+        /// </summary>
+        public decimal Highy{ get; set; }
+        /// <summary>
+        /// 同一平面中允许烟之间相隔宽度差  间隔
+        /// </summary>
+        public decimal Widthnum{ get; set; }//----------------------
+        /// <summary>
+        /// 总宽度  工位宽度  
+        /// </summary>
+        public decimal Width{ get; set; }//----------------------
+        /// <summary>
+        /// 订单总量
+        /// </summary>
+        public int Orderqty{ get; set; }
+        /// <summary>
+        /// 包装机任务号
+        /// </summary>
+        public int Packtasknum{ get; set; }
         /// <summary>
         /// 包装机号
         /// </summary>
-        public decimal packageno { get; set; }
-        public decimal cigname { get; set; }
-        public decimal cigcode { get; set; }
-
+        public int Packageno{ get; set; } 	
         /// <summary>
-        /// 初始工位宽度
+        /// 当前烟宽度（可能单双抓）
         /// </summary>
-        public decimal CigWidth { get; set; }
+        public decimal CurrentWidth{ get; set; }
         /// <summary>
-        /// 初始工位剩余宽度
+        /// 当前高度（双爪取最高）
         /// </summary>
-        public decimal SurplusWidth { get; set; }
+        public decimal CurrentHigh{ get; set; }
         /// <summary>
-        /// X
+        /// 条烟间间隙 两边5mm  双抓之间无间隙  与旁边的有
         /// </summary>
-        public decimal CigWidthX { get; set; }
+        public decimal GapWidth{ get; set; }
         /// <summary>
-        /// Y
+        /// 条烟索引
         /// </summary>
-        public decimal CigHighY { get; set; }
+        public int Index{ get; set; }
         /// <summary>
-        /// Y
+        /// 同一平面允许的高度差于 双抓允许的高度差
         /// </summary>
-        public decimal Index { get; set; }
+        public decimal Highnum{ get; set; }
+        /// <summary>
+        /// 总高度(正常烟)
+        /// </summary>
+        public decimal Allhigh{ get; set; }
+        /// <summary>
+        /// 同一平面中允许烟之间相隔宽度差 最小宽度差
+        /// </summary>
+        public decimal Minwidth{ get; set; }
 
     }
 }

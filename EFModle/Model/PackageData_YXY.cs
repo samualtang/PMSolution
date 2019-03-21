@@ -33,23 +33,23 @@ namespace EFModle.Model
         /// </summary>
         public int CigHighY { get; set; }
         /// <summary>
-        /// 平面高
+        /// 当前烟高
         /// </summary>
         public decimal CurrentHigh { get; set; }
         /// <summary>
-        /// 平面宽
+        /// 烟宽
         /// </summary>
         public decimal CurrentWidth { get; set; }
         /// <summary>
-        /// 双爪
+        /// 双抓
         /// </summary>
         public string DoubleTake { get; set; }
         /// <summary>
-        /// 已用宽度
+        /// 间隙
         /// </summary>
         public decimal GapWidth { get; set; }
         /// <summary>
-        /// 
+        /// 同一平面允许的双抓高度差
         /// </summary>
         public decimal Highnum { get; set; }
         /// <summary>

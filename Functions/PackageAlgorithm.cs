@@ -27,15 +27,15 @@ namespace Functions
         int orderqty = 0;//订单总条烟数
         int packageno = 0;
 
-        
-        //查询所有订单
+         
+
         List<PackageVo> sortN = new List<PackageVo>();
 
         PackageVo pack = new PackageVo(); //初始数据
 
 
         /// <summary>
-        /// 初始数据
+        /// 初始数据 平面
         /// </summary>
         public void Init()
         {
@@ -60,10 +60,10 @@ namespace Functions
                 decimal sumcig = xydata.Sum(x => x.PACKAGEINFO.QUANTITY).Value;//
                 for (int i = 0; i < xydata.Count; i++)
                 {
-                    T_PACKAGE_TASK nowtask = new T_PACKAGE_TASK();//当前条烟
-                    T_PACKAGE_TASK nexttask = new T_PACKAGE_TASK();//下一条烟
+                    PackageVo nowtask = new PackageVo();//当前条烟
+                    PackageVo nexttask = new PackageVo();//下一条烟
 
-                    Matching matching = new Matching();
+                    PackageVo matching = new PackageVo();
 
                     matching.CigWidthX = 0;
                     matching.CigHighY = 0;
@@ -73,7 +73,7 @@ namespace Functions
                     matching.GapWidth = gapWidth;
                     matching.Highnum = highnum;
 
-                    Matching newmatching = packageVo(sortN, xydata, matching, i);
+                    PackageVo newmatching = packageVo(sortN, xydata, matching, i);
 
                     //若所有平面宽度不满足来烟宽度则跳出并记录当前对象数组数据存入当前订单的集合中并开始下一包异型烟
                     if (newmatching.CigWidthX == 0 && newmatching.CigHighY == 0)
@@ -111,66 +111,84 @@ namespace Functions
                     //(x=((来烟宽度+gapWidth*2)/2)+(最低平面x轴坐标-((最低平面下层烟宽度+gapWidth*2)/2))+最低平面已用剩余平面，
                     //平面剩余宽度=来烟宽度,y=最低平面y轴坐标+来烟高度)
                     //并 计算当前最低平面剩余宽度(最低平面剩余宽度=最低平面剩余宽度-(来烟宽度+gapWidth*2));
-                    nowtask.SORTNUM = xydata[i].PACKAGEINFO.TASKNUM;
-                    nowtask.BILLCODE = xydata[i].PACKAGEINFO.BILLCODE;
+                    nowtask.Tasknum = xydata[i].PACKAGEINFO.TASKNUM ?? 0;
+                    nowtask.Billcode = xydata[i].PACKAGEINFO.BILLCODE;
                     nowtask.ALLPACKAGESEQ = ALLPACKAGESEQ;
-                    nowtask.PACKAGENO = ORDERPACKAGENUM;
-                    nowtask.CIGHIGH = xydata[i].IHEIGHT;
-                    nowtask.CIGWIDTH = xydata[i].IWIDTH;
-                    nowtask.CIGLENGTH = xydata[i].ILENGTH;
-                    nowtask.CIGHIGHY = matching.CigHighY;
-                    nowtask.CIGARETTECODE = xydata[i].PACKAGEINFO.CIGARETTECODE;
+                    nowtask.Packageno = ORDERPACKAGENUM;
+                    nowtask.CigHigh = xydata[i].IHEIGHT ?? 0;
+                    nowtask.CigWidth = xydata[i].IWIDTH ?? 0;
+                    nowtask.CigLength = xydata[i].ILENGTH ?? 0;
+                    nowtask.CigHighY = matching.CigHighY+matching.CurrentHigh;
+                    nowtask.Cigarettecode = xydata[i].PACKAGEINFO.CIGARETTECODE;
                     nowtask.CIGARETTENAME = xydata[i].PACKAGEINFO.CIGARETTENAME;
-                    nowtask.NORMALQTY = 1;
-                    nowtask.CIGTYPE = "3";
-                    nowtask.ORDERDATE = xydata[i].PACKAGEINFO.ORDERDATE;
-                    nowtask.PACKAGENO = xydata[i].PACKAGEINFO.EXPORT;
-                    nowtask.ORDERQTY = xydata[i].PACKAGEINFO.QUANTITY;
+                    nowtask.Pokenum = 1;
+                    nowtask.Cigtype = 2;
+                    nowtask.Orderdate = xydata[i].PACKAGEINFO.ORDERDATE;
+                    nowtask.Packageno = (int)xydata[i].PACKAGEINFO.EXPORT;
+                    nowtask.Orderqty = (int)xydata[i].PACKAGEINFO.QUANTITY;
                     if (doubFlag == "0")
                     {
-                        nowtask.DOUBLETAKE = doubFlag;
+                        nowtask.DoubleTake = doubFlag;
                         nowtask.CIGSEQ = CIGSEQ;
                         //条烟的X坐标： 条烟宽度的一半 + （平面的X坐标-平面宽度/2） +已用宽度 
-                        nowtask.CIGWIDTHX = (xydata[i].IWIDTH / 2) + (newmatching.CigWidthX - newmatching.CurrentWidth / 2) + newmatching.GapWidth;
-                        ;
-                        //packageVo1.setCigWidthX(((unnormalList.get(i).getCigWidth().add(gapWidth.multiply(new BigDecimal(2))))
-                        //    .divide(new BigDecimal(2), 0, BigDecimal.ROUND_CEILING)).add(widthx.subtract(sortN.get(index).getCigWidth()
-                        //    .divide(new BigDecimal(2), 0, BigDecimal.ROUND_CEILING))).add(sortN.get(index).getCigWidth()
-
-                        //    .subtract(sortN.get(index).getSurplusWidth())));
-                        //    nowtask
-                        //    packageVo1.setSurplusWidth(packageVo1.getCigWidth().add(gapWidth.multiply(new BigDecimal(2))));//剩余宽度=已用宽度+条烟宽度
-                        //}
-                        //else
-                        //{
-                        //    packageVo1.setDoubleTake(doubFlag);
-                        //    packageVo1.setCIGSEQ(CIGSEQ);
-                        //    packageVo1.setCigWidthX((unnormalList.get(i).getCigWidth().add(unnormalList.get(i + 1).getCigWidth()).add(gapWidth.multiply(new BigDecimal(2)))).divide(new BigDecimal(2), 0, BigDecimal.ROUND_CEILING).add(widthx.subtract(sortN.get(index).getCigWidth().divide(new BigDecimal(2), 0, BigDecimal.ROUND_CEILING))).add(sortN.get(index).getCigWidth().subtract(sortN.get(index).getSurplusWidth())));
-                        //    packageVo1.setSurplusWidth(packageVo1.getCigWidth().add(gapWidth));
-
-                        //    CIGSEQ++;
-                        //    packageVo2.setOrderdate(unnormalList.get(i).getOrderdate());
-                        //    packageVo2.setPackageno(unnormalList.get(i + 1).getPackageno());
-                        //    packageVo2.setOrderqty(orderqty);
-                        //    packageVo2.setCigtype(2);
-                        //    packageVo2.setPokenum(1);
-                        //    packageVo2.setTasknum(unnormalList.get(i + 1).getTasknum());
-                        //    packageVo2.setDoubleTake(doubFlag);
-                        //    packageVo2.setBillcode(unnormalList.get(i + 1).getBillcode());
-                        //    packageVo2.setCIGSEQ(CIGSEQ);
-                        //    packageVo2.setPackageseq(ORDERPACKAGENUM);
-                        //    packageVo2.setALLPACKAGESEQ(ALLPACKAGESEQ);
-                        //    packageVo2.setCigWidth(unnormalList.get(i + 1).getCigWidth());
-                        //    packageVo2.setCigHigh(unnormalList.get(i + 1).getCigHigh());
-                        //    packageVo2.setCigLength(unnormalList.get(i + 1).getCigLength());
-                        //    packageVo2.setCigHighY(highy.add(packageVo1.getCigHigh()));
-                        //    packageVo2.setCigarettecode(unnormalList.get(i + 1).getCigarettecode());
-                        //    packageVo2.setCIGARETTENAME(unnormalList.get(i + 1).getCIGARETTENAME());
-                        //    packageVo2.setSurplusWidth(packageVo2.getCigWidth().add(gapWidth));
-                        //    packageVo2.setCigWidthX(packageVo1.getCigWidthX());
-                        //                    }
+                        nowtask.CigWidthX = ((xydata[i].IWIDTH / 2) + (newmatching.CigWidthX - sortN[i].CigWidth / 2) + (sortN[i].CigWidth - sortN[i].SurplusWidth)) ?? 0;
+                        //条烟工位剩余宽度：烟宽+间隙*2 
+                        nowtask.SurplusWidth = nowtask.CigWidth + nowtask.GapWidth;
                     }
+                    else
+                    {
+                        nowtask.DoubleTake = doubFlag;
+                        nowtask.CIGSEQ = CIGSEQ;
+                        nowtask.CigWidth = ((xydata[i].IWIDTH / 2) + (newmatching.CigWidthX - sortN[i].CigWidth / 2) + (sortN[i].CigWidth - sortN[i].SurplusWidth)) ?? 0;
 
+
+                        //packageVo1.setCigWidthX((unnormalList.get(i).getCigWidth().add(unnormalList.get(i + 1).getCigWidth())
+                         //   .add(gapWidth.multiply(new BigDecimal(2)))).divide(new BigDecimal(2), 0, BigDecimal.ROUND_CEILING)
+                        //    .add(widthx.subtract(sortN.get(index).getCigWidth().divide(new BigDecimal(2), 0, BigDecimal.ROUND_CEILING)))
+                       //     .add(sortN.get(index).getCigWidth().subtract(sortN.get(index).getSurplusWidth())));
+
+                        //packageVo1.setSurplusWidth(packageVo1.getCigWidth().add(gapWidth));
+
+                        CIGSEQ++;
+
+                        nexttask.Orderdate = xydata[i + 1].PACKAGEINFO.ORDERDATE;
+                        nexttask.Packageno = (int)xydata[i + 1].PACKAGEINFO.EXPORT;
+                        nexttask.Orderqty = (int)xydata[i + 1].PACKAGEINFO.ORDERQUANTITY;
+                        nexttask.Cigtype = 2;
+                        nexttask.Pokenum = 1;
+                        nexttask.Tasknum = xydata[i + 1].PACKAGEINFO.TASKNUM ?? 0;
+                        nexttask.DoubleTake = doubFlag;
+                        nexttask.Billcode = xydata[i + 1].PACKAGEINFO.BILLCODE;
+                        nexttask.CIGSEQ = CIGSEQ;
+                        nexttask.Packageseq = ORDERPACKAGENUM;
+                        nexttask.ALLPACKAGESEQ = ALLPACKAGESEQ;
+                        nexttask.CigWidth = xydata[i + 1].IWIDTH ?? 0;
+                        nexttask.CigHigh = xydata[i + 1].IHEIGHT ?? 0;
+                        nexttask.CigLength = xydata[i + 1].ILENGTH ?? 0;
+                        nexttask.CigHighY = matching.CurrentHigh + matching.CigHighY;//卷烟Y
+                        nexttask.Cigarettecode = xydata[i + 1].PACKAGEINFO.CIGARETTECODE;
+                        nexttask.CIGARETTENAME = xydata[i + 1].PACKAGEINFO.CIGARETTENAME;
+                        nexttask.CigWidthX = nowtask.CigWidthX;
+                        nexttask.SurplusWidth = nexttask.CigWidth + gapWidth;
+                         
+                       }
+
+                    //重组平面
+                    PackageVo vo = new PackageVo();
+                    vo.DoubleTake = matching.DoubleTake;
+                    vo.CurrentHigh = matching.CurrentHigh;
+                    vo.CurrentWidth = matching.CurrentWidth;
+                    vo.CigHighY = matching.CigHighY;
+                    vo.Highnum = matching.Highnum;
+                    vo.GapWidth = matching.GapWidth;
+                    vo.Widthnum = matching.Widthnum;
+                    vo.GapWidth = gapWidth;
+                    vo.Minwidth = minwidth;
+
+
+
+                    var result = ResetPlane(sortN,nowtask,nexttask, matching, i);
+                     
 
                 }
             }
@@ -184,12 +202,156 @@ namespace Functions
 
 
 
+ 
+        
+        /// <summary>
+        /// 重组平面：合并平面与添加新平面
+        /// </summary>
+        /// <param name="sortN">平面的集合</param>
+        /// <param name="packageVo1">第一条烟</param>
+        /// <param name="packageVo2">第二条烟</param>
+        /// <param name="packageVo">重组平面的变量（放置两条烟的底平面）</param>
+        /// <param name="index">平面的下标</param>
+        /// <returns></returns>
+        public List<PackageVo> ResetPlane(List<PackageVo> sortN, PackageVo packageVo1, PackageVo packageVo2, PackageVo packageVo, int index)
+        {
+            List<PackageVo> xy = new List<PackageVo>();
+            //若可用位置小于等于75 平面无可用位置  
+            //则重新计算x轴坐标，并移除当前平面（空隙利用）
+            if ((sortN[index].SurplusWidth- (packageVo.CurrentWidth +packageVo.GapWidth * 2) <= packageVo.Minwidth) )
+            {
+                //第一条卷烟的X轴=第一条卷烟的X轴+当前平面的剩余宽度-（当前烟的宽度（可能两条）+两边间隙）/2
+                packageVo1.CigWidthX = packageVo1.CigWidthX + sortN[index].SurplusWidth - Math.Ceiling((packageVo.CurrentWidth + packageVo.GapWidth * 2) / 2);
+                if (packageVo.DoubleTake == "1")
+                {
+                    //第二条卷烟的X轴=第一条卷烟的X轴
+                    packageVo2.CigWidthX = packageVo1.CigWidthX;
+                    //第二条卷烟的平面剩余宽度=第二条卷烟的平面剩余宽度+ （底平面剩余宽度-烟宽度（可能两条）+ 两边间隙*2）/2
+                    packageVo2.SurplusWidth = packageVo2.SurplusWidth + Math.Ceiling((sortN[index].SurplusWidth - packageVo.CurrentWidth + packageVo.GapWidth) / 2);
+                }
+                else
+                {
+                    packageVo1.SurplusWidth = packageVo1.SurplusWidth + sortN[index].SurplusWidth - Math.Ceiling((packageVo.CurrentWidth + packageVo.GapWidth * 2) / 2);
+                }
+                sortN.Remove(sortN[index]);
+            }
+            else
+            {
+                //可用位置大于75则重置平面可用宽度
+                sortN[index].SurplusWidth = sortN[index].SurplusWidth - packageVo.CurrentWidth + packageVo.GapWidth / 2;
+            }
+            int flagT = 0;
+            int indexSortN = -1;//记录平面下标
+            for (int m = 0; m < sortN.Count; m++)
+            {
+                decimal subX = 0;
+                if (sortN[m].CigWidthX <= packageVo1.CigWidthX)
+                {
+                    subX = packageVo.DoubleTake == "0"
+                        ? packageVo1.CigWidthX - Math.Ceiling(packageVo1.SurplusWidth / 2) - Math.Ceiling(sortN[m].CigWidth / 2) - sortN[m].CigWidthX
+                        : packageVo1.CigWidthX - packageVo1.SurplusWidth + Math.Ceiling(packageVo2.SurplusWidth / 2) - sortN[m].CigWidthX;
+                }
+                else
+                {
+                    subX = packageVo.DoubleTake == "0"
+                        ? packageVo1.CigWidthX + Math.Ceiling(packageVo1.SurplusWidth / 2) + Math.Ceiling(sortN[m].CigWidth / 2) - sortN[m].CigWidthX
+                        : packageVo2.CigWidthX + packageVo1.SurplusWidth + Math.Ceiling(packageVo2.SurplusWidth / 2) + Math.Ceiling(sortN[m].CigWidth / 2) - sortN[m].CigWidthX;
+                }
+                if (Math.Abs(sortN[m].CigWidthX - packageVo.CurrentWidth + packageVo.Highy) <= packageVo.Highnum)
+                {
+                    if (indexSortN != -1)
+                    {
+                        if ((sortN[indexSortN].CigWidthX + Math.Ceiling(sortN[indexSortN].CigWidth / 2) + Math.Ceiling(sortN[m].CigWidth / 2)) == sortN[m].CigWidthX)
+                        {
+                            sortN[indexSortN].CigWidth = sortN[indexSortN].CigWidth + sortN[m].CigWidth;
+                            sortN[indexSortN].CigWidthX = sortN[indexSortN].CigWidthX + Math.Ceiling(sortN[m].CigWidth / 2);
+                            sortN[indexSortN].SurplusWidth = sortN[indexSortN].SurplusWidth + sortN[m].SurplusWidth;
+                            if (sortN[indexSortN].CigHighY <= sortN[m].CigHighY)
+                            {
+                                sortN[indexSortN].CigHighY = sortN[m].CigHighY;
+                            }
+                            sortN.Remove(sortN[m]);
+                        }
+                    }
+                    else
+                    {
+                        if (Math.Abs(subX) <= packageVo.Widthnum)
+                        {
+                            if (subX < 0 || sortN[m].SurplusWidth < sortN[m].CigWidth)
+                            {
+                                break;
+                            }
+                            decimal cWidth = packageVo.DoubleTake == "0" ? packageVo1.SurplusWidth : packageVo1.SurplusWidth + packageVo2.SurplusWidth;
+                            sortN[m].CigWidth = sortN[m].CigWidth + cWidth + Math.Abs(subX);
+                            if (sortN[m].CigWidthX < packageVo1.CigWidthX)
+                            {
+                                sortN[m].CigWidthX = sortN[m].CigWidthX + Math.Ceiling((cWidth + Math.Abs(subX)) / 2);
+                            }
+                            else
+                            {
+                                sortN[m].CigWidthX = sortN[m].CigWidthX - Math.Ceiling((cWidth + Math.Abs(subX)) / 2);
+                            }
+                            sortN[m].SurplusWidth = sortN[m].SurplusWidth + cWidth + Math.Abs(subX);
+                            if (sortN[m].CigHighY < packageVo.CurrentHigh + packageVo.Highy)
+                            {
+                                sortN[m].CigHighY = packageVo.CurrentHigh + packageVo.Highy;
+                            }
+                            if (indexSortN == -1)
+                            {
+                                indexSortN = m;
+                            }
+                            flagT = 1;
+                        }
+                    }
+                }
+                else if (Math.Abs(subX) < packageVo.Widthnum)//合并空隙并重新计算平面x轴，将空隙合并至低平面
+                {
+                    if (sortN[m].CigHighY < packageVo.CurrentHigh + packageVo.Highy)
+                    {
+                        sortN[m].SurplusWidth = sortN[m].SurplusWidth + Math.Abs(subX);
+                        if (subX < 0)
+                            sortN[m].CigWidthX = sortN[m].CigWidthX - Math.Ceiling(Math.Abs(subX) / 2);
+                        else
+                            sortN[m].CigWidthX = sortN[m].CigWidthX + Math.Ceiling(Math.Abs(subX) / 2);
+                    }
+                    else
+                    {
+                        packageVo1.SurplusWidth = packageVo1.SurplusWidth + Math.Abs(subX);
+                        if (subX < 0)
+                            packageVo1.CigWidthX = packageVo1.CigWidthX + Math.Ceiling(Math.Abs(subX) / 2);
+                        else
+                            packageVo1.CigWidthX = packageVo1.CigWidthX + Math.Ceiling(Math.Abs(subX) / 2);
+                        if (packageVo.DoubleTake == "1")
+                            packageVo2.CigWidthX = packageVo1.CigWidthX;
+                    }
+                }
+            }
+            //无平面可合并时创建一个新平面插入平面数组
+            if (flagT == 0)
+            {
+                PackageVo vo = new PackageVo();
+                if (packageVo.DoubleTake =="0")//单抓
+                {
+                    vo.CigWidth = packageVo1.SurplusWidth;
+                    vo.SurplusWidth = packageVo1.SurplusWidth;
+                    vo.CigHighY = packageVo.CurrentHigh + packageVo.Highy;
+                    vo.CigWidthX = packageVo1.CigWidthX;
+                }
+                else//双抓
+                {
+                    vo.CigWidth = packageVo1.SurplusWidth + packageVo2.SurplusWidth;
+                    vo.SurplusWidth = packageVo1.SurplusWidth + packageVo2.SurplusWidth;
+                    vo.CigHighY = packageVo.CurrentHigh + packageVo.CigHighY;
+                    vo.CigWidthX = packageVo1.CigWidthX;
+                }
+                sortN.Add(vo);//存入平面数组
+            }
+            xy.AddRange(sortN);
+            xy.Add(packageVo1);
+            xy.Add(packageVo2);
 
-
-
-
-
-
+            return xy;
+        }
 
 
 
@@ -204,7 +366,7 @@ namespace Functions
         /// <param name="matching">初始参数</param>
         /// <param name="index">条烟索引</param>
         /// <returns></returns>
-        public Matching packageVo(List<PackageVo> packageVo, List<PACKAGEINFO_YXY> data, Matching matching, int index)
+        public PackageVo packageVo(List<PackageVo> packageVo, List<PACKAGEINFO_YXY> data, PackageVo matching, int index)
         {
             //取最低平面的平面剩余宽度靠左摆放
             for (int m = 0; m < packageVo.Count; m++)
@@ -233,7 +395,7 @@ namespace Functions
                 {
                     if (index == data.Count - 1)
                     {
-                        vo.doubFlag = 0;
+                        vo.DoubleTake = "0";
                     }
                     else
                     {
