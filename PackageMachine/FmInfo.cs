@@ -27,8 +27,16 @@ namespace PackageMachine
             Func += ChangeControlEnabled;
             handle += updateListBox;
             GetGroup = GetOpcServerGroup;
+            listBtn.Add(btngw7);
+            listBtn.Add(btngw6);
+            listBtn.Add(btngw5);
+            listBtn.Add(btngw4);
+            listBtn.Add(btngw3);
+            listBtn.Add(btngw2);
+            listBtn.Add(btngw1);
+
             // AutoScroll = true; 
-        } 
+        }
         /// <summary>
         /// OPC服务器
         /// </summary> 
@@ -53,7 +61,7 @@ namespace PackageMachine
         private void FmInfo_Load(object sender, EventArgs e)
         { 
           
-            Loading.Masklayer(this, delegate () { LoadFucn(); });
+           // Loading.Masklayer(this, delegate () { LoadFucn(); });
             ft.Show();
         }
 
@@ -116,7 +124,8 @@ namespace PackageMachine
                         {
                             if (queue.Count == 7)
                             { 
-                               GetTaskInfo("异形烟缓存工位,包号" + queue.Dequeue() + "完成，队列移除该包号"); 
+                               GetTaskInfo("异形烟缓存工位,包号" + queue.Dequeue() + "完成，队列移除该包号");
+                                listBtn[7].AccessibleName = "";
                             } 
 
                             queue.Enqueue(tempvalue);//将新取到的包号 存入 
@@ -143,7 +152,16 @@ namespace PackageMachine
             for (int j = index-1; j >= 0; j--)
             {
                 listBtn[j].Text = newqe[j].ToString() ;
+                listBtn[j].AccessibleName = newqe[j].ToString();
+                listBtn[j].BackColor = Color.LightGreen;
                 
+            }
+            foreach (var item in listBtn)
+            {
+                if (string.IsNullOrWhiteSpace(item.AccessibleName))
+                {
+                    item.BackColor = Color.Red;
+                }
             }
         }
         /// <summary>
@@ -157,14 +175,7 @@ namespace PackageMachine
     
             //取出整个订单 
             BindBillInfo(packageIndex: 1);  
-            listBtn.Add(btngw7); 
-            listBtn.Add(btngw6);
-            listBtn.Add(btngw5);
-            listBtn.Add(btngw4);
-            listBtn.Add(btngw3);
-            listBtn.Add(btngw2);
-            listBtn.Add(btngw1);
-            new ToolTip(this.components);
+           
         }       
         BillResolution br = new BillResolution();
  

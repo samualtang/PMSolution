@@ -253,7 +253,7 @@
             this.gbSysDate.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gbSysDate.Location = new System.Drawing.Point(0, 703);
             this.gbSysDate.Name = "gbSysDate";
-            this.gbSysDate.Size = new System.Drawing.Size(1362, 38);
+            this.gbSysDate.Size = new System.Drawing.Size(1284, 38);
             this.gbSysDate.TabIndex = 76;
             this.gbSysDate.TabStop = false;
             this.gbSysDate.Text = "系统信息：";
@@ -351,7 +351,7 @@
             this.pbmaintitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.pbmaintitle.Location = new System.Drawing.Point(0, 0);
             this.pbmaintitle.Name = "pbmaintitle";
-            this.pbmaintitle.Size = new System.Drawing.Size(1362, 80);
+            this.pbmaintitle.Size = new System.Drawing.Size(1284, 80);
             this.pbmaintitle.TabIndex = 77;
             // 
             // pbExit
@@ -416,7 +416,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1362, 741);
+            this.ClientSize = new System.Drawing.Size(1284, 741);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.mune);
             this.Controls.Add(this.pbmaintitle);

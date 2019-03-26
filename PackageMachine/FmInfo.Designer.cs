@@ -35,7 +35,7 @@
             this.btnLast = new System.Windows.Forms.Button();
             this.btnnext = new System.Windows.Forms.Button();
             this.panelInfo = new System.Windows.Forms.Panel();
-            this.btnAuto = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.lblcutcount = new System.Windows.Forms.Label();
             this.btnRemake = new System.Windows.Forms.Button();
             this.gbInfo = new System.Windows.Forms.GroupBox();
@@ -45,27 +45,27 @@
             this.lblallcount = new System.Windows.Forms.Label();
             this.lblorderdate = new System.Windows.Forms.Label();
             this.lbllinename = new System.Windows.Forms.Label();
+            this.btnAuto = new System.Windows.Forms.Button();
             this.lblCache = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.plcrtl = new System.Windows.Forms.Panel();
-            this.btngw6 = new System.Windows.Forms.Button();
-            this.btngw5 = new System.Windows.Forms.Button();
-            this.btngw9 = new System.Windows.Forms.Button();
-            this.btngw8 = new System.Windows.Forms.Button();
-            this.btngw7 = new System.Windows.Forms.Button();
-            this.btngw4 = new System.Windows.Forms.Button();
-            this.btngw3 = new System.Windows.Forms.Button();
-            this.btngw1 = new System.Windows.Forms.Button();
+            this.lblInfo = new System.Windows.Forms.Label();
             this.btngw2 = new System.Windows.Forms.Button();
             this.panelLb = new System.Windows.Forms.Panel();
+            this.btngw8 = new System.Windows.Forms.Button();
+            this.btngw9 = new System.Windows.Forms.Button();
             this.panelUN = new System.Windows.Forms.Panel();
+            this.btngw7 = new System.Windows.Forms.Button();
+            this.btngw6 = new System.Windows.Forms.Button();
+            this.btngw5 = new System.Windows.Forms.Button();
+            this.btngw4 = new System.Windows.Forms.Button();
+            this.btngw1 = new System.Windows.Forms.Button();
+            this.btngw3 = new System.Windows.Forms.Button();
             this.lblNotFish = new System.Windows.Forms.Label();
             this.lbFinsh = new System.Windows.Forms.Label();
             this.lblUnNormal = new System.Windows.Forms.Label();
             this.lblNormalcOUNT = new System.Windows.Forms.Label();
             this.lblCigCount = new System.Windows.Forms.Label();
-            this.lblInfo = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.lblDxdetail = new System.Windows.Forms.Label();
             this.cce1 = new PackageMachine.CigrCache();
             this.cs = new PackageMachine.CigrShow();
@@ -149,17 +149,16 @@
             this.panelInfo.Size = new System.Drawing.Size(1194, 90);
             this.panelInfo.TabIndex = 5;
             // 
-            // btnAuto
+            // label1
             // 
-            this.btnAuto.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAuto.Location = new System.Drawing.Point(935, 9);
-            this.btnAuto.Name = "btnAuto";
-            this.btnAuto.Size = new System.Drawing.Size(75, 23);
-            this.btnAuto.TabIndex = 87;
-            this.btnAuto.Text = "自动获取";
-            this.btnAuto.UseVisualStyleBackColor = true;
-            this.btnAuto.Visible = false;
-            this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 16.25F);
+            this.label1.Location = new System.Drawing.Point(3, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(123, 30);
+            this.label1.TabIndex = 88;
+            this.label1.Text = "任务操作：";
             // 
             // lblcutcount
             // 
@@ -202,8 +201,6 @@
             this.list_date.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.list_date.FormattingEnabled = true;
             this.list_date.ItemHeight = 17;
-            this.list_date.Items.AddRange(new object[] {
-            "数据库连接成功。。。"});
             this.list_date.Location = new System.Drawing.Point(3, 19);
             this.list_date.Name = "list_date";
             this.list_date.Size = new System.Drawing.Size(169, 66);
@@ -265,6 +262,18 @@
             this.lbllinename.TabIndex = 14;
             this.lbllinename.Text = "线路名称：000";
             // 
+            // btnAuto
+            // 
+            this.btnAuto.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAuto.Location = new System.Drawing.Point(935, 9);
+            this.btnAuto.Name = "btnAuto";
+            this.btnAuto.Size = new System.Drawing.Size(75, 23);
+            this.btnAuto.TabIndex = 87;
+            this.btnAuto.Text = "自动获取";
+            this.btnAuto.UseVisualStyleBackColor = true;
+            this.btnAuto.Visible = false;
+            this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
+            // 
             // lblCache
             // 
             this.lblCache.AutoSize = true;
@@ -300,6 +309,95 @@
             this.plcrtl.Size = new System.Drawing.Size(1018, 172);
             this.plcrtl.TabIndex = 9;
             // 
+            // lblInfo
+            // 
+            this.lblInfo.AutoSize = true;
+            this.lblInfo.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblInfo.Font = new System.Drawing.Font("微软雅黑", 16.25F);
+            this.lblInfo.Location = new System.Drawing.Point(3, 2);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(123, 30);
+            this.lblInfo.TabIndex = 87;
+            this.lblInfo.Text = "工位信息：";
+            // 
+            // btngw2
+            // 
+            this.btngw2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btngw2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw2.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.btngw2.Location = new System.Drawing.Point(147, 90);
+            this.btngw2.Name = "btngw2";
+            this.btngw2.Size = new System.Drawing.Size(93, 47);
+            this.btngw2.TabIndex = 0;
+            this.btngw2.Text = "工位2";
+            this.btngw2.UseVisualStyleBackColor = false;
+            this.btngw2.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw2.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
+            // 
+            // panelLb
+            // 
+            this.panelLb.BackColor = System.Drawing.Color.Chocolate;
+            this.panelLb.Controls.Add(this.btngw8);
+            this.panelLb.Controls.Add(this.btngw9);
+            this.panelLb.Location = new System.Drawing.Point(489, 17);
+            this.panelLb.Name = "panelLb";
+            this.panelLb.Size = new System.Drawing.Size(269, 63);
+            this.panelLb.TabIndex = 86;
+            // 
+            // btngw8
+            // 
+            this.btngw8.BackColor = System.Drawing.Color.Gray;
+            this.btngw8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw8.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.btngw8.Location = new System.Drawing.Point(160, 9);
+            this.btngw8.Name = "btngw8";
+            this.btngw8.Size = new System.Drawing.Size(93, 47);
+            this.btngw8.TabIndex = 0;
+            this.btngw8.Text = "合包";
+            this.btngw8.UseVisualStyleBackColor = false;
+            this.btngw8.Click += new System.EventHandler(this.gbtnw1_Click);
+            // 
+            // btngw9
+            // 
+            this.btngw9.BackColor = System.Drawing.Color.Gray;
+            this.btngw9.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw9.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.btngw9.Location = new System.Drawing.Point(54, 9);
+            this.btngw9.Name = "btngw9";
+            this.btngw9.Size = new System.Drawing.Size(93, 47);
+            this.btngw9.TabIndex = 0;
+            this.btngw9.Text = "翻版";
+            this.btngw9.UseVisualStyleBackColor = false;
+            this.btngw9.Click += new System.EventHandler(this.gbtnw1_Click);
+            // 
+            // panelUN
+            // 
+            this.panelUN.BackColor = System.Drawing.Color.Chocolate;
+            this.panelUN.Controls.Add(this.btngw7);
+            this.panelUN.Controls.Add(this.btngw6);
+            this.panelUN.Controls.Add(this.btngw5);
+            this.panelUN.Controls.Add(this.btngw4);
+            this.panelUN.Controls.Add(this.btngw1);
+            this.panelUN.Controls.Add(this.btngw3);
+            this.panelUN.Location = new System.Drawing.Point(41, 79);
+            this.panelUN.Name = "panelUN";
+            this.panelUN.Size = new System.Drawing.Size(717, 71);
+            this.panelUN.TabIndex = 86;
+            // 
+            // btngw7
+            // 
+            this.btngw7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btngw7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw7.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.btngw7.Location = new System.Drawing.Point(608, 11);
+            this.btngw7.Name = "btngw7";
+            this.btngw7.Size = new System.Drawing.Size(93, 47);
+            this.btngw7.TabIndex = 0;
+            this.btngw7.Text = "工位7";
+            this.btngw7.UseVisualStyleBackColor = false;
+            this.btngw7.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw7.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
+            // 
             // btngw6
             // 
             this.btngw6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
@@ -328,46 +426,6 @@
             this.btngw5.Click += new System.EventHandler(this.gbtnw1_Click);
             this.btngw5.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
             // 
-            // btngw9
-            // 
-            this.btngw9.BackColor = System.Drawing.Color.Gray;
-            this.btngw9.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btngw9.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.btngw9.Location = new System.Drawing.Point(54, 9);
-            this.btngw9.Name = "btngw9";
-            this.btngw9.Size = new System.Drawing.Size(93, 47);
-            this.btngw9.TabIndex = 0;
-            this.btngw9.Text = "翻版";
-            this.btngw9.UseVisualStyleBackColor = false;
-            this.btngw9.Click += new System.EventHandler(this.gbtnw1_Click);
-            // 
-            // btngw8
-            // 
-            this.btngw8.BackColor = System.Drawing.Color.Gray;
-            this.btngw8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btngw8.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.btngw8.Location = new System.Drawing.Point(160, 9);
-            this.btngw8.Name = "btngw8";
-            this.btngw8.Size = new System.Drawing.Size(93, 47);
-            this.btngw8.TabIndex = 0;
-            this.btngw8.Text = "合包";
-            this.btngw8.UseVisualStyleBackColor = false;
-            this.btngw8.Click += new System.EventHandler(this.gbtnw1_Click);
-            // 
-            // btngw7
-            // 
-            this.btngw7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btngw7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btngw7.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.btngw7.Location = new System.Drawing.Point(608, 11);
-            this.btngw7.Name = "btngw7";
-            this.btngw7.Size = new System.Drawing.Size(93, 47);
-            this.btngw7.TabIndex = 0;
-            this.btngw7.Text = "工位7";
-            this.btngw7.UseVisualStyleBackColor = false;
-            this.btngw7.Click += new System.EventHandler(this.gbtnw1_Click);
-            this.btngw7.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
-            // 
             // btngw4
             // 
             this.btngw4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
@@ -381,20 +439,6 @@
             this.btngw4.UseVisualStyleBackColor = false;
             this.btngw4.Click += new System.EventHandler(this.gbtnw1_Click);
             this.btngw4.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
-            // 
-            // btngw3
-            // 
-            this.btngw3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btngw3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btngw3.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.btngw3.Location = new System.Drawing.Point(205, 11);
-            this.btngw3.Name = "btngw3";
-            this.btngw3.Size = new System.Drawing.Size(93, 47);
-            this.btngw3.TabIndex = 0;
-            this.btngw3.Text = "工位3";
-            this.btngw3.UseVisualStyleBackColor = false;
-            this.btngw3.Click += new System.EventHandler(this.gbtnw1_Click);
-            this.btngw3.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
             // 
             // btngw1
             // 
@@ -410,43 +454,19 @@
             this.btngw1.Click += new System.EventHandler(this.gbtnw1_Click);
             this.btngw1.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
             // 
-            // btngw2
+            // btngw3
             // 
-            this.btngw2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btngw2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btngw2.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.btngw2.Location = new System.Drawing.Point(147, 90);
-            this.btngw2.Name = "btngw2";
-            this.btngw2.Size = new System.Drawing.Size(93, 47);
-            this.btngw2.TabIndex = 0;
-            this.btngw2.Text = "工位2";
-            this.btngw2.UseVisualStyleBackColor = false;
-            this.btngw2.Click += new System.EventHandler(this.gbtnw1_Click);
-            this.btngw2.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
-            // 
-            // panelLb
-            // 
-            this.panelLb.BackColor = System.Drawing.Color.Chocolate;
-            this.panelLb.Controls.Add(this.btngw8);
-            this.panelLb.Controls.Add(this.btngw9);
-            this.panelLb.Location = new System.Drawing.Point(489, 17);
-            this.panelLb.Name = "panelLb";
-            this.panelLb.Size = new System.Drawing.Size(269, 63);
-            this.panelLb.TabIndex = 86;
-            // 
-            // panelUN
-            // 
-            this.panelUN.BackColor = System.Drawing.Color.Chocolate;
-            this.panelUN.Controls.Add(this.btngw7);
-            this.panelUN.Controls.Add(this.btngw6);
-            this.panelUN.Controls.Add(this.btngw5);
-            this.panelUN.Controls.Add(this.btngw4);
-            this.panelUN.Controls.Add(this.btngw1);
-            this.panelUN.Controls.Add(this.btngw3);
-            this.panelUN.Location = new System.Drawing.Point(41, 79);
-            this.panelUN.Name = "panelUN";
-            this.panelUN.Size = new System.Drawing.Size(717, 71);
-            this.panelUN.TabIndex = 86;
+            this.btngw3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btngw3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw3.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.btngw3.Location = new System.Drawing.Point(205, 11);
+            this.btngw3.Name = "btngw3";
+            this.btngw3.Size = new System.Drawing.Size(93, 47);
+            this.btngw3.TabIndex = 0;
+            this.btngw3.Text = "工位3";
+            this.btngw3.UseVisualStyleBackColor = false;
+            this.btngw3.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw3.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
             // 
             // lblNotFish
             // 
@@ -502,28 +522,6 @@
             this.lblCigCount.Size = new System.Drawing.Size(186, 30);
             this.lblCigCount.TabIndex = 0;
             this.lblCigCount.Text = "卷烟总量：         ";
-            // 
-            // lblInfo
-            // 
-            this.lblInfo.AutoSize = true;
-            this.lblInfo.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lblInfo.Font = new System.Drawing.Font("微软雅黑", 16.25F);
-            this.lblInfo.Location = new System.Drawing.Point(3, 2);
-            this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(123, 30);
-            this.lblInfo.TabIndex = 87;
-            this.lblInfo.Text = "工位信息：";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label1.Font = new System.Drawing.Font("微软雅黑", 16.25F);
-            this.label1.Location = new System.Drawing.Point(3, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(123, 30);
-            this.label1.TabIndex = 88;
-            this.label1.Text = "任务操作：";
             // 
             // lblDxdetail
             // 

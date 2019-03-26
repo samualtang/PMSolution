@@ -110,6 +110,64 @@ namespace Functions.BLL
                 throw ex = new Exception("连接数据库失败:"+ex.Message);
             } 
         }
+
+        public bool GetTaskState(decimal state)
+        {
+            using(Entities en = new Entities())
+            {
+                var query = (from item in en.T_PACKAGE_TASK
+                             where item.PACKAGENO == GlobalPara.PackageNo && item.STATE == state
+                             orderby item.CIGNUM
+                             select item).Take(10).ToList();
+                if (query.Any())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        public void UpdateFinishTask(string data)
+        {
+            string[] arrData = data.Trim().Split(',');
+            if (arrData[0] == "F")//F头部 代表机器人完成
+            {
+                
+                if (data.Contains("|"))//如果包含双抓
+                {  
+                    string[] newArr = data.Substring(2).Trim().Split('|');
+                    if (newArr.Length == 2)
+                    {
+                        for (int i = 0; i < newArr.Length; i++)
+                        {
+                            string[] arr = newArr[i].Trim().Split(',');
+                             UpDateFinishTask(arr, out string outStr);
+                            if (!string.IsNullOrWhiteSpace(outStr))
+                            {
+                               throw new Exception("任务包号数据更新失败错误：" + outStr);
+                            }
+                           
+                        } 
+                    }
+                    else
+                    {
+                        throw new Exception("双抓任务完成信号有误,完成信号长度为" + newArr.Length);
+                    }
+                }
+                else//单抓的情况下
+                {
+                   
+                    string[] newArr = data.Substring(2).Trim().Split(',');
+                    UpDateFinishTask(newArr, out string outStr);
+                    if (!string.IsNullOrWhiteSpace(outStr))
+                    { 
+                       throw new Exception(outStr);
+                    } 
+                }
+            }
+        }
         public void UpDateFinishTask(object[] task,out string ErrMsg)
         {
             ErrMsg = "";

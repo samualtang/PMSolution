@@ -349,7 +349,7 @@ namespace Functions.PubFunction
                 }
             }
         }
-
+        public  static int GlbobaIndex { get; set; }    
         /// <summary>
         /// opc服务别名 异型烟
         /// </summary>

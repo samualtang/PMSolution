@@ -108,5 +108,41 @@ namespace Functions.Model
             
             return list;
         }
+        public static List<string> newFuc()
+        {
+            List<string> list = new List<string>();
+            list.Add("DB3.DINT0");
+            list.Add("DB3.W4");
+
+
+            list.Add("DB3.W6");
+            list.Add("DB3.W8");
+            list.Add("DB3.W12");
+
+
+            list.Add("DB3.DINT14");
+            list.Add("DB3.W18");
+            list.Add("DB3.W20");
+
+
+
+
+            return list;
+        }
+        public static List<string> newFuc2()
+        {
+             
+            List<string> list = new List<string>();
+            list.Add("DB30.DINT0");
+
+
+            list.Add("DB30.W4");
+            list.Add("DB30.W6");
+            list.Add("DB30.W8");
+
+
+            list.Add("DB30.W10");
+            return list;
+        }
     }
 }

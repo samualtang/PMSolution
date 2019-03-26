@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\HslCommunication.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="opcrcw.comn">
       <HintPath>Lib\opcrcw.comn.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -68,6 +72,7 @@
     <Compile Include="BLL\FmOrderInofFun.cs" />
     <Compile Include="BLL\PLCDataGet.cs" />
     <Compile Include="BLL\RobotTaskService.cs" />
+    <Compile Include="BLL\SiemensPLCSolution.cs" />
     <Compile Include="BLL\StackTypeCalculation.cs" />
     <Compile Include="FormDataModle\FmOrderInfoFunCmbox.cs" />
     <Compile Include="Model\Group.cs" />

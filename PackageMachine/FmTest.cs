@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Functions.BLL;
+using HslCommunication;
+using HslCommunication.Profinet.Siemens;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,18 +25,20 @@ namespace PackageMachine
          
           
             
-            listBtn.Add(bt5);
-            listBtn.Add(bt4);
-            listBtn.Add(bt3);
-            listBtn.Add(bt2);
-            listBtn.Add(bt1);
+           
 
             queue.Enqueue(1);
             queue.Enqueue(2);
             queue.Enqueue(3);
             queue.Enqueue(4);
             queue.Enqueue(5);
+          
         } 
+
+        void aa (string dbAdds, object values)
+        {
+            MessageBox.Show("" + dbAdds + values);
+        }
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -181,6 +186,63 @@ namespace PackageMachine
         private void button6_Click(object sender, EventArgs e)
         {
             get(queue);
+        }
+        SiemensPLCSolution sim =null;
+        SiemensPLCSolution sim1 = null;
+        private void button7_Click(object sender, EventArgs e)
+        {
+            SiemensS7Net server = new SiemensS7Net(SiemensPLCS.S1200);
+            server.IpAddress = "192.168.5.1";
+
+            sim = new SiemensPLCSolution(server, Functions.Model.ItemCollection.newFuc() );
+            sim1 = new SiemensPLCSolution(server, Functions.Model.ItemCollection.newFuc2());
+           
+           
+
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(textBox3.Text) && sim != null)
+                {
+                    string info = " ";
+                    info += sim.Read(Convert.ToInt32(textBox3.Text));
+                    info +=  sim1.Read(Convert.ToInt32(textBox3.Text));
+                    MessageBox.Show(""+info);
+                }
+            }
+            catch(IndexOutOfRangeException ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+           
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(textBox3.Text) && sim != null)
+                {
+                     sim.Write(textBox4.Text, Convert.ToInt32(textBox3.Text) );
+                    sim1.Write(textBox4.Text, Convert.ToInt32(textBox3.Text));
+                }
+                object[] vua = new object[sim.ListCount];
+                for (int i = 0; i < vua.Length; i++)
+                {
+                    vua[i] = (int.Parse( textBox4.Text) +i)* 100/3 ;
+                }
+
+                //sim.Write(vua, Convert.ToInt32(textBox3.Text));
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
