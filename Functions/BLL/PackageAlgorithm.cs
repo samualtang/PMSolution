@@ -50,6 +50,7 @@ namespace Functions
         /// </summary>
         public string GetCigaretteOrderDate()
         {
+
             string date1 = System.DateTime.Now.ToString();
             PackageVo packageVo1;//当前条烟
             PackageVo packageVo2;//下一条烟
@@ -67,6 +68,19 @@ namespace Functions
                 List<PACKAGEINFO_All> unnormalList = package_yxy(item.BILLCODE);
                 List<PACKAGEINFO_All> normalList = package_cgy(item.BILLCODE);
                 decimal sumcig = unnormalList.Sum(x => x.PACKAGEINFO.QUANTITY).Value;//
+                int sumN = 0;
+                if (normalList.Count>0)
+                {
+                    foreach (var it in normalList)
+                    {
+                        if (it.PACKAGEINFO.BILLCODE == item.BILLCODE)
+                        {
+                            sumN = sumN + (int)(it.PACKAGEINFO.QUANTITY);//循环记录sumN订单总正常烟
+                            normalList.Add(it);
+                        }
+                    }
+                }
+                orderqty = unnormalList.Count + sumN;
                 for (int i = 0; i < unnormalList.Count; i++)
                 {
                     if (i >= 4)
@@ -178,7 +192,9 @@ namespace Functions
                     {
                         if (normalList.Count > 0)
                         {
-                            //匹配正常烟
+                            //匹配正常烟 
+
+
                             //matchingNormalList = matchingNormal(PVO, normalList, packageVo4, sumN);
                             //PVO = (List<PackageVo>)matchingNormalList.("PVO");
                             //normalList = (List<PackageVo>)matchingNormalList.("normalList");
