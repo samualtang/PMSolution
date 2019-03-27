@@ -69,20 +69,51 @@ namespace Functions.BLL
                         PackgeSeq = item.PACKAGESEQ ?? 0,
                         NormalLayerNum = item.PUSHSPACE ?? 0,
                         Speed = 1,
+                        BillCode = item.BILLCODE,
                         CigQuantity = item.NORMALQTY ?? 0,
                         OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0),
                         CigType = item.CIGTYPE,//卷烟类型
                         PostionX = (float)( item.CIGWIDTHX ?? 0 ) ,//坐标X
                         PostionY = Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0)//坐标Y  
                     };
-                    if (item.CIGTYPE == "1")//常规烟 
-                    {
-                      
-                    }
                     list.Add(info);
                 } 
             }
             return list; 
+        }
+
+        public List<TobaccoInfo> GetTobaccoInfoss(decimal packageNum, int Height)
+        {
+            List<TobaccoInfo> list = new List<TobaccoInfo>();
+            using (Entities ne = new Entities())
+            {
+                var allInfo = (from item in ne.T_PACKAGE_TASK where item.PACKTASKNUM == packageNum && item.PACKAGENO == packageno orderby item.CIGNUM select item).ToList();
+                foreach (var item in allInfo)
+                {
+                    TobaccoInfo info = new TobaccoInfo
+                    {
+                        TobaccoName = item.CIGARETTENAME,
+                        TobaccoLength = (float)Convert.ToDouble(item.CIGLENGTH),
+                        TobaccoWidth = (float)Convert.ToDouble(item.CIGWIDTH),
+                        TobaccoHeight = (float)Convert.ToDouble(item.CIGHIGH),
+                        GlobalIndex = Convert.ToInt32(item.ALLPACKAGESEQ ?? 0),
+                        CigNum = item.CIGNUM ?? 0,
+                        DoubleTake = item.DOUBLETAKE,
+                        SortNum = item.SORTNUM ?? 0,
+                        OrderPackageQty = item.ORDERPACKAGEQTY ?? 0,
+                        PackgeSeq = item.PACKAGESEQ ?? 0,
+                        NormalLayerNum = item.PUSHSPACE ?? 0,
+                        Speed = 1,
+                        CigQuantity = item.NORMALQTY ?? 0,
+                        OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0),
+                        CigType = item.CIGTYPE,//卷烟类型
+                        PostionX = (float)(item.CIGWIDTHX ?? 0),//坐标X
+                        PostionY = Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0)//坐标Y  
+                    }; 
+                    list.Add(info);
+                }
+            }
+            return list;
         }
         /// <summary>
         /// 根据包号 获取包内数据

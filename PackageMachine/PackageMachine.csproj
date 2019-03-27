@@ -247,5 +247,17 @@
       <Name>Functions</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\标题.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\开始任务.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\暂停任务.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\退出系统.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

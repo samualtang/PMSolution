@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gbcgy = new System.Windows.Forms.GroupBox();
-            this.lblcgy = new System.Windows.Forms.Label();
-            this.lblYxy = new System.Windows.Forms.Label();
-            this.btnDw = new System.Windows.Forms.Button();
-            this.txtFb = new System.Windows.Forms.TextBox();
             this.txtYxy = new System.Windows.Forms.TextBox();
+            this.txtFb = new System.Windows.Forms.TextBox();
+            this.btnDw = new System.Windows.Forms.Button();
+            this.lblYxy = new System.Windows.Forms.Label();
+            this.lblcgy = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.gbcgy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -56,25 +56,19 @@
             this.gbcgy.TabStop = false;
             this.gbcgy.Text = "操作";
             // 
-            // lblcgy
+            // txtYxy
             // 
-            this.lblcgy.AutoSize = true;
-            this.lblcgy.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.lblcgy.Location = new System.Drawing.Point(33, 38);
-            this.lblcgy.Name = "lblcgy";
-            this.lblcgy.Size = new System.Drawing.Size(174, 20);
-            this.lblcgy.TabIndex = 0;
-            this.lblcgy.Text = "常规烟翻板从任务包号：";
+            this.txtYxy.Location = new System.Drawing.Point(207, 96);
+            this.txtYxy.Name = "txtYxy";
+            this.txtYxy.Size = new System.Drawing.Size(143, 23);
+            this.txtYxy.TabIndex = 2;
             // 
-            // lblYxy
+            // txtFb
             // 
-            this.lblYxy.AutoSize = true;
-            this.lblYxy.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.lblYxy.Location = new System.Drawing.Point(22, 99);
-            this.lblYxy.Name = "lblYxy";
-            this.lblYxy.Size = new System.Drawing.Size(189, 20);
-            this.lblYxy.TabIndex = 0;
-            this.lblYxy.Text = "异型烟机器人从任务包号：";
+            this.txtFb.Location = new System.Drawing.Point(207, 33);
+            this.txtFb.Name = "txtFb";
+            this.txtFb.Size = new System.Drawing.Size(143, 23);
+            this.txtFb.TabIndex = 2;
             // 
             // btnDw
             // 
@@ -87,19 +81,25 @@
             this.btnDw.UseVisualStyleBackColor = true;
             this.btnDw.Click += new System.EventHandler(this.btnDw_Click);
             // 
-            // txtFb
+            // lblYxy
             // 
-            this.txtFb.Location = new System.Drawing.Point(207, 38);
-            this.txtFb.Name = "txtFb";
-            this.txtFb.Size = new System.Drawing.Size(143, 23);
-            this.txtFb.TabIndex = 2;
+            this.lblYxy.AutoSize = true;
+            this.lblYxy.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.lblYxy.Location = new System.Drawing.Point(22, 99);
+            this.lblYxy.Name = "lblYxy";
+            this.lblYxy.Size = new System.Drawing.Size(189, 20);
+            this.lblYxy.TabIndex = 0;
+            this.lblYxy.Text = "异型烟机器人从任务包号：";
             // 
-            // txtYxy
+            // lblcgy
             // 
-            this.txtYxy.Location = new System.Drawing.Point(207, 96);
-            this.txtYxy.Name = "txtYxy";
-            this.txtYxy.Size = new System.Drawing.Size(143, 23);
-            this.txtYxy.TabIndex = 2;
+            this.lblcgy.AutoSize = true;
+            this.lblcgy.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.lblcgy.Location = new System.Drawing.Point(33, 33);
+            this.lblcgy.Name = "lblcgy";
+            this.lblcgy.Size = new System.Drawing.Size(174, 20);
+            this.lblcgy.TabIndex = 0;
+            this.lblcgy.Text = "常规烟翻板从任务包号：";
             // 
             // errorProvider1
             // 
@@ -110,7 +110,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(438, 206);
+            this.ClientSize = new System.Drawing.Size(436, 207);
             this.Controls.Add(this.gbcgy);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "FmTaskLocate";

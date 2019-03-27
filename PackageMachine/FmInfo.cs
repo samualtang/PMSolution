@@ -2,6 +2,7 @@
 using Functions;
 using Functions.BLL;
 using Functions.Model;
+using Functions.PubFunction;
 using General;
 using System;
 using System.Collections;
@@ -18,7 +19,7 @@ namespace PackageMachine
 {
     public partial class FmInfo : Form
     {
-        FmTest ft = new FmTest();
+        //FmTest ft = new FmTest();
         public FmInfo()
         {
             
@@ -58,11 +59,15 @@ namespace PackageMachine
         /// 界面工位按钮显示集合
         /// </summary>
         List<Button> listBtn = new List<Button>();
+        /// <summary>
+        /// 订单
+        /// </summary>
+        List<TaskList> taskl;
         private void FmInfo_Load(object sender, EventArgs e)
         { 
           
-           // Loading.Masklayer(this, delegate () { LoadFucn(); });
-            ft.Show();
+           Loading.Masklayer(this, delegate () { LoadFucn(); });
+           // ft.Show();
         }
 
         /// <summary>
@@ -171,10 +176,10 @@ namespace PackageMachine
         {
             Hrs += BindBillInfo;
             HrsUbs += BindUInfo;
-            HrsUbs(1);
-    
-            //取出整个订单 
-            BindBillInfo(packageIndex: 1);  
+            //异型烟缓存
+            HrsUbs(1,0); 
+            //垛型展示
+            Hrs(1, 0); 
            
         }       
         BillResolution br = new BillResolution();
@@ -196,13 +201,13 @@ namespace PackageMachine
             {
                 return;
             }
-            if(Convert.ToInt32( textBox1.Text) > br.Length)
-            {
-                 pkIndex = br.Length;
-                textBox1.Text = pkIndex.ToString();
-            }
-            pkIndex = Convert.ToInt32(textBox1.Text);
-           BindBillInfo(packageIndex: pkIndex);
+            //if(Convert.ToInt32( textBox1.Text) > br.Length)
+            //{
+            //     pkIndex = br.Length;
+            //    textBox1.Text = pkIndex.ToString();
+            //}
+           int  packagenum = Convert.ToInt32(textBox1.Text); 
+            BindBillInfo(  packagenum,1);
            
             //BindBillInfo(x:Convert.ToInt32(textBox1.Text),y: Convert.ToInt32(textBox2.Text));
 
@@ -212,16 +217,32 @@ namespace PackageMachine
         /// </summary>
         /// <param name="packageIndex"></param>
         /// <param name="CinNum"></param>
-        void BindBillInfo(int packageIndex = 0 )
-        { 
-            List<TobaccoInfo> list = br.GetTobaccoInfos( packageIndex,cs.Height ) ;
-            if (list.Any())
+        /// <param name="flag">标志， 0：安装包序查询， 1：任务号查询 ；默认0</param>
+        void BindBillInfo(int packageIndex = 0, int flag = 0)
+        {
+            List<TobaccoInfo> list = new List<TobaccoInfo>() ;
+            if (flag == 0)
             {
+                list = br.GetTobaccoInfos(packageIndex, cs.Height);
+            }
+            else if(flag == 1 )
+            {
+                  list = br.GetTobaccoInfoss(packageIndex, cs.Height);
+            } 
+            if (list.Any())
+            { 
                 cs.UpdateValue(list);
                 var firstList = list.FirstOrDefault();
-                lblcutcode.Text = "任务流水号：" + firstList .SortNum;
-                lblcutcount.Text = "客户包数："+ firstList.PackgeSeq  +"/" + firstList.OrderPackageQty;
-                lblallcount.Text = "总 包 号:" + firstList.GlobalIndex + "/" + br.Length;  
+                var task = FmOrderInofFun.QueryTaskList("", firstList.BillCode, GlobalPara.PackageNo).FirstOrDefault() ;
+                if(task != null)
+                {
+                    lblcutcode.Text = "任务流水号：" + task.SORTNUM;
+                    lbllinename.Text = "线路名称：" + task.REGIONCODE;
+                    lblcutname.Text = "客户名称" + task.CUSTOMERNAME;
+                    lblcuscode.Text = "客户编码" + task.CUSTOMERCODE;
+                    lblcutcount.Text = "客户包数：" + firstList.PackgeSeq + "/" + firstList.OrderPackageQty;
+                    lblallcount.Text = "总 包 号:" + firstList.GlobalIndex + "/" + br.Length;
+                } 
                 LabBind();
             } 
         }
@@ -229,7 +250,7 @@ namespace PackageMachine
         /// 根据当前包装机，的整体包序，和条烟流水号获取数据显示到异型烟缓存
         /// </summary>
         /// <param name="cigNum"></param> 
-        void BindUInfo(int CinNum = 0)
+        void BindUInfo(int CinNum = 0,int flag = 0)
         {
             List<TobaccoInfo> UN_list = br.GetUnNormallSort(CinNum);
             if (UN_list.Any())
@@ -310,7 +331,7 @@ namespace PackageMachine
             int widthToCs = Convert.ToInt32(Width * (0.5)); 
             if (cs.Created)
             {
-                BindBillInfo(packageIndex: pkIndex); 
+                //BindBillInfo(packageIndex: pkIndex); 
             }
             else
             {
@@ -319,12 +340,10 @@ namespace PackageMachine
           //  panel3.Width = (Width - panel1.Width - cs.Width) - 20;
             gbInfo.Width = panel1.Width;
             cce1.Height = Convert.ToInt32(Width * 0.45); 
-            cs.Location = new Point(this.Width - cs.Width - 4 - panel1.Width, Height - cs.Height - 4);
-            plcrtl.Height = this.Height - panelInfo.Height - cs.Height - 20;
-     
-
+            cs.Location = new Point(0, Height - cs.Height - 4);
+           // plcrtl.Height = this.Height - panelInfo.Height - cs.Height  - 120 ; 
             ChangeLabelLocation( );
-            lblDxdetail.Location = new Point(cs.Location.X - lblDxdetail.Width - 10, cs.Location.Y +2  );
+            lblDxdetail.Location = new Point(10, cs.Location.Y -40 );
            // panelUN.Location = new Point();
         }
         /// <summary>
@@ -333,32 +352,37 @@ namespace PackageMachine
         void ChangeLabelLocation( )
         {
             int allHeight = 0;
-            int height = plcrtl.Height +20;
-            int left = 10;
+            int height = 3; //;plcrtl.Height +panelInfo.Height +20;
+            int left = plcrtl.Width - 206;
 
-            lblCigCount.Top = panelInfo.Height+ height;
+            lblCigCount.Top = height;// panelInfo.Height+ height;
             lblCigCount.Left = left;
 
             allHeight += lblCigCount.Height;
-            lblNormalcOUNT.Top = panelInfo.Height + height + allHeight;
+            lblNormalcOUNT.Top =    height + allHeight;
             lblNormalcOUNT.Left = left;
 
             allHeight += lblNormalcOUNT.Height;
-            lblUnNormal.Top = panelInfo.Height + height + allHeight;
+            lblUnNormal.Top =   height + allHeight;
             lblUnNormal.Left = left;
 
             allHeight += lblUnNormal.Height;
-            lbFinsh.Top = panelInfo.Height + height + allHeight;
+            lbFinsh.Top =   height + allHeight;
             lbFinsh.Left = left;
 
             allHeight += lbFinsh.Height;
-            lblNotFish.Top = panelInfo.Height + height + allHeight;
+            lblNotFish.Top =  height + allHeight;
             lblNotFish.Left = left;
-            //lblCigCount.Left = panel3.Width +gbInfo.Width;
-            //lblNormalcOUNT.Left = panel3.Width + gbInfo.Width;
-            //lblUnNormal.Left = panel3.Width + gbInfo.Width;
-            //lbFinsh.Left = panel3.Width + gbInfo.Width;
-            //lblNotFish.Left = panel3.Width + gbInfo.Width;
+
+
+
+            lblallcount.Left = left;//总包号
+            lblcutcode.Left = left;//流水号
+            lblcutcount.Left = left;//客户包数 
+
+            lbllinename.Left = panelInfo.Width / 2 - 10;
+            lblcuscode.Left = panelInfo.Width / 2 - 10; 
+            lblcutname.Left = panelInfo.Width / 2 - 10; 
         }
         private void btnnext_Click(object sender, EventArgs e)
         {
@@ -408,24 +432,25 @@ namespace PackageMachine
         /// </summary>
         /// <param name="packageIndex"></param>
         /// <param name="cigNum"></param>
-        public  static void AutoRefreshShow(int packageIndex)
+        public  static void AutoRefreshShow(int packagenum)
         { 
-            Hrs(packageIndex);   
+            Hrs(packagenum, 1);   
         }
         /// <summary>
         /// 自动更新异型烟
         /// </summary>
         /// <param name="packageIndex"></param>
         /// <param name="cigNum"></param>
-        public static void AutoRefreshUnShow(int cigIndex)
+        public static void AutoRefreshUnShow(int packagenum)
         {
-            HrsUbs(cigIndex);
+            HrsUbs(packagenum, 1);
         }
-        /// <summary>
-        /// 自动刷新
-        /// </summary>
-        /// <param name="p"></param>
-        delegate void HandeleRefrshShow(int p);
+         /// <summary>
+         /// 自动刷新
+         /// </summary>
+         /// <param name="p"></param>
+         /// <param name="f">0：包序，1：任务号</param>
+        delegate void HandeleRefrshShow(int p,int f);
         static  HandeleRefrshShow Hrs;
         static HandeleRefrshShow HrsUbs;
         private void list_date_Click(object sender, EventArgs e)
@@ -445,8 +470,10 @@ namespace PackageMachine
             }
             if ( fmTask == null)
             {
-                fmTask = new FmTaskLocate();
-                fmTask.StartPosition = FormStartPosition.CenterScreen;
+                fmTask = new FmTaskLocate
+                {
+                    StartPosition = FormStartPosition.CenterScreen
+                };
                 fmTask.ShowDialog();
             }
             else
@@ -470,12 +497,12 @@ namespace PackageMachine
                 decimal pmNum = Convert.ToDecimal(btn.Text);
                 if (Regex.IsMatch(btn.Text, @"^[+-]?\d*[.]?\d*$"))
                 {
-                    var list = br.GetTobaccoInfos(pmNum, cs.Height);
+                    var list = br.GetTobaccoInfoss(pmNum, cs.Height);
                     cs.UpdateValue(list, 2);
                 }
                 else
                 {
-                    GetTaskInfo("工位：" + btn.Name + "的包号不为数值类型" + btn.Text);
+                    GetTaskInfo("显示界面：工位" + btn.Name + "的包号不为数值类型" + btn.Text);
                 }
             }
         }
