@@ -68,6 +68,7 @@
     <Compile Include="Model\CommoditySize.cs" />
     <Compile Include="Model\CustomerModle.cs" />
     <Compile Include="Model\OrderInfoCmbox.cs" />
+    <Compile Include="Model\PackageArea.cs" />
     <Compile Include="Model\PackageData_YXY.cs" />
     <Compile Include="Model\PackageVo.cs" />
     <Compile Include="Model\TaskList.cs" />

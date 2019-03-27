@@ -14,7 +14,7 @@ namespace EFModle
     
     public partial class V_PRODUCE_PACKAGEINFO
     {
-        public Nullable<decimal> TASKNUM { get; set; }
+        public decimal TASKNUM { get; set; }
         public Nullable<decimal> EXPORT { get; set; }
         public string REGIONCODE { get; set; }
         public string REGIONNAME { get; set; }
