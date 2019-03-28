@@ -59,7 +59,7 @@ namespace Functions
 
             List<PackageVo> PVO = new List<PackageVo>();
             Init();
-            var date = alldata_header(3);//所有订单头
+            var date = alldata_header(5);//所有订单头
             List<PACKAGEINFO_All> newdatas = new List<PACKAGEINFO_All>();
             foreach (var item in date)
             {
@@ -68,19 +68,19 @@ namespace Functions
                 List<PACKAGEINFO_All> unnormalList = package_yxy(item.BILLCODE);
                 List<PACKAGEINFO_All> normalList = package_cgy(item.BILLCODE);
                 decimal sumcig = unnormalList.Sum(x => x.PACKAGEINFO.QUANTITY).Value;//
-                int sumN = 0;
-                if (normalList.Count>0)
-                {
-                    foreach (var it in normalList)
-                    {
-                        if (it.PACKAGEINFO.BILLCODE == item.BILLCODE)
-                        {
-                            sumN = sumN + (int)(it.PACKAGEINFO.QUANTITY);//循环记录sumN订单总正常烟
-                            normalList.Add(it);
-                        }
-                    }
-                }
-                orderqty = unnormalList.Count + sumN;
+                //int sumN = 0;
+                //if (normalList.Count>0)
+                //{
+                //    foreach (var it in normalList)
+                //    {
+                //        if (it.PACKAGEINFO.BILLCODE == item.BILLCODE)
+                //        {
+                //            sumN = sumN + (int)(it.PACKAGEINFO.QUANTITY);//循环记录sumN订单总正常烟
+                //            normalList.Add(it);
+                //        }
+                //    }
+                //}
+                //orderqty = unnormalList.Count + sumN;
                 for (int i = 0; i < unnormalList.Count; i++)
                 {
                     if (i >= 4)
@@ -135,27 +135,24 @@ namespace Functions
                     //若所有平面宽度不满足来烟宽度则跳出并记录当前对象数组数据存入当前订单的集合中并开始下一包异型烟
                     if (widthx == 0 && highy == 0)
                     {
-                        if (normalList.Count> 0)
+                        if (normalList.Count > 0)
                         {
-                            //匹配正常烟
-                            //matchingNormalList = matchingNormal(PVO, normalList, packageVo4, sumN);
-                            //PVO = (List<PackageVo>)matchingNormalList.("PVO");
-                            //normalList = (List<PackageVo>)matchingNormalList.("normalList");
-                            //PackageVo pVo = (PackageVo)matchingNormalList.("packageVo");
-                            //CIGSEQ = pVo.CIGSEQ();
-                            //cignum = pVo.Cignum();
-                            //sumN = (int)matchingNormalList.("sumN");
-                            //matchingNormalList.clear();
+                            ////匹配正常烟
+                            //matchingNormal(PVO, normalList, packageVo4, sumN);
+
+                            //CIGSEQ = packageVo4.CIGSEQ;
+                            //cignum = packageVo4.Cignum;
+
                         }
                         else
                         {
                             //纯异型烟
-                            for (int j = 0; j < PVO.Count; j++)
+                            for (int j = 0; j < PVO.Count  ; j++)
                             {
-                                PackageVo vo1 = PVO[i];
+                                PackageVo vo1 = PVO[j];
                                 if (vo1.PACKAGEQTY == 0)
                                 {
-                                    vo1.PACKAGEQTY=CIGSEQ - 1;
+                                    vo1.PACKAGEQTY = CIGSEQ - 1;
                                     cignum = cignum + 1;
                                     vo1.Cignum = cignum;
                                 }
@@ -193,16 +190,11 @@ namespace Functions
                         if (normalList.Count > 0)
                         {
                             //匹配正常烟 
+                            
+                            //matchingNormal(PVO, normalList, packageVo4, sumN);
 
-
-                            //matchingNormalList = matchingNormal(PVO, normalList, packageVo4, sumN);
-                            //PVO = (List<PackageVo>)matchingNormalList.("PVO");
-                            //normalList = (List<PackageVo>)matchingNormalList.("normalList");
-                            //PackageVo pVo = (PackageVo)matchingNormalList.("packageVo");
-                            //CIGSEQ = pVo.CIGSEQ();
-                            //cignum = pVo.Cignum();
-                            //sumN = (int)matchingNormalList.("sumN");
-                            //matchingNormalList.clear();
+                            //CIGSEQ = packageVo4.CIGSEQ;
+                            //cignum = packageVo4.Cignum;
                         }
                         else
                         {
@@ -393,18 +385,16 @@ namespace Functions
                 //纯正常烟包
                 if (unnormalList.Count == 0 && normalList.Count != 0)
                 {
-                    PackageVo vo = new PackageVo();
-                    vo.ALLPACKAGESEQ = ALLPACKAGESEQ;
-                    vo.Cignum = cignum;
-                    vo.Orderqty = orderqty;
-                    vo.ORDERPACKAGENUM = ORDERPACKAGENUM;
+                    //PackageVo vo = new PackageVo();
+                    //vo.ALLPACKAGESEQ = ALLPACKAGESEQ;
+                    //vo.Cignum = cignum;
+                    //vo.Orderqty = orderqty;
+                    //vo.ORDERPACKAGENUM = ORDERPACKAGENUM;
 
-                    //matchingNormalList = normalList(sumN, PVO, normalList, vo);
-                    //PVO = (List<PackageVo>)matchingNormalList.("PVO");
-                    //vo = (PackageVo)matchingNormalList.("packageVo");
-                    //ALLPACKAGESEQ = vo.ALLPACKAGESEQ();
-                    //ORDERPACKAGENUM = vo.ORDERPACKAGENUM();
-                    //cignum = vo.Cignum();
+                    //NormalList(sumN, PVO, normalList, vo);
+                    //ALLPACKAGESEQ = vo.ALLPACKAGESEQ;
+                    //ORDERPACKAGENUM = vo.ORDERPACKAGENUM;
+                    //cignum = vo.Cignum;
                 }
 
             }
@@ -417,7 +407,7 @@ namespace Functions
 
         #region.
         //合包（匹配正常烟）
-        public void matchingNormal(List<PackageVo> PVO, List<PackageVo> normalList, PackageVo packageVo, int sumN)
+        public void matchingNormal(List<PackageVo> PVO, List<PACKAGEINFO_All> normalList, PackageVo packageVo, int sumN)
         {
             decimal maxHigh = new decimal(0);
             decimal sumwidth = new decimal(0);
@@ -489,39 +479,39 @@ namespace Functions
                 for (int j = 0; j < normalList.Count; j++)
                 {
                     PackageVo vo1 = new PackageVo();
-                    vo1.Cigarettecode=normalList[j].Cigarettecode;
-                    vo1.CIGARETTENAME=normalList[j].CIGARETTENAME;
-                    vo1.Billcode=normalList[j].Billcode;
-                    vo1.Tasknum=normalList[j].Tasknum;
+                    vo1.Cigarettecode=normalList[j].PACKAGEINFO.CIGARETTECODE;
+                    vo1.CIGARETTENAME=normalList[j].PACKAGEINFO.CIGARETTENAME;
+                    vo1.Billcode=normalList[j].PACKAGEINFO.BILLCODE;
+                    vo1.Tasknum=normalList[j].PACKAGEINFO.TASKNUM;
                     vo1.CigWidthX=0;
                     vo1.CigHigh=0;
                     vo1.Orderqty=packageVo.Orderqty;
-                    vo1.Packageno=normalList[j].Packageno;
+                    vo1.Packageno=(int)normalList[j].PACKAGEINFO.EXPORT;
                     vo1.CigWidth=0;
                     vo1.CigHighY=0;
                     vo1.CigLength=0;
                     vo1.CigZ=0;
                     vo1.Cigtype=1;
-                    vo1.Orderdate = normalList[j].Orderdate;
+                    vo1.Orderdate = normalList[j].PACKAGEINFO.ORDERDATE;
                     if (tier1 != 0 && normalList.Count != 0)
                     {
-                        packageVo.Cignum =packageVo.Cignum + normalList[j].Pokenum;
+                        packageVo.Cignum =packageVo.Cignum + (int)normalList[j].PACKAGEINFO.QUANTITY;
                         vo1.Cignum=packageVo.Cignum;
                         vo1.PACKAGEQTY=packageVo.CIGSEQ + tier;
                         vo1.Pushspace = tier % 6 == 0 ? tier / 6 : tier / 6 + 1;
                         vo1.Unionpackagestate = 1;
                         vo1.Packageseq = packageVo.ORDERPACKAGENUM;
                         vo1.ALLPACKAGESEQ = packageVo.ALLPACKAGESEQ;
-                        if (tier1 >= normalList[j].Pokenum) 
+                        if (tier1 >= normalList[j].PACKAGEINFO.QUANTITY) 
                         {
-                            tier1 = tier1 - normalList[j].Pokenum;
-                            vo1.Pokenum = normalList[j].Pokenum;
+                            tier1 = tier1 - (int)normalList[j].PACKAGEINFO.QUANTITY;
+                            vo1.Pokenum  = (int) normalList[j].PACKAGEINFO.QUANTITY;
                             normalList.Remove(normalList[j]);
                         }
                         else
                         {
-                            packageVo.Cignum=packageVo.Cignum - normalList[j].Pokenum + tier1;
-                            normalList[j].Pokenum=normalList[j].Pokenum - tier1;
+                            packageVo.Cignum=packageVo.Cignum - (int)normalList[j].PACKAGEINFO.QUANTITY + tier1;
+                            normalList[j].PACKAGEINFO.QUANTITY = normalList[j].PACKAGEINFO.QUANTITY - tier1;
                             vo1.Pokenum=tier1;
                             vo1.Cignum=packageVo.Cignum;
                             tier1 = 0;
@@ -537,7 +527,7 @@ namespace Functions
 
 
         //单独正常烟
-        public void normalList(int sumN, List<PackageVo> PVO, List<PackageVo> normalList, PackageVo packageVo)
+        public void NormalList(int sumN, List<PackageVo> PVO, List<PACKAGEINFO_All> normalList, PackageVo packageVo)
         {
             int flagN = 0;//记录剩余条烟数量
                           //计算下一包正常烟包烟数量
@@ -546,37 +536,37 @@ namespace Functions
             for (int i = 0; i < normalList.Count ; i++)
             {
                 PackageVo vo1 = new PackageVo();
-                vo1.Cigarettecode = normalList[i].Cigarettecode;
-                vo1.CIGARETTENAME = normalList[i].CIGARETTENAME;
-                vo1.Billcode = normalList[i].Billcode;
-                vo1.Tasknum = normalList[i].Tasknum;
+                vo1.Cigarettecode = normalList[i].PACKAGEINFO.CIGARETTECODE;
+                vo1.CIGARETTENAME = normalList[i].PACKAGEINFO.CIGARETTENAME;
+                vo1.Billcode = normalList[i].PACKAGEINFO.BILLCODE;
+                vo1.Tasknum = normalList[i].PACKAGEINFO.TASKNUM;
                 vo1.CigWidthX=0;
                 vo1.CigHigh=0;
                 vo1.CigWidth=0;
                 vo1.CigHighY=0;
                 vo1.CigLength=0;
                 vo1.CigZ = 0;
-                vo1.Packageno = normalList[i].Packageno;
+                vo1.Packageno = (int)normalList[i].PACKAGEINFO.EXPORT;
                 vo1.Cigtype = 1;
-                vo1.Orderdate = normalList[i].Orderdate;
+                vo1.Orderdate = normalList[i].PACKAGEINFO.ORDERDATE;
                 vo1.Orderqty = packageVo.Orderqty;
-                packageVo.Cignum = packageVo.Cignum + normalList[i].Pokenum;//条烟流水号
+                packageVo.Cignum = packageVo.Cignum + (int)normalList[i].PACKAGEINFO.QUANTITY;//条烟流水号
                 vo1.Cignum = packageVo.Cignum;
                 vo1.Pushspace = 0;
                 vo1.Unionpackagestate = 0;
                 vo1.Packageseq = packageVo.ORDERPACKAGENUM;
                 vo1.ALLPACKAGESEQ = packageVo.ALLPACKAGESEQ;
                 //当剩余条烟数量>=来烟pokenum则移除当前烟数据并减少剩余条烟数量
-                if (flagN >= normalList[i].Pokenum)
+                if (flagN >= normalList[i].PACKAGEINFO.QUANTITY)
                 {
-                    flagN = flagN - normalList[i].Pokenum;//更新剩余条烟数量
-                    vo1.Pokenum=normalList[i].Pokenum;//存入正常烟数量
+                    flagN = flagN - (int) normalList[i].PACKAGEINFO.QUANTITY;//更新剩余条烟数量
+                    vo1.Pokenum = (int) normalList[i].PACKAGEINFO.QUANTITY;//存入正常烟数量
                     normalList.Remove(normalList[i]);
                 }
                 else
                 {//剩余条烟<来烟pokenum则重置当前来烟pokenum数量
-                    packageVo.Cignum = packageVo.Cignum - normalList[i].Pokenum + flagN;
-                    normalList[i].Pokenum = normalList[i].Pokenum - flagN;
+                    packageVo.Cignum = packageVo.Cignum - (int)normalList[i].PACKAGEINFO.QUANTITY + flagN;
+                    normalList[i].PACKAGEINFO.QUANTITY = normalList[i].PACKAGEINFO.QUANTITY - flagN;
                     vo1.Pokenum = flagN;//存入正常烟数量
                     vo1.Cignum = packageVo.Cignum;
                     flagN = 0;//更新剩余条烟数量
@@ -990,7 +980,7 @@ public List< PACKAGEINFO_All> package_yxy(string BILLCODE)
             using (Entities et = new Entities())
             {
                 return et.V_PRODUCE_PACKAGEINFO.Where(x => x.EXPORT == packageno 
-                && x.TASKNUM == 570833
+                && x.TASKNUM == 572284
                 ).GroupBy(x => new { x.BILLCODE, x.EXPORT, x.TASKNUM })
                     .Select(x => new T_PRODUCE_PACKAGEINFO { BILLCODE = x.Key.BILLCODE, EXPORT = x.Key.EXPORT??0, TASKNUM = x.Key.TASKNUM }).ToList();
             }

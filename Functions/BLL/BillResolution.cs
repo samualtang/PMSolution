@@ -169,8 +169,8 @@ namespace Functions.BLL
                 var orderQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item).Distinct().Sum(a => a.ORDERQTY);
                 var normalQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno && item.CIGTYPE =="1" select item).Distinct().Sum(a => a.NORMALQTY);
                 var UnnormalQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno && item.CIGTYPE == "2" select item).Distinct().Sum(a => a.NORMALQTY);
-                var FinshQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno   select item).Distinct().Where(a => a.UNIONPACKAGETAG == 20).Count();
-                var NotFinshQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno   select item).Distinct().Where(a => a.UNIONPACKAGETAG != 20).Count();
+                var FinshQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno   select item).Distinct().Where(a => a.CIGSTATE == 20).Count();
+                var NotFinshQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno   select item).Distinct().Where(a => a.CIGSTATE != 20).Count();
 
                 list.Add(orderQty ?? 0);
                 list.Add(normalQty ?? 0);
@@ -284,7 +284,7 @@ namespace Functions.BLL
                                     temp.CIGTYPE = "2";
                                     temp.STATE = 0;//0 新增  10 确定
                                     temp.CIGZ = Convert.ToDecimal(tempItem.DOUBLETAKE);
-                                    GlobalPara.SortNum = v_orderinfo.TASKNUM ?? 0;  //存入这一批次最大任务号 
+                                    GlobalPara.SortNum = v_orderinfo.TASKNUM ;  //存入这一批次最大任务号 
                                     p_task.Add(temp);
                                 } 
                             }
