@@ -11,6 +11,7 @@ using Functions.BLL;
 using System.Text;
 using System.Linq;
 using System.Net.Sockets;
+using System.Net.NetworkInformation;
 
 namespace PackageMachine
 {
@@ -94,7 +95,9 @@ namespace PackageMachine
                 socketCore?.Close();
               
                 socketCore = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);//使用TCPip协议
+                socketCore.Connect(IPAddress.Parse(GlobalPara.RobitPlc_Ip), int.Parse(GlobalPara.RobitPlc_Port));
                 connectSuccess = false;  
+               
                 //new Thread(() =>
                 //{
                 //    //
@@ -102,7 +105,7 @@ namespace PackageMachine
                 //    if (!connectSuccess) socketCore?.Close();//如果连接失败，这里将会跳入到心跳检测
                 //}).Start();
                 //连接服务器
-                socketCore.Connect(IPAddress.Parse(GlobalPara.RobitPlc_Ip), int.Parse(GlobalPara.RobitPlc_Port));
+              
               
                 //socketCore.ReceiveTimeout = 5000;//5秒没有响应则算连接超时
                 connectSuccess = true;
@@ -144,7 +147,37 @@ namespace PackageMachine
                 FmInfo.GetTaskInfo("opC创成功！");
                
             }
-        } 
+        }
+
+        /// <summary>
+        /// 判断是否处于连接状态
+        /// </summary>
+        /// <param name="ClientSocket"></param>
+        /// <returns></returns>
+        public bool isClientConnected(Socket ClientSocket)
+        {
+            IPGlobalProperties ipProperties = IPGlobalProperties.GetIPGlobalProperties();
+
+            TcpConnectionInformation[] tcpConnections = ipProperties.GetActiveTcpConnections();
+
+            foreach (TcpConnectionInformation c in tcpConnections)
+            {
+                TcpState stateOfConnection = c.State;
+
+                if (c.LocalEndPoint.Equals(ClientSocket.LocalEndPoint) && c.RemoteEndPoint.Equals(ClientSocket.RemoteEndPoint))
+                {
+                    if (stateOfConnection == TcpState.Established)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            return false;
+        }
         /// <summary>
         /// 响应来自服务端的信息
         /// </summary>
@@ -155,8 +188,7 @@ namespace PackageMachine
             {
                 int length = socketCore.EndReceive(ar);//结束挂起的异步读取
                 //开始异步接受来自服务端的信息
-                socketCore.BeginReceive(buffer, 0, 2048, SocketFlags.None, new AsyncCallback(ReceiveCallBack), socketCore);
-
+                socketCore.BeginReceive(buffer, 0, 2048, SocketFlags.None, new AsyncCallback(ReceiveCallBack), socketCore); 
                 if (length == 0) return; 
                 byte[] data = new byte[length]; 
                 Invoke(new Action(() =>
@@ -184,22 +216,17 @@ namespace PackageMachine
                                     robotService.UpDateFinishTask(arr, out outStr);
                                     if (!string.IsNullOrWhiteSpace(outStr))
                                     {
-                                        FmInfo.GetTaskInfo("机器人：任务包号数据更新失败错误：" + outStr);
+                                        FmInfo.GetTaskInfo("机器人： " + outStr);
                                     }
                                     else
                                     {
-                                        FmInfo.GetTaskInfo("机器人：任务包号" + arr[0] + "完成，数据库更新完成！");
+                                        FmInfo.GetTaskInfo("机器人：任务号" + arr[0] + "，条烟流水号："+ arr[1]+ "，数据库更新完成！");
                                     }
                                 }
                                 if (!string.IsNullOrWhiteSpace(outStr))//如果更新任务无异常 则发送任务
                                 {
                                     FmInfo.GetTaskInfo(outStr);
-                                }
-                                else//发送任务
-                                { 
-
-                                    //SendRobotTask();
-                                }
+                                } 
                             }
                             else
                             {
@@ -211,10 +238,9 @@ namespace PackageMachine
                             FmInfo.GetTaskInfo("机器人：收到单抓完成信号");
                             string[]  Arr = msg.Substring(2).Trim().Split(',');  
                             robotService.UpDateFinishTask(Arr, out outStr);
-                            if (string.IsNullOrWhiteSpace(outStr))
-                            {
-
-                                FmInfo.GetTaskInfo(outStr);
+                            if (!string.IsNullOrWhiteSpace(outStr))
+                            { 
+                                FmInfo.GetTaskInfo("机器人： " + outStr);
                             }
                             else//无错误的情况下 发送任务
                             {
@@ -236,9 +262,6 @@ namespace PackageMachine
                             RoBotState = false;
                         }
                     }
-                    
-
-
                 }));
             }
             catch (ObjectDisposedException)
@@ -381,8 +404,7 @@ namespace PackageMachine
             string ErrMsg =  await Task.Run( ()=> CreateDataChange()); //创建 
 
             if (string.IsNullOrWhiteSpace(ErrMsg) )//事件创建成功
-            { 
-                FmInfo.GetTaskInfo("机器人文本触发事件创建成功...");
+            {  
                 FmInfo.GetTaskInfo("启动定时器");
                 FmInfo.Func(1);
                 EnabletStartAndStop(1);
@@ -428,12 +450,12 @@ namespace PackageMachine
             { 
                 if (socketCore == null)//如果与服务器断开连接，则重新创建
                 {
-                    CreateSocketClinet();
-                    FmInfo.GetTaskInfo("机器人通信事件绑定成功");
+                    CreateSocketClinet(); 
                 }  
-                thread = new Thread(SendRobotTask)//机器人任务发送
+                thread = new Thread(new ThreadStart( SendRobotTask))//机器人任务发送
                 {
                     IsBackground = true
+                   
                 };
                 thread.Start(); 
          
@@ -445,6 +467,7 @@ namespace PackageMachine
                     //常规烟翻版
                     plc.ShapeGroup3.callback += OnDataChange;
                     plc.ShapeGroup4.callback += OnDataChange;
+                    FmInfo.GetTaskInfo("倍速链，翻版，通信事件绑定成功");
                 }
                 catch (Exception ex)
                 {
@@ -459,58 +482,61 @@ namespace PackageMachine
                 return ex.Message;
             } 
         }
-         
-      
-        /// <summary>
-        /// 重连时间
-        /// </summary>
-        int timeTick = 1;
+
+
         /// <summary>
         /// 心跳检测，断线重连
         /// </summary>
-        private void ThreadHeartCheck()
-        { 
-            Thread.Sleep(2000);
-            socketCore = null;
-            if(timeTick > 1)
-            {
-                return;
-            }
+        private void CheckAlive()
+        {
+            int times = 0;//重连次数
+
+            Thread.Sleep(10000);
             while (true)
             {
                 try
                 {
-                    socketCore = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    socketCore.Connect(IPAddress.Parse(GlobalPara.RobitPlc_Ip), int.Parse(GlobalPara.RobitPlc_Port));
-                    if (socketCore.Connected)
-                    {
-                        connectSuccess = true;
-                        break;
-                    }
-                    lblServerInfo.Text = "尝试重新连接中.." + timeTick + "秒";
-                    timeTick++;
                     Thread.Sleep(1000);
+                    if (!isClientConnected(socketCore))
+                    {
+                        //MessageBox.Show("断线，正在重连");
+                        times++;
+                        this.lblServerInfo .Invoke((Action)(() => this.lblServerInfo.Text = "与PA服务器断开连接，正在重连第" + times + "次...")); 
+                        socketCore = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);//使用TCPip协议
+                        socketCore.Connect(IPAddress.Parse(GlobalPara.RobitPlc_Ip), int.Parse(GlobalPara.RobitPlc_Port));
+                        if (socketCore.Connected)
+                        { 
+                            SendRobotTask();
+                            socketCore.BeginReceive(buffer, 0, 2048, SocketFlags.None, new AsyncCallback(ReceiveCallBack), socketCore);
+                            connectSuccess = true;
+                            break;
+                        }
+                        continue;
+                    } 
+                    times = 0;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                     
+                    //TCPLogger.Log("CheckAlive异常.", e);
                 }
-               
+                Thread.Sleep(500);
             }
-        }
+        } 
         /// <summary>
         /// 机器人任务数组
         /// </summary>
-        byte[] bytes = null;
-         
+        byte[] bytes = null; 
         /// <summary>
         /// 发送机器人任务
         /// </summary>
         /// <returns></returns>
         void SendRobotTask()
         {
-         aa: if (!RoBotState)//读取机器人状态为自动运行
+            FmInfo.GetTaskInfo("机器人：五秒后发送机器人任务");
+            Thread.Sleep(5000);
+        aa: if (!RoBotState)//读取机器人状态为自动运行
             {
+           
                 try
                 {
                     
@@ -527,7 +553,7 @@ namespace PackageMachine
                         }
                         try
                         {
-                            if(socketCore.Connected)
+                            if(isClientConnected(socketCore))
                             {
                                 socketCore?.Send(bytes, 0, bytes.Length, SocketFlags.None);//发送数据
                                 FmInfo.GetTaskInfo("机器人：发送数据，任务号："+ bytes[0]);
@@ -536,7 +562,7 @@ namespace PackageMachine
                             {
                                 connectSuccess = false;
                                 FmInfo.GetTaskInfo("机器人：远程主机强制断开一个现有连接，发送任务失败！");
-                                ThreadHeartCheck();
+                                CheckAlive();
                             } 
                         }
                         catch (Exception ex)
@@ -551,14 +577,13 @@ namespace PackageMachine
                    
                 }
                 catch (Exception ex)
-                {
-
+                { 
                     FmInfo.GetTaskInfo("发送机器人任务方法，未知错误：" + ex.Message);
                 }
             }
             else
             {
-                FmInfo.GetTaskInfo("机器人自动运行状态为关闭");
+                FmInfo.GetTaskInfo("机器人自动运行状态为关闭,十秒之后再次检测机器人状态");
                 Thread.Sleep(10000);//十秒之后再次检测机器人状态
                 goto aa;
             }
@@ -664,10 +689,17 @@ namespace PackageMachine
                         if (tempvalue == 0)//如果有接收信号
                         {
                             try
-                            {
-                             
+                            { 
+                                FmInfo.AutoRefreshShow(packtasknum);//更新垛型展示
                                 //读取接收信号的任务 数据库置接收 
-                                FmInfo.GetTaskInfo( packtasknum +"收到任务");
+                                if (plc.UpDateToYxyState(packtasknum,15))
+                                {
+                                    FmInfo.GetTaskInfo("链板机收到任务号" +packtasknum +"，更新已接收！");
+                                }
+                                else
+                                {
+                                    FmInfo.GetTaskInfo("链板机收到任务号" + packtasknum + "，更新失败！");
+                                }
                                 //更改标志位 写入新任务
                                 var x = await Task.Run(() => plc.WriteTaskSend_YXY()); 
                                 index++;
@@ -682,7 +714,7 @@ namespace PackageMachine
                     }
                 }
             }
-            if (group == 2)//完成信号块组
+           else if (group == 2)//完成信号块组
             {
                 for (int i = 0; i < clientId.Length; i++)
                 {
@@ -695,14 +727,43 @@ namespace PackageMachine
                             if (tempvalue != 0)
                             {
                                 FmInfo.GetTaskInfo("任务号" + tempvalue + "完成");
-                               plc. ShapeGroup2.Write(0, i);
-                                //FmInfo.GetTaskInfo(plc.ReadAndWriteYXYTaskConpelte(tempvalue, i));//更新数据库 更新DB块
+                                plc. ShapeGroup2.Write(0, i);
+                                FmInfo.GetTaskInfo(plc.ReadAndWriteYXYTaskConpelte(tempvalue, i));//更新数据库 更新DB块
                             }
                         }
                         catch (Exception ex)
                         {
                             FmInfo.GetTaskInfo("服务器连接失败！" + ex.Message);
                             return;
+                        }
+                    }
+                }
+            }
+            else if (group == 3)//常规烟翻版任务交互
+            {
+                for (int i = 0; i < clientId.Length; i++)
+                {
+                    if (clientId[i] == 8)//接收信号位
+                    {
+
+                        int packtasknum = int.Parse(plc.ShapeGroup3.Read(0).ToString());//任务号
+                        int tempvalue = int.Parse(plc.ShapeGroup4.Read(6).ToString());//接收信号
+                        if (tempvalue == 0)//如果有接收信号
+                        {
+                            try
+                            { 
+                                //读取接收信号的任务 数据库置接 收 
+                                FmInfo.GetTaskInfo(packtasknum + "收到任务"); 
+                                //更改标志位 写入新任务
+                                var x = await Task.Run(() => plc.WriteTaskSend_CGY());
+                                index++;
+                                GlobalPara.GlbobaIndex = index;
+                            }
+                            catch (Exception ex)
+                            {
+                                FmInfo.GetTaskInfo("服务器连接失败！" + ex.Message);
+                                return;
+                            }
                         }
                     }
                 }

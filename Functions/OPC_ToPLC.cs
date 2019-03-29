@@ -165,7 +165,7 @@ namespace Functions
                 {
                     strmessage += "读取到异型烟链板机电控DB块：" + ItemCollection.GetTaskStatusByComplete_yxy()[i] + "  值：" + result[i];
                     //数据库置完成该任务
-                    bool tag = BLL.PLCDataGet.UpdataTask_yxy(result[i]);
+                    bool tag = BLL.PLCDataGet.UpdataTask_yxy(result[i] );
                     if (tag)
                     {
                         strmessage += "，数据库已置完成";
@@ -208,6 +208,14 @@ namespace Functions
             }
             return strmessage;
         }
+        public  bool UpDateToYxyState(int packageNum,int state)
+        {
+            if (BLL.PLCDataGet.UpdataTask_yxy(packageNum, state))
+            {
+                return true;
+            }
+            return false;
+        }
         /// <summary>
         /// 根据完成信号更新数据库单包任务
         /// </summary>
@@ -239,58 +247,47 @@ namespace Functions
             startatg = true;
             string Strmessage ="";
             try
-            {
+            { 
                 object[] vs = new object[ItemCollection.GetTaskStatusBySend_yxy().Count()];
-                vs[0] = GlobalPara.GlbobaIndex;
-                vs[1] = 10;
-                vs[2] = 1;
-                vs[3] = 2;
-                vs[4] = 2;
-                vs[5] = 2;
-                vs[6] = 2;
-                vs[7] = 1;
-                ShapeGroup1.SyncWrite(vs);
+                //取当前包装机未发送的的异型烟链板机（合包）任务
+                List<EFModle.T_PACKAGE_TASK> values = await Task.Run(() => BLL.PLCDataGet.GetAllNotSendTask_YXY(GlobalPara.PackageNo));
+                if (values.Count > 0)
+                {
+                    //取最小任务号(要发送的任务)
+                    decimal packtasknum = values.Min(x => x.PACKTASKNUM).Value;
+                    //取出要发送的异型烟数量
+                    int AllYXY = values.Where(x => x.PACKTASKNUM == packtasknum && x.CIGTYPE == "2").Count();
+                    //取出要发送的合包常规烟数量
+                    int AllCG = Convert.ToInt32(values.Where(x => x.PACKTASKNUM == packtasknum && x.CIGTYPE == "1").Sum(X => X.NORMALQTY));
+                    //其他不需要统计的数据
+                    EFModle.T_PACKAGE_TASK task = values.Where(x => x.PACKTASKNUM == packtasknum).FirstOrDefault();
+
+                    vs[0] = Convert.ToInt32(task.PACKTASKNUM); //包号
+                    vs[1] = AllYXY;//数量
+                    vs[2] = Convert.ToInt32(task.UNIONPACKAGETAG); //合包标志
+                    vs[3] = AllCG;//合包数量
+                    vs[4] = Convert.ToInt32(task.PUSHSPACE);//推烟位置（层数）
+                    vs[5] = 0;//预留 
+                    vs[6] = 0;//预留 
+                    vs[7] = 1;//交互标志
+                    if (AllYXY > 0)//如果是非纯常规烟订单
+                    {
+                        ShapeGroup1.SyncWrite(vs);
+                        BLL.PLCDataGet.WriteReceive_YXY((int)packtasknum);//测试用的  
+                        Strmessage = "写入异型烟链板机：\r\n任务号：" + vs[0] + "，异型烟数量：" + vs[1] + "，合包标志：" +
+                            vs[2] + "，合包常规烟数：" + vs[3] + "，推烟位置：" + vs[4] + "，接收标志：" + vs[7];
+                    }
+                    else
+                    {
+                        BLL.PLCDataGet.WriteReceive_YXY((int)packtasknum);
+                        Strmessage = await WriteTaskSend_YXY();
+                    }
+                }
+                else
+                {
+                    Strmessage = "当前没有可发送的任务！";
+                }
                 startatg = false;
-                //object[] vs = new object[ItemCollection.GetTaskStatusBySend_yxy().Count()];
-                ////取当前包装机未发送的的异型烟链板机（合包）任务
-                //List<EFModle.T_PACKAGE_TASK> values = await Task.Run(() => BLL.PLCDataGet.GetAllNotSendTask_YXY(GlobalPara.PackageNo));
-                //if (values.Count > 0)
-                //{
-                //    //取最小任务号(要发送的任务)
-                //    decimal packtasknum = values.Min(x => x.PACKTASKNUM).Value;
-                //    //取出要发送的异型烟数量
-                //    int AllYXY = values.Where(x => x.PACKTASKNUM == packtasknum && x.CIGTYPE == "2").Count();
-                //    //取出要发送的合包常规烟数量
-                //    int AllCG = Convert.ToInt32(values.Where(x => x.PACKTASKNUM == packtasknum && x.CIGTYPE == "1").Sum(X => X.NORMALQTY));
-                //    //其他不需要统计的数据
-                //    EFModle.T_PACKAGE_TASK task = values.Where(x => x.PACKTASKNUM == packtasknum).FirstOrDefault();
-
-                //    vs[0] = Convert.ToInt32(task.PACKTASKNUM); //包号
-                //    vs[1] = AllYXY;//数量
-                //    vs[2] = Convert.ToInt32(task.UNIONPACKAGETAG); //合包标志
-                //    vs[3] = AllCG;//合包数量
-                //    vs[4] = Convert.ToInt32(task.PUSHSPACE);//推烟位置（层数）
-                //    vs[5] = 0;//预留 
-                //    vs[6] = 0;//预留 
-                //    vs[7] = 1;//交互标志
-                //    if (AllYXY > 0)//如果是非纯常规烟订单
-                //    {
-                //         ShapeGroup1.SyncWrite(vs);
-                //        BLL.PLCDataGet.WriteReceive_YXY((int)packtasknum);//测试用的  
-                //        Strmessage = "写入异型烟链板机：\r\n任务号：" + vs[0] + "，异型烟数量：" + vs[1] + "，合包标志：" +
-                //            vs[2] + "，合包常规烟数：" + vs[3] + "，推烟位置：" + vs[4] + "，接收标志：" + vs[7];
-                //    }
-                //    else
-                //    {
-                //        BLL.PLCDataGet.WriteReceive_YXY((int)packtasknum);
-                //        Strmessage = await WriteTaskSend_YXY();
-                //    }
-                //}
-                //else
-                //{
-                //    Strmessage = "当前没有可发送的任务！";
-                //}
-
             }
             catch (Exception ex)
             {

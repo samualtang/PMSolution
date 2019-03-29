@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 using HslCommunication.Enthernet;
 using HslCommunication;
 using HslCommunication.Core.Net;
+using System.Net.NetworkInformation;
 
 namespace Functions.Model
 {
-    public static class TcpIp_ConnPlc
+    public   class TcpIp_ConnPlc
     {
         #region TPC_Ip
         private static TcpClient plc_Socket = null;
@@ -199,16 +200,14 @@ namespace Functions.Model
         private static NetComplexClient complexClient = null;
 
 
-    }
 
-    public class HslConnection
-    {
-        HslConnection()
-        {
 
-        }
+
+       
+
 
 
 
     }
+ 
 }

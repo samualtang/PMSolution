@@ -14,7 +14,7 @@ namespace Functions.BLL
         /// </summary>
         /// <param name="vs">包任务号</param>
         /// <returns></returns>
-        public static bool UpdataTask_yxy(int vs)
+        public static bool UpdataTask_yxy(int vs   )
         {
             //数据库置完成该任务
             using (Entities et = new Entities())
@@ -41,6 +41,35 @@ namespace Functions.BLL
                 }
             }
         }
+
+        public static bool UpdataTask_yxy(int packageNUm,int state)
+        {
+            using (Entities en = new Entities())
+            {
+                List<T_PACKAGE_TASK> lists = en.T_PACKAGE_TASK.Where(x => x.PACKTASKNUM == packageNUm).Select(x => x).ToList();
+                if (!lists.Any())
+                {
+                    return false;
+                }
+                foreach (var item in lists)
+                {
+                    if (item.STATE == 10)//等于新增，才更新成接收状态
+                    {
+                        item.STATE = state;
+                    }
+                }
+                if (en.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+    
         /// <summary>
         /// 更新合包任务状态  常规烟
         /// </summary>

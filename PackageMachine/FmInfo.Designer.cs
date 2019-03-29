@@ -35,23 +35,24 @@
             this.btnLast = new System.Windows.Forms.Button();
             this.btnnext = new System.Windows.Forms.Button();
             this.panelInfo = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblcutcount = new System.Windows.Forms.Label();
             this.btnRemake = new System.Windows.Forms.Button();
             this.gbInfo = new System.Windows.Forms.GroupBox();
             this.list_date = new System.Windows.Forms.ListBox();
             this.lblcutname = new System.Windows.Forms.Label();
-            this.lblcutcode = new System.Windows.Forms.Label();
             this.lblallcount = new System.Windows.Forms.Label();
             this.lblcuscode = new System.Windows.Forms.Label();
+            this.lblcutcode = new System.Windows.Forms.Label();
             this.lbllinename = new System.Windows.Forms.Label();
             this.btnAuto = new System.Windows.Forms.Button();
             this.lblCache = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cce1 = new PackageMachine.CigrCache();
             this.plcrtl = new System.Windows.Forms.Panel();
             this.lblInfo = new System.Windows.Forms.Label();
             this.lblNotFish = new System.Windows.Forms.Label();
-            this.btngw2 = new System.Windows.Forms.Button();
             this.panelLb = new System.Windows.Forms.Panel();
             this.btngw8 = new System.Windows.Forms.Button();
             this.btngw9 = new System.Windows.Forms.Button();
@@ -59,6 +60,7 @@
             this.btngw7 = new System.Windows.Forms.Button();
             this.btngw6 = new System.Windows.Forms.Button();
             this.btngw5 = new System.Windows.Forms.Button();
+            this.btngw2 = new System.Windows.Forms.Button();
             this.btngw4 = new System.Windows.Forms.Button();
             this.btngw1 = new System.Windows.Forms.Button();
             this.btngw3 = new System.Windows.Forms.Button();
@@ -67,9 +69,7 @@
             this.lblNormalcOUNT = new System.Windows.Forms.Label();
             this.lbFinsh = new System.Windows.Forms.Label();
             this.lblDxdetail = new System.Windows.Forms.Label();
-            this.cce1 = new PackageMachine.CigrCache();
             this.cs = new PackageMachine.CigrShow();
-            this.label2 = new System.Windows.Forms.Label();
             this.panelInfo.SuspendLayout();
             this.gbInfo.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -154,6 +154,16 @@
             this.panelInfo.Size = new System.Drawing.Size(1194, 90);
             this.panelInfo.TabIndex = 5;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(264, 53);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(56, 17);
+            this.label2.TabIndex = 89;
+            this.label2.Text = "任务号：";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -224,17 +234,6 @@
             this.lblcutname.TabIndex = 18;
             this.lblcutname.Text = "客户名称：XXXX";
             // 
-            // lblcutcode
-            // 
-            this.lblcutcode.AutoSize = true;
-            this.lblcutcode.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblcutcode.ForeColor = System.Drawing.Color.Indigo;
-            this.lblcutcode.Location = new System.Drawing.Point(765, 59);
-            this.lblcutcode.Name = "lblcutcode";
-            this.lblcutcode.Size = new System.Drawing.Size(137, 21);
-            this.lblcutcode.TabIndex = 17;
-            this.lblcutcode.Text = "任务号：0000000";
-            // 
             // lblallcount
             // 
             this.lblallcount.AutoSize = true;
@@ -256,6 +255,17 @@
             this.lblcuscode.Size = new System.Drawing.Size(171, 21);
             this.lblcuscode.TabIndex = 15;
             this.lblcuscode.Text = "客户编码：000000000";
+            // 
+            // lblcutcode
+            // 
+            this.lblcutcode.AutoSize = true;
+            this.lblcutcode.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblcutcode.ForeColor = System.Drawing.Color.Indigo;
+            this.lblcutcode.Location = new System.Drawing.Point(765, 59);
+            this.lblcutcode.Name = "lblcutcode";
+            this.lblcutcode.Size = new System.Drawing.Size(137, 21);
+            this.lblcutcode.TabIndex = 17;
+            this.lblcutcode.Text = "任务号：0000000";
             // 
             // lbllinename
             // 
@@ -301,6 +311,14 @@
             this.panel1.Size = new System.Drawing.Size(176, 608);
             this.panel1.TabIndex = 8;
             // 
+            // cce1
+            // 
+            this.cce1.BackColor = System.Drawing.Color.White;
+            this.cce1.Location = new System.Drawing.Point(11, 48);
+            this.cce1.Name = "cce1";
+            this.cce1.Size = new System.Drawing.Size(137, 526);
+            this.cce1.TabIndex = 6;
+            // 
             // plcrtl
             // 
             this.plcrtl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -340,20 +358,6 @@
             this.lblNotFish.Size = new System.Drawing.Size(187, 30);
             this.lblNotFish.TabIndex = 0;
             this.lblNotFish.Text = "未包装数量：      ";
-            // 
-            // btngw2
-            // 
-            this.btngw2.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.btngw2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btngw2.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.btngw2.Location = new System.Drawing.Point(106, 11);
-            this.btngw2.Name = "btngw2";
-            this.btngw2.Size = new System.Drawing.Size(93, 47);
-            this.btngw2.TabIndex = 0;
-            this.btngw2.Text = "工位2";
-            this.btngw2.UseVisualStyleBackColor = false;
-            this.btngw2.Click += new System.EventHandler(this.gbtnw1_Click);
-            this.btngw2.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
             // 
             // panelLb
             // 
@@ -448,6 +452,20 @@
             this.btngw5.Click += new System.EventHandler(this.gbtnw1_Click);
             this.btngw5.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
             // 
+            // btngw2
+            // 
+            this.btngw2.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btngw2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw2.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.btngw2.Location = new System.Drawing.Point(106, 11);
+            this.btngw2.Name = "btngw2";
+            this.btngw2.Size = new System.Drawing.Size(93, 47);
+            this.btngw2.TabIndex = 0;
+            this.btngw2.Text = "工位2";
+            this.btngw2.UseVisualStyleBackColor = false;
+            this.btngw2.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw2.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
+            // 
             // btngw4
             // 
             this.btngw4.BackColor = System.Drawing.Color.LightSkyBlue;
@@ -539,19 +557,11 @@
             this.lblDxdetail.AutoSize = true;
             this.lblDxdetail.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.lblDxdetail.Font = new System.Drawing.Font("微软雅黑", 16.25F);
-            this.lblDxdetail.Location = new System.Drawing.Point(12, 309);
+            this.lblDxdetail.Location = new System.Drawing.Point(3, 310);
             this.lblDxdetail.Name = "lblDxdetail";
             this.lblDxdetail.Size = new System.Drawing.Size(123, 30);
             this.lblDxdetail.TabIndex = 88;
             this.lblDxdetail.Text = "垛型明细：";
-            // 
-            // cce1
-            // 
-            this.cce1.BackColor = System.Drawing.Color.White;
-            this.cce1.Location = new System.Drawing.Point(11, 48);
-            this.cce1.Name = "cce1";
-            this.cce1.Size = new System.Drawing.Size(137, 526);
-            this.cce1.TabIndex = 6;
             // 
             // cs
             // 
@@ -563,16 +573,6 @@
             this.cs.Size = new System.Drawing.Size(473, 328);
             this.cs.TabIndex = 3;
             this.cs.W = 540;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(264, 53);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 17);
-            this.label2.TabIndex = 89;
-            this.label2.Text = "任务号：";
             // 
             // FmInfo
             // 

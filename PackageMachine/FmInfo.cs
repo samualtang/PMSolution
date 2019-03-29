@@ -22,8 +22,8 @@ namespace PackageMachine
         //FmTest ft = new FmTest();
         public FmInfo()
         {
-            
-            InitializeComponent(); 
+
+            InitializeComponent();
             ftd = new FmTaskDetail();
             Func += ChangeControlEnabled;
             handle += updateListBox;
@@ -42,7 +42,10 @@ namespace PackageMachine
         /// OPC服务器
         /// </summary> 
         Group opcGroup;
-
+        /// <summary>
+        /// 常规烟翻版任务号
+        /// </summary>
+        public static decimal FbPackageNum{get;set;}
         /// <summary>
         /// 获取OPC组
         /// </summary>

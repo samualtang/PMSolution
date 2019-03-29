@@ -146,7 +146,7 @@ namespace Functions.BLL
                     {
                         foreach (var item in query1)
                         { 
-                            item.STATE = 20;
+                            item.CIGSTATE = 20;
                         }
                         en.SaveChanges();
                     }

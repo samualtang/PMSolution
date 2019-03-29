@@ -48,13 +48,13 @@ namespace Functions.Model
         {
             string S7Name = PubFunction.GlobalPara.Opc_Namecgy;
             List<string> list = new List<string>();
-            list.Add(S7Name + "DB30,DINT500");//整包任务号
-            list.Add(S7Name + "DB30,W504");//包内烟条数
-            list.Add(S7Name + "DB30,W506");//合包标志
-            list.Add(S7Name + "DB30,WT508");//合包数量
-            list.Add(S7Name + "DB30,DINT510");//预留
-            list.Add(S7Name + "DB30,W514");//预留
-            list.Add(S7Name + "DB30,W516");//接收标志
+            list.Add(S7Name + "DB30,DINT500");//整包任务号0 
+            list.Add(S7Name + "DB30,W504");//包内烟条数1
+            list.Add(S7Name + "DB30,W506");//合包标志2
+            list.Add(S7Name + "DB30,WT508");//合包数量3
+            list.Add(S7Name + "DB30,DINT510");//预留4
+            list.Add(S7Name + "DB30,W514");//预留5
+            list.Add(S7Name + "DB30,W516");//接收标志6
 
             return list;
         }
