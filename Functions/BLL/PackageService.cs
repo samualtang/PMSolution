@@ -20,16 +20,31 @@ namespace Functions.BLL
         /// </summary>
         /// <param name="packageNo"></param>
         public void GetAllOrder(decimal packageNo)
-        { 
+        {
             int allCount = 0;
             using (Entities entity = new Entities())
             {
                 //var Packtasknum = entity.Database.SqlQuery( );
                 //所有订单明细
-                var query = (from item in entity.V_PRODUCE_PACKAGEINFO
-                             where item.EXPORT == packageNo && item.BILLCODE == "CS10384689"
-                             group item by new {item.BILLCODE,item.TASKNUM}  into allcode 
-                             select new { allcode.Key.BILLCODE, allcode.Key.TASKNUM }).OrderBy(x=>x.TASKNUM).ToList();
+                /*var query1 = (from item in entity.V_PRODUCE_PACKAGEINFO
+                             where item.EXPORT == packageNo //&& item.BILLCODE == "CS10384689"
+                             group item by new { item.BILLCODE, item.TASKNUM } into allcode
+                             select new { allcode.Key.BILLCODE, allcode.Key.TASKNUM }).OrderBy(x => x.TASKNUM).ToList();
+*/
+                DateTime TIEM = new DateTime();
+                DateTime TIEM2 = new DateTime();
+                DateTimeFormatInfo format = new DateTimeFormatInfo();
+                format.ShortDatePattern = "yyyy-MM-dd";
+                TIEM = Convert.ToDateTime("2019-03-21", format);
+                TIEM2 = Convert.ToDateTime("2019-03-22", format);
+
+                var query = (from item in entity.T_UN_TASK_H
+                             where item.PACKAGEMACHINE == packageNo && item.ORDERDATE >= TIEM && item.ORDERDATE <= TIEM2 && item.BILLCODE == "CS10384689"
+                             orderby item.SORTNUM
+                             select item).ToList();
+
+
+
                 //查询ptid值
                 decimal ptid = entity.T_PACKAGE_TASK.Count() > 0 ? entity.T_PACKAGE_TASK.Max(x => x.PTID) + 1 : 1;
                 if (query != null)
@@ -41,7 +56,9 @@ namespace Functions.BLL
                         int pcount = 0;
                         List<T_PACKAGE_TASK> task = new List<T_PACKAGE_TASK>();
                         //当期订单明细
-                        var query2 = (from item2 in entity.V_PRODUCE_PACKAGEINFO where item2.BILLCODE == v.BILLCODE orderby item2.SENDTASKNUM,item2.MACHINESEQ , item2.TROUGHNUM select item2).ToList();
+                        var query2 = (from item2 in entity.T_UN_POKE_H where item2.BILLCODE == v.BILLCODE orderby item2.SENDTASKNUM, item2.MACHINESEQ, item2.TROUGHNUM select item2).ToList();
+
+                        //var query2 = (from item2 in entity.V_PRODUCE_PACKAGEINFO where item2.BILLCODE == v.BILLCODE orderby item2.SENDTASKNUM, item2.MACHINESEQ, item2.TROUGHNUM select item2).ToList();
                         if (query2 != null)
                         {
                             //遍历订单数据存入集合
@@ -50,7 +67,7 @@ namespace Functions.BLL
                                 allCount = allCount + 1;
                                 pcount = pcount + 1;
                                 T_PACKAGE_TASK temp = new T_PACKAGE_TASK();
-                                temp.PTID = ptid ;
+                                temp.PTID = ptid;
                                 temp.CIGARETTECODE = v2.CIGARETTECODE;
                                 T_WMS_ITEM tempItem = ItemService.GetItemByCode(v2.CIGARETTECODE);
                                 temp.CIGARETTENAME = tempItem.ITEMNAME;
@@ -64,20 +81,25 @@ namespace Functions.BLL
                                 temp.CIGSEQ = pcount;
                                 temp.PACKAGESEQ = packageNo;
                                 temp.ALLPACKAGESEQ = 0;
-                                temp.PACKAGENO = 1;
+                                temp.PACKAGENO = v2.PACKAGEMACHINE;//v2.EXPORT;
                                 temp.CIGTYPE = "2";
                                 temp.STATE = 0;//0 新增  10 确定
                                 temp.NORMALQTY = 1;
                                 temp.NORMAILSTATE = 10;
                                 temp.UNIONPACKAGETAG = 0;
-                                //temp.DOUBLETAKE = (string.IsNullOrEmpty(tempItem.DOUBLETAKE) || tempItem.DOUBLETAKE == "0"|| tempItem.DOUBLETAKE == "") ? "0" : tempItem.DOUBLETAKE;
+                                temp.DOUBLETAKE = "0";
+                                //temp.ORDERSEQ = v2.PRIORITY;
+                                //temp.ORDERQTY = v2.ORDERQUANTITY;
+                                temp.CIGSTATE = 10;
                                 task.Add(temp);
                                 ptid++;
                             }
                             allpackagenum++;
-                            GenPackageInfo(task, entity);
+                            GenPackageInfo(task, entity); 
                             foreach (var item in task)
                             {
+                                //item.ORDERPACKAGEQTY = task.GroupBy(x => x.PACKAGESEQ ?? 0).Count();
+                                //item.PACKAGEQTY = task.
                                 entity.T_PACKAGE_TASK.Add(item);
                             }
                             if (i == 5)
@@ -87,7 +109,7 @@ namespace Functions.BLL
                             }
 
                         }
-                       
+
                     }
                     entity.SaveChanges();
                 }
@@ -96,7 +118,7 @@ namespace Functions.BLL
 
         int packageWidth = 530;//宽
         int packageHeight = 196 + 4;//20浮动
-        int jx = 10;//间隙
+        int jx = 5;//间隙
         decimal deviation = 3;//高度误差
 
         int taskCount = 6;//一次参与计算的条数
@@ -127,6 +149,7 @@ namespace Functions.BLL
             PackageArea area = new PackageArea();//创建平面
             area.width = packageWidth;//平面宽（初始）
             area.height = 0;//平面高（初始）
+            //area.beginx = jx;
 
             //序号，最小X坐标,最大X坐标，平面宽度
             area.cigaretteList = new List<Cigarette>() { new Cigarette() { CigaretteNo = 0, fromx = 0, tox = packageWidth, width = packageWidth } };//平面集合， 算烟
@@ -234,11 +257,11 @@ namespace Functions.BLL
 
             areal.left = area.left;
             areal.right = arear;
-            areal.beginx = area.beginx +jx;//加间隙
-            areal.width = width+jx;//加间隙
+            areal.beginx = area.beginx;//加间隙 +jx  如果平面高为0 则设间隙，否则不设
+            areal.width = width;//加间隙+jx
             areal.height = height;
 
-            areal.cigaretteList = new List<Cigarette> { new Cigarette() { CigaretteNo = cigseq, fromx = 0, tox = width, width = width } };
+            areal.cigaretteList = new List<Cigarette> { new Cigarette() { CigaretteNo = cigseq, fromx = 0, tox = width, width = width } };//
             if (area.left != null && list.Contains(area.left))
             {
                 area.left.right = areal;
@@ -247,14 +270,9 @@ namespace Functions.BLL
 
 
                     areal.beginx = area.left.beginx;
-                    //if (areal.beginx == 0)
-                    //  {
-                    //      areal.left = null;
-                    //      area.left.cigaretteList.Clear();
-                    //   }
                     areal.cigaretteList = CopyCigaretteList(area.left.cigaretteList);
                     areal.cigaretteList.Add(new Cigarette() { CigaretteNo = cigseq, fromx = area.left.width, tox = area.left.width + width, width = width });
-                    areal.width = area.left.width + areal.width +jx;//加间隙  待加
+                    areal.width = area.left.width + areal.width;//加间隙  待加
                     if (areal.height < area.left.height)
                     {
                         areal.height = area.left.height;
@@ -268,14 +286,14 @@ namespace Functions.BLL
             }
             arear.left = areal;
             arear.beginx = areal.beginx + areal.width;
-            arear.width = area.width - width;
+            arear.width = area.width - width;//+jx * 2
             arear.height = area.height;
             arear.right = area.right;
             arear.cigaretteList = CopyCigaretteList(area.cigaretteList);
             //if (arear.cigaretteList.Count > 1)
             //{
 
-            if (width > area.cigaretteList[0].width)
+            if (width > area.cigaretteList[0].width + jx * 2)
             {
                 arear.cigaretteList.RemoveAt(0);
                 arear.cigaretteList[0].width -= (width - area.cigaretteList[0].width);
@@ -283,7 +301,7 @@ namespace Functions.BLL
             else
             {
 
-                arear.cigaretteList[0].width = (area.cigaretteList[0].width - width -jx);//-间隙 待加*
+                arear.cigaretteList[0].width = (area.cigaretteList[0].width - width);//-间隙*2 
             }
             //}
             //else
@@ -354,6 +372,7 @@ namespace Functions.BLL
             return clist;
 
         }
+
         public List<PackageArea> CopyList(List<PackageArea> list)
         {
             List<PackageArea> list1 = new List<PackageArea>();
@@ -394,6 +413,7 @@ namespace Functions.BLL
             int packageNO = 1;
             var templist = task.Where(x => x.STATE == 0).ToList().Take(taskCount).ToList();  //为0的未计算数据 暂每次取6条
 
+
             if (templist != null && templist.Count > 0)
             {
                 //不为空，且存在状态为0
@@ -401,8 +421,10 @@ namespace Functions.BLL
                 {
                     // templist = templist.Where(x => x.STATE != 10).ToList();
                     decimal minHeight = 0;
+                    //平面集合内未标记删除且大于75最宽度的平面，且数量大于0
                     if (list.Where(x => x.isscan == 0 && x.width > minWidth) != null && list.Where(x => x.isscan == 0 && x.width > minWidth).Count() > 0)
                     {
+                        //最小高度 = 标记未删除的最低平面高度
                         minHeight = list.Where(x => x.isscan == 0 && x.width > minWidth).Min(x => x.height);
                     }
                     else
@@ -425,7 +447,7 @@ namespace Functions.BLL
                             //diclist.Push(list1);
                         }
                         else
-                        {
+                        { 
                             packageNO += 1;
                             allpackagenum += 1;
                             list.Clear();
@@ -433,6 +455,7 @@ namespace Functions.BLL
                             PackageArea areainit = new PackageArea();
                             areainit.width = packageWidth;
                             areainit.height = 0;
+                            //areainit.beginx = jx;
                             areainit.cigaretteList = new List<Cigarette>() { new Cigarette() { CigaretteNo = 0, fromx = 0, tox = packageWidth, width = packageWidth } };
                             list.Add(areainit);
 
@@ -440,58 +463,60 @@ namespace Functions.BLL
                         }
 
                     }
+                    //找到最底平面
                     PackageArea area = list.Find(x => x.height == minHeight && x.isscan == 0 && x.width > minWidth);
-                    //area = list.FindAll(x => x.beginx == area.beginx && x.isscan == 0 && x.width > minWidth).OrderByDescending(x => x.height).FirstOrDefault();
-                    //是否有相同品牌的烟   --没有判断不同品牌？
+                    area = list.FindAll(x => x.beginx == area.beginx && x.isscan == 0 && x.width > minWidth).OrderByDescending(x => x.height).FirstOrDefault();
+                    //是否有连续的相同品牌的烟存入集合（即获取双抓数据）   --没有判断不同品牌？
                     List<ItemGroup> allGroupList = templist.Where(x => x.STATE != 10).GroupBy(x => x.CIGARETTECODE).Select(x => new ItemGroup() { CigaretteCode = x.Key, Total = x.Count() }).ToList();
+                    //存入6条烟中 数量大于1的条烟品牌和数量记录
                     List<ItemGroup> groupList = allGroupList.FindAll(x => x.Total > 1);
-                    //  List<ItemGroup> smallGroupList = allGroupList;
 
-                    foreach (var item in groupList)
+                    foreach (var item in groupList)//循环连续品牌条烟列表
                     {
+                        //取两条
                         var doubleList = templist.Where(x => x.STATE != 10 && x.CIGARETTECODE == item.CigaretteCode).Take(2).ToList();
-                        if (Math.Abs(doubleList[0].CIGSEQ ?? 0 - doubleList[1].CIGSEQ ?? 0) != 1)
+                        decimal a = doubleList[0].CIGSEQ ?? 0;
+                        decimal b = doubleList[1].CIGSEQ ?? 0;
+                        if (Math.Abs(a - b) != 1)//如果不是连续的两条烟
                         {
-                            item.Total = 100;
+                            item.Total = 100;//标记删除
                         }
                     }
-                    groupList.RemoveAll(x => x.Total == 100);
+                    groupList.RemoveAll(x => x.Total == 100);//删除标记的品牌和数量
 
                     String tempcode = "";
                     decimal tempWidth = 0;
                     decimal gdc = 0;//高度差
                     List<AreaUnit> unit = new List<AreaUnit>();//双抓平面
                     AreaUnit tempunit = null;
-                    if (groupList != null && groupList.Count > 0)//优先双抓 而且是宽度大的双抓
+                    if (groupList != null && groupList.Count > 0)//优先双抓 而且是宽度大的先抓
                     {
                         //  List<Cigarette> cigList = area.cigaretteList;
                         foreach (var v in groupList)
                         {
                             unit.Clear();
                             T_PACKAGE_TASK temptask = templist.Find(x => x.CIGARETTECODE == v.CigaretteCode);
-                            decimal cgiseq = templist.Where(x => x.CIGARETTECODE == v.CigaretteCode && x.STATE != 10).FirstOrDefault().CIGSEQ ?? 0;//获取条烟序号   *
-                            if (temptask.CIGWIDTH * 2 + jx <= area.width && area.height + temptask.CIGHIGH < packageHeight)//双抓小于区域宽度,同时小于整包高度
+                            decimal cgiseq = templist.Where(x => x.CIGARETTECODE == v.CigaretteCode && x.STATE != 10).FirstOrDefault().CIGSEQ ?? 0;//获取条烟序号   *个人觉得会有第1条为a与3、4为a有问题
+
+                            if (temptask.CIGWIDTH * 2 <= area.width && area.height + temptask.CIGHIGH < packageHeight)//双抓小于最低平面宽度,同时小于整包高度  +2个间隙
                             {
-
-
-
                                 int i = 0;
 
                                 decimal flag = 1;
                                 decimal lastflag = 0;
                                 decimal beginx = 0;
-                                foreach (var item in area.cigaretteList)
+                                foreach (var item in area.cigaretteList)//遍历平面得卷烟集合，条烟不能放在序号比当前大得条烟上
                                 {
                                     item.index = i;
                                     if (cgiseq < item.CigaretteNo)
                                     {
-                                        flag = 0;
+                                        flag = 0;//如果大，标记不可放
                                     }
                                     else
                                     {
                                         flag = 1;
                                     }
-                                    if (lastflag == 1 && flag == 1)
+                                    if (lastflag == 1 && flag == 1)//若上一个卷烟平面和当前找到的平面上都可放
                                     {
 
                                         AreaUnit u = unit.ElementAt(unit.Count - 1);
@@ -500,7 +525,7 @@ namespace Functions.BLL
 
 
                                     }
-                                    else if (lastflag == 0 && flag == 1)
+                                    else if (lastflag == 0 && flag == 1)//若上一个卷烟平面不可放，但当前找到的平面上可放
                                     {
                                         AreaUnit cell = new AreaUnit();
                                         cell.width = item.width;
@@ -518,11 +543,11 @@ namespace Functions.BLL
                                 }
                                 foreach (var cell in unit)
                                 {
-                                    if (temptask.CIGWIDTH * 2 <= cell.width) //后面的seq必须大于已放的才能放
+                                    if (temptask.CIGWIDTH * 2 <= cell.width)
                                     {
-                                        if (tempWidth <= temptask.CIGWIDTH)
+                                        if (tempWidth <= temptask.CIGWIDTH)//
                                         {
-                                            if (tempWidth == temptask.CIGWIDTH)
+                                            if (tempWidth == temptask.CIGWIDTH)//
                                             {
 
                                                 if (area.left != null)
@@ -566,12 +591,12 @@ namespace Functions.BLL
                         foreach (var v in chooseItem)
                         {
                             v.PACKAGESEQ = packageNO;
-                            v.CIGWIDTHX = area.beginx + tempunit.beginx + v.CIGWIDTH;//两条当做一条
+                            v.CIGWIDTHX = area.beginx + tempunit.beginx + v.CIGWIDTH +jx;//两条当做一条 +jx
                             v.CIGHIGHY = area.height + v.CIGHIGH;
                             v.STATE = 10;
                             v.DOUBLETAKE = "1";
                             v.ALLPACKAGESEQ = allpackagenum;
-                            width += (v.CIGWIDTH ?? 0);
+                            width += (v.CIGWIDTH ?? 0) +jx;//+jx
                             height = (area.height + v.CIGHIGH ?? 0);
                             cigseq = v.CIGSEQ ?? 0;
                         }
@@ -637,16 +662,16 @@ namespace Functions.BLL
 
                                 i++;
                             }
-                            if (temptask.CIGWIDTH <= area.width && area.height + temptask.CIGHIGH < packageHeight)
+                            if (temptask.CIGWIDTH +jx*2 <= area.width && area.height + temptask.CIGHIGH < packageHeight)
                             {
                                 foreach (var cell in unit)
                                 {
-                                    if (temptask.CIGWIDTH <= cell.width) //后面的seq必须大于已放的才能放
+                                    if (temptask.CIGWIDTH +jx*2 <= cell.width) //后面的seq必须大于已放的才能放
                                     {
 
-                                        if (tempWidth <= temptask.CIGWIDTH)
+                                        if (tempWidth <= temptask.CIGWIDTH +jx*2)
                                         {
-                                            if (tempWidth == temptask.CIGWIDTH)
+                                            if (tempWidth == temptask.CIGWIDTH + jx*2)
                                             {
 
                                                 if (area.left != null)
@@ -656,7 +681,7 @@ namespace Functions.BLL
                                                     //看左边高度差 取相差小的
                                                     if (Math.Abs(area.height + temptask.CIGHIGH ?? 0 - area.left.height) - Math.Abs(gdc) < 0)
                                                     {
-                                                        tempWidth = temptask.CIGWIDTH ?? 0;
+                                                        tempWidth = temptask.CIGWIDTH ?? 0 + jx *2;
                                                         tempcode = v.CigaretteCode;
                                                         gdc = area.height + temptask.CIGHIGH ?? 0 - area.left.height;
                                                     }
@@ -664,7 +689,7 @@ namespace Functions.BLL
                                             }
                                             else
                                             {
-                                                tempWidth = temptask.CIGWIDTH ?? 0;
+                                                tempWidth = temptask.CIGWIDTH ?? 0 +jx *2;
                                                 tempcode = v.CigaretteCode;
                                                 if (area.left != null)
                                                 {
@@ -691,13 +716,13 @@ namespace Functions.BLL
 
 
                             chooseItem.PACKAGESEQ = packageNO;
-                            chooseItem.CIGWIDTHX = area.beginx + tempunit.beginx + chooseItem.CIGWIDTH / 2;
-                            
+                            chooseItem.CIGWIDTHX = area.beginx + tempunit.beginx + chooseItem.CIGWIDTH / 2 +jx;
+
 
                             chooseItem.CIGHIGHY = area.height + chooseItem.CIGHIGH;
                             chooseItem.STATE = 10;
                             chooseItem.ALLPACKAGESEQ = allpackagenum;
-                            width += (chooseItem.CIGWIDTH ?? 0);
+                            width += (chooseItem.CIGWIDTH ?? 0) +jx*2;
                             height = (area.height + chooseItem.CIGHIGH ?? 0);
                             cigseq = chooseItem.CIGSEQ ?? 0;
                             //更新area
@@ -728,7 +753,14 @@ namespace Functions.BLL
                         list.ForEach(x => x.isscan = 0);
                         templist = task.Where(x => x.STATE != 10).ToList().Take(taskCount).ToList();
                     }
-
+                    foreach (var it in templist)
+                    {
+                        if (it.CIGSEQ == 9)
+                        {
+                            string ddd = templist[0].CIGARETTENAME;
+                            break;
+                        }
+                    }
 
                 }
             }

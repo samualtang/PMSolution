@@ -113,10 +113,19 @@
     <Compile Include="T_UN_POKE.cs">
       <DependentUpon>EntityData.tt</DependentUpon>
     </Compile>
+    <Compile Include="T_UN_POKE_H.cs">
+      <DependentUpon>EntityData.tt</DependentUpon>
+    </Compile>
     <Compile Include="T_UN_TASK.cs">
       <DependentUpon>EntityData.tt</DependentUpon>
     </Compile>
     <Compile Include="T_UN_TASKLINE.cs">
+      <DependentUpon>EntityData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T_UN_TASKLINE_H.cs">
+      <DependentUpon>EntityData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T_UN_TASK_H.cs">
       <DependentUpon>EntityData.tt</DependentUpon>
     </Compile>
     <Compile Include="T_WMS_ITEM.cs">

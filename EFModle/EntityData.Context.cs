@@ -42,5 +42,8 @@ namespace EFModle
         public DbSet<T_PRODUCE_ORDERLINE_H> T_PRODUCE_ORDERLINE_H { get; set; }
         public DbSet<T_PACKAGE_TASK> T_PACKAGE_TASK { get; set; }
         public DbSet<V_PRODUCE_PACKAGEINFO> V_PRODUCE_PACKAGEINFO { get; set; }
+        public DbSet<T_UN_TASK_H> T_UN_TASK_H { get; set; }
+        public DbSet<T_UN_TASKLINE_H> T_UN_TASKLINE_H { get; set; }
+        public DbSet<T_UN_POKE_H> T_UN_POKE_H { get; set; }
     }
 }
