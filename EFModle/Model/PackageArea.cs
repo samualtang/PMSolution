@@ -90,17 +90,58 @@ namespace EFModle.Model
 
     }
     /// <summary>
-    /// 平面组
+    /// 卷烟组
     /// </summary>
     public class ItemGroup
     {
         /// <summary>
-        /// 卷烟
+        /// 卷烟编码
         /// </summary>
-        public String CigaretteCode { get; set; }
+        public string CigaretteCode { get; set; }
         /// <summary>
         /// 条烟数
         /// </summary>
         public decimal Total { get; set; }
+    }
+    /// <summary>
+    /// 卷烟组
+    /// </summary>
+    public class ItemGroup1
+    {
+        public decimal Cigindex { get; set; }
+        /// <summary>
+        /// 卷烟编码
+        /// </summary>
+        public string CigaretteCode { get; set; }
+        /// <summary>
+        /// 高度
+        /// </summary>
+        public decimal Hight { get; set; }
+        /// <summary>
+        /// 宽度
+        /// </summary>
+        public decimal Width { get; set; }
+        /// <summary>
+        /// 长度
+        /// </summary>
+        public decimal Length { get; set; }
+        /// <summary>
+        /// 条烟数
+        /// </summary>
+        public decimal Total { get; set; }
+    }
+    /// <summary>
+    /// 双抓卷烟组
+    /// </summary>
+    public class ItemGroups
+    {
+        /// <summary>
+        /// 同高度卷烟序号（标记连续可双抓的烟，品牌可不同）
+        /// </summary>
+        public int CigaretteNo { get; set; }
+        /// <summary>
+        /// 卷烟组
+        /// </summary>
+        public List<ItemGroup1> Cigarette { get; set; } 
     }
 }
