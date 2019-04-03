@@ -32,6 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FmMain));
             this.label10 = new System.Windows.Forms.Label();
             this.gbSysDate = new System.Windows.Forms.GroupBox();
+            this.lblTask = new System.Windows.Forms.Label();
+            this.lblFinshiTask = new System.Windows.Forms.Label();
+            this.lblRobotState = new System.Windows.Forms.Label();
             this.lblServerInfo = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.mune = new System.Windows.Forms.Panel();
@@ -68,6 +71,9 @@
             // gbSysDate
             // 
             this.gbSysDate.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.gbSysDate.Controls.Add(this.lblTask);
+            this.gbSysDate.Controls.Add(this.lblFinshiTask);
+            this.gbSysDate.Controls.Add(this.lblRobotState);
             this.gbSysDate.Controls.Add(this.lblServerInfo);
             this.gbSysDate.Controls.Add(this.label10);
             this.gbSysDate.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -76,12 +82,39 @@
             this.gbSysDate.Size = new System.Drawing.Size(1284, 38);
             this.gbSysDate.TabIndex = 76;
             this.gbSysDate.TabStop = false;
-            this.gbSysDate.Text = "系统信息：";
+            this.gbSysDate.Text = "机器人信息：";
+            // 
+            // lblTask
+            // 
+            this.lblTask.AutoSize = true;
+            this.lblTask.Location = new System.Drawing.Point(403, 17);
+            this.lblTask.Name = "lblTask";
+            this.lblTask.Size = new System.Drawing.Size(53, 12);
+            this.lblTask.TabIndex = 4;
+            this.lblTask.Text = "发送任务";
+            // 
+            // lblFinshiTask
+            // 
+            this.lblFinshiTask.AutoSize = true;
+            this.lblFinshiTask.Location = new System.Drawing.Point(191, 17);
+            this.lblFinshiTask.Name = "lblFinshiTask";
+            this.lblFinshiTask.Size = new System.Drawing.Size(53, 12);
+            this.lblFinshiTask.TabIndex = 3;
+            this.lblFinshiTask.Text = "完成任务";
+            // 
+            // lblRobotState
+            // 
+            this.lblRobotState.AutoSize = true;
+            this.lblRobotState.Location = new System.Drawing.Point(12, 17);
+            this.lblRobotState.Name = "lblRobotState";
+            this.lblRobotState.Size = new System.Drawing.Size(65, 12);
+            this.lblRobotState.TabIndex = 2;
+            this.lblRobotState.Text = "机器人状态";
             // 
             // lblServerInfo
             // 
             this.lblServerInfo.AutoSize = true;
-            this.lblServerInfo.Location = new System.Drawing.Point(36, 17);
+            this.lblServerInfo.Location = new System.Drawing.Point(866, 17);
             this.lblServerInfo.Name = "lblServerInfo";
             this.lblServerInfo.Size = new System.Drawing.Size(53, 12);
             this.lblServerInfo.TabIndex = 1;
@@ -270,6 +303,9 @@
         private System.Windows.Forms.GroupBox gbSysDate;
         private System.Windows.Forms.Label lblServerInfo;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label lblTask;
+        private System.Windows.Forms.Label lblFinshiTask;
+        private System.Windows.Forms.Label lblRobotState;
     }
 }
 

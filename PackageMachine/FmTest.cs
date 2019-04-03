@@ -13,6 +13,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+ 
+ 
 
 namespace PackageMachine
 {
@@ -243,6 +245,11 @@ namespace PackageMachine
 
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void btnReadExcel_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 }
