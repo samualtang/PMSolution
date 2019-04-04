@@ -43,6 +43,7 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.button9 = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.btnReadExcel = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -182,11 +183,22 @@
             this.textBox4.Size = new System.Drawing.Size(100, 21);
             this.textBox4.TabIndex = 10;
             // 
+            // btnReadExcel
+            // 
+            this.btnReadExcel.Location = new System.Drawing.Point(575, 231);
+            this.btnReadExcel.Name = "btnReadExcel";
+            this.btnReadExcel.Size = new System.Drawing.Size(75, 23);
+            this.btnReadExcel.TabIndex = 11;
+            this.btnReadExcel.Text = "读取Excel";
+            this.btnReadExcel.UseVisualStyleBackColor = true;
+            this.btnReadExcel.Click += new System.EventHandler(this.btnReadExcel_Click);
+            // 
             // FmTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnReadExcel);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.button9);
@@ -226,5 +238,6 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Button btnReadExcel;
     }
 }

@@ -69,7 +69,7 @@ namespace PackageMachine
         private void FmInfo_Load(object sender, EventArgs e)
         { 
           
-           Loading.Masklayer(this, delegate () { LoadFucn(); });
+           //Loading.Masklayer(this, delegate () { LoadFucn(); });
            // ft.Show();
         }
 
