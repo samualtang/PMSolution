@@ -28,7 +28,7 @@ namespace PackageMachine
         {
             string d1 = System.DateTime.Now.ToString();
             Functions.BLL.PackageService packageAlgorithm = new Functions.BLL.PackageService();
-            packageAlgorithm.GetAllOrder(5);
+            packageAlgorithm.GetAllOrder(3);
             MessageBox.Show(d1 + "   " + DateTime.Now.ToString());
         }
     }
