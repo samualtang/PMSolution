@@ -105,11 +105,7 @@ namespace PackageMachine
                      //
                      Thread.Sleep(2000);
                     if (!connectSuccess) socketCore?.Close();//如果连接失败，这里将会跳入到心跳检测
-                 }).Start();
-                //连接服务器
-
-
-                //socketCore.ReceiveTimeout = 5000;//5秒没有响应则算连接超时
+                 }).Start(); 
                 connectSuccess = true;
                 ////异步接受来自服务端的信息
                 socketCore.BeginReceive(buffer, 0, 2048, SocketFlags.None, new AsyncCallback(ReceiveCallBack), socketCore);
@@ -117,6 +113,12 @@ namespace PackageMachine
                 { 
                     FmInfo.GetTaskInfo("机器人：服务器连接成功！");
                     lblServerInfo.Text = "机器人服务器连接成功！";
+                    thread = new Thread(new ThreadStart(SendRobotTask))//机器人任务发送
+                    {
+                        IsBackground = true
+
+                    };
+                    thread.Start();
                 }
                 else
                 {
@@ -134,22 +136,38 @@ namespace PackageMachine
         /// </summary>
         void CreateOpcClinet()
         { 
-            string[] strmessage = plc.ConnectionToPLC();//创建plc连接
-            //strmessage[1] = "1";
-         
-            FmInfo.GetGroup(plc.UnNormalGroup);//传入OPC组到信息显示界面
-            if (strmessage[1] == "1")
+            string[] strmessage = plc.CreateOPCServer();//创建plc连接
+            if (string.IsNullOrWhiteSpace(strmessage[0]))
             {
-                CreateState = false;
-                FmInfo.GetTaskInfo("opC创建失败！");
-               
+                FmInfo.GetTaskInfo("opC服务器创成功！");
+                FmInfo.GetTaskInfo("尝试连接异型烟链板机和常规烟翻版");
+                if (plc.CheckYXYConnection())
+                {
+                    FmInfo.GetTaskInfo("倍速链:PLC连接成功!");
+                  
+                    FmInfo.GetGroup(plc.UnNormalGroup);//传入OPC组到信息显示界面
+                }
+                else
+                {
+                    FmInfo.GetTaskInfo("倍速链:PLC连接失败!");
+                   
+                }
+                if (plc.CheckFbConnction())
+                {
+                    FmInfo.GetTaskInfo("翻板:PLC连接成功!");
+                
+                }
+                else
+                {
+                    FmInfo.GetTaskInfo("翻板:PLC连接失败!");
+                }
             }
             else
             {
-                CreateState = false;
-                FmInfo.GetTaskInfo("opC创成功！");
-               
+                FmInfo.GetTaskInfo("OPC服务创建失败，错误："+strmessage[0]);
             }
+ 
+ 
         }
 
         /// <summary>
@@ -444,7 +462,7 @@ namespace PackageMachine
         }
         #endregion
 
-        #region  TCPIP连接
+        #region   连接 创建事件
   
         private async Task   ConnectionAsync()
         {
@@ -474,17 +492,17 @@ namespace PackageMachine
         {
             if( i == 1) //开始任务
             {
-              //  pbStart.Enabled = false;
+              
                 pbStart.Cursor = Cursors.No;
-              //  pbStop.Enabled = true;
+              
                 pbStop.Cursor = Cursors.Hand;
 
             }
             else if(i == 2)//暂停任务
             {
-             //   pbStart.Enabled = true;
+              
                 pbStart.Cursor = Cursors.Hand;
-               // pbStop.Enabled = false;
+              
                 pbStop.Cursor = Cursors.No;
             }
         }
@@ -495,41 +513,44 @@ namespace PackageMachine
         string CreateDataChange()
         { 
             try
-            { 
+            {
+                string ErrMsg = "";
                 if (socketCore == null)//如果与服务器断开连接，则重新创建
                 {
                     CreateSocketClinet(); 
-                }  
-                thread = new Thread(new ThreadStart( SendRobotTask))//机器人任务发送
-                {
-                    IsBackground = true
-                   
-                };
-                thread.Start(); 
-         
+                }   
                 try
                 {
-                    if( CreateState) { 
-                    plc.ShapeGroup1.callback += OnDataChange;
-                    plc.ShapeGroup2.callback += OnDataChange;
-                    //常规烟翻版
-                    plc.ShapeGroup3.callback += OnDataChange;
-                    plc.ShapeGroup4.callback += OnDataChange;
-                    FmInfo.GetTaskInfo("倍速链，翻版，通信事件绑定成功");
+                    if (plc.CheckYXYConnection())
+                    {
+                        //异型烟倍速链
+                        plc.ShapeGroup1.callback += OnDataChange;
+                        plc.ShapeGroup2.callback += OnDataChange;
                     }
-                    //异型烟倍速链
                     else
                     {
-                        return "异型烟链板机触发事件绑定失败";
+                        ErrMsg += "异型烟倍速事件链绑定失败，未连接至PLC";
                     }
+                    if (plc.CheckFbConnction())
+                    {
+                        //常规烟翻版
+                        plc.ShapeGroup3.callback += OnDataChange;
+                        plc.ShapeGroup4.callback += OnDataChange;
+                    }
+                    else
+                    {
+                        ErrMsg += "常规烟翻版事件绑定失败，未连接至PLC";
+                    }
+                    FmInfo.GetTaskInfo("倍速链，翻版，通信事件绑定成功"); 
+                    //异型烟倍速链 
                 }
                 catch (Exception ex)
                 {
-                    FmInfo.GetTaskInfo("异型烟链板机触发事件绑定失败");
+                    FmInfo.GetTaskInfo("触发事件绑定失败");
                     return ex.Message;
                 }
                
-                return "";
+                return ErrMsg;
             }
             catch (Exception ex)
             { 
@@ -543,8 +564,7 @@ namespace PackageMachine
         /// </summary>
         private void CheckAlive()
         {
-            int times = 0;//重连次数
-
+            int times = 0;//重连次数 
             Thread.Sleep(10000);
             while (true)
             {
@@ -563,15 +583,15 @@ namespace PackageMachine
                             SendRobotTask();
                             socketCore.BeginReceive(buffer, 0, 2048, SocketFlags.None, new AsyncCallback(ReceiveCallBack), socketCore);
                             connectSuccess = true;
+                            lblServerInfo.Text = "服务器重连连接成功！";
                             break;
-                        }
-                        continue;
+                        } 
                     } 
                     times = 0;
                 }
                 catch (Exception e)
                 {
-                    //TCPLogger.Log("CheckAlive异常.", e);
+                   
                 }
                 Thread.Sleep(500);
             }
@@ -580,7 +600,6 @@ namespace PackageMachine
         /// 机器人任务数组
         /// </summary>
         byte[] bytes = null;
-        string copyTaskInfo="";
         /// <summary>
         /// 发送机器人任务
         /// </summary>
@@ -601,7 +620,10 @@ namespace PackageMachine
                     //获取机器人任务
                     bb: string taskInfo = robotService.GetRobotInfo(out string outStr); 
                         bytes = Encoding.ASCII.GetBytes(taskInfo);
-                      
+                        if (!RoBotState)//如果中途接收到机器人状态为 关闭状态 ，则停止发送任务
+                        {
+                            goto aa;
+                        }
                         if (string.IsNullOrWhiteSpace(taskInfo))
                         {
                             FmInfo.GetTaskInfo("机器人：任务发送完毕");
@@ -611,19 +633,16 @@ namespace PackageMachine
                         {
                             if(isClientConnected(socketCore))
                             {
-                                socketCore?.Send(bytes, 0, bytes.Length, SocketFlags.None);//发送数据
-                                
-                                    FmInfo.GetTaskInfo("机器人：发送数据，任务：" + taskInfo);
-                               
-                                
+                                socketCore?.Send(bytes, 0, bytes.Length, SocketFlags.None);//发送数据 
+                                FmInfo.GetTaskInfo("机器人：发送数据，任务：" + taskInfo); 
                             }
                             else 
                             {
                                 connectSuccess = false;
                                 FmInfo.GetTaskInfo("机器人：远程主机强制断开一个现有连接，发送任务失败！");
-                                CheckAlive();
+                                CheckAlive();//断开连接 间隔
                             }
-                            copyTaskInfo = taskInfo;
+                         
                         }
                         catch (Exception ex)
                         { 
@@ -669,7 +688,7 @@ namespace PackageMachine
             {
                 CloseDataChange();
                 FmInfo.GetTaskInfo("程序关闭！");
-                this.Close();
+                Close();
 
             }
         }
@@ -687,8 +706,9 @@ namespace PackageMachine
                                                         MessageBoxDefaultButton.Button2);//定义对话框的按钮式样
             if (DialogResult.Yes == MsgBoxResult)
             {
-                EnabletStartAndStop(2);
+             
                 CloseDataChange();
+                EnabletStartAndStop(2);
             }
         }
 
@@ -698,19 +718,19 @@ namespace PackageMachine
         void CloseDataChange()
         {
             if (socketCore != null)
-            {
-                //complexClient.AcceptString -= ComplexClient_AcceptString;//收到文本时 触发事件 
-                //complexClient.MessageAlerts -= ComplexClient_MessageAlerts;//服务器的异常，启动，等等一般消息产生的时候，出发此事件
+            { 
                 connectSuccess = false;
+                RoBotState = false;
                 socketCore.Close();
                 socketCore  = null;
                 FmInfo.GetTaskInfo("断开与机器人的连接！");
                 try
-                {
-                    
+                { 
                     plc.ShapeGroup1.callback -= OnDataChange;
                     plc.ShapeGroup2.callback -= OnDataChange;
-                    FmInfo.GetTaskInfo("异型烟链板机断开连接！");
+                    plc.ShapeGroup3.callback -= OnDataChange;
+                    plc.ShapeGroup4.callback -= OnDataChange;
+                    FmInfo.GetTaskInfo("异型烟倍速链，常规烟翻版移除事件成功！");
                 }
                 catch(NullReferenceException nuller)
                 {
@@ -739,7 +759,7 @@ namespace PackageMachine
         /// <param name="values">返回的值</param>
         public async void OnDataChange(int group, int[] clientId, object[] values)
         {
-            if (group == 1)//任务发送块组
+            if (group == 1)//倍速链 任务发送块组
             {
                 for (int i = 0; i < clientId.Length; i++)
                 {
@@ -763,9 +783,7 @@ namespace PackageMachine
                                     FmInfo.GetTaskInfo("链板机收到任务号" + packtasknum + "，更新失败！");
                                 }
                                 //更改标志位 写入新任务
-                                var x = await Task.Run(() => plc.WriteTaskSend_YXY()); 
-                                index++;
-                                GlobalPara.GlbobaIndex = index;
+                                var x = await Task.Run(() => plc.WriteTaskSend_YXY());  
                             }
                             catch (Exception ex)
                             {
@@ -776,7 +794,7 @@ namespace PackageMachine
                     }
                 }
             }
-           else if (group == 2)//完成信号块组
+           else if (group == 2)//异型烟倍速链 完成信号块组
             {
                 for (int i = 0; i < clientId.Length; i++)
                 {

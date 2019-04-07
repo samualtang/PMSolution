@@ -8,13 +8,20 @@ using EFModle.Model;
 using Functions.PubFunction;
 namespace Functions.BLL
 {
-    public class BillResolution
+    public class BillResolution 
     {
 
         public BillResolution()
         {
-          
+     
+
         }
+        public BillResolution(System.Drawing.Size size)
+        {
+            factor = Math.Sqrt(GlobalPara.BoxWidth * GlobalPara.BoxWidth + GlobalPara.BoxHeight * GlobalPara.BoxHeight) / Math.Sqrt(size.Width * size.Width + size.Height * size.Height);//比例系数
+
+        }
+        double factor =1;//比例系数
         /// <summary>
         /// 包装机一共有多少包
         /// </summary>
@@ -46,11 +53,12 @@ namespace Functions.BLL
         /// <param name="List">订单信息</param>
         /// <param name="PackageIndex">包内序号</param> 
         /// <returns></returns>
-        public List<TobaccoInfo> GetTobaccoInfos(int PackageIndex, int Height)
+        public List<TobaccoInfo> GetTobaccoInfos(int PackageIndex, int Height, System.Drawing.Size  size)
         {
             List<TobaccoInfo> list = new List<TobaccoInfo>();
             using (Entities ne = new Entities())
             {
+            
                 var allInfo = (from item in ne.T_PACKAGE_TASK where item.ALLPACKAGESEQ == PackageIndex && item.PACKAGENO == packageno orderby item.CIGNUM select item).ToList();
 
                 foreach (var item in allInfo)
@@ -73,8 +81,8 @@ namespace Functions.BLL
                         CigQuantity = item.NORMALQTY ?? 0,
                         OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0),
                         CigType = item.CIGTYPE,//卷烟类型
-                        PostionX = (float)( item.CIGWIDTHX ?? 0 ) ,//坐标X
-                        PostionY = Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0)//坐标Y  
+                        PostionX = (float)factor * (float) ( item.CIGWIDTHX ?? 0 )   ,//坐标X
+                        PostionY = (float)factor * (Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0))//坐标Y  
                     };
                     list.Add(info);
                 } 
@@ -107,8 +115,8 @@ namespace Functions.BLL
                         CigQuantity = item.NORMALQTY ?? 0,
                         OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0),
                         CigType = item.CIGTYPE,//卷烟类型
-                        PostionX = (float)(item.CIGWIDTHX ?? 0),//坐标X
-                        PostionY = Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0)//坐标Y  
+                        PostionX = (float)factor * (float)(item.CIGWIDTHX ?? 0),//坐标X
+                        PostionY = (float)factor * (Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0))//坐标Y  
                     }; 
                     list.Add(info);
                 }
@@ -146,8 +154,8 @@ namespace Functions.BLL
                         CigQuantity = item.NORMALQTY ?? 0,
                         OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0),
                         CigType = item.CIGTYPE,//卷烟类型
-                        PostionX = (float)(item.CIGWIDTHX ?? 0),//坐标X
-                        PostionY = Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0)//坐标Y  
+                        PostionX = (float)factor * (float)(item.CIGWIDTHX ?? 0),//坐标X
+                        PostionY = (float)factor * (Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0))//坐标Y  
                     };
                     if (item.CIGTYPE == "1")//常规烟 
                     {

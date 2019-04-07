@@ -46,7 +46,7 @@ namespace PackageMachine
             //label_customername.Text = "客户名称：" + task.CUSTOMERNAME;
             //label_allpacksortnum.Text = "总条数：" + task.ALLQTY;
             //label_packageseq.Text = "当前第：" + task.SORTSEQ + "包";
-            br = new BillResolution();
+            br = new BillResolution(cigrShow1.Size);
             //加载整个订单数据
             data1 = FmOrderInofFun.QueryBySortnum(task.SORTNUM);
 

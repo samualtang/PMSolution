@@ -56,7 +56,10 @@ namespace PackageMachine
         
             label_allpackageseq.Text = "当前包装机共：" + br.Length + "包";
             label_nowpackageseq.Text = "当前包装机第：" + MinAllpackageseq + "包";
+            br = new BillResolution(cigrShow1.Size);
         }
+
+        BillResolution br;
         private void Fm_Orderinfo_Load(object sender, EventArgs e)
         {
             pkIndex = MinAllpackageseq;
@@ -151,7 +154,6 @@ namespace PackageMachine
         }
 
 
-        BillResolution br = new BillResolution();
         void BindBillInfo(int packageIndex = 0, int CinNum = 0)
         {
 

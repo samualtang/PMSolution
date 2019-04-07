@@ -182,10 +182,10 @@ namespace PackageMachine
             //异型烟缓存
             HrsUbs(1,0); 
             //垛型展示
-            Hrs(1, 0); 
-           
-        }       
-        BillResolution br = new BillResolution();
+            Hrs(1, 0);
+           br = new BillResolution(cs.Size);
+        }
+        BillResolution br;
  
         private void FmInfo_Resize(object sender, EventArgs e)
         {
@@ -500,7 +500,7 @@ namespace PackageMachine
                 decimal pmNum = Convert.ToDecimal(btn.Text);
                 if (Regex.IsMatch(btn.Text, @"^[+-]?\d*[.]?\d*$"))
                 {
-                    var list = br.GetTobaccoInfoss(pmNum, cs.Height);
+                    //var list = br.GetTobaccoInfoss(pmNum, cs.Height);
                     cs.UpdateValue(list, 2);
                 }
                 else

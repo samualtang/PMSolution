@@ -34,7 +34,7 @@ namespace Functions
         /// <summary>
         /// 创建opc连接
         /// </summary>
-        public string[] ConnectionToPLC()
+        public string[] CreateOPCServer()
         {
             string[] strmessage = new string[2];
             try
@@ -67,7 +67,7 @@ namespace Functions
             UnNormalGroup = new Group(pIOPCServer, 5, "group5", 1, LOCALE_ID);
             UnNormalGroup.addItem(ItemCollection.GetUnNormalWorkPlaceItem());
 
-            strmessage[0] += CheckConnection();//写入校验plc连接尝试结果
+            strmessage[0] +="";//写入校验plc连接尝试结果
             strmessage[1] = "1";
             return strmessage;
 
@@ -97,32 +97,35 @@ namespace Functions
         /// 检验opc连接  
         /// </summary>
         /// <returns></returns>
-        public string CheckConnection()
-        {
-            string strmssage = "";
+        public bool CheckYXYConnection()
+        { 
             //包装机异型烟链板机（合包）plc连接状态
             int flag1 = ShapeGroup1.ReadD(0).CastTo<int>(-1);
             if (flag1 == -1)
             {
-                strmssage += "异型烟链板机plc连接失败！";
+                return false;
             }
             else
             {
-                strmssage += "异型烟链板机plc连接成功！";
-               // strmssage += "/r/n" + ReadAndWriteYXYTaskConpelte();
-            }
-            int flag2 = ShapeGroup3.ReadD(0).CastTo<int>(-1);
-            if (flag1 == -1)
+               return true; 
+            } 
+        }
+
+        /// <summary>
+        /// 检查常规烟翻版连接是否成功
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckFbConnction()
+        {
+            int flag2 = ShapeGroup4.ReadD(0).CastTo<int>(-1);
+            if (flag2 == -1)
             {
-                strmssage += "常规烟翻板plc连接失败！";
+               return false;
             }
             else
             {
-                strmssage += "常规烟翻板plc连接成功！";
+                return true;
             }
-           // strmssage +="/r/n"+ ReadAndWriteCGYTaskConpelte();//获取所有缓存的完成信号
-            
-            return strmssage;
         }
         /// <summary>
         /// 强制跳变任务交互区

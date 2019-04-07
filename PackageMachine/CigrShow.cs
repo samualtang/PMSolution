@@ -85,11 +85,14 @@ namespace PackageMachine
             }
             this.UpdateTobaccoShow( );
         }
+
+      
         /// <summary>
         /// 显示层算法实现
         /// </summary>
          void UpdateTobaccoShow( )
         {
+          
             int layerHeight = 0; //常规烟有多少层
             int AddHeight =  0;
             int AddWidth = 0;
