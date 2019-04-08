@@ -69,7 +69,7 @@ namespace PackageMachine
         private void FmInfo_Load(object sender, EventArgs e)
         { 
           
-           //Loading.Masklayer(this, delegate () { LoadFucn(); });
+         Loading.Masklayer(this, delegate () { LoadFucn(); });
            // ft.Show();
         }
 
@@ -179,11 +179,12 @@ namespace PackageMachine
         {
             Hrs += BindBillInfo;
             HrsUbs += BindUInfo;
+            br = new BillResolution(cs.Size);
             //异型烟缓存
             HrsUbs(1,0); 
             //垛型展示
             Hrs(1, 0);
-           br = new BillResolution(cs.Size);
+         
         }
         BillResolution br;
  
@@ -226,11 +227,12 @@ namespace PackageMachine
             List<TobaccoInfo> list = new List<TobaccoInfo>() ;
             if (flag == 0)
             {
-                list = br.GetTobaccoInfos(packageIndex, cs.Height);
+                list = br.GetTobaccoInfoss(packageIndex, cs.Height); 
             }
             else if(flag == 1 )
             {
-                  list = br.GetTobaccoInfoss(packageIndex, cs.Height);
+                list = br.GetTobaccoInfos(packageIndex, cs.Height);
+              
             } 
             if (list.Any())
             { 
@@ -246,7 +248,7 @@ namespace PackageMachine
                     lblcutcount.Text = "客户包数：" + firstList.PackgeSeq + "/" + firstList.OrderPackageQty;
                     lblallcount.Text = "总 包 号:" + firstList.GlobalIndex + "/" + br.Length;
                 } 
-                LabBind();
+                //LabBind();
             } 
         }
         /// <summary>
@@ -501,7 +503,7 @@ namespace PackageMachine
                 if (Regex.IsMatch(btn.Text, @"^[+-]?\d*[.]?\d*$"))
                 {
                     //var list = br.GetTobaccoInfoss(pmNum, cs.Height);
-                    cs.UpdateValue(list, 2);
+                   // cs.UpdateValue(list, 2);
                 }
                 else
                 {

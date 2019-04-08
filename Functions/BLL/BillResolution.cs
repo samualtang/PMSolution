@@ -20,8 +20,20 @@ namespace Functions.BLL
         {
             factor = Math.Sqrt(GlobalPara.BoxWidth * GlobalPara.BoxWidth + GlobalPara.BoxHeight * GlobalPara.BoxHeight) / Math.Sqrt(size.Width * size.Width + size.Height * size.Height);//比例系数
 
+             factorX =    (double)size.Width /(double) GlobalPara.BoxWidth;//570 /770
+            factorY = (double)size.Height /(double)GlobalPara.BoxWidth  ;//200 /400
+
         }
+
+        //bool CrossLine(Rect r1, RECT r2)
+        //{
+        //    if (Math.Abs((r1.x1 + r1.x2) / 2 - (r2.x1 + r2.x2) / 2) < ((r1.x2 + r2.x2 - r1.x1 - r2.x1) / 2) && Math.Abs((r1.y1 + r1.y2) / 2 - (r2.y1 + r2.y2) / 2) < ((r1.y2 + r2.y2 - r1.y1 - r2.y1) / 2))
+        //        return true;
+        //    return false;
+        //}
         double factor =1;//比例系数
+        double factorX = 1;//比例系数
+        double factorY = 1;//比例系数
         /// <summary>
         /// 包装机一共有多少包
         /// </summary>
@@ -35,6 +47,7 @@ namespace Functions.BLL
         {
             using (Entities en = new Entities())
             {
+
                 var list = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item);
                     if(list.Count() > 0)
                 {
@@ -95,15 +108,15 @@ namespace Functions.BLL
             List<TobaccoInfo> list = new List<TobaccoInfo>();
             using (Entities ne = new Entities())
             {
-                var allInfo = (from item in ne.T_PACKAGE_TASK where item.PACKTASKNUM == packageNum && item.PACKAGENO == packageno orderby item.CIGNUM select item).ToList();
+                var allInfo = (from item in ne.T_PACKAGE_TASK where item.ALLPACKAGESEQ == packageNum && item.PACKAGENO == packageno orderby item.CIGNUM select item).ToList();
                 foreach (var item in allInfo)
                 {
                     TobaccoInfo info = new TobaccoInfo
                     {
                         TobaccoName = item.CIGARETTENAME,
                         TobaccoLength = (float)Convert.ToDouble(item.CIGLENGTH),
-                        TobaccoWidth = (float)Convert.ToDouble(item.CIGWIDTH),
-                        TobaccoHeight = (float)Convert.ToDouble(item.CIGHIGH),
+                        TobaccoWidth = (float)Convert.ToDouble(item.CIGWIDTH)  ,
+                        TobaccoHeight = (float)Convert.ToDouble(item.CIGHIGH)   ,
                         GlobalIndex = Convert.ToInt32(item.ALLPACKAGESEQ ?? 0),
                         CigNum = item.CIGNUM ?? 0,
                         DoubleTake = item.DOUBLETAKE,
@@ -115,8 +128,8 @@ namespace Functions.BLL
                         CigQuantity = item.NORMALQTY ?? 0,
                         OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0),
                         CigType = item.CIGTYPE,//卷烟类型
-                        PostionX = (float)factor * (float)(item.CIGWIDTHX ?? 0),//坐标X
-                        PostionY = (float)factor * (Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0))//坐标Y  
+                        PostionX =   (float)(item.CIGWIDTHX ?? 0),//坐标X
+                        PostionY =  (Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0))//坐标Y  
                     }; 
                     list.Add(info);
                 }
@@ -154,8 +167,8 @@ namespace Functions.BLL
                         CigQuantity = item.NORMALQTY ?? 0,
                         OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0),
                         CigType = item.CIGTYPE,//卷烟类型
-                        PostionX = (float)factor * (float)(item.CIGWIDTHX ?? 0),//坐标X
-                        PostionY = (float)factor * (Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0))//坐标Y  
+                        PostionX =  (float)(item.CIGWIDTHX ?? 0),//坐标X
+                        PostionY =  (Height - (float)Convert.ToDouble(item.CIGHIGHY ?? 0))//坐标Y  
                     };
                     if (item.CIGTYPE == "1")//常规烟 
                     {
@@ -197,7 +210,7 @@ namespace Functions.BLL
                 var uninfo = (from item in en.T_PACKAGE_TASK
                               where item.CIGNUM > CigNum && item.PACKAGENO == packageno && item.CIGTYPE == "2"
                               orderby item.CIGNUM
-                              select item) .Take(40);
+                              select item).Take(40).ToList() ;
                 foreach (var item in uninfo)
                 {
                     TobaccoInfo info = new TobaccoInfo

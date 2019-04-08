@@ -17,7 +17,7 @@ namespace Functions.BLL
       public  RobotTaskService()
         {
             packageno = GlobalPara.PackageNo;
-            GetT_PACKAGE_TASKByExcel();
+            //GetT_PACKAGE_TASKByExcel();
         }
     
         List<T_PACKAGE_TASK> de = new List<T_PACKAGE_TASK>();
@@ -75,80 +75,81 @@ namespace Functions.BLL
             {
                 ErrMsg = ""; //错误信息
                 string info = ""; //任务信息
-                //using (Entities en = new Entities())
-                //{
-                var query = (from item in de
-                             where item.PACKAGENO == GlobalPara.PackageNo && item.CIGSTATE == 10
-                             orderby item.CIGNUM
-                             select item).Take(10).ToList();
-                if (query.Any())
+                using (Entities en = new Entities())
                 {
-                    int index = 0;//双抓的索引
-                    foreach (var item in query)
+                    var query = (from item in en.T_PACKAGE_TASK
+                                 where item.PACKAGENO == GlobalPara.PackageNo && item.CIGSTATE == 10
+                                 orderby item.CIGNUM
+                                 select item).Take(10).ToList();
+                    if (query.Any())
                     {
-                        if (item.DOUBLETAKE == "1")
+                        int index = 0;//双抓的索引
+                        foreach (var item in query)
                         {
+                            if (item.DOUBLETAKE == "1")
+                            {
 
-                            if (index == 0)
-                            {
-                                info += "T,";//头部T 代表这是机器人任务
+                                if (index == 0)
+                                {
+                                    info += "T,";//头部T 代表这是机器人任务
+                                }
+                                info += item.PACKTASKNUM.ToString().PadLeft(10, '0') + ",";//任务流水号 
+                                info += item.CIGNUM.ToString().PadLeft(2, '0') + ",";//包内条烟流水号
+                                info += 0.ToString().PadLeft(3, '0') + ",";// item.CIGWIDTHX + ",";// item.CIGWIDTHX + ",";//坐标X
+                                info += 0.ToString().PadLeft(3, '0') + ","; //GlobalPara.BoxLenght/2 + ",";// (GlobalPara.BoxWidth / 2) + ",";//坐标Y
+                                info += 0.ToString().PadLeft(3, '0') + ",";// item.CIGHIGHY + ",";// item.CIGHIGHY + ",";//坐标z
+                                info += item.DOUBLETAKE + ",";//是否双抓
+                                info += item.PACKAGEQTY.ToString().PadLeft(2, '0') + ","; ;//包内总数
+                                info += item.CIGARETTECODE + ","; ;//条烟编码
+                                info += item.CIGLENGTH.ToString().PadLeft(3, '0') + ","; ;//长
+                                info += item.CIGWIDTH.ToString().PadLeft(3, '0') + ","; ;//宽
+                                if (index == 0)
+                                {
+                                    info += item.CIGHIGH.ToString().PadLeft(3, '0') + "|";//高 
+                                }
+                                else
+                                {
+                                    info += item.CIGHIGH.ToString().PadLeft(3, '0');//高
+                                }
+                                if (index == 1)//最多循环两次
+                                {
+                                    break;
+                                }
+                                index++;
                             }
-                            info += item.PACKTASKNUM.ToString().PadLeft(10, '0') + ",";//任务流水号 
-                            info += item.CIGNUM.ToString().PadLeft(2, '0') + ",";//包内条烟流水号
-                            info += 0.ToString().PadLeft(3, '0') + ",";// item.CIGWIDTHX + ",";// item.CIGWIDTHX + ",";//坐标X
-                            info += 0.ToString().PadLeft(3, '0') + ","; //GlobalPara.BoxLenght/2 + ",";// (GlobalPara.BoxWidth / 2) + ",";//坐标Y
-                            info += 0.ToString().PadLeft(3, '0') + ",";// item.CIGHIGHY + ",";// item.CIGHIGHY + ",";//坐标z
-                            info += item.DOUBLETAKE + ",";//是否双抓
-                            info += item.PACKAGEQTY.ToString().PadLeft(2, '0') + ","; ;//包内总数
-                            info += item.CIGARETTECODE + ","; ;//条烟编码
-                            info += item.CIGLENGTH.ToString().PadLeft(3, '0') + ","; ;//长
-                            info += item.CIGWIDTH.ToString().PadLeft(3, '0') + ","; ;//宽
-                            if (index == 0)
+                            else if (index == 1)//出现一条有双抓标志但是下一条没有双抓标志的，有异常
                             {
-                                info += item.CIGHIGH.ToString().PadLeft(3, '0') + "|" ;//高 
+                                ErrMsg = "";
+
+                                ErrMsg = "出现一条有双抓标志但是下一条没有双抓标志的,任务流水号：" + query[1].SORTNUM;
+
+                                throw new Exception(ErrMsg);
+
                             }
                             else
                             {
-                                info += item.CIGHIGH.ToString().PadLeft(3,'0');//高
+                                info += "T,";//头部T 代表这是机器人任务
+                                info += item.PACKTASKNUM.ToString().PadLeft(10, '0') + ",";//任务流水号 
+                                info += item.CIGNUM.ToString().PadLeft(2, '0') + ",";//包内条烟流水号
+                                info += 0.ToString().PadLeft(3, '0') + ",";// item.CIGWIDTHX + ",";// item.CIGWIDTHX + ",";//坐标X
+                                info += 0.ToString().PadLeft(3, '0') + ","; //GlobalPara.BoxLenght/2 + ",";// (GlobalPara.BoxWidth / 2) + ",";//坐标Y
+                                info += 0.ToString().PadLeft(3, '0') + ",";// item.CIGHIGHY + ",";// item.CIGHIGHY + ",";//坐标z
+                                info += item.DOUBLETAKE + ",";//是否双抓
+                                info += item.PACKAGEQTY.ToString().PadLeft(2, '0') + ","; ;//包内总数
+                                info += item.CIGARETTECODE + ","; ;//条烟编码
+                                info += item.CIGLENGTH.ToString().PadLeft(3, '0') + ","; ;//长
+                                info += item.CIGWIDTH.ToString().PadLeft(3, '0') + ","; ;//宽
+                                info += item.CIGHIGH.ToString().PadLeft(3, '0');
+                                break;//但抓的情况 只需要取一条的信息
                             }
-                            if (index == 1)//最多循环两次
-                            {
-                                break;
-                            }
-                            index++;
-                        }
-                        else if (index == 1)//出现一条有双抓标志但是下一条没有双抓标志的，有异常
-                        {
-                            ErrMsg = "";
-                            
-                            ErrMsg = "出现一条有双抓标志但是下一条没有双抓标志的,任务流水号：" + query[1].SORTNUM;
-                            
-                            throw   new Exception(ErrMsg);
-                           
-                        }
-                        else
-                        { 
-                            info += "T,";//头部T 代表这是机器人任务
-                            info += item.PACKTASKNUM.ToString().PadLeft(10, '0') + ",";//任务流水号 
-                            info += item.CIGNUM.ToString().PadLeft(2, '0') + ",";//包内条烟流水号
-                            info += 0.ToString().PadLeft(3, '0') + ",";// item.CIGWIDTHX + ",";// item.CIGWIDTHX + ",";//坐标X
-                            info += 0.ToString().PadLeft(3, '0') + ","; //GlobalPara.BoxLenght/2 + ",";// (GlobalPara.BoxWidth / 2) + ",";//坐标Y
-                            info +=0.ToString().PadLeft(3, '0') + ",";// item.CIGHIGHY + ",";// item.CIGHIGHY + ",";//坐标z
-                            info += item.DOUBLETAKE + ",";//是否双抓
-                            info += item.PACKAGEQTY.ToString().PadLeft(2, '0') + ","; ;//包内总数
-                            info +=  item.CIGARETTECODE  + ","; ;//条烟编码
-                            info += item.CIGLENGTH.ToString().PadLeft(3, '0') + ","; ;//长
-                            info += item.CIGWIDTH.ToString().PadLeft(3, '0') + ","; ;//宽
-                            info += item.CIGHIGH.ToString().PadLeft(3, '0'); 
-                            break;//但抓的情况 只需要取一条的信息
                         }
                     }
-                }
-                else//如果不包含元素， 任务已经做完
-                {
+                    else//如果不包含元素， 任务已经做完
+                    {
+                        return info;
+                    }
                     return info;
-                } 
-                return info;
+                }
             }
             catch (Exception ex)
             {
@@ -180,13 +181,12 @@ namespace Functions.BLL
         {
             ErrMsg = "";
             try
-            {
-             
+            { 
                 decimal taskNum = Convert.ToDecimal(task[0]);
                 int CigSeq = int.Parse(task[1].ToString());
-                //using (Entities en = new Entities())
-                //{ 
-                var query1 = (from item in de
+                using (Entities en = new Entities())
+                {
+                    var query1 = (from item in en.T_PACKAGE_TASK
                               where item.PACKTASKNUM == taskNum && item.PACKAGENO == packageno && item.CIGNUM == CigSeq
                               select item).ToList();
                 if (query1.Any())
@@ -196,13 +196,13 @@ namespace Functions.BLL
                         item.CIGSTATE = 20;
                     }
 
-                    // en.SaveChanges();
+                    en.SaveChanges();//更新数据库
                 }
                 else
                 {
                     ErrMsg += "机器人:未找到任务号" + taskNum + ",和条烟流水号" + CigSeq;
                 }
-                //}
+                }
             }
             catch (Exception ex)
             {
@@ -242,42 +242,109 @@ namespace Functions.BLL
         /// 更新这个包装机包号之前的包号为完成，这个包装机包号之后的为新增
         /// </summary>
         /// <param name="packagenum">包装机包号</param>
-        public void UpdateTask(decimal packagenum)
+        public bool UpdateTask(decimal packagenum,int cigseq,decimal fbTaskNum,decimal yxyTaskNum)
         {
             using (Entities entity = new Entities())
             {
-                //更新这个包号之前的任务为完成
-                var query = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < packagenum && item.PACKAGENO == packageno select item).ToList();
+                //更新这个包号之前的任务为完成(不包括）
+                var query = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < packagenum && item.CIGSEQ < cigseq && item.CIGSTATE != 20 &&  item.PACKAGENO == packageno select item).ToList();
                 if (query.Any())
                 {
                     foreach (var item in query)
-                    {
-                        item.STATE = 20;//合包状态
-                        item.CIGSTATE = 20;//机器人条烟状态
-                        item.NORMAILSTATE = 20;//常规烟翻盘状态
-                    }
-                    entity.SaveChanges();
+                    { 
+                      item.CIGSTATE = 20;//机器人条烟状态 
+                    } 
                 }
                 else
                 {
                     //throw new Exception("未查询到这个包号之前的任务信息");//有可能从第一个任务开始，这肯定会报错
                 }
-                //更新这个包号和之后的任务为新增
-                var query1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= packagenum && item.PACKAGENO == packageno select item).ToList();
+                //更新这个包号和之后的任务为新增（包括）
+                var query1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= packagenum && item.CIGSEQ >= cigseq &&  item.PACKAGENO == packageno select item).ToList();
                 if (query.Any())
                 {
-                    foreach (var item in query1)
-                    {
-                        item.STATE = 10;//合包状态
-                        item.CIGSTATE = 10;//机器人条烟状态
-                        item.NORMAILSTATE = 10;//常规烟翻盘状态
-                    }
-                    entity.SaveChanges();
+                    query1.ForEach(a => { a.CIGSTATE = 10; }); 
+                   
+                }
+                
+                var fbQuery1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < fbTaskNum && item.CIGTYPE == "1" && item.PACKAGENO == packageno select item).ToList();
+                if (fbQuery1.Any())
+                {
+                    fbQuery1.ForEach(a => { a.NORMAILSTATE = 20; });
+                }
+                //常规烟 翻版状态更新成信息 大于这个任务号的
+                var fbQuery2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= fbTaskNum && item.CIGTYPE == "1" && item.PACKAGENO == packageno select item).ToList();
+                if (fbQuery2.Any())
+                {
+                    fbQuery2.ForEach(a => { a.NORMAILSTATE = 10; });
+                }
+                //倍速链
+                //合包标志更新成完成 小于这个任务号的）
+                var yxyQuery1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < yxyTaskNum && item.CIGTYPE == "2" && item.PACKAGENO == packageno select item).ToList();
+                if (yxyQuery1.Any())
+                {
+                    yxyQuery1.ForEach(a => { a.STATE = 20; });
+                }
+                //合包标志更新成新增大于这个任务号的）
+                var yxyQuery2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= yxyTaskNum && item.CIGTYPE == "2" && item.PACKAGENO == packageno select item).ToList();
+                if (yxyQuery2.Any())
+                {
+                    yxyQuery2.ForEach(a => { a.STATE = 10; });
+                }
+
+                if (UpdataFb(entity,fbTaskNum,yxyTaskNum ) && entity.SaveChanges() > 0)
+                {
+                    return true;
                 }
                 else
                 {
-                    throw new Exception("未查询到这个包号之前的任务信息");
+                    return false;
                 }
+            }
+        }
+
+        /// <summary>
+        /// 更新翻版和异型烟任务状态
+        /// </summary>
+        /// <param name="entities">实体</param>
+        /// <param name="fbTaskNUm">目标翻版任务号</param>
+        /// <param name="yxyTaskNum">目标异型烟任务号</param>
+        /// <returns></returns>
+        bool  UpdataFb(Entities entities,decimal  fbTaskNUm ,decimal yxyTaskNum)
+        {
+            //翻版 
+            //常规烟翻版状态更新成完成 小于这个任务号的
+           var fbQuery1=  (from item in entities.T_PACKAGE_TASK where item.PACKTASKNUM < fbTaskNUm && item.CIGTYPE == "1" && item.PACKAGENO == packageno select item).ToList();
+            if (fbQuery1.Any())
+            {
+                fbQuery1.ForEach(a => { a.NORMAILSTATE = 20; });
+            }
+            //常规烟 翻版状态更新成信息 大于这个任务号的
+           var fbQuery2= (from item in entities.T_PACKAGE_TASK where item.PACKTASKNUM >= fbTaskNUm && item.CIGTYPE == "1" && item.PACKAGENO == packageno select item).ToList();
+            if (fbQuery2.Any())
+            {
+                fbQuery2.ForEach(a => { a.NORMAILSTATE = 10; });
+            }
+            //倍速链
+            //合包标志更新成完成 小于这个任务号的）
+            var yxyQuery1 = (from item in entities.T_PACKAGE_TASK where item.PACKTASKNUM < yxyTaskNum && item.CIGTYPE == "2" && item.PACKAGENO == packageno select item).ToList();
+            if(yxyQuery1 .Any())
+            {
+                yxyQuery1.ForEach(a => { a.STATE = 20; });
+            }
+            //合包标志更新成新增大于这个任务号的）
+           var yxyQuery2= (from item in entities.T_PACKAGE_TASK where item.PACKTASKNUM >= yxyTaskNum && item.CIGTYPE == "2" && item.PACKAGENO == packageno select item).ToList();
+            if( yxyQuery2.Any())
+            {
+                yxyQuery2.ForEach(a => { a.STATE = 10; });
+            }
+            if( entities.SaveChanges ()> 0)//更新数据库
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

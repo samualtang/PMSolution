@@ -27,10 +27,12 @@ namespace Functions
         private Group shapeGroup3;
         private Group shapeGroup4;
 
+        private Group spyGroup6;
+
         /// <summary>
-        /// 是否开始自动发送过任务：true有，false没有
+        /// 是否已经在发送任务：true有，false没有
         /// </summary>
-        private bool startatg = false;
+        public bool startatg = false;
         /// <summary>
         /// 创建opc连接
         /// </summary>
@@ -67,6 +69,9 @@ namespace Functions
             UnNormalGroup = new Group(pIOPCServer, 5, "group5", 1, LOCALE_ID);
             UnNormalGroup.addItem(ItemCollection.GetUnNormalWorkPlaceItem());
 
+            SpyGroup6 = new Group(pIOPCServer, 6, "group6", 1, LOCALE_ID);  //创建监控标志位的
+            SpyGroup6.addItem(ItemCollection.GetSpyStateItem());
+
             strmessage[0] +="";//写入校验plc连接尝试结果
             strmessage[1] = "1";
             return strmessage;
@@ -94,13 +99,18 @@ namespace Functions
         /// </summary>
         public Group UnNormalGroup { get; set; }
         /// <summary>
+        /// 标志位监控组
+        /// </summary>
+        public Group SpyGroup6 { get => spyGroup6; set => spyGroup6 = value; }
+
+        /// <summary>
         /// 检验opc连接  
         /// </summary>
         /// <returns></returns>
         public bool CheckYXYConnection()
         { 
             //包装机异型烟链板机（合包）plc连接状态
-            int flag1 = ShapeGroup1.ReadD(0).CastTo<int>(-1);
+            int flag1 = SpyGroup6.ReadD(0).CastTo<int>(-1);//读取异型烟翻版标志
             if (flag1 == -1)
             {
                 return false;
@@ -117,7 +127,7 @@ namespace Functions
         /// <returns></returns>
         public bool CheckFbConnction()
         {
-            int flag2 = ShapeGroup4.ReadD(0).CastTo<int>(-1);
+            int flag2 = SpyGroup6.ReadD(1).CastTo<int>(-1);//读取常规烟标志
             if (flag2 == -1)
             {
                return false;
@@ -133,16 +143,16 @@ namespace Functions
         /// <returns></returns>
         public string timerSendTask()
         {
-            if (!startatg && ShapeGroup1.ReadD(7).CastTo<int>(-1) != 1)
+            if (!startatg && SpyGroup6.ReadD(0).CastTo<int>(-1) != 1)//倍速链任务跳变
             {
-                ShapeGroup1.Write(2, 7);
-                ShapeGroup1.Write(0, 7);
-                return "发送异型烟链板机任务";
+                SpyGroup6.Write(2, 0);
+                SpyGroup6.Write(0, 0);
+                return "发送异型烟倍速链任务";
             }
-            else if (!startatg && ShapeGroup3.ReadD(6).CastTo<int>(-1) != 1)
+            else if (!startatg && SpyGroup6.ReadD(1).CastTo<int>(-1) != 1)//常规烟任务跳变
             {
-                ShapeGroup3.Write(2, 0);
-                ShapeGroup3.Write(0, 0);
+                SpyGroup6.Write(2, 1);
+                SpyGroup6.Write(0, 1);
                 return "发送常规烟翻板机任务";
             }
             else
@@ -251,6 +261,7 @@ namespace Functions
             string Strmessage ="";
             try
             { 
+                 
                 object[] vs = new object[ItemCollection.GetTaskStatusBySend_yxy().Count()];
                 //取当前包装机未发送的的异型烟链板机（合包）任务
                 List<EFModle.T_PACKAGE_TASK> values = await Task.Run(() => BLL.PLCDataGet.GetAllNotSendTask_YXY(GlobalPara.PackageNo));
@@ -276,7 +287,7 @@ namespace Functions
                     if (AllYXY > 0)//如果是非纯常规烟订单
                     {
                         ShapeGroup1.SyncWrite(vs);
-                        BLL.PLCDataGet.WriteReceive_YXY((int)packtasknum);//测试用的  
+                        //BLL.PLCDataGet.WriteReceive_YXY((int)packtasknum);//测试用的  
                         Strmessage = "写入异型烟链板机：\r\n任务号：" + vs[0] + "，异型烟数量：" + vs[1] + "，合包标志：" +
                             vs[2] + "，合包常规烟数：" + vs[3] + "，推烟位置：" + vs[4] + "，接收标志：" + vs[7];
                     }

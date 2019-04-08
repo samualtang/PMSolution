@@ -25,7 +25,14 @@ namespace Functions.Model
             list.Add(S7Name + "DB3,W20");//交互标志  7
             return list;
         }
-
+        public static List<string> GetSpyStateItem()
+        {
+            string S7Name = PubFunction.GlobalPara.Opc_Nameyxy;
+            List<string> list = new List<string>();
+            list.Add(S7Name + "DB3,W20");//异型烟倍速链交互标志
+            list.Add(S7Name + "DB30,W516");//常规烟翻版交互标志
+            return list;
+        }
         /// <summary>
         /// 包装机异型烟链板机完成信号的DB块 10个
         /// </summary>

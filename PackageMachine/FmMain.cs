@@ -169,6 +169,20 @@ namespace PackageMachine
  
  
         }
+        bool CheckRobotRunState(string falg)
+        {
+            if (falg == "1")
+            { 
+                updateLabel("机器人状态：开启", lblRobotState);
+                return    RoBotState = true;
+            }
+            else
+            {  
+                updateLabel("机器人状态：关闭", lblRobotState);
+                return  RoBotState = false;
+                 
+            }
+        }
 
         /// <summary>
         /// 判断是否处于连接状态
@@ -232,24 +246,18 @@ namespace PackageMachine
                         if (msg.Contains("|"))//如果包含双抓
                         {
                             if (arrData[4].ToLower() == "s")//s头部 代表机器人状态
-                            {
-                                if (arrData[5].Replace('\0', ' ').Trim() == "1")
+                            { 
+                                if(!CheckRobotRunState(arrData[5].Replace('\0', ' ').Trim()))
                                 {
-                                    FmInfo.GetTaskInfo("机器人：读取到自动运行状态开启！");
-                                    RoBotState = true;
-                                }
-                                else
-                                {
-                                    FmInfo.GetTaskInfo("机器人：读取到状态为：" + arrData[5] + "0为自动运行状态关闭");
-                                    RoBotState = false;
                                     return;
                                 }
                             }
                             else
                             {
-                                FmInfo.GetTaskInfo("机器人:异常收到来自机器人的信息，位置为4的索引不为S");
-                            }
-                            FmInfo.GetTaskInfo("机器人：收到双抓完成");
+                                FmInfo.GetTaskInfo("机器人:异常收到来自机器人的信息，位置为4的索引不为S,"+ msg);
+                            } 
+                         
+                            updateLabel("机器人：收到双抓完成", lblFinshiTask);
                             string[] newArr = msg.Substring(2).Trim().Split('|');
                             if (newArr.Length == 2)
                             {
@@ -263,7 +271,8 @@ namespace PackageMachine
                                     }
                                     else
                                     {
-                                        FmInfo.GetTaskInfo("机器人：任务号" + arr[0] + "，条烟流水号：" + arr[1] + "，数据库更新完成！");
+                                        //FmInfo.GetTaskInfo("机器人：任务号" + arr[0] + "，条烟流水号：" + arr[1] + "，数据库更新完成！");  
+                                        updateLabel("机器人：任务号" + arr[0] + "，条烟流水号：" + arr[1] + "，数据库更新完成！", lblFinshiTask);
                                     }
                                 }
                                 if (!string.IsNullOrWhiteSpace(outStr))//如果更新任务无异常 则发送任务
@@ -280,24 +289,16 @@ namespace PackageMachine
                         {
                             if (arrData[3].ToLower() == "s")
                             {
-                                string flag = arrData[4].Replace('\0', ' ').Trim();
-                                if (flag == "1")
+                                if(!CheckRobotRunState( arrData[4].Replace('\0', ' ').Trim()))
                                 {
-                                    FmInfo.GetTaskInfo("机器人：读取到自动运行状态开启！");
-                                    RoBotState = true;
-                                }
-                                else
-                                {
-                                    FmInfo.GetTaskInfo("机器人：读取到状态为：" + arrData[4] + "0为自动运行状态关闭");
-                                    RoBotState = false;
-                                    return;
+                                    return   ;
                                 }
                             }
                             else
                             {
-                                FmInfo.GetTaskInfo("机器人:异常收到来自机器人的信息，位置为3的索引不为S");
-                            }
-                            FmInfo.GetTaskInfo("机器人：收到单抓完成信号");
+                                FmInfo.GetTaskInfo("机器人:异常收到来自机器人的信息，位置为3的索引不为S,"+msg);
+                            } 
+                            updateLabel("机器人：收到单抓完成信号", lblFinshiTask);
                             string[] Arr = msg.Substring(2).Trim().Split(',');
                             if (Arr[1] == "0")
                             {
@@ -308,26 +309,14 @@ namespace PackageMachine
                             { 
                                 FmInfo.GetTaskInfo("机器人： " + outStr);
                             }
-                            else//无错误的情况下 发送任务
+                            else 
                             {
-                                FmInfo.GetTaskInfo("机器人：任务号" + Arr[0] + "，条烟流水号：" + Arr[1] + "，数据库更新完成！");
+                                //FmInfo.GetTaskInfo("机器人：任务号" + Arr[0] + "，条烟流水号：" + Arr[1] + "，数据库更新完成！"); 
+                                updateLabel("机器人：任务号" + Arr[0] + "，条烟流水号：" + Arr[1] + "，数据库更新完成！", lblFinshiTask);
                             }
                         }
                     }
-                    //else if (arrData[0] == "S")//S头部 代表机器人状态
-                    //{
-                    //    string[] newArr = msg.Substring(2).Trim().Split(',');
-                    //    if (newArr[0] == "1")
-                    //    { 
-                    //        FmInfo.GetTaskInfo("机器人：读取到自动运行状态开启！");
-                    //        RoBotState = true;
-                    //    }
-                    //    else if (newArr[0] == "0")
-                    //    {
-                    //        FmInfo.GetTaskInfo("机器人：读取到自动运行状态关闭！");
-                    //        RoBotState = false;
-                    //    }
-                    //}
+                
                 }));
             }
             catch (ObjectDisposedException)
@@ -341,6 +330,22 @@ namespace PackageMachine
                   FmInfo.GetTaskInfo("机器人：服务器断开连接。" + ex.Message );
                     //ThreadHeartCheck();
                 }));
+            }
+        }
+
+
+        
+        private delegate void HandleDelegate1(string info, Label label);
+        public void updateLabel(string info, Label label)
+        { 
+            if (label.InvokeRequired)
+            {
+                label.Invoke(new HandleDelegate1(updateLabel), new Object[] { info, label });
+            }
+            else
+            {
+                label.Text = info;
+
             }
         }
         #region  按钮事件
@@ -524,8 +529,9 @@ namespace PackageMachine
                     if (plc.CheckYXYConnection())
                     {
                         //异型烟倍速链
-                        plc.ShapeGroup1.callback += OnDataChange;
-                        plc.ShapeGroup2.callback += OnDataChange;
+                      //  plc.ShapeGroup1.callback += OnDataChange;
+                        plc.ShapeGroup2.callback += OnDataChange;//完成信号
+                     
                     }
                     else
                     {
@@ -534,13 +540,14 @@ namespace PackageMachine
                     if (plc.CheckFbConnction())
                     {
                         //常规烟翻版
-                        plc.ShapeGroup3.callback += OnDataChange;
-                        plc.ShapeGroup4.callback += OnDataChange;
+                        plc.ShapeGroup3.callback += OnDataChange; // 完成信号
+                      //  plc.ShapeGroup4.callback += OnDataChange;
                     }
                     else
                     {
                         ErrMsg += "常规烟翻版事件绑定失败，未连接至PLC";
                     }
+                    plc.SpyGroup6.callback += OnDataChange;//添加监控的标志位的
                     FmInfo.GetTaskInfo("倍速链，翻版，通信事件绑定成功"); 
                     //异型烟倍速链 
                 }
@@ -626,7 +633,8 @@ namespace PackageMachine
                         }
                         if (string.IsNullOrWhiteSpace(taskInfo))
                         {
-                            FmInfo.GetTaskInfo("机器人：任务发送完毕");
+                           // FmInfo.GetTaskInfo("机器人：任务发送完毕");
+                            lblTask.Text = "机器人：任务发送完毕";
                             break;
                         }
                         try
@@ -634,7 +642,8 @@ namespace PackageMachine
                             if(isClientConnected(socketCore))
                             {
                                 socketCore?.Send(bytes, 0, bytes.Length, SocketFlags.None);//发送数据 
-                                FmInfo.GetTaskInfo("机器人：发送数据，任务：" + taskInfo); 
+                                                                                           // FmInfo.GetTaskInfo("机器人：发送数据，任务：" + taskInfo);
+                                lblTask.Text = "机器人：发送数据，任务：" + taskInfo;
                             }
                             else 
                             {
@@ -664,8 +673,9 @@ namespace PackageMachine
             }
             else
             {
-                FmInfo.GetTaskInfo("机器人自动运行状态为关闭,十秒之后再次检测机器人状态");
-                Thread.Sleep(10000);//十秒之后再次检测机器人状态
+                //FmInfo.GetTaskInfo("机器人自动运行状态为关闭,十秒之后再次检测机器人状态");
+                lblTask.Text = "机器人自动运行状态为关闭,十秒之后再次检测机器人状态";
+               Thread.Sleep(10000);//十秒之后再次检测机器人状态
                 goto aa;
             }
         }
@@ -765,25 +775,28 @@ namespace PackageMachine
                 {
                     if (clientId[i] == 8)//接收信号位
                     {
-                    
+
                         int packtasknum = int.Parse(plc.ShapeGroup1.Read(0).ToString());//任务号
                         int tempvalue = int.Parse(plc.ShapeGroup1.Read(7).ToString());//接收信号
                         if (tempvalue == 0)//如果有接收信号
                         {
                             try
-                            { 
-                                FmInfo.AutoRefreshShow(packtasknum);//更新垛型展示
+                            {
+                                //FmInfo.AutoRefreshShow(packtasknum);//更新垛型展示
                                 //读取接收信号的任务 数据库置接收 
-                                if (plc.UpDateToYxyState(packtasknum,15))
+                                if (packtasknum > 0)
                                 {
-                                    FmInfo.GetTaskInfo("链板机收到任务号" +packtasknum +"，更新已接收！");
-                                }
-                                else
-                                {
-                                    FmInfo.GetTaskInfo("链板机收到任务号" + packtasknum + "，更新失败！");
+                                    if (plc.UpDateToYxyState(packtasknum, 15))
+                                    {
+                                        FmInfo.GetTaskInfo("链板机收到任务号" + packtasknum + "，更新已接收！");
+                                    }
+                                    else
+                                    {
+                                        FmInfo.GetTaskInfo("链板机收到任务号" + packtasknum + "，更新失败！");
+                                    }
                                 }
                                 //更改标志位 写入新任务
-                                var x = await Task.Run(() => plc.WriteTaskSend_YXY());  
+                                var x = await Task.Run(() => plc.WriteTaskSend_YXY());
                             }
                             catch (Exception ex)
                             {
@@ -794,7 +807,7 @@ namespace PackageMachine
                     }
                 }
             }
-           else if (group == 2)//异型烟倍速链 完成信号块组
+            else if (group == 2)//异型烟倍速链 完成信号块组
             {
                 for (int i = 0; i < clientId.Length; i++)
                 {
@@ -806,9 +819,9 @@ namespace PackageMachine
                         {
                             if (tempvalue != 0)
                             {
-                                FmInfo.GetTaskInfo("任务号" + tempvalue + "完成");
-                                plc. ShapeGroup2.Write(0, i);
+                                FmInfo.GetTaskInfo("任务号" + tempvalue + "完成"); 
                                 FmInfo.GetTaskInfo(plc.ReadAndWriteYXYTaskConpelte(tempvalue, i));//更新数据库 更新DB块
+                          
                             }
                         }
                         catch (Exception ex)
@@ -819,32 +832,32 @@ namespace PackageMachine
                     }
                 }
             }
-            else if (group == 3)//常规烟翻版任务交互
+            else if (group == 6)//标志位监控组
             {
                 for (int i = 0; i < clientId.Length; i++)
                 {
-                    if (clientId[i] == 8)//接收信号位
-                    {
-
-                        int packtasknum = int.Parse(plc.ShapeGroup3.Read(0).ToString());//任务号
-                        int tempvalue = int.Parse(plc.ShapeGroup4.Read(6).ToString());//接收信号
-                        if (tempvalue == 0)//如果有接收信号
+                    if (clientId[i] == 1)//倍速链任务
+                    { 
+                        if (values[i] != null && int.Parse(values[i].ToString()) == 0)//接收
                         {
-                            try
-                            { 
-                                //读取接收信号的任务 数据库置接 收 
-                                FmInfo.GetTaskInfo(packtasknum + "收到任务"); 
-                                //更改标志位 写入新任务
-                                var x = await Task.Run(() => plc.WriteTaskSend_CGY());
-                                index++;
-                                GlobalPara.GlbobaIndex = index;
-                            }
-                            catch (Exception ex)
+                            int tasknum = plc.ShapeGroup1.Read(0).CastTo(-1);//读取到包号
+                            if(  tasknum > 0)
                             {
-                                FmInfo.GetTaskInfo("服务器连接失败！" + ex.Message);
-                                return;
+                                plc.UpDateToYxyState(tasknum, 15);//更新任务为接收
+                                FmInfo.GetTaskInfo("倍速链，任务号："+tasknum+"已经接收！");
+                                if(plc.startatg)
+                                {
+                                    FmInfo.GetTaskInfo("倍速链，任务已经处于发送状态，接收到多的跳变信号！");
+                                    return;
+                                }
+                                await plc.WriteTaskSend_YXY();
+                                
                             }
                         }
+                    }
+                    else if (clientId[i] == 2)//常规烟 翻版任务
+                    {
+
                     }
                 }
             }
