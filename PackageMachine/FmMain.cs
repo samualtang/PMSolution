@@ -445,7 +445,7 @@ namespace PackageMachine
             {
                 return;
             }
-        
+            CreateState = true;
             if (!CreateState)
             {
                 FmInfo.GetTaskInfo("必须在所有服务创建成功后，才能开始任务！");
@@ -474,7 +474,7 @@ namespace PackageMachine
            
             string ErrMsg =  await Task.Run( ()=> CreateDataChange()); //创建 
 
-            if (string.IsNullOrWhiteSpace(ErrMsg) )//事件创建成功
+            if (!string.IsNullOrWhiteSpace(ErrMsg) )//事件创建成功
             {  
                 FmInfo.GetTaskInfo("启动定时器");
                 FmInfo.Func(1);
@@ -522,8 +522,8 @@ namespace PackageMachine
                 string ErrMsg = "";
                 if (socketCore == null)//如果与服务器断开连接，则重新创建
                 {
-                    CreateSocketClinet(); 
-                }   
+                    CreateSocketClinet();
+                }
                 try
                 {
                     if (plc.CheckYXYConnection())
@@ -769,45 +769,48 @@ namespace PackageMachine
         /// <param name="values">返回的值</param>
         public async void OnDataChange(int group, int[] clientId, object[] values)
         {
-            if (group == 1)//倍速链 任务发送块组
-            {
-                for (int i = 0; i < clientId.Length; i++)
-                {
-                    if (clientId[i] == 8)//接收信号位
-                    {
+            #region
+            //if (group == 1)//倍速链 任务发送块组
+            //{
+            //    for (int i = 0; i < clientId.Length; i++)
+            //    {
+            //        if (clientId[i] == 8)//接收信号位
+            //        {
 
-                        int packtasknum = int.Parse(plc.ShapeGroup1.Read(0).ToString());//任务号
-                        int tempvalue = int.Parse(plc.ShapeGroup1.Read(7).ToString());//接收信号
-                        if (tempvalue == 0)//如果有接收信号
-                        {
-                            try
-                            {
-                                //FmInfo.AutoRefreshShow(packtasknum);//更新垛型展示
-                                //读取接收信号的任务 数据库置接收 
-                                if (packtasknum > 0)
-                                {
-                                    if (plc.UpDateToYxyState(packtasknum, 15))
-                                    {
-                                        FmInfo.GetTaskInfo("链板机收到任务号" + packtasknum + "，更新已接收！");
-                                    }
-                                    else
-                                    {
-                                        FmInfo.GetTaskInfo("链板机收到任务号" + packtasknum + "，更新失败！");
-                                    }
-                                }
-                                //更改标志位 写入新任务
-                                var x = await Task.Run(() => plc.WriteTaskSend_YXY());
-                            }
-                            catch (Exception ex)
-                            {
-                                FmInfo.GetTaskInfo("服务器连接失败！" + ex.Message);
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-            else if (group == 2)//异型烟倍速链 完成信号块组
+            //            int packtasknum = int.Parse(plc.ShapeGroup1.Read(0).ToString());//任务号
+            //            int tempvalue = int.Parse(plc.ShapeGroup1.Read(7).ToString());//接收信号
+            //            if (tempvalue == 0)//如果有接收信号
+            //            {
+            //                try
+            //                {
+            //                    //FmInfo.AutoRefreshShow(packtasknum);//更新垛型展示
+            //                    //读取接收信号的任务 数据库置接收 
+            //                    if (packtasknum > 0)
+            //                    {
+            //                        if (plc.UpDateToYxyState(packtasknum, 15))
+            //                        {
+            //                            FmInfo.GetTaskInfo("链板机收到任务号" + packtasknum + "，更新已接收！");
+            //                        }
+            //                        else
+            //                        {
+            //                            FmInfo.GetTaskInfo("链板机收到任务号" + packtasknum + "，更新失败！");
+            //                        }
+            //                    }
+            //                    //更改标志位 写入新任务
+            //                    var x = await Task.Run(() => plc.WriteTaskSend_YXY());
+            //                }
+            //                catch (Exception ex)
+            //                {
+            //                    FmInfo.GetTaskInfo("服务器连接失败！" + ex.Message);
+            //                    return;
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //else
+            #endregion
+            if (group == 2)//异型烟倍速链 完成信号块组
             {
                 for (int i = 0; i < clientId.Length; i++)
                 {
@@ -845,14 +848,15 @@ namespace PackageMachine
                             {
                                 plc.UpDateToYxyState(tasknum, 15);//更新任务为接收
                                 FmInfo.GetTaskInfo("倍速链，任务号："+tasknum+"已经接收！");
-                                if(plc.startatg)
-                                {
-                                    FmInfo.GetTaskInfo("倍速链，任务已经处于发送状态，接收到多的跳变信号！");
-                                    return;
-                                }
-                                await plc.WriteTaskSend_YXY();
-                                
+                                 
                             }
+                            if (plc.startatg)
+                            {
+                                FmInfo.GetTaskInfo("倍速链，任务已经处于发送状态，接收到多的跳变信号！");
+                                return;
+                            }
+                          string x =  await plc.WriteTaskSend_YXY();
+                            FmInfo.GetTaskInfo(x);
                         }
                     }
                     else if (clientId[i] == 2)//常规烟 翻版任务

@@ -276,11 +276,11 @@ namespace Functions
                     //其他不需要统计的数据
                     EFModle.T_PACKAGE_TASK task = values.Where(x => x.PACKTASKNUM == packtasknum).FirstOrDefault();
 
-                    vs[0] = Convert.ToInt32(task.PACKTASKNUM); //包号
-                    vs[1] = AllYXY;//数量
-                    vs[2] = Convert.ToInt32(task.UNIONPACKAGETAG); //合包标志
-                    vs[3] = AllCG;//合包数量
-                    vs[4] = Convert.ToInt32(task.PUSHSPACE);//推烟位置（层数）
+                    vs[0] = Convert.ToInt32(task.PACKTASKNUM); //包号1
+                    vs[1] = AllYXY;//数量2
+                    vs[2] = Convert.ToInt32(task.UNIONPACKAGETAG); //合包标志3
+                    vs[3] = Convert.ToInt32(task.PUSHSPACE); //推烟位置（层数） 4
+                    vs[4] = AllCG;//合包数量
                     vs[5] = 0;//预留 
                     vs[6] = 0;//预留 
                     vs[7] = 1;//交互标志

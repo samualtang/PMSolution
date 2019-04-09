@@ -211,7 +211,7 @@ namespace PackageMachine
                 if (buttonList[i].AccessibleDescription == "2")
                 {
                     int X = (int)((buttonList[i].Location.X ) - (buttonList[i].Width) / 2);
-                    buttonList[i].Location = new Point(X + cigGap+AddWidth, (buttonList[i].Location.Y  ) - (int)tbinfo[0].NormalLayerNum * (48+AddHeight  ) -AddHeight);
+                    buttonList[i].Location = new Point(X + cigGap+AddWidth, (buttonList[i].Location.Y  ) - ((int)tbinfo[0].NormalLayerNum-1) * (48+AddHeight  ) -AddHeight);
                 }
                 
             }

@@ -95,9 +95,9 @@ namespace Functions.BLL
                                 }
                                 info += item.PACKTASKNUM.ToString().PadLeft(10, '0') + ",";//任务流水号 
                                 info += item.CIGNUM.ToString().PadLeft(2, '0') + ",";//包内条烟流水号
-                                info += 0.ToString().PadLeft(3, '0') + ",";// item.CIGWIDTHX + ",";// item.CIGWIDTHX + ",";//坐标X
-                                info += 0.ToString().PadLeft(3, '0') + ","; //GlobalPara.BoxLenght/2 + ",";// (GlobalPara.BoxWidth / 2) + ",";//坐标Y
-                                info += 0.ToString().PadLeft(3, '0') + ",";// item.CIGHIGHY + ",";// item.CIGHIGHY + ",";//坐标z
+                                info +=Convert.ToInt32(item.CIGWIDTHX).ToString().PadLeft(3, '0') + ",";// item.CIGWIDTHX + ",";// item.CIGWIDTHX + ",";//坐标X
+                                info += 183.ToString().PadLeft(3, '0') + ","; //GlobalPara.BoxLenght/2 + ",";// (GlobalPara.BoxWidth / 2) + ",";//坐标Y
+                                info += Convert.ToInt32(item.CIGHIGHY).ToString().PadLeft(3, '0') + ",";// item.CIGHIGHY + ",";// item.CIGHIGHY + ",";//坐标z
                                 info += item.DOUBLETAKE + ",";//是否双抓
                                 info += item.PACKAGEQTY.ToString().PadLeft(2, '0') + ","; ;//包内总数
                                 info += item.CIGARETTECODE + ","; ;//条烟编码
@@ -131,9 +131,9 @@ namespace Functions.BLL
                                 info += "T,";//头部T 代表这是机器人任务
                                 info += item.PACKTASKNUM.ToString().PadLeft(10, '0') + ",";//任务流水号 
                                 info += item.CIGNUM.ToString().PadLeft(2, '0') + ",";//包内条烟流水号
-                                info += 0.ToString().PadLeft(3, '0') + ",";// item.CIGWIDTHX + ",";// item.CIGWIDTHX + ",";//坐标X
-                                info += 0.ToString().PadLeft(3, '0') + ","; //GlobalPara.BoxLenght/2 + ",";// (GlobalPara.BoxWidth / 2) + ",";//坐标Y
-                                info += 0.ToString().PadLeft(3, '0') + ",";// item.CIGHIGHY + ",";// item.CIGHIGHY + ",";//坐标z
+                                info += Convert.ToInt32(item.CIGWIDTHX).ToString().PadLeft(3, '0') + ",";// item.CIGWIDTHX + ",";// item.CIGWIDTHX + ",";//坐标X
+                                info += 183.ToString().PadLeft(3, '0') + ","; //GlobalPara.BoxLenght/2 + ",";// (GlobalPara.BoxWidth / 2) + ",";//坐标Y
+                                info += Convert.ToInt32(item.CIGHIGHY).ToString().PadLeft(3, '0') + ",";// item.CIGHIGHY + ",";// item.CIGHIGHY + ",";//坐标z
                                 info += item.DOUBLETAKE + ",";//是否双抓
                                 info += item.PACKAGEQTY.ToString().PadLeft(2, '0') + ","; ;//包内总数
                                 info += item.CIGARETTECODE + ","; ;//条烟编码
