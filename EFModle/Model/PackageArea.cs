@@ -129,6 +129,8 @@ namespace EFModle.Model
         /// 条烟数
         /// </summary>
         public decimal Total { get; set; }
+
+        public int CigaretteNo { get; set; }
     }
     /// <summary>
     /// 双抓卷烟组
