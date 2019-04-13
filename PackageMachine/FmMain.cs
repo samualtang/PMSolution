@@ -155,7 +155,7 @@ namespace PackageMachine
                 if (plc.CheckFbConnction())
                 {
                     FmInfo.GetTaskInfo("翻板:PLC连接成功!");
-                
+                    
                 }
                 else
                 {
@@ -474,7 +474,8 @@ namespace PackageMachine
            
             string ErrMsg =  await Task.Run( ()=> CreateDataChange()); //创建 
 
-            if (!string.IsNullOrWhiteSpace(ErrMsg) )//事件创建成功
+            FmInfo.GetTaskInfo(plc.ReadAndWriteCGYTaskConpelte());//获取未取走完成信号
+            if (string.IsNullOrWhiteSpace(ErrMsg) )//事件创建成功
             {  
                 FmInfo.GetTaskInfo("启动定时器");
                 FmInfo.Func(1);
@@ -740,6 +741,7 @@ namespace PackageMachine
                     plc.ShapeGroup2.callback -= OnDataChange;
                     plc.ShapeGroup3.callback -= OnDataChange;
                     plc.ShapeGroup4.callback -= OnDataChange;
+                    plc.SpyGroup6.callback -= OnDataChange;
                     FmInfo.GetTaskInfo("异型烟倍速链，常规烟翻版移除事件成功！");
                 }
                 catch(NullReferenceException nuller)
@@ -822,9 +824,35 @@ namespace PackageMachine
                         {
                             if (tempvalue != 0)
                             {
-                                FmInfo.GetTaskInfo("任务号" + tempvalue + "完成"); 
+                                FmInfo.GetTaskInfo("任务号" + tempvalue + "完成");
                                 FmInfo.GetTaskInfo(plc.ReadAndWriteYXYTaskConpelte(tempvalue, i));//更新数据库 更新DB块
-                          
+
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            FmInfo.GetTaskInfo("服务器连接失败！" + ex.Message);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            if (group == 3)//常规烟 完成信号块组
+            {
+                for (int i = 0; i < clientId.Length; i++)
+                {
+                    //完成任务号
+                    int tempvalue = int.Parse(values[i].ToString());
+                    if (tempvalue > 0)
+                    {
+                        try
+                        {
+                            if (tempvalue != 0)
+                            {
+                                FmInfo.GetTaskInfo("任务号" + tempvalue + "完成");
+                                FmInfo.GetTaskInfo(plc.ReadAndWriteCGYTaskConpelte(tempvalue, i));//更新数据库 更新DB块
+
                             }
                         }
                         catch (Exception ex)
@@ -840,28 +868,46 @@ namespace PackageMachine
                 for (int i = 0; i < clientId.Length; i++)
                 {
                     if (clientId[i] == 1)//倍速链任务
-                    { 
+                    {
                         if (values[i] != null && int.Parse(values[i].ToString()) == 0)//接收
                         {
                             int tasknum = plc.ShapeGroup1.Read(0).CastTo(-1);//读取到包号
-                            if(  tasknum > 0)
+                            if (tasknum > 0)
                             {
                                 plc.UpDateToYxyState(tasknum, 15);//更新任务为接收
-                                FmInfo.GetTaskInfo("倍速链，任务号："+tasknum+"已经接收！");
-                                 
+                                FmInfo.GetTaskInfo("倍速链，任务号：" + tasknum + "已经接收！");
+
                             }
-                            if (plc.startatg)
-                            {
-                                FmInfo.GetTaskInfo("倍速链，任务已经处于发送状态，接收到多的跳变信号！");
-                                return;
-                            }
-                          string x =  await plc.WriteTaskSend_YXY();
+                            //if (plc.startatg)
+                            //{
+                            //    FmInfo.GetTaskInfo("倍速链，任务已经处于发送状态，接收到多的跳变信号！");
+                            //    return;
+                            //}
+                            string x = await plc.WriteTaskSend_YXY();
                             FmInfo.GetTaskInfo(x);
                         }
                     }
-                    else if (clientId[i] == 2)//常规烟 翻版任务
-                    {
+                    else
 
+                    if (clientId[i] == 2)//常规烟 翻版任务
+                    {
+                        if (values[i] != null && int.Parse(values[i].ToString()) == 0)//接收
+                        {
+                            int tasknum = plc.ShapeGroup4.Read(0).CastTo(-1);//读取到包号
+                            if (tasknum > 0)
+                            {
+                                plc.UpDateToCgyState(tasknum, 15);//更新任务为接收
+                                FmInfo.GetTaskInfo("常规烟，任务号：" + tasknum + "已经接收！");
+
+                            }
+                            //if (plc.startatg)
+                            //{
+                            //    FmInfo.GetTaskInfo("常规烟，任务已经处于发送状态，接收到多的跳变信号！");
+                            //    return;
+                            //}
+                            string x = await plc.WriteTaskSend_CGY();
+                            FmInfo.GetTaskInfo(x);
+                        }
                     }
                 }
             }

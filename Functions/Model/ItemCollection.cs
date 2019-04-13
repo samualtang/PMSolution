@@ -27,10 +27,11 @@ namespace Functions.Model
         }
         public static List<string> GetSpyStateItem()
         {
-            string S7Name = PubFunction.GlobalPara.Opc_Nameyxy;
+            string S7Name1 = PubFunction.GlobalPara.Opc_Nameyxy;
+            string S7Name2 = PubFunction.GlobalPara.Opc_Namecgy;
             List<string> list = new List<string>();
-            list.Add(S7Name + "DB3,W20");//异型烟倍速链交互标志
-            list.Add(S7Name + "DB30,W516");//常规烟翻版交互标志
+            list.Add(S7Name1 + "DB3,W20");//异型烟倍速链交互标志
+            list.Add(S7Name2 + "DB1,W516");//常规烟翻版交互标志
             return list;
         }
         /// <summary>
@@ -55,13 +56,13 @@ namespace Functions.Model
         {
             string S7Name = PubFunction.GlobalPara.Opc_Namecgy;
             List<string> list = new List<string>();
-            list.Add(S7Name + "DB30,DINT500");//整包任务号0 
-            list.Add(S7Name + "DB30,W504");//包内烟条数1
-            list.Add(S7Name + "DB30,W506");//合包标志2
-            list.Add(S7Name + "DB30,WT508");//合包数量3
-            list.Add(S7Name + "DB30,DINT510");//预留4
-            list.Add(S7Name + "DB30,W514");//预留5
-            list.Add(S7Name + "DB30,W516");//接收标志6
+            list.Add(S7Name + "DB1,DINT500");//整包任务号0 
+            list.Add(S7Name + "DB1,W504");//包内烟条数1
+            list.Add(S7Name + "DB1,W506");//合包标志2
+            list.Add(S7Name + "DB1,W508");//合包数量3
+            list.Add(S7Name + "DB1,DINT510");//预留4
+            list.Add(S7Name + "DB1,W514");//预留5
+            list.Add(S7Name + "DB1,W516");//接收标志6
 
             return list;
         }
@@ -75,7 +76,7 @@ namespace Functions.Model
             List<string> list = new List<string>();
             for (int i = 0; i < 40; i += 4)
             {
-                list.Add(S7Name + "DB30,W" + 530 + i * 4);
+                list.Add(S7Name + "DB1,DINT" + (530 + i ));
             }
             return list;
         }

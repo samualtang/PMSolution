@@ -68,10 +68,35 @@ namespace Functions.BLL
                 }
             }
         }
+        public static bool UpdataTask_cgy(int packageNUm, int state)
+        {
+            using (Entities en = new Entities())
+            {
+                List<T_PACKAGE_TASK> lists = en.T_PACKAGE_TASK.Where(x => x.PACKTASKNUM == packageNUm).Select(x => x).ToList();
+                if (!lists.Any())
+                {
+                    return false;
+                }
+                foreach (var item in lists)
+                {
+                    if (item.NORMAILSTATE == 10)//等于新增，才更新成接收状态
+                    {
+                        item.NORMAILSTATE = state;
+                    }
+                }
+                if (en.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
 
 
-    
         /// <summary>
         /// 更新合包任务状态  常规烟
         /// </summary>
