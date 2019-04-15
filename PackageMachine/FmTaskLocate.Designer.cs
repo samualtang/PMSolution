@@ -32,7 +32,7 @@
             this.gbcgy = new System.Windows.Forms.GroupBox();
             this.txtBsul = new System.Windows.Forms.TextBox();
             this.txtCigseq = new System.Windows.Forms.TextBox();
-            this.txtYxy = new System.Windows.Forms.TextBox();
+            this.txtRobot = new System.Windows.Forms.TextBox();
             this.txtFb = new System.Windows.Forms.TextBox();
             this.lblbsl = new System.Windows.Forms.Label();
             this.btnDw = new System.Windows.Forms.Button();
@@ -40,6 +40,7 @@
             this.lblcgy = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.lblinfo = new System.Windows.Forms.Label();
+            this.lblOper = new System.Windows.Forms.Label();
             this.gbcgy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -48,7 +49,8 @@
             // 
             this.gbcgy.Controls.Add(this.txtBsul);
             this.gbcgy.Controls.Add(this.txtCigseq);
-            this.gbcgy.Controls.Add(this.txtYxy);
+            this.gbcgy.Controls.Add(this.lblOper);
+            this.gbcgy.Controls.Add(this.txtRobot);
             this.gbcgy.Controls.Add(this.txtFb);
             this.gbcgy.Controls.Add(this.lblbsl);
             this.gbcgy.Controls.Add(this.btnDw);
@@ -56,37 +58,37 @@
             this.gbcgy.Controls.Add(this.lblcgy);
             this.gbcgy.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.gbcgy.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.gbcgy.Location = new System.Drawing.Point(12, 62);
+            this.gbcgy.Location = new System.Drawing.Point(12, 71);
             this.gbcgy.Name = "gbcgy";
-            this.gbcgy.Size = new System.Drawing.Size(555, 170);
+            this.gbcgy.Size = new System.Drawing.Size(555, 246);
             this.gbcgy.TabIndex = 0;
             this.gbcgy.TabStop = false;
             this.gbcgy.Text = "操作";
             // 
             // txtBsul
             // 
-            this.txtBsul.Location = new System.Drawing.Point(201, 61);
+            this.txtBsul.Location = new System.Drawing.Point(197, 130);
             this.txtBsul.Name = "txtBsul";
             this.txtBsul.Size = new System.Drawing.Size(109, 23);
             this.txtBsul.TabIndex = 2;
             // 
             // txtCigseq
             // 
-            this.txtCigseq.Location = new System.Drawing.Point(434, 97);
+            this.txtCigseq.Location = new System.Drawing.Point(435, 169);
             this.txtCigseq.Name = "txtCigseq";
             this.txtCigseq.Size = new System.Drawing.Size(109, 23);
             this.txtCigseq.TabIndex = 2;
             // 
-            // txtYxy
+            // txtRobot
             // 
-            this.txtYxy.Location = new System.Drawing.Point(201, 96);
-            this.txtYxy.Name = "txtYxy";
-            this.txtYxy.Size = new System.Drawing.Size(109, 23);
-            this.txtYxy.TabIndex = 2;
+            this.txtRobot.Location = new System.Drawing.Point(197, 168);
+            this.txtRobot.Name = "txtRobot";
+            this.txtRobot.Size = new System.Drawing.Size(109, 23);
+            this.txtRobot.TabIndex = 2;
             // 
             // txtFb
             // 
-            this.txtFb.Location = new System.Drawing.Point(201, 21);
+            this.txtFb.Location = new System.Drawing.Point(197, 91);
             this.txtFb.Name = "txtFb";
             this.txtFb.Size = new System.Drawing.Size(109, 23);
             this.txtFb.TabIndex = 2;
@@ -94,8 +96,9 @@
             // lblbsl
             // 
             this.lblbsl.AutoSize = true;
+            this.lblbsl.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.lblbsl.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.lblbsl.Location = new System.Drawing.Point(6, 61);
+            this.lblbsl.Location = new System.Drawing.Point(7, 133);
             this.lblbsl.Name = "lblbsl";
             this.lblbsl.Size = new System.Drawing.Size(189, 20);
             this.lblbsl.TabIndex = 0;
@@ -104,7 +107,7 @@
             // btnDw
             // 
             this.btnDw.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnDw.Location = new System.Drawing.Point(221, 132);
+            this.btnDw.Location = new System.Drawing.Point(222, 217);
             this.btnDw.Name = "btnDw";
             this.btnDw.Size = new System.Drawing.Size(75, 23);
             this.btnDw.TabIndex = 1;
@@ -115,8 +118,9 @@
             // lblYxy
             // 
             this.lblYxy.AutoSize = true;
+            this.lblYxy.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.lblYxy.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.lblYxy.Location = new System.Drawing.Point(6, 99);
+            this.lblYxy.Location = new System.Drawing.Point(7, 171);
             this.lblYxy.Name = "lblYxy";
             this.lblYxy.Size = new System.Drawing.Size(433, 20);
             this.lblYxy.TabIndex = 0;
@@ -125,8 +129,9 @@
             // lblcgy
             // 
             this.lblcgy.AutoSize = true;
+            this.lblcgy.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.lblcgy.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.lblcgy.Location = new System.Drawing.Point(21, 21);
+            this.lblcgy.Location = new System.Drawing.Point(22, 93);
             this.lblcgy.Name = "lblcgy";
             this.lblcgy.Size = new System.Drawing.Size(174, 20);
             this.lblcgy.TabIndex = 0;
@@ -139,6 +144,7 @@
             // lblinfo
             // 
             this.lblinfo.AutoSize = true;
+            this.lblinfo.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.lblinfo.Font = new System.Drawing.Font("微软雅黑", 11F);
             this.lblinfo.Location = new System.Drawing.Point(8, 9);
             this.lblinfo.Name = "lblinfo";
@@ -146,12 +152,23 @@
             this.lblinfo.TabIndex = 0;
             this.lblinfo.Text = "testestestestetstetstestestest";
             // 
+            // lblOper
+            // 
+            this.lblOper.AutoSize = true;
+            this.lblOper.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblOper.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.lblOper.Location = new System.Drawing.Point(8, 19);
+            this.lblOper.Name = "lblOper";
+            this.lblOper.Size = new System.Drawing.Size(44, 17);
+            this.lblOper.TabIndex = 0;
+            this.lblOper.Text = "信息：";
+            // 
             // FmTaskLocate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(573, 244);
+            this.ClientSize = new System.Drawing.Size(573, 329);
             this.Controls.Add(this.gbcgy);
             this.Controls.Add(this.lblinfo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -170,7 +187,7 @@
         private System.Windows.Forms.GroupBox gbcgy;
         private System.Windows.Forms.Label lblYxy;
         private System.Windows.Forms.Label lblcgy;
-        private System.Windows.Forms.TextBox txtYxy;
+        private System.Windows.Forms.TextBox txtRobot;
         private System.Windows.Forms.TextBox txtFb;
         private System.Windows.Forms.Button btnDw;
         private System.Windows.Forms.ErrorProvider errorProvider1;
@@ -178,5 +195,6 @@
         private System.Windows.Forms.Label lblbsl;
         private System.Windows.Forms.TextBox txtCigseq;
         private System.Windows.Forms.Label lblinfo;
+        private System.Windows.Forms.Label lblOper;
     }
 }

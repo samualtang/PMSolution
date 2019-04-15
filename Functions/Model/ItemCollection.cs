@@ -103,9 +103,14 @@ namespace Functions.Model
         public static List<string> ClearAndStop_cgy()
         {
             string S7Name = PubFunction.GlobalPara.Opc_Nameyxy;
+            string S7Name1 = PubFunction.GlobalPara.Opc_Nameyxy;
             List<string> list = new List<string>();
-            list.Add(S7Name + "DB30,W518");//清空任务
-            list.Add(S7Name + "DB30,W520");//停止设备运行
+            list.Add(S7Name + "DB30,W518");//常规烟翻版 清空任务 0
+            list.Add(S7Name + "DB30,W520");//常规烟翻版 停止设备运行 1
+
+            list.Add(S7Name1 + "DB7,DINT12");//异型烟倍速链 任务号 2
+            list.Add(S7Name1 + "DB7,W16");//异型烟倍速链 清空 3
+            list.Add(S7Name1 + "DB7,W18");//异型烟倍速链 急停 4
             return list;
         }
 

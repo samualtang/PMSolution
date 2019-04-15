@@ -145,7 +145,7 @@ namespace PackageMachine
                 {
                     FmInfo.GetTaskInfo("倍速链:PLC连接成功!");
                   
-                    FmInfo.GetGroup(plc.UnNormalGroup);//传入OPC组到信息显示界面
+                    FmInfo.GetGroup(plc.UnNormalGroup,plc.ShapeGroup7);//传入OPC组到信息显示界面
                 }
                 else
                 {

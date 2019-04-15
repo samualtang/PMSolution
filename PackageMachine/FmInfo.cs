@@ -41,7 +41,7 @@ namespace PackageMachine
         /// <summary>
         /// OPC服务器
         /// </summary> 
-        Group opcGroup;
+        Group opcGroup,opcGroup7;
         /// <summary>
         /// 常规烟翻版任务号
         /// </summary>
@@ -49,7 +49,7 @@ namespace PackageMachine
         /// <summary>
         /// 获取OPC组
         /// </summary>
-        public static Func<Group, int> GetGroup;
+        public static Func<Group,Group, int> GetGroup;
         /// <summary>
         /// 取消按钮使用(传入1停用，传入2使用)
         /// </summary>
@@ -98,11 +98,12 @@ namespace PackageMachine
             }
             return 1;
         }
-        int GetOpcServerGroup(Group group)
+        int GetOpcServerGroup(Group group,Group group7)
         {
             if( group != null)
             {
                 opcGroup = group;
+                opcGroup7 = group7;
                 opcGroup.callback = OnDataChange;
                 return 1;
             }
@@ -475,7 +476,7 @@ namespace PackageMachine
             }
             if ( fmTask == null)
             {
-                fmTask = new FmTaskLocate
+                fmTask = new FmTaskLocate(opcGroup7)
                 {
                     StartPosition = FormStartPosition.CenterScreen
                 };

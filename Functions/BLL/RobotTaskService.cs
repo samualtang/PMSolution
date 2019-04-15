@@ -248,7 +248,7 @@ namespace Functions.BLL
         /// <param name="fbTaskNum">翻版包号</param>
         /// <param name="yxyTaskNum">倍速链包号</param>
         /// <returns></returns>
-        public bool UpdateTask(decimal packagenum,decimal cigseq,decimal fbTaskNum,decimal yxyTaskNum)
+        public bool TaskLocate(decimal packagenum,decimal cigseq,decimal fbTaskNum,decimal yxyTaskNum)
         {
             try
             {
@@ -314,6 +314,34 @@ namespace Functions.BLL
             {
 
                 throw new Exception("条烟定位失败，错误："+ex.Message);
+            }
+        }
+
+
+        public bool CheckPackageTaskNum(decimal packagenum, decimal cigseq, decimal fbTaskNum, decimal yxyTaskNum,out string ErrInfo)
+        {
+            ErrInfo = "";
+            using (Entities en = new Entities())
+            {
+                var Robot = (from item in en.T_PACKAGE_TASK where item.PACKTASKNUM == packagenum && item.CIGSEQ == cigseq select item).ToList().Any();
+                if(!Robot)
+                {
+                    ErrInfo += "机器人：未找到任务号："+ packagenum +"，和条烟流水号"+ cigseq; 
+                }
+                var fb = (from item in en.T_PACKAGE_TASK where item.PACKTASKNUM == fbTaskNum select item).ToList().Any();
+                if (!fb)
+                {
+                    ErrInfo += "\r\n翻版：未找到任务号：" + packagenum   ; 
+                }
+                var bsl = (from item in en.T_PACKAGE_TASK where item.PACKTASKNUM == yxyTaskNum select item).ToList().Any();
+                if (!bsl)
+                {
+                    ErrInfo += "\r\n倍速链：未找到任务号：" + yxyTaskNum; 
+                }
+                if (string.IsNullOrWhiteSpace(ErrInfo)) 
+                    return true;
+                else
+                    return false;
             }
         }
 

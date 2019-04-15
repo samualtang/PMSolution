@@ -28,6 +28,7 @@ namespace Functions
         private Group shapeGroup4;
 
         private Group spyGroup6;
+        private Group shapeGroup7;
 
         /// <summary>
         /// 是否已经在发送任务：true有，false没有
@@ -72,6 +73,9 @@ namespace Functions
             SpyGroup6 = new Group(pIOPCServer, 6, "group6", 1, LOCALE_ID);  //创建监控标志位的
             SpyGroup6.addItem(ItemCollection.GetSpyStateItem());
 
+            ShapeGroup7 = new Group(pIOPCServer, 7, "group7", 1, LOCALE_ID);  //倍速链和翻版 PLC 任务清空与暂停设备组
+            ShapeGroup7.addItem(ItemCollection.ClearAndStop_cgy());
+
             strmessage[0] +="";//写入校验plc连接尝试结果
             strmessage[1] = "1";
             return strmessage;
@@ -102,6 +106,10 @@ namespace Functions
         /// 标志位监控组
         /// </summary>
         public Group SpyGroup6 { get => spyGroup6; set => spyGroup6 = value; }
+        /// <summary>
+        /// 倍速链和翻版 PLC 任务清空与暂停设备组
+        /// </summary>
+        public Group ShapeGroup7 { get => shapeGroup7; set => shapeGroup7 = value; }
 
         /// <summary>
         /// 检验opc连接  
