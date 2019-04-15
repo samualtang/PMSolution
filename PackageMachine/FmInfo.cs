@@ -248,7 +248,7 @@ namespace PackageMachine
                     lblcutcount.Text = "客户包数：" + firstList.PackgeSeq + "/" + firstList.OrderPackageQty;
                     lblallcount.Text = "总 包 号:" + firstList.GlobalIndex + "/" + br.Length;
                 } 
-                //LabBind();
+                LabBind();
             } 
         }
         /// <summary>

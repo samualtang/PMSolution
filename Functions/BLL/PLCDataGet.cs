@@ -10,16 +10,16 @@ namespace Functions.BLL
     public static class PLCDataGet
     {
         /// <summary>
-        /// 更新合包任务状态  异型烟
+        /// 更新异型烟倍速链合包任务状态  异型烟
         /// </summary>
-        /// <param name="vs">包任务号</param>
+        /// <param name="packagetasknum">包任务号</param>
         /// <returns></returns>
-        public static bool UpdataTask_yxy(int vs   )
+        public static bool UpdataTask_yxy(int packagetasknum   )
         {
             //数据库置完成该任务
             using (Entities et = new Entities())
             {
-                List<T_PACKAGE_TASK> lists = et.T_PACKAGE_TASK.Where(x => x.PACKTASKNUM == vs).Select(x => x).ToList();
+                List<T_PACKAGE_TASK> lists = et.T_PACKAGE_TASK.Where(x => x.PACKTASKNUM == packagetasknum).Select(x => x).ToList();
                 if (lists.Count <= 0)
                 {
                     return false;
@@ -41,7 +41,12 @@ namespace Functions.BLL
                 }
             }
         }
-
+        /// <summary>
+        /// 异型烟合包状态
+        /// </summary>
+        /// <param name="packageNUm">任务包号</param>
+        /// <param name="state">状态</param>
+        /// <returns></returns>
         public static bool UpdataTask_yxy(int packageNUm,int state)
         {
             using (Entities en = new Entities())
@@ -68,6 +73,13 @@ namespace Functions.BLL
                 }
             }
         }
+
+        /// <summary>
+        /// 更新常规烟任务状态
+        /// </summary>
+        /// <param name="packageNUm"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
         public static bool UpdataTask_cgy(int packageNUm, int state)
         {
             using (Entities en = new Entities())
@@ -100,14 +112,14 @@ namespace Functions.BLL
         /// <summary>
         /// 更新合包任务状态  常规烟
         /// </summary>
-        /// <param name="vs">包任务号</param>
+        /// <param name="packagetasknum">包任务号</param>
         /// <returns></returns>
-        public static bool UpdataTask_cgy(int vs)
+        public static bool UpdataTask_cgy(int packagetasknum)
         {
             //数据库置完成该任务
             using (Entities et = new Entities())
             {
-                List<T_PACKAGE_TASK> lists = et.T_PACKAGE_TASK.Where(x => x.PACKTASKNUM == vs).Select(x => x).ToList();
+                List<T_PACKAGE_TASK> lists = et.T_PACKAGE_TASK.Where(x => x.PACKTASKNUM == packagetasknum).Select(x => x).ToList();
                 if (lists.Count <= 0)
                 {
                     return false;

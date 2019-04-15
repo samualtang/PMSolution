@@ -148,21 +148,21 @@ namespace Functions
             {
                 SpyGroup6.Write(2, 0);
                 SpyGroup6.Write(0, 0);
-                str = "发送异型烟倍速链任务";
+                str = "异型烟倍速链：发送任务";
             }
             else
             {
-                str += "异型烟任务强制发送失败";
+                str += "异型烟倍速链：强制跳变失败";
             }
             if (!startatg && SpyGroup6.ReadD(1).CastTo<int>(-1) != 1)//常规烟任务跳变
             {
                 SpyGroup6.Write(2, 1);
                 SpyGroup6.Write(0, 1);
-                str +=  "发送常规烟翻板机任务";
+                str += "常规烟翻版：发送任务";
             }
             else
             {
-                str += "常规烟任务强制发送失败";
+                str += "常规烟翻版：强制跳变失败";
             }
             return str;
         }
@@ -173,26 +173,29 @@ namespace Functions
         /// <returns>步骤日志</returns>
         public string ReadAndWriteYXYTaskConpelte()
         {
-            string strmessage = "";
+            string strmessage = "读取异型烟倍速链完成信号块：";
             int[] result = new int[ItemCollection.GetTaskStatusByComplete_yxy().Count];
-            for (int i = 0; i < ItemCollection.GetTaskStatusByComplete_yxy().Count(); i++)
+            for (int i = 0; i < result.Length; i++)
             {
                 //读取完成标志
                 result[i] = ShapeGroup2.ReadD(i).CastTo<int>(-1);
                 //如果完成标志块内有大于0的值
                 if (result[i] > 0)
                 {
-                    strmessage += "读取到异型烟链板机电控DB块：" + ItemCollection.GetTaskStatusByComplete_yxy()[i] + "  值：" + result[i];
+                    //strmessage += "读取到异型烟链板机电控DB块：" + ItemCollection.GetTaskStatusByComplete_yxy()[i] + "  值：" + result[i];
                     //数据库置完成该任务
                     bool tag = BLL.PLCDataGet.UpdataTask_yxy(result[i] );
                     if (tag)
                     {
-                        strmessage += "，数据库已置完成";
-                    }                    
-                    
+                        strmessage += "异型烟倍速链：任务包号 " + result[i] +   "，数据库已置完成";
+                    }
+                    else
+                    {
+                        strmessage += "异型烟倍速链：任务包号 " + result[i] + "，更新数据库失败";
+                    }
                     //更新电控完成标志块
                     ShapeGroup2.Write(0, i);
-                    strmessage += "，电控PLC数据已重置\r\n";
+                   // strmessage += "，电控PLC数据已重置\r\n";
                 }
             }
             return strmessage;
@@ -203,31 +206,40 @@ namespace Functions
         /// <returns>步骤日志</returns>
         public string ReadAndWriteCGYTaskConpelte()
         {
-            string strmessage = "";
+            string strmessage = "读取常规烟翻版完成信号块：";
             int[] result = new int[ItemCollection.GetTaskStatusByComplete_cgy().Count];
-            for (int i = 0; i < ItemCollection.GetTaskStatusByComplete_cgy().Count(); i++)
+            for (int i = 0; i < result.Length; i++)
             {
                 //读取完成标志
-                result[i] = ShapeGroup3.ReadD(i).CastTo<int>(-1);
+                result[i] = ShapeGroup3.ReadD(i).CastTo(-1);
                 //如果完成标志块内有大于0的值
                 if (result[i] > 0)
                 {
-                    strmessage += "读取到常规烟翻板电控DB块：" + ItemCollection.GetTaskStatusByComplete_cgy()[i] + "  值：" + result[i];
+                    //strmessage += "读取到常规烟翻板电控DB块：" + ItemCollection.GetTaskStatusByComplete_cgy()[i] + "  值：" + result[i];
                     //数据库置完成该任务
-                    bool tag = BLL.PLCDataGet.UpdataTask_cgy(result[i],15);
+                    bool tag = BLL.PLCDataGet.UpdataTask_cgy(result[i]);
                     if (tag)
                     {
-                        strmessage += "，数据库已置完成";
+                        strmessage +="常规烟翻版：任务包号 "+ result[i]+ "，数据库已置完成";
                     }
-
+                    else
+                    {
+                        strmessage += "常规烟翻版：任务包号 " + result[i] + "，更新数据库失败";
+                    }
                     //更新电控完成标志块
                     ShapeGroup3.Write(0, i);
-                    strmessage += "，电控PLC数据已重置/r/n";
+                   // strmessage += "，电控PLC数据已重置/r/n";
                 }
             }
             return strmessage;
         }
-        public  bool UpDateToYxyState(int packageNum,int state)
+        /// <summary>
+        /// 更新异型烟合包任务状态
+        /// </summary>
+        /// <param name="packageNum">任务包号</param>
+        /// <param name="state">状态10新增，15电控接收，20完成</param>
+        /// <returns></returns>
+        public bool UpDateToYxyState(int packageNum,int state)
         {
             if (BLL.PLCDataGet.UpdataTask_yxy(packageNum, state))
             {
@@ -235,6 +247,12 @@ namespace Functions
             }
             return false;
         }
+        /// <summary>
+        /// 更新常规烟任务状态
+        /// </summary>
+        /// <param name="packageNum">任务包号</param>
+        /// <param name="state">状态10新增，15电控接收，20完成</param>
+        /// <returns></returns>
         public bool UpDateToCgyState(int packageNum, int state)
         {
             if (BLL.PLCDataGet.UpdataTask_cgy(packageNum, state))
@@ -251,12 +269,12 @@ namespace Functions
         /// <returns>完成/失败</returns>
         public string ReadAndWriteYXYTaskConpelte(int packtasknum,int index)
         {
-            string strmessage = "";
+            string strmessage = "异型烟倍速链：";
             if (BLL.PLCDataGet.UpdataTask_yxy(packtasknum))
             {
                 strmessage = packtasknum + "号任务数据库更新完成成功";
                 ShapeGroup2.Write(0, index);
-                strmessage += packtasknum + ",电控数据更新成功!";
+                //strmessage += packtasknum + ",电控数据更新成功!";
             }
             else
             {
@@ -272,12 +290,12 @@ namespace Functions
         /// <returns>完成/失败</returns>
         public string ReadAndWriteCGYTaskConpelte(int packtasknum, int index)
         {
-            string strmessage = "";
+            string strmessage = "常规烟翻版：";
             if (BLL.PLCDataGet.UpdataTask_cgy(packtasknum))
             {
                 strmessage = packtasknum + "号任务数据库更新完成成功";
                 ShapeGroup3.Write(0, index);
-                strmessage += packtasknum + ",电控数据更新成功!";
+                //strmessage += packtasknum + ",电控数据更新成功!";
             }
             else
             {
@@ -323,7 +341,7 @@ namespace Functions
                     {
                         ShapeGroup1.SyncWrite(vs);
                         //BLL.PLCDataGet.WriteReceive_YXY((int)packtasknum);//测试用的  
-                        Strmessage = "写入异型烟链板机：\r\n任务号：" + vs[0] + "，异型烟数量：" + vs[1] + "，合包标志：" +
+                        Strmessage = "异型烟倍速链：写入异型烟链板机：\r\n任务号：" + vs[0] + "，异型烟数量：" + vs[1] + "，合包标志：" +
                             vs[2] + "，合包常规烟数：" + vs[4] + "，推烟位置：" + vs[3] + "，接收标志：" + vs[7];
                     }
                     else
@@ -334,7 +352,7 @@ namespace Functions
                 }
                 else
                 {
-                    Strmessage = "当前没有可发送的任务！";
+                    Strmessage = "异型烟倍速链：当前没有可发送的任务！";
                 }
                 startatg = false;
             }
@@ -345,7 +363,7 @@ namespace Functions
                 {
                     writeLog.Write(ex.InnerException.Message);
                 }
-                Strmessage += "发生异常，从新发送任务；";
+                Strmessage += "异型烟倍速链：发生异常，重新发送任务；";
                 DateTime endtime = DateTime.Now.AddSeconds(10);
                 Thread.Sleep(10000);
                 await WriteTaskSend_YXY();//异常后重新发送  没有考虑失败暂停
@@ -387,8 +405,8 @@ namespace Functions
                     //if (AllCG > 0)//如果是非纯常规烟订单
                     //{
                         //BLL.PLCDataGet.WriteReceive_CGY((int)packtasknum);//测试用的  
-                                                                          ShapeGroup4.SyncWrite(vs);
-                        Strmessage = "写入常规烟翻板机：\r\n任务号：" + vs[0] + "，常规烟数量：" + vs[1] + "，合包标志：" +
+                        ShapeGroup4.SyncWrite(vs);
+                        Strmessage = "常规烟翻版：写入常规烟翻板机：\r\n任务号：" + vs[0] + "，常规烟数量：" + vs[1] + "，合包标志：" +
                             vs[2] + "，合包异型烟数：" + vs[3] + "，接收标志：" + vs[6];
                     //}
                     //else
@@ -399,7 +417,7 @@ namespace Functions
                 }
                 else
                 {
-                    Strmessage = "当前没有可发送常规烟的任务！";
+                    Strmessage = "常规烟翻版：当前没有可发送常规烟的任务！";
                 }
             }
 
@@ -410,7 +428,7 @@ namespace Functions
                 {
                     writeLog.Write(ex.InnerException.Message);
                 }
-                Strmessage += "发生异常，从新发送任务；";
+                Strmessage += "常规烟翻版：发生异常，从新发送任务；";
                 DateTime endtime = DateTime.Now.AddSeconds(10);
                 Thread.Sleep(10000);
                 await WriteTaskSend_CGY();//异常后重新发送  没有考虑失败暂停
@@ -428,12 +446,12 @@ namespace Functions
             string strmessage = "";
             if (BLL.PLCDataGet.WriteReceive_YXY(packtasknum))//如果数据库更新成功
             {  
-                strmessage = "异型烟链板机任务号：" + packtasknum + "已接收";
+                strmessage = "异型烟倍速链：任务包号：" + packtasknum + " 已接收";
                 return strmessage;
             }
             else
             {
-                strmessage = "异型烟链板机任务号：" + packtasknum + "数据库更新失败！未更改电控标志位数据";
+                strmessage = "异型烟倍速链：任务包号：" + packtasknum + " 数据库更新失败！任务包号未能更新成接收状态！";
                 return strmessage;
             }
             

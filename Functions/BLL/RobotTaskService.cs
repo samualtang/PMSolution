@@ -237,69 +237,83 @@ namespace Functions.BLL
                 }
             }
         }
+  
+  
         /// <summary>
-        /// 任务定位  
-        /// 更新这个包装机包号之前的包号为完成，这个包装机包号之后的为新增
+        ///  任务定位  
+        /// 更新这个包装机包号之前的包号为完成，这个包装机包号之后的为新增 ,置新增的时候包括这个任务重新开始
         /// </summary>
-        /// <param name="packagenum">包装机包号</param>
-        public bool UpdateTask(decimal packagenum,int cigseq,decimal fbTaskNum,decimal yxyTaskNum)
+        /// <param name="packagenum">机械手包号</param>
+        /// <param name="cigseq">条烟流水号</param>
+        /// <param name="fbTaskNum">翻版包号</param>
+        /// <param name="yxyTaskNum">倍速链包号</param>
+        /// <returns></returns>
+        public bool UpdateTask(decimal packagenum,decimal cigseq,decimal fbTaskNum,decimal yxyTaskNum)
         {
-            using (Entities entity = new Entities())
+            try
             {
-                //更新这个包号之前的任务为完成(不包括）
-                var query = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < packagenum && item.CIGSEQ < cigseq && item.CIGSTATE != 20 &&  item.PACKAGENO == packageno select item).ToList();
-                if (query.Any())
+                using (Entities entity = new Entities())
                 {
-                    foreach (var item in query)
-                    { 
-                      item.CIGSTATE = 20;//机器人条烟状态 
+                    //更新这个包号之前的任务为完成(不包括）
+                    var query = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < packagenum && item.CIGSEQ < cigseq && item.CIGSTATE != 20 && item.PACKAGENO == packageno select item).ToList();
+                    if (query.Any())
+                    {
+                        foreach (var item in query)
+                        {
+                            item.CIGSTATE = 20;//机器人条烟状态 
+                        }
+                    }
+                    else
+                    {
+                        //throw new Exception("未查询到这个包号之前的任务信息");//有可能从第一个任务开始，这肯定会报错
+                    }
+                    //更新这个包号和之后的任务为新增（包括）
+                    var query1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= packagenum && item.CIGSEQ >= cigseq && item.PACKAGENO == packageno select item).ToList();
+                    if (query.Any())
+                    {
+                        query1.ForEach(a => { a.CIGSTATE = 10; });
+
+                    }
+
+                    var fbQuery1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < fbTaskNum && item.CIGTYPE == "1" && item.PACKAGENO == packageno select item).ToList();
+                    if (fbQuery1.Any())
+                    {
+                        fbQuery1.ForEach(a => { a.NORMAILSTATE = 20; });
+                    }
+                    //常规烟 翻版状态更新成信息 大于这个任务号的
+                    var fbQuery2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= fbTaskNum && item.CIGTYPE == "1" && item.PACKAGENO == packageno select item).ToList();
+                    if (fbQuery2.Any())
+                    {
+                        fbQuery2.ForEach(a => { a.NORMAILSTATE = 10; });
+                    }
+                    //倍速链
+                    //合包标志更新成完成 小于这个任务号的）
+                    var yxyQuery1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < yxyTaskNum && item.CIGTYPE == "2" && item.PACKAGENO == packageno select item).ToList();
+                    if (yxyQuery1.Any())
+                    {
+                        yxyQuery1.ForEach(a => { a.STATE = 20; });
+                    }
+                    //合包标志更新成新增大于这个任务号的）
+                    var yxyQuery2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= yxyTaskNum && item.CIGTYPE == "2" && item.PACKAGENO == packageno select item).ToList();
+                    if (yxyQuery2.Any())
+                    {
+                        yxyQuery2.ForEach(a => { a.STATE = 10; });
+                    }
+
+                    if (entity.SaveChanges() > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
                     } 
                 }
-                else
-                {
-                    //throw new Exception("未查询到这个包号之前的任务信息");//有可能从第一个任务开始，这肯定会报错
-                }
-                //更新这个包号和之后的任务为新增（包括）
-                var query1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= packagenum && item.CIGSEQ >= cigseq &&  item.PACKAGENO == packageno select item).ToList();
-                if (query.Any())
-                {
-                    query1.ForEach(a => { a.CIGSTATE = 10; }); 
-                   
-                }
-                
-                var fbQuery1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < fbTaskNum && item.CIGTYPE == "1" && item.PACKAGENO == packageno select item).ToList();
-                if (fbQuery1.Any())
-                {
-                    fbQuery1.ForEach(a => { a.NORMAILSTATE = 20; });
-                }
-                //常规烟 翻版状态更新成信息 大于这个任务号的
-                var fbQuery2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= fbTaskNum && item.CIGTYPE == "1" && item.PACKAGENO == packageno select item).ToList();
-                if (fbQuery2.Any())
-                {
-                    fbQuery2.ForEach(a => { a.NORMAILSTATE = 10; });
-                }
-                //倍速链
-                //合包标志更新成完成 小于这个任务号的）
-                var yxyQuery1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < yxyTaskNum && item.CIGTYPE == "2" && item.PACKAGENO == packageno select item).ToList();
-                if (yxyQuery1.Any())
-                {
-                    yxyQuery1.ForEach(a => { a.STATE = 20; });
-                }
-                //合包标志更新成新增大于这个任务号的）
-                var yxyQuery2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= yxyTaskNum && item.CIGTYPE == "2" && item.PACKAGENO == packageno select item).ToList();
-                if (yxyQuery2.Any())
-                {
-                    yxyQuery2.ForEach(a => { a.STATE = 10; });
-                }
+            }
+            catch (Exception ex)
+            {
 
-                if (UpdataFb(entity,fbTaskNum,yxyTaskNum ) && entity.SaveChanges() > 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                throw new Exception("条烟定位失败，错误："+ex.Message);
             }
         }
 

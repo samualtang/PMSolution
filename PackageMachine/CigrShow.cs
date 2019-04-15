@@ -195,9 +195,19 @@ namespace PackageMachine
                 }
             }
 
-            if (tbinfo.Where(a => a.CigType == "1").Count() == 0)
+
+
+            if(tbinfo.Where(a => a.CigType == "1").Count() > 0 && tbinfo.Where(a => a.CigType == "2").Count() > 0)//合包
+            {
+                tbinfo[0].NormalLayerNum = tbinfo[0].NormalLayerNum -1;
+            }
+              else if (tbinfo.Where(a => a.CigType == "1").Count() == 0)//纯异型烟
             {
                 tbinfo[0].NormalLayerNum = 0  ;
+            }
+            else if (tbinfo.Where(a => a.CigType == "2").Count() == 0)//纯常规烟
+            {
+                tbinfo[0].NormalLayerNum = 0;
             }
 
             int cigGap = GlobalPara.CigGap;//条烟之间间隙

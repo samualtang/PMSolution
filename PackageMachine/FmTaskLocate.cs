@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Functions.BLL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Functions.PubFunction;
 
 namespace PackageMachine
 {
@@ -17,8 +19,10 @@ namespace PackageMachine
             InitializeComponent();
             MaximizeBox = false;
             MinimizeBox = false;
+            rts = new RobotTaskService();
+            lblinfo.Text = "提示：定位会从指定的任务重新开始下发任务\r\n并且清空电控（倍速链，翻版，机器人）已缓存的任务数据！ ";
         }
-
+        RobotTaskService rts;
         private void btnDw_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtYxy.Text + txtFb.Text))
@@ -29,10 +33,14 @@ namespace PackageMachine
             if (!string.IsNullOrWhiteSpace(txtFb.Text))
             {
                 info += "翻版从" + txtFb.Text + " 包号开始";
+            } 
+            if (!string.IsNullOrWhiteSpace(txtBsul.Text))
+            {
+                info += "\r\n倍速链从" + txtBsul.Text + " 包号开始";
             }
             if (!string.IsNullOrWhiteSpace(txtYxy.Text))
             {
-                info += "\r\n异型烟机器人从" + txtYxy.Text + "任务开始";
+                info += "\r\n异型烟机器人从" + txtYxy.Text + " 包号,第 " + txtCigseq.Text + " 条烟开始";
             }
             DialogResult MsgBoxResult2 = MessageBox.Show(info,
                                                              "确认定位",
@@ -48,7 +56,14 @@ namespace PackageMachine
                                                         MessageBoxDefaultButton.Button2);//定义对话框的按钮式样
                 if (DialogResult.Yes == MsgBoxResult)
                 {
-
+                   if( rts.UpdateTask(txtYxy.Text.CastTo<decimal>(), txtCigseq.Text.CastTo<decimal>(), txtFb.Text.CastTo<decimal>(), txtBsul.Text.CastTo<decimal>()))
+                    {
+                        MessageBox.Show("更新成功！");
+                    }
+                    else
+                    {
+                        MessageBox.Show("更新失败！");
+                    }
                 }
             }
             else
