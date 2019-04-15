@@ -192,7 +192,7 @@ namespace Functions
                     
                     //更新电控完成标志块
                     ShapeGroup2.Write(0, i);
-                    strmessage += "，电控PLC数据已重置/r/n";
+                    strmessage += "，电控PLC数据已重置\r\n";
                 }
             }
             return strmessage;

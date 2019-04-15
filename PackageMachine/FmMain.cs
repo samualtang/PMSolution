@@ -475,6 +475,7 @@ namespace PackageMachine
             string ErrMsg =  await Task.Run( ()=> CreateDataChange()); //创建 
 
             FmInfo.GetTaskInfo(plc.ReadAndWriteCGYTaskConpelte());//获取未取走完成信号
+            FmInfo.GetTaskInfo(plc.ReadAndWriteYXYTaskConpelte());
             if (string.IsNullOrWhiteSpace(ErrMsg) )//事件创建成功
             {  
                 FmInfo.GetTaskInfo("启动定时器");

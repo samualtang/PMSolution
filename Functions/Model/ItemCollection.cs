@@ -42,9 +42,9 @@ namespace Functions.Model
         {
             string S7Name = PubFunction.GlobalPara.Opc_Nameyxy;
             List<string> list = new List<string>();
-            for (int i = 0; i < 40; i += 4)
+            for (int i = 0; i < 60; i += 4)
             {
-                list.Add(S7Name + "DB30,DINT" + i);
+                list.Add(S7Name + "DB30,DINT" +(40 + i));
             }
             return list;
         }
@@ -91,11 +91,11 @@ namespace Functions.Model
             List<string> list = new List<string>();
             for (int i = 0; i < 7; i++)
             {
-                list.Add(S7Name + "DB30,DINT"+ (i *12));//包号
-                list.Add(S7Name + "DB30,INT" +( 4 + (i * 12)));//数量
-                list.Add(S7Name + "DB30,INT" + (6 + (i * 12)));//合单标志
-                list.Add(S7Name + "DB30,INT" + (8 + (i * 12)));//推烟位置
-                list.Add(S7Name + "DB30,INT" +( 10 + (i * 12)));//顺序标志
+                list.Add(S7Name + "DB8,DINT"+ (i *12));//包号
+                list.Add(S7Name + "DB8,INT" +( 4 + (i * 12)));//数量
+                list.Add(S7Name + "DB8,INT" + (6 + (i * 12)));//合单标志
+                list.Add(S7Name + "DB8,INT" + (8 + (i * 12)));//推烟位置
+                list.Add(S7Name + "DB8,INT" +( 10 + (i * 12)));//顺序标志
             } 
             return list;
         }
