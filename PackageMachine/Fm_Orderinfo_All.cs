@@ -144,7 +144,7 @@ namespace PackageMachine
         void BindBillInfo(int packageIndex = 0, int CinNum = 0)
         {
 
-            List<TobaccoInfo> list = br.GetTobaccoInfos(packageIndex, cigrShow1.Height); 
+            List<TobaccoInfo> list = br.GetTobaccoInfoss(packageIndex, cigrShow1.Height); 
             cigrShow1.UpdateValue(list);
             label_sortnum.Text = "任务号："+list.Select(x => x.SortNum).FirstOrDefault().ToString();
             label_billcode.Text = "订单号："+list.Select(x => x.BillCode).FirstOrDefault();
