@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,7 +17,17 @@ namespace PackageMachine
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FmMain());
+            Process[] localNmae = Process.GetProcessesByName("PackageMachine");
+            if (localNmae.Length > 1)
+            {
+                MessageBox.Show("包装上位系统已经打开,请勿重复开启!");
+
+            }
+            else
+            {
+                Application.Run(new FmMain());
+            }
+          
         }
     }
 }

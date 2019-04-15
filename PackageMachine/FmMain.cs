@@ -15,6 +15,7 @@ using System.Net.NetworkInformation;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Drawing;
 
 namespace PackageMachine
 {
@@ -924,10 +925,22 @@ namespace PackageMachine
             FmInfo.GetTaskInfo("触发定时器，"+plc.timerSendTask());
             timer1.Stop();
         }
- 
+       
+        private void FmMain_SizeChanged(object sender, EventArgs e)
+        {
+           
+            if (Width < 1409)
+            {
+                Width = 1409;
+            }
+            if (Height < 780)
+            {
+                Height = 780;
+            }
+          
+            Location = new System.Drawing.Point(0, 0);
+        }
 
- 
-
-
+       
     }
 }

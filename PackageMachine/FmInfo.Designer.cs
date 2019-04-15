@@ -49,7 +49,6 @@
             this.btnAuto = new System.Windows.Forms.Button();
             this.lblCache = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.cce1 = new PackageMachine.CigrCache();
             this.plcrtl = new System.Windows.Forms.Panel();
             this.lblInfo = new System.Windows.Forms.Label();
             this.lblNotFish = new System.Windows.Forms.Label();
@@ -69,7 +68,11 @@
             this.lblNormalcOUNT = new System.Windows.Forms.Label();
             this.lbFinsh = new System.Windows.Forms.Label();
             this.lblDxdetail = new System.Windows.Forms.Label();
+            this.lblGwcx = new System.Windows.Forms.Label();
+            this.cce1 = new PackageMachine.CigrCache();
+            this.cs2 = new PackageMachine.CigrShow();
             this.cs = new PackageMachine.CigrShow();
+            this.button1 = new System.Windows.Forms.Button();
             this.panelInfo.SuspendLayout();
             this.gbInfo.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -311,14 +314,6 @@
             this.panel1.Size = new System.Drawing.Size(176, 608);
             this.panel1.TabIndex = 8;
             // 
-            // cce1
-            // 
-            this.cce1.BackColor = System.Drawing.Color.White;
-            this.cce1.Location = new System.Drawing.Point(11, 48);
-            this.cce1.Name = "cce1";
-            this.cce1.Size = new System.Drawing.Size(137, 526);
-            this.cce1.TabIndex = 6;
-            // 
             // plcrtl
             // 
             this.plcrtl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -557,11 +552,41 @@
             this.lblDxdetail.AutoSize = true;
             this.lblDxdetail.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.lblDxdetail.Font = new System.Drawing.Font("微软雅黑", 16.25F);
-            this.lblDxdetail.Location = new System.Drawing.Point(3, 310);
+            this.lblDxdetail.Location = new System.Drawing.Point(10, 310);
             this.lblDxdetail.Name = "lblDxdetail";
-            this.lblDxdetail.Size = new System.Drawing.Size(123, 30);
+            this.lblDxdetail.Size = new System.Drawing.Size(167, 30);
             this.lblDxdetail.TabIndex = 88;
-            this.lblDxdetail.Text = "垛型明细：";
+            this.lblDxdetail.Text = "合包垛型明细：";
+            // 
+            // lblGwcx
+            // 
+            this.lblGwcx.AutoSize = true;
+            this.lblGwcx.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblGwcx.Font = new System.Drawing.Font("微软雅黑", 16.25F);
+            this.lblGwcx.Location = new System.Drawing.Point(533, 310);
+            this.lblGwcx.Name = "lblGwcx";
+            this.lblGwcx.Size = new System.Drawing.Size(167, 30);
+            this.lblGwcx.TabIndex = 88;
+            this.lblGwcx.Text = "缓存工位明细：";
+            // 
+            // cce1
+            // 
+            this.cce1.BackColor = System.Drawing.Color.White;
+            this.cce1.Location = new System.Drawing.Point(11, 48);
+            this.cce1.Name = "cce1";
+            this.cce1.Size = new System.Drawing.Size(137, 526);
+            this.cce1.TabIndex = 6;
+            // 
+            // cs2
+            // 
+            this.cs2.BackColor = System.Drawing.Color.White;
+            this.cs2.H = 489;
+            this.cs2.Location = new System.Drawing.Point(538, 357);
+            this.cs2.Margin = new System.Windows.Forms.Padding(4);
+            this.cs2.Name = "cs2";
+            this.cs2.Size = new System.Drawing.Size(473, 328);
+            this.cs2.TabIndex = 3;
+            this.cs2.W = 540;
             // 
             // cs
             // 
@@ -574,16 +599,29 @@
             this.cs.TabIndex = 3;
             this.cs.W = 540;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(400, 321);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 89;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FmInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1194, 698);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.lblGwcx);
             this.Controls.Add(this.lblDxdetail);
             this.Controls.Add(this.plcrtl);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelInfo);
+            this.Controls.Add(this.cs2);
             this.Controls.Add(this.cs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FmInfo";
@@ -649,6 +687,9 @@
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Label lblDxdetail;
         private System.Windows.Forms.Label label2;
+        private CigrShow cs2;
+        private System.Windows.Forms.Label lblGwcx;
+        private System.Windows.Forms.Button button1;
     }
     
 }

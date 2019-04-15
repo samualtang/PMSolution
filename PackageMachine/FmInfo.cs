@@ -69,7 +69,7 @@ namespace PackageMachine
         private void FmInfo_Load(object sender, EventArgs e)
         { 
           
-         Loading.Masklayer(this, delegate () { LoadFucn(); });
+         //Loading.Masklayer(this, delegate () { LoadFucn(); });
            // ft.Show();
         }
 
@@ -334,23 +334,34 @@ namespace PackageMachine
         {
             float width =  Width;
             float height = Height; 
+          
             int widthToCs = Convert.ToInt32(Width * (0.5)); 
             if (cs.Created)
             {
-                //BindBillInfo(packageIndex: pkIndex); 
+                // BindBillInfo(packageIndex: pkIndex); 
             }
             else
             {
                 cs.Size = new Size(555, 6 * 48 + 20);
             }
+            if (cs2.Created)
+            {
+
+            }
+            else
+            {
+                cs2.Size = new Size(555, 6 * 48 + 20);
+            }
           //  panel3.Width = (Width - panel1.Width - cs.Width) - 20;
             gbInfo.Width = panel1.Width;
-            cce1.Height = Convert.ToInt32(Width * 0.45); 
-            cs.Location = new Point(0, Height - cs.Height - 4);
-           // plcrtl.Height = this.Height - panelInfo.Height - cs.Height  - 120 ; 
+            cce1.Height = Convert.ToInt32(Width * 0.50); 
+            cs.Location = new Point(5, Height - cs.Height - 4);
+            cs2.Location = new Point(plcrtl.Width - cs2.Width -5, Height - cs.Height - 4);
+            // plcrtl.Height = this.Height - panelInfo.Height - cs.Height  - 120 ; 
             ChangeLabelLocation( );
             lblDxdetail.Location = new Point(10, cs.Location.Y -40 );
-           // panelUN.Location = new Point();
+            lblGwcx.Location = new Point(cs2.Location.X, cs.Location.Y - 40);
+            // panelUN.Location = new Point();
         }
         /// <summary>
         /// 改变文本显示位置
@@ -503,8 +514,9 @@ namespace PackageMachine
                 decimal pmNum = Convert.ToDecimal(btn.Text);
                 if (Regex.IsMatch(btn.Text, @"^[+-]?\d*[.]?\d*$"))
                 {
-                    //var list = br.GetTobaccoInfoss(pmNum, cs.Height);
-                   // cs.UpdateValue(list, 2);
+                    var list = br.GetTobaccoInfoss(pmNum, cs.Height);
+                    // cs.UpdateValue(list, 2);
+                    cs2.UpdateValue(list, 2);
                 }
                 else
                 {
@@ -513,6 +525,12 @@ namespace PackageMachine
             }
         }
         private ToolTip tp_CodeInfo;
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(Width + "   " + Height);
+        }
+
         private void btngw1_MouseEnter(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
