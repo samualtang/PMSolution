@@ -39,7 +39,7 @@ namespace PackageMachine
             this.lab_Line.Size = new Size(1029, 15);
             this.lab_Line.TabIndex = 0;
            
-            this.lab_Line.Text = "限高----------------------------------------------------------------------------------------------------------------------------";
+           //this.lab_Line.Text = "限高----------------------------------------------------------------------------------------------------------------------------";
             lab_Line.BackColor = Color.Transparent;
             lab_Line.Parent = p_Main;
             this.timer1.Enabled = true;

@@ -92,10 +92,10 @@ namespace Functions.Model
             for (int i = 0; i < 7; i++)
             {
                 list.Add(S7Name + "DB8,DINT"+ (i *12));//包号
-                list.Add(S7Name + "DB8,INT" +( 4 + (i * 12)));//数量
-                list.Add(S7Name + "DB8,INT" + (6 + (i * 12)));//合单标志
-                list.Add(S7Name + "DB8,INT" + (8 + (i * 12)));//推烟位置
-                list.Add(S7Name + "DB8,INT" +( 10 + (i * 12)));//顺序标志
+                //list.Add(S7Name + "DB8,INT" +( 4 + (i * 12)));//数量
+                //list.Add(S7Name + "DB8,INT" + (6 + (i * 12)));//合单标志
+                //list.Add(S7Name + "DB8,INT" + (8 + (i * 12)));//推烟位置
+                //list.Add(S7Name + "DB8,INT" +( 10 + (i * 12)));//顺序标志
             } 
             return list;
         }

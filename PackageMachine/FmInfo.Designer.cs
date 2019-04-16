@@ -49,6 +49,7 @@
             this.btnAuto = new System.Windows.Forms.Button();
             this.lblCache = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cce1 = new PackageMachine.CigrCache();
             this.plcrtl = new System.Windows.Forms.Panel();
             this.lblInfo = new System.Windows.Forms.Label();
             this.lblNotFish = new System.Windows.Forms.Label();
@@ -69,10 +70,8 @@
             this.lbFinsh = new System.Windows.Forms.Label();
             this.lblDxdetail = new System.Windows.Forms.Label();
             this.lblGwcx = new System.Windows.Forms.Label();
-            this.cce1 = new PackageMachine.CigrCache();
             this.cs2 = new PackageMachine.CigrShow();
             this.cs = new PackageMachine.CigrShow();
-            this.button1 = new System.Windows.Forms.Button();
             this.panelInfo.SuspendLayout();
             this.gbInfo.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -313,6 +312,14 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(176, 608);
             this.panel1.TabIndex = 8;
+            // 
+            // cce1
+            // 
+            this.cce1.BackColor = System.Drawing.Color.White;
+            this.cce1.Location = new System.Drawing.Point(11, 48);
+            this.cce1.Name = "cce1";
+            this.cce1.Size = new System.Drawing.Size(137, 526);
+            this.cce1.TabIndex = 6;
             // 
             // plcrtl
             // 
@@ -569,14 +576,6 @@
             this.lblGwcx.TabIndex = 88;
             this.lblGwcx.Text = "缓存工位明细：";
             // 
-            // cce1
-            // 
-            this.cce1.BackColor = System.Drawing.Color.White;
-            this.cce1.Location = new System.Drawing.Point(11, 48);
-            this.cce1.Name = "cce1";
-            this.cce1.Size = new System.Drawing.Size(137, 526);
-            this.cce1.TabIndex = 6;
-            // 
             // cs2
             // 
             this.cs2.BackColor = System.Drawing.Color.White;
@@ -599,23 +598,12 @@
             this.cs.TabIndex = 3;
             this.cs.W = 540;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(400, 321);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 89;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // FmInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1194, 698);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.lblGwcx);
             this.Controls.Add(this.lblDxdetail);
             this.Controls.Add(this.plcrtl);
@@ -689,7 +677,6 @@
         private System.Windows.Forms.Label label2;
         private CigrShow cs2;
         private System.Windows.Forms.Label lblGwcx;
-        private System.Windows.Forms.Button button1;
     }
     
 }

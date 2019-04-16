@@ -37,6 +37,7 @@ namespace PackageMachine
         {
             this.task = task;
             InitializeComponent();
+            br = new BillResolution(cigrShow1.Size);
 
             ORDERPACKAGEQTY = task.ORDERPACKAGEQTY;
 
@@ -56,7 +57,7 @@ namespace PackageMachine
         
             label_allpackageseq.Text = "当前包装机共：" + br.Length + "包";
             label_nowpackageseq.Text = "当前包装机第：" + MinAllpackageseq + "包";
-            br = new BillResolution(cigrShow1.Size);
+          
         }
 
         BillResolution br;
@@ -157,7 +158,7 @@ namespace PackageMachine
         void BindBillInfo(int packageIndex = 0, int CinNum = 0)
         {
 
-            List<TobaccoInfo> list = br.GetTobaccoInfos(packageIndex, cigrShow1.Height);
+            List<TobaccoInfo> list = br.GetTobaccoInfoss(packageIndex, cigrShow1.Height);
             cigrShow1.UpdateValue(list);
         }
         private void button_last_Click(object sender, EventArgs e)

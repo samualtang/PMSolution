@@ -145,8 +145,8 @@ namespace PackageMachine
                 if (plc.CheckYXYConnection())
                 {
                     FmInfo.GetTaskInfo("倍速链:PLC连接成功!");
-                  
-                    FmInfo.GetGroup(plc.UnNormalGroup,plc.ShapeGroup7);//传入OPC组到信息显示界面
+
+                    FmInfo.GetGroup(plc.UnNormalGroup, plc.ShapeGroup7, plc.ShapeGroup2);//传入OPC组到信息显示界面
                 }
                 else
                 {
@@ -156,7 +156,7 @@ namespace PackageMachine
                 if (plc.CheckFbConnction())
                 {
                     FmInfo.GetTaskInfo("翻板:PLC连接成功!");
-                    
+
                 }
                 else
                 {
@@ -475,8 +475,8 @@ namespace PackageMachine
            
             string ErrMsg =  await Task.Run( ()=> CreateDataChange()); //创建 
 
-            FmInfo.GetTaskInfo(plc.ReadAndWriteCGYTaskConpelte());//获取未取走完成信号
-            FmInfo.GetTaskInfo(plc.ReadAndWriteYXYTaskConpelte());
+            FmInfo.GetTaskInfo(plc.ReadAndWriteCGYTaskConpelte());//获取常规烟未取走完成信号
+            FmInfo.GetTaskInfo(plc.ReadAndWriteYXYTaskConpelte());//获取异形烟未取走完成信号
             if (string.IsNullOrWhiteSpace(ErrMsg) )//事件创建成功
             {  
                 FmInfo.GetTaskInfo("启动定时器，触发倍速链，翻版跳变！");
@@ -525,7 +525,7 @@ namespace PackageMachine
                 string ErrMsg = "";
                 if (socketCore == null)//如果与服务器断开连接，则重新创建
                 {
-                    CreateSocketClinet();
+                    //CreateSocketClinet();
                 }
                 try
                 {
@@ -544,7 +544,7 @@ namespace PackageMachine
                     {
                         //常规烟翻版
                         plc.ShapeGroup3.callback += OnDataChange; // 完成信号
-                      //  plc.ShapeGroup4.callback += OnDataChange;
+                                                                  //  plc.ShapeGroup4.callback += OnDataChange;
                     }
                     else
                     {
@@ -827,20 +827,21 @@ namespace PackageMachine
                     int tempvalue = int.Parse(values[i].ToString());
                     if (tempvalue > 0)
                     {
-                        try
-                        {
+                        //try
+                        //{
                             if (tempvalue != 0)
                             {
                                 FmInfo.GetTaskInfo("异型烟倍速链：任务号" + tempvalue + "完成");
+                                FmInfo.AutoRefreshShow(tempvalue);//更新跺形显示
                                 FmInfo.GetTaskInfo(plc.ReadAndWriteYXYTaskConpelte(tempvalue, i));//更新数据库 更新DB块
-
+                                FmInfo.GetFinshiTask(tempvalue);
                             }
-                        }
-                        catch (Exception ex)
-                        {
-                            FmInfo.GetTaskInfo("异型烟倍速链：服务器连接失败！" + ex.Message);
-                            return;
-                        }
+                        //}
+                        //catch (Exception ex)
+                        //{
+                        //    FmInfo.GetTaskInfo("异型烟倍速链：服务器连接失败！" + ex.Message);
+                        //    return;
+                        //}
                     }
                 }
             }
@@ -853,20 +854,20 @@ namespace PackageMachine
                     int tempvalue = int.Parse(values[i].ToString());
                     if (tempvalue > 0)
                     {
-                        try
-                        {
+                        //try
+                        //{
                             if (tempvalue != 0)
                             {
                                 FmInfo.GetTaskInfo("常规烟翻版：任务包号" + tempvalue + "完成");
                                 FmInfo.GetTaskInfo(plc.ReadAndWriteCGYTaskConpelte(tempvalue, i));//更新数据库 更新DB块
-
+                                FmInfo.AutoRefreshShow(tempvalue);//更新跺形显示
                             }
-                        }
-                        catch (Exception ex)
-                        {
-                            FmInfo.GetTaskInfo("常规烟翻版：服务器连接失败！" + ex.Message);
-                            return;
-                        }
+                        //}
+                        //catch (Exception ex)
+                        //{
+                        //    FmInfo.GetTaskInfo("常规烟翻版：服务器连接失败！" + ex.Message);
+                        //    return;
+                        //}
                     }
                 }
             }

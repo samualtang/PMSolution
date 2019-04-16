@@ -28,6 +28,7 @@ namespace PackageMachine
             Func += ChangeControlEnabled;
             handle += updateListBox;
             GetGroup = GetOpcServerGroup;
+            GetFinshiTask = MoveQueueElem;
             listBtn.Add(btngw7);
             listBtn.Add(btngw6);
             listBtn.Add(btngw5);
@@ -41,23 +42,25 @@ namespace PackageMachine
         /// <summary>
         /// OPC服务器
         /// </summary> 
-        Group opcGroup,opcGroup7;
+        Group opcGroup, opcGroup7, opcFinshGroup;
         /// <summary>
         /// 常规烟翻版任务号
         /// </summary>
-        public static decimal FbPackageNum{get;set;}
+        public static decimal FbPackageNum { get; set; }
         /// <summary>
         /// 获取OPC组
         /// </summary>
-        public static Func<Group,Group, int> GetGroup;
+        public static Func<Group, Group, Group, int> GetGroup;
+
+        public static Func<decimal, int> GetFinshiTask;
         /// <summary>
         /// 取消按钮使用(传入1停用，传入2使用)
         /// </summary>
-        public static Func<int,int> Func;
+        public static Func<int, int> Func;
         /// <summary>
         /// 存入缓存工位的包号
         /// </summary>
-        Queue  queue = new Queue(7);
+        Queue queue = new Queue(7);
         /// <summary>
         /// 界面工位按钮显示集合
         /// </summary>
@@ -67,10 +70,10 @@ namespace PackageMachine
         /// </summary>
         List<TaskList> taskl;
         private void FmInfo_Load(object sender, EventArgs e)
-        { 
-          
-         //Loading.Masklayer(this, delegate () { LoadFucn(); });
-           // ft.Show();
+        {
+
+            Loading.Masklayer(this, delegate () { LoadFucn(); });
+            // ft.Show();
         }
 
         /// <summary>
@@ -85,10 +88,10 @@ namespace PackageMachine
                 btnLast.Cursor = Cursors.No;
                 btnnext.Cursor = Cursors.No;
                 btnJump.Cursor = Cursors.No;
-                btnRemake.Cursor = Cursors.No; 
+                btnRemake.Cursor = Cursors.No;
                 return 0;
             }
-            else if (flage == 2) 
+            else if (flage == 2)
             {
                 btnLast.Cursor = Cursors.Hand;
                 btnnext.Cursor = Cursors.Hand;
@@ -98,13 +101,14 @@ namespace PackageMachine
             }
             return 1;
         }
-        int GetOpcServerGroup(Group group,Group group7)
+        int GetOpcServerGroup(Group group, Group group7, Group finshiGroup)
         {
-            if( group != null)
+            if (group != null)
             {
                 opcGroup = group;
                 opcGroup7 = group7;
-                opcGroup.callback = OnDataChange;
+                opcFinshGroup = finshiGroup;
+                opcGroup.callback = OnDataChange; 
                 return 1;
             }
             else
@@ -120,22 +124,23 @@ namespace PackageMachine
         /// <param name="group"></param>
         /// <param name="clientId"></param>
         /// <param name="values"></param>
-        public   void OnDataChange(int group, int[] clientId, object[] values)
+        public void OnDataChange(int group, int[] clientId, object[] values)
         {
-            if(group == 5)
+            if (group == 5)//存入缓存工位信息
             {
                 for (int i = 0; i < clientId.Length; i++)
                 {
                     int tempvalue = int.Parse((values[i].ToString()));
-                    if ( tempvalue > 1)
+                    if (tempvalue > 1)
                     {
                         try
                         {
-                            if (queue.Count == 7)
-                            { 
-                               GetTaskInfo("异形烟缓存工位,包号" + queue.Dequeue() + "完成，队列移除该包号");
-                                listBtn[7].AccessibleName = "";
-                            } 
+                            // ChangeBtnInfo(tempvalue, true);
+                            //if (queue.Count == 7)
+                            //{ 
+                            //   GetTaskInfo("异形烟缓存工位,包号" + queue.Dequeue() + "完成，队列移除该包号");
+                            //    listBtn[7].AccessibleName = "";
+                            //} 
 
                             queue.Enqueue(tempvalue);//将新取到的包号 存入 
                             ChangeBtnInfo(queue);
@@ -143,12 +148,31 @@ namespace PackageMachine
                         catch (Exception ex)
 
                         {
-                            GetTaskInfo("缓存工位队列不包含任何元素" + ex.Message);
-                        } 
+                            // GetTaskInfo("缓存工位队列不包含任何元素" + ex.Message);
+                        }
                     }
-                    else { GetTaskInfo("读取缓存工位值异常，值为："+tempvalue); }
+                    //else { GetTaskInfo("读取缓存工位值异常，值为："+tempvalue); }
                 }
             }
+ 
+        }
+        int MoveQueueElem(decimal task)
+        {
+            try
+            {
+                if (task > 0)
+                {
+                    queue.Dequeue();
+                    ChangeBtnInfo(queue);
+                }
+            }
+            catch (Exception)
+            {
+
+                 
+            }
+          
+            return 0;
         }
         /// <summary>
         /// 根据包号 改变按钮显示信息
@@ -162,14 +186,14 @@ namespace PackageMachine
             {
                 listBtn[j].Text = newqe[j].ToString() ;
                 listBtn[j].AccessibleName = newqe[j].ToString();
-                listBtn[j].BackColor = Color.LightGreen;
-                
+                listBtn[j].BackColor = Color.LightGreen; 
             }
             foreach (var item in listBtn)
             {
                 if (string.IsNullOrWhiteSpace(item.AccessibleName))
                 {
                     item.BackColor = Color.Red;
+                    item.AccessibleName = "";
                 }
             }
         }
@@ -228,12 +252,13 @@ namespace PackageMachine
             List<TobaccoInfo> list = new List<TobaccoInfo>() ;
             if (flag == 0)
             {
-                list = br.GetTobaccoInfoss(packageIndex, cs.Height); 
+                list = br.GetTobaccoInfoss(packageIndex, cs.Height);
             }
             else if(flag == 1 )
             {
+
                 list = br.GetTobaccoInfos(packageIndex, cs.Height);
-              
+
             } 
             if (list.Any())
             { 
@@ -370,7 +395,7 @@ namespace PackageMachine
         {
             int allHeight = 0;
             int height = 3; //;plcrtl.Height +panelInfo.Height +20;
-            int left = plcrtl.Width - 206;
+            int left = plcrtl.Width - 256;
 
             lblCigCount.Top = height;// panelInfo.Height+ height;
             lblCigCount.Left = left;
@@ -397,9 +422,9 @@ namespace PackageMachine
             lblcutcode.Left = left;//流水号
             lblcutcount.Left = left;//客户包数 
 
-            lbllinename.Left = panelInfo.Width / 2 - 10;
-            lblcuscode.Left = panelInfo.Width / 2 - 10; 
-            lblcutname.Left = panelInfo.Width / 2 - 10; 
+            lbllinename.Left = panelInfo.Width / 2 - 50;
+            lblcuscode.Left = panelInfo.Width / 2 - 50; 
+            lblcutname.Left = panelInfo.Width / 2 - 50; 
         }
         private void btnnext_Click(object sender, EventArgs e)
         {
@@ -445,7 +470,7 @@ namespace PackageMachine
           
         }
         /// <summary>
-        /// 自动更新常规烟跺
+        /// 自动更新烟跺
         /// </summary>
         /// <param name="packageIndex"></param>
         /// <param name="cigNum"></param>
@@ -510,13 +535,21 @@ namespace PackageMachine
         {
             Button btn = (Button)sender; 
             if (queue.Count > 0)
-            { 
+            {
                 decimal pmNum = Convert.ToDecimal(btn.Text);
                 if (Regex.IsMatch(btn.Text, @"^[+-]?\d*[.]?\d*$"))
                 {
-                    var list = br.GetTobaccoInfoss(pmNum, cs.Height);
+                    var list = br.GetTobaccoInfos(pmNum, cs2.Height);
                     // cs.UpdateValue(list, 2);
-                    cs2.UpdateValue(list, 2);
+                    if( btn.Name == "btngw7")//工位7 就显示全部
+                    {
+                        cs2.UpdateValue(list,0);
+                    }
+                    else
+                    {
+                        cs2.UpdateValue(list, 2);
+                    }
+                  
                 }
                 else
                 {
