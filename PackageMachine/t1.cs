@@ -27,8 +27,8 @@ namespace PackageMachine
         private void button2_Click(object sender, EventArgs e)
         {
             string d1 = System.DateTime.Now.ToString();
-            Functions.BLL.PackageService packageAlgorithm = new Functions.BLL.PackageService();
-            packageAlgorithm.GetAllOrder(3);
+            Functions.BLL.PackageService2 packageAlgorithm = new Functions.BLL.PackageService2();
+            packageAlgorithm.GetAllOrder(1);
             MessageBox.Show(d1 + "   " + DateTime.Now.ToString());
         }
     }
