@@ -61,6 +61,7 @@
             // 
             // label_packageseq
             // 
+            this.label_packageseq.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_packageseq.AutoSize = true;
             this.label_packageseq.Location = new System.Drawing.Point(625, 120);
             this.label_packageseq.Name = "label_packageseq";
@@ -106,6 +107,7 @@
             // 
             // label_packnum
             // 
+            this.label_packnum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_packnum.AutoSize = true;
             this.label_packnum.Location = new System.Drawing.Point(625, 96);
             this.label_packnum.Name = "label_packnum";
@@ -115,6 +117,7 @@
             // 
             // button_last
             // 
+            this.button_last.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_last.Location = new System.Drawing.Point(718, 47);
             this.button_last.Name = "button_last";
             this.button_last.Size = new System.Drawing.Size(75, 28);
@@ -125,6 +128,7 @@
             // 
             // button_next
             // 
+            this.button_next.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_next.Location = new System.Drawing.Point(813, 47);
             this.button_next.Name = "button_next";
             this.button_next.Size = new System.Drawing.Size(75, 28);
@@ -135,6 +139,7 @@
             // 
             // button_top
             // 
+            this.button_top.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_top.Location = new System.Drawing.Point(625, 47);
             this.button_top.Name = "button_top";
             this.button_top.Size = new System.Drawing.Size(75, 28);
@@ -145,6 +150,7 @@
             // 
             // button_end
             // 
+            this.button_end.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_end.Location = new System.Drawing.Point(907, 47);
             this.button_end.Name = "button_end";
             this.button_end.Size = new System.Drawing.Size(78, 28);
@@ -155,6 +161,7 @@
             // 
             // button_skip
             // 
+            this.button_skip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_skip.Location = new System.Drawing.Point(1108, 47);
             this.button_skip.Name = "button_skip";
             this.button_skip.Size = new System.Drawing.Size(66, 28);
@@ -165,6 +172,7 @@
             // 
             // textBox1
             // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(1012, 52);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(89, 21);
@@ -190,6 +198,7 @@
             // 
             // label_allcig
             // 
+            this.label_allcig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_allcig.AutoSize = true;
             this.label_allcig.Location = new System.Drawing.Point(746, 120);
             this.label_allcig.Name = "label_allcig";
@@ -199,6 +208,7 @@
             // 
             // label_allpackageseq
             // 
+            this.label_allpackageseq.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_allpackageseq.AutoSize = true;
             this.label_allpackageseq.Location = new System.Drawing.Point(623, 13);
             this.label_allpackageseq.Name = "label_allpackageseq";
@@ -208,6 +218,9 @@
             // 
             // Dgv_datainfo
             // 
+            this.Dgv_datainfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.Dgv_datainfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Dgv_datainfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Dgv_datainfo.Location = new System.Drawing.Point(12, 96);
             this.Dgv_datainfo.Name = "Dgv_datainfo";
@@ -229,6 +242,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(623, 148);
             this.label1.Name = "label1";
@@ -284,6 +298,7 @@
             // 
             // label_normul
             // 
+            this.label_normul.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_normul.AutoSize = true;
             this.label_normul.Location = new System.Drawing.Point(841, 120);
             this.label_normul.Name = "label_normul";
@@ -293,6 +308,7 @@
             // 
             // label_unnormul
             // 
+            this.label_unnormul.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_unnormul.AutoSize = true;
             this.label_unnormul.Location = new System.Drawing.Point(938, 120);
             this.label_unnormul.Name = "label_unnormul";
@@ -302,6 +318,7 @@
             // 
             // label_nowpackageseq
             // 
+            this.label_nowpackageseq.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_nowpackageseq.AutoSize = true;
             this.label_nowpackageseq.Location = new System.Drawing.Point(811, 13);
             this.label_nowpackageseq.Name = "label_nowpackageseq";

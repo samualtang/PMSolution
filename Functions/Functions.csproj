@@ -73,7 +73,9 @@
     <Compile Include="BLL\FmOrderInofFun.cs" />
     <Compile Include="BLL\ItemService.cs" />
     <Compile Include="BLL\PackageAlgorithm.cs" />
+    <Compile Include="BLL\PackageService%282%29.cs" />
     <Compile Include="BLL\PackageService.cs" />
+    <Compile Include="BLL\PackageService1.cs" />
     <Compile Include="BLL\PLCDataGet.cs" />
     <Compile Include="BLL\RobotTaskService.cs" />
     <Compile Include="BLL\SiemensPLCSolution.cs" />
