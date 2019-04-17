@@ -151,17 +151,18 @@ namespace PackageMachine
                                });
                         buttonList[ListIndex].BackColor = Color.White;
                     }
-                    buttonList[ListIndex].AccessibleDescription = detail.CigType; 
+                    buttonList[ListIndex].AccessibleDescription = detail.CigType;
+                  
                     if (detail.CigType == "1")//常规烟
                     {
-                        buttonList[ListIndex].Location = new Point(buttonList[ListIndex].Width + lastX, base.Height - buttonList[ListIndex].Height - layerHeight);
+                        buttonList[ListIndex].Location = new Point(Width + buttonList[ListIndex].Width-10 - buttonList[ListIndex].Width + lastX , base.Height - buttonList[ListIndex].Height - layerHeight);
                         if (NormalCount % 6 == 0)
                         {
                             layerHeight = (48 + AddHeight) * (NormalCount / 6);
-                            lastX = -buttonList[ListIndex].Width;
+                            lastX = buttonList[ListIndex].Width;
                         }
                         NormalCount++;
-                        lastX += buttonList[ListIndex].Width;
+                        lastX -= buttonList[ListIndex].Width;
                     }
                     else if (detail.CigType == "2")//异形烟
                     {

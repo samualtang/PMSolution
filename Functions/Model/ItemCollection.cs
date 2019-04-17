@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Functions.Model
 {
@@ -88,6 +85,7 @@ namespace Functions.Model
         public static List<string> GetUnNormalWorkPlaceItem()
         {
             string S7Name = PubFunction.GlobalPara.Opc_Nameyxy;
+            string S7Name1 = PubFunction.GlobalPara.Opc_Namecgy;//10个
             List<string> list = new List<string>();
             for (int i = 0; i < 7; i++)
             {
@@ -96,7 +94,8 @@ namespace Functions.Model
                 //list.Add(S7Name + "DB8,INT" + (6 + (i * 12)));//合单标志
                 //list.Add(S7Name + "DB8,INT" + (8 + (i * 12)));//推烟位置
                 //list.Add(S7Name + "DB8,INT" +( 10 + (i * 12)));//顺序标志
-            } 
+            }
+            list.Add(S7Name1 + "DB1,DINT1260");//常规烟工位一
             return list;
         }
 

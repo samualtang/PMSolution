@@ -331,7 +331,7 @@ namespace Functions.BLL
                 var fb = (from item in en.T_PACKAGE_TASK where item.PACKTASKNUM == fbTaskNum select item).ToList().Any();
                 if (!fb)
                 {
-                    ErrInfo += "\r\n翻版：未找到任务号：" + packagenum   ; 
+                    ErrInfo += "\r\n翻版：未找到任务号：" + fbTaskNum; 
                 }
                 var bsl = (from item in en.T_PACKAGE_TASK where item.PACKTASKNUM == yxyTaskNum select item).ToList().Any();
                 if (!bsl)

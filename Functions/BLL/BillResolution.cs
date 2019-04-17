@@ -63,7 +63,7 @@ namespace Functions.BLL
 
 
         /// <summary>
-        /// 根据订单号包序返回订单详细
+        /// 根据包序返回订单详细
         /// </summary>
         /// <param name="List">订单信息</param>
         /// <param name="PackageIndex">包内序号</param> 
@@ -103,7 +103,7 @@ namespace Functions.BLL
             return list;
         }
         /// <summary>
-        /// 根据包号 获取包内数据
+        /// 根据任务包号 获取包内数据
         /// </summary>
         /// <param name="pmTaskNum">包号</param>
         /// <returns></returns>
@@ -154,11 +154,12 @@ namespace Functions.BLL
             {
                 
 
-                var orderQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item).Distinct().Sum(a => a.ORDERQTY);
+              
                 var normalQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno && item.CIGTYPE =="1" select item).Distinct().Sum(a => a.NORMALQTY);
                 var UnnormalQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno && item.CIGTYPE == "2" select item).Distinct().Sum(a => a.NORMALQTY);
-                var FinshQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno   select item).Distinct().Where(a => a.CIGSTATE == 20).Count();
-                var NotFinshQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno   select item).Distinct().Where(a => a.CIGSTATE != 20).Count();
+                var orderQty = normalQty + UnnormalQty;// (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item).Select(a => new { orderQty = a.ORDERQTY, billcode = a.BILLCODE }).Distinct().Sum(a => a.orderQty);
+                var FinshQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno   select item).Distinct().Where(a => a.STATE == 20).Count();
+                var NotFinshQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno   select item).Distinct().Where(a => a.STATE != 20).Count();
 
                 list.Add(orderQty ?? 0);
                 list.Add(normalQty ?? 0);

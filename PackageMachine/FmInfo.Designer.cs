@@ -49,7 +49,6 @@
             this.btnAuto = new System.Windows.Forms.Button();
             this.lblCache = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.cce1 = new PackageMachine.CigrCache();
             this.plcrtl = new System.Windows.Forms.Panel();
             this.lblInfo = new System.Windows.Forms.Label();
             this.lblNotFish = new System.Windows.Forms.Label();
@@ -70,6 +69,8 @@
             this.lbFinsh = new System.Windows.Forms.Label();
             this.lblDxdetail = new System.Windows.Forms.Label();
             this.lblGwcx = new System.Windows.Forms.Label();
+            this.cbCgyOrNot = new System.Windows.Forms.CheckBox();
+            this.cce1 = new PackageMachine.CigrCache();
             this.cs2 = new PackageMachine.CigrShow();
             this.cs = new PackageMachine.CigrShow();
             this.panelInfo.SuspendLayout();
@@ -117,6 +118,7 @@
             this.btnLast.TabIndex = 2;
             this.btnLast.Text = "上一包";
             this.btnLast.UseVisualStyleBackColor = true;
+            this.btnLast.Visible = false;
             this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
             // 
             // btnnext
@@ -130,6 +132,7 @@
             this.btnnext.TabIndex = 2;
             this.btnnext.Text = "下一包";
             this.btnnext.UseVisualStyleBackColor = true;
+            this.btnnext.Visible = false;
             this.btnnext.Click += new System.EventHandler(this.btnnext_Click);
             // 
             // panelInfo
@@ -313,14 +316,6 @@
             this.panel1.Size = new System.Drawing.Size(176, 608);
             this.panel1.TabIndex = 8;
             // 
-            // cce1
-            // 
-            this.cce1.BackColor = System.Drawing.Color.White;
-            this.cce1.Location = new System.Drawing.Point(11, 48);
-            this.cce1.Name = "cce1";
-            this.cce1.Size = new System.Drawing.Size(137, 526);
-            this.cce1.TabIndex = 6;
-            // 
             // plcrtl
             // 
             this.plcrtl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -380,9 +375,9 @@
             this.btngw8.Name = "btngw8";
             this.btngw8.Size = new System.Drawing.Size(93, 47);
             this.btngw8.TabIndex = 0;
-            this.btngw8.Text = "合包";
+            this.btngw8.Text = "拨板二";
             this.btngw8.UseVisualStyleBackColor = false;
-            this.btngw8.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw8.Click += new System.EventHandler(this.btngw9_Click);
             // 
             // btngw9
             // 
@@ -393,9 +388,9 @@
             this.btngw9.Name = "btngw9";
             this.btngw9.Size = new System.Drawing.Size(93, 47);
             this.btngw9.TabIndex = 0;
-            this.btngw9.Text = "翻版";
+            this.btngw9.Text = "拨板一";
             this.btngw9.UseVisualStyleBackColor = false;
-            this.btngw9.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btngw9.Click += new System.EventHandler(this.btngw9_Click);
             // 
             // panelUN
             // 
@@ -576,6 +571,25 @@
             this.lblGwcx.TabIndex = 88;
             this.lblGwcx.Text = "缓存工位明细：";
             // 
+            // cbCgyOrNot
+            // 
+            this.cbCgyOrNot.AutoSize = true;
+            this.cbCgyOrNot.Font = new System.Drawing.Font("微软雅黑", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbCgyOrNot.Location = new System.Drawing.Point(15, 148);
+            this.cbCgyOrNot.Name = "cbCgyOrNot";
+            this.cbCgyOrNot.Size = new System.Drawing.Size(163, 24);
+            this.cbCgyOrNot.TabIndex = 88;
+            this.cbCgyOrNot.Text = "工位明细显示常规烟";
+            this.cbCgyOrNot.UseVisualStyleBackColor = true;
+            // 
+            // cce1
+            // 
+            this.cce1.BackColor = System.Drawing.Color.White;
+            this.cce1.Location = new System.Drawing.Point(11, 48);
+            this.cce1.Name = "cce1";
+            this.cce1.Size = new System.Drawing.Size(137, 526);
+            this.cce1.TabIndex = 6;
+            // 
             // cs2
             // 
             this.cs2.BackColor = System.Drawing.Color.White;
@@ -604,6 +618,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1194, 698);
+            this.Controls.Add(this.cbCgyOrNot);
             this.Controls.Add(this.lblGwcx);
             this.Controls.Add(this.lblDxdetail);
             this.Controls.Add(this.plcrtl);
@@ -677,6 +692,7 @@
         private System.Windows.Forms.Label label2;
         private CigrShow cs2;
         private System.Windows.Forms.Label lblGwcx;
+        private System.Windows.Forms.CheckBox cbCgyOrNot;
     }
     
 }

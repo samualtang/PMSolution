@@ -146,7 +146,7 @@ namespace PackageMachine
                 {
                     FmInfo.GetTaskInfo("倍速链:PLC连接成功!");
 
-                    FmInfo.GetGroup(plc.UnNormalGroup, plc.ShapeGroup7, plc.ShapeGroup2);//传入OPC组到信息显示界面
+                    FmInfo.GetGroup(plc.UnNormalGroup, plc.ShapeGroup7);//传入OPC组到信息显示界面
                 }
                 else
                 {
@@ -831,10 +831,9 @@ namespace PackageMachine
                         //{
                             if (tempvalue != 0)
                             {
-                                FmInfo.GetTaskInfo("异型烟倍速链：任务号" + tempvalue + "完成");
-                                FmInfo.AutoRefreshShow(tempvalue);//更新跺形显示
+                                FmInfo.GetTaskInfo("异型烟倍速链：任务号" + tempvalue + "完成"); 
                                 FmInfo.GetTaskInfo(plc.ReadAndWriteYXYTaskConpelte(tempvalue, i));//更新数据库 更新DB块
-                                FmInfo.GetFinshiTask(tempvalue);
+                                FmInfo.AutoRefreshShow(tempvalue);//更新跺形显示
                             }
                         //}
                         //catch (Exception ex)

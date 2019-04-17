@@ -74,5 +74,10 @@ namespace PackageMachine
                 TopMost = false;
             }
         }
+
+        private void cbBsl_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

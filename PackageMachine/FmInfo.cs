@@ -28,7 +28,7 @@ namespace PackageMachine
             Func += ChangeControlEnabled;
             handle += updateListBox;
             GetGroup = GetOpcServerGroup;
-            GetFinshiTask = MoveQueueElem;
+
             listBtn.Add(btngw7);
             listBtn.Add(btngw6);
             listBtn.Add(btngw5);
@@ -42,7 +42,7 @@ namespace PackageMachine
         /// <summary>
         /// OPC服务器
         /// </summary> 
-        Group opcGroup, opcGroup7, opcFinshGroup;
+        Group opcGroup, opcGroup7;
         /// <summary>
         /// 常规烟翻版任务号
         /// </summary>
@@ -50,17 +50,15 @@ namespace PackageMachine
         /// <summary>
         /// 获取OPC组
         /// </summary>
-        public static Func<Group, Group, Group, int> GetGroup;
+        public static Func<Group, Group, int> GetGroup;
 
-        public static Func<decimal, int> GetFinshiTask;
+
         /// <summary>
         /// 取消按钮使用(传入1停用，传入2使用)
         /// </summary>
         public static Func<int, int> Func;
-        /// <summary>
-        /// 存入缓存工位的包号
-        /// </summary>
-        Queue queue = new Queue(7);
+
+
         /// <summary>
         /// 界面工位按钮显示集合
         /// </summary>
@@ -101,20 +99,20 @@ namespace PackageMachine
             }
             return 1;
         }
-        int GetOpcServerGroup(Group group, Group group7, Group finshiGroup)
+        int GetOpcServerGroup(Group group, Group group7)
         {
             if (group != null)
             {
                 opcGroup = group;
-                opcGroup7 = group7;
-                opcFinshGroup = finshiGroup;
-                opcGroup.callback = OnDataChange; 
+                opcGroup7 = group7; 
+                opcGroup.callback = OnDataChange;
+                ChangeListBtn();
                 return 1;
             }
             else
             {
 
-                GetTaskInfo("任务信息界面：OPC服务获取失败，将无法获取异形烟缓存工位信息！");
+                GetTaskInfo("任务信息界面：OPC服务创建失败，将无法获取异形烟缓存工位信息！");
                 return 0;
             }
         }
@@ -135,20 +133,12 @@ namespace PackageMachine
                     {
                         try
                         {
-                            // ChangeBtnInfo(tempvalue, true);
-                            //if (queue.Count == 7)
-                            //{ 
-                            //   GetTaskInfo("异形烟缓存工位,包号" + queue.Dequeue() + "完成，队列移除该包号");
-                            //    listBtn[7].AccessibleName = "";
-                            //} 
-
-                            queue.Enqueue(tempvalue);//将新取到的包号 存入 
-                            ChangeBtnInfo(queue);
+                            ChangeListBtn(); 
                         }
                         catch (Exception ex)
 
                         {
-                            // GetTaskInfo("缓存工位队列不包含任何元素" + ex.Message);
+                             GetTaskInfo("缓存工位队列不包含任何元素" + ex.Message);
                         }
                     }
                     //else { GetTaskInfo("读取缓存工位值异常，值为："+tempvalue); }
@@ -156,47 +146,32 @@ namespace PackageMachine
             }
  
         }
-        int MoveQueueElem(decimal task)
+        void ChangeListBtn()
         {
-            try
+            int j = 0;
+            for (int i = 6; i >= 0; i--)
             {
-                if (task > 0)
+                var values = opcGroup.Read(j).CastTo("工位" + (i + 1));
+                var btn = listBtn[i];
+                if (values == "0")
                 {
-                    queue.Dequeue();
-                    ChangeBtnInfo(queue);
+                    btn.Text = "工位" + (j + 1);
+                    btn.BackColor = Color.Red;
+                    btn.Cursor = Cursors.No;
                 }
-            }
-            catch (Exception)
-            {
+                else
+                {
 
-                 
-            }
-          
-            return 0;
-        }
-        /// <summary>
-        /// 根据包号 改变按钮显示信息
-        /// </summary>
-        /// <param name="qe"></param>
-        void ChangeBtnInfo(Queue qe  )
-        {
-            int index = qe.Count   ;
-            var newqe = qe.ToArray();
-            for (int j = index-1; j >= 0; j--)
-            {
-                listBtn[j].Text = newqe[j].ToString() ;
-                listBtn[j].AccessibleName = newqe[j].ToString();
-                listBtn[j].BackColor = Color.LightGreen; 
-            }
-            foreach (var item in listBtn)
-            {
-                if (string.IsNullOrWhiteSpace(item.AccessibleName))
-                {
-                    item.BackColor = Color.Red;
-                    item.AccessibleName = "";
+                    btn.Text = values;
+                    btn.BackColor = Color.LightGreen;
+                    btn.Cursor = Cursors.Hand;
                 }
+                j++;
             }
         }
+ 
+ 
+  
         /// <summary>
         /// 载入时做的事情
         /// </summary>
@@ -274,8 +249,9 @@ namespace PackageMachine
                     lblcutcount.Text = "客户包数：" + firstList.PackgeSeq + "/" + firstList.OrderPackageQty;
                     lblallcount.Text = "总 包 号:" + firstList.GlobalIndex + "/" + br.Length;
                 } 
-                LabBind();
-            } 
+              
+            }
+            LabBind();
         }
         /// <summary>
         /// 根据当前包装机，的整体包序，和条烟流水号获取数据显示到异型烟缓存
@@ -380,8 +356,9 @@ namespace PackageMachine
           //  panel3.Width = (Width - panel1.Width - cs.Width) - 20;
             gbInfo.Width = panel1.Width;
             cce1.Height = Convert.ToInt32(Width * 0.50); 
-            cs.Location = new Point(5, Height - cs.Height - 4);
-            cs2.Location = new Point(plcrtl.Width - cs2.Width -5, Height - cs.Height - 4);
+
+            cs.Location = new Point(5, Height - cs.Height - 4);//和包工位位置
+            cs2.Location = new Point(plcrtl.Width - cs2.Width -5, Height - cs.Height - 4);//缓存工位明细
             // plcrtl.Height = this.Height - panelInfo.Height - cs.Height  - 120 ; 
             ChangeLabelLocation( );
             lblDxdetail.Location = new Point(10, cs.Location.Y -40 );
@@ -533,35 +510,57 @@ namespace PackageMachine
 
         private void gbtnw1_Click(object sender, EventArgs e)
         {
-            Button btn = (Button)sender; 
-            if (queue.Count > 0)
+            Button btn = (Button)sender;
+            if(btn.Cursor == Cursors.No)
             {
-                decimal pmNum = Convert.ToDecimal(btn.Text);
+                return;
+            }
+            decimal pmNum = Convert.ToDecimal(btn.Text);
+            if (pmNum > 0)
+            {
                 if (Regex.IsMatch(btn.Text, @"^[+-]?\d*[.]?\d*$"))
                 {
                     var list = br.GetTobaccoInfos(pmNum, cs2.Height);
-                    // cs.UpdateValue(list, 2);
-                    if( btn.Name == "btngw7")//工位7 就显示全部
+                    if (list.Any())
                     {
-                        cs2.UpdateValue(list,0);
+                        if (btn.Name == "btngw7")//工位7 就显示全部
+                        {
+                          
+                            cs2.UpdateValue(list, 0);
+                        }
+                        else
+                        {
+                            if (cbCgyOrNot.Checked)
+                            {
+                                cs2.UpdateValue(list, 0);
+                            }
+                            else
+                            {
+
+                                cs2.UpdateValue(list, 2);
+                            }
+                        }
                     }
-                    else
-                    {
-                        cs2.UpdateValue(list, 2);
-                    }
-                  
+                    else { GetTaskInfo("显示界面：未找到任务号:" + pmNum); };
+
                 }
                 else
                 {
                     GetTaskInfo("显示界面：工位" + btn.Name + "的包号不为数值类型" + btn.Text);
                 }
             }
+
         }
         private ToolTip tp_CodeInfo;
 
         private void button1_Click(object sender, EventArgs e)
         {
             MessageBox.Show(Width + "   " + Height);
+        }
+
+        private void btngw9_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void btngw1_MouseEnter(object sender, EventArgs e)
