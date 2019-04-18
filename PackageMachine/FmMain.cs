@@ -215,6 +215,10 @@ namespace PackageMachine
             return false;
         }
         /// <summary>
+        /// 处理完成信号标志
+        /// </summary>
+        bool flag = true;
+        /// <summary>
         /// 响应来自服务端的信息
         /// </summary>
         /// <param name="ar"></param>
@@ -264,17 +268,18 @@ namespace PackageMachine
                             else
                             {
                                 FmInfo.GetTaskInfo("机器人:异常收到来自机器人的信息，位置为4的索引不为S,"+ msg);
-                            } 
-                         
-                            updateLabel("机器人：收到双抓完成", lblFinshiTask);
+                            }  
+                          
                             string[] newArr = msg.Substring(2).Trim().Split('|');
                             if (newArr.Length == 2)
                             {
-                                
+                                flag = false;
                                 string[] arr1 = newArr[0].Trim().Split(',');
                                 string[] arr2 = newArr[1].Trim().Split(',');
                                 robotService.UpDateFinishTask(arr1, out outStr);
                                 robotService.UpDateFinishTask(arr2, out outStr);
+                                flag = true;
+                                //FmInfo.AutoRefreshUnShow(int.Parse(arr2[0]));
                                 if (!string.IsNullOrWhiteSpace(outStr))
                                 {
                                     FmInfo.GetTaskInfo("机器人： " + outStr);
@@ -286,10 +291,11 @@ namespace PackageMachine
                                     updateLabel("机器人：任务号" + arr2[0] + "，条烟流水号：" + arr2[1] + "，数据库更新完成！", lblFinshiTask);
                                 }
                                 
-                                if (!string.IsNullOrWhiteSpace(outStr))//如果更新任务无异常 则发送任务
+                                if (!string.IsNullOrWhiteSpace(outStr))//
                                 {
                                     FmInfo.GetTaskInfo(outStr);
                                 }
+                              
                             }
                             else
                             {
@@ -316,6 +322,7 @@ namespace PackageMachine
                                 return;
                             }
                             robotService.UpDateFinishTask(Arr, out outStr);
+                           // FmInfo.AutoRefreshUnShow(int.Parse(Arr[0]));
                             if (!string.IsNullOrWhiteSpace(outStr))
                             { 
                                 FmInfo.GetTaskInfo("机器人： " + outStr);
@@ -639,8 +646,12 @@ namespace PackageMachine
                     //如果有新增的任务就一直循环取出来发送该条任务，直到该条任务做完，切换下一条任务
                     while (connectSuccess  )//发送机制：取出当前第一条未完成的任务，间隔一秒发送一次，直到这条任务完成，跳到下一条任务！
                     {
-                    //获取机器人任务
-                    CreateTask: string taskInfo = robotService.GetRobotInfo(out string outStr); 
+                        //获取机器人任务
+                        while (!flag)
+                        {
+                            FmInfo.GetTaskInfo("机器人：处理完成信号中");
+                        }
+                        CreateTask: string taskInfo = robotService.GetRobotInfo(out string outStr); 
                         bytes = Encoding.ASCII.GetBytes(taskInfo);
                         if (!RoBotState)//如果中途接收到机器人状态为 关闭状态 ，则停止发送任务
                         {
@@ -657,7 +668,10 @@ namespace PackageMachine
                             if(isClientConnected(socketCore))
                             {
                                 socketCore?.Send(bytes, 0, bytes.Length, SocketFlags.None);//发送数据 
-                                                                                           // FmInfo.GetTaskInfo("机器人：发送数据，任务：" + taskInfo);
+                                if (!GlobalPara.JugValueEqualsLastOne2(taskInfo))
+                                {
+                                    FmInfo.GetTaskInfo("机器人：发送数据，任务：" + taskInfo);
+                                }                                               // 
                                 lblTask.Text = "机器人：发送任务：" + taskInfo;
                             }
                             else 
@@ -675,7 +689,7 @@ namespace PackageMachine
                             goto CreateTask;
                              
                         } 
-                        Thread.Sleep(1000); // 0.2秒后再次发送
+                       Thread.Sleep(100); // 0.2秒后再次发送
                     }
                     
                    

@@ -176,8 +176,8 @@ namespace Functions.BLL
             using (Entities en = new Entities())
             {
                 var uninfo = (from item in en.T_PACKAGE_TASK
-                              where item.CIGNUM > CigNum && item.PACKAGENO == packageno && item.CIGTYPE == "2"
-                              orderby item.CIGNUM
+                              where item.PACKTASKNUM > CigNum && item.PACKAGENO == packageno && item.CIGTYPE == "2" && item.CIGSTATE ==10
+                              orderby  item.PACKTASKNUM, item.CIGSEQ
                               select item).Take(40).ToList() ;
                 foreach (var item in uninfo)
                 {
@@ -188,7 +188,7 @@ namespace Functions.BLL
                         TobaccoWidth = (float)Convert.ToDouble(item.CIGWIDTH),
                         TobaccoHeight = (float)Convert.ToDouble(item.CIGHIGH),
                         GlobalIndex = Convert.ToInt32(item.ALLPACKAGESEQ ?? 0),
-                        CigNum = item.CIGNUM ?? 0,
+                        CigNum = item.CIGSEQ ?? 0,
                         NormalLayerNum = item.PUSHSPACE ?? 0,
                         Speed = 1,
                         OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0),

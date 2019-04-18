@@ -439,6 +439,12 @@ namespace Functions.PubFunction
             }
         }
         static int BackHash;
+        static int BackHash2;
+        /// <summary>
+        /// 和上次做对比 相同返回 真 反之 假
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
         public static bool JugValueEqualsLastOne(string info)
         {
             try
@@ -447,6 +453,27 @@ namespace Functions.PubFunction
                 if(BackHash != newHash)
                 {
                     BackHash = newHash;
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public static bool JugValueEqualsLastOne2(string info)
+        {
+            try
+            {
+                int newHash = info.GetHashCode();
+                if (BackHash2 != newHash)
+                {
+                    BackHash2 = newHash;
                     return false;
                 }
                 else
