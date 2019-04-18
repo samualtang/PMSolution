@@ -438,6 +438,28 @@ namespace Functions.PubFunction
                 }
             }
         }
+        static int BackHash;
+        public static bool JugValueEqualsLastOne(string info)
+        {
+            try
+            {
+                int newHash = info.GetHashCode();
+                if(BackHash != newHash)
+                {
+                    BackHash = newHash;
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
 
     }
 

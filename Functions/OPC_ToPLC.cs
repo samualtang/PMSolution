@@ -280,13 +280,13 @@ namespace Functions
             string strmessage = "异型烟倍速链：";
             if (BLL.PLCDataGet.UpdataTask_yxy(packtasknum))
             {
-                strmessage = packtasknum + "号任务数据库更新完成成功";
+                strmessage += packtasknum + "号任务数据库更新完成成功";
                 ShapeGroup2.Write(0, index);
                 //strmessage += packtasknum + ",电控数据更新成功!";
             }
             else
             {
-                strmessage = packtasknum + "号任务数据库更新完成失败";
+                strmessage += packtasknum + "号任务数据库更新完成失败";
             }
             return strmessage;
         }
@@ -301,13 +301,13 @@ namespace Functions
             string strmessage = "常规烟翻版：";
             if (BLL.PLCDataGet.UpdataTask_cgy(packtasknum))
             {
-                strmessage = packtasknum + "号任务数据库更新完成成功";
+                strmessage += packtasknum + "号任务数据库更新完成成功";
                 ShapeGroup3.Write(0, index);
                 //strmessage += packtasknum + ",电控数据更新成功!";
             }
             else
             {
-                strmessage = packtasknum + "号任务数据库更新完成失败";
+                strmessage += packtasknum + "号任务数据库更新完成失败";
             }
             return strmessage;
         }

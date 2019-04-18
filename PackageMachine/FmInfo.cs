@@ -63,10 +63,7 @@ namespace PackageMachine
         /// 界面工位按钮显示集合
         /// </summary>
         List<Button> listBtn = new List<Button>();
-        /// <summary>
-        /// 订单
-        /// </summary>
-        List<TaskList> taskl;
+
         private void FmInfo_Load(object sender, EventArgs e)
         {
 
@@ -129,8 +126,8 @@ namespace PackageMachine
                 for (int i = 0; i < clientId.Length; i++)
                 {
                     int tempvalue = int.Parse((values[i].ToString()));
-                    if (tempvalue > 1)
-                    {
+                    //if (tempvalue > 1)
+                    //{
                         try
                         {
                             ChangeListBtn(); 
@@ -140,7 +137,7 @@ namespace PackageMachine
                         {
                              GetTaskInfo("缓存工位队列不包含任何元素" + ex.Message);
                         }
-                    }
+                    //}
                     //else { GetTaskInfo("读取缓存工位值异常，值为："+tempvalue); }
                 }
             }
@@ -325,7 +322,19 @@ namespace PackageMachine
             }
             else
             {
-                ftd.updateListBox(info);
+
+                if (info.Substring(0,5).Contains("异型烟"))
+                {
+                    ftd.updateListBox(info);
+                }
+                else if ( info.Substring(0, 5).Contains("常规烟"))
+                {
+                    ftd.updateCgyListBox(info);
+                }
+                else
+                    {
+                    ftd.updateListBox(info);
+                }
                 this.list_date.Items.Insert(0, time + "    " + info);
 
             }
@@ -560,6 +569,7 @@ namespace PackageMachine
 
         private void btngw9_Click(object sender, EventArgs e)
         {
+            Button btn = (Button)sender;
 
         }
 

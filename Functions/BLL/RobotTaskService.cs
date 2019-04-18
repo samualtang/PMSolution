@@ -78,11 +78,12 @@ namespace Functions.BLL
                 using (Entities en = new Entities())
                 {
                     var query = (from item in en.T_PACKAGE_TASK
-                                 where item.PACKAGENO == GlobalPara.PackageNo && item.CIGSTATE == 10
-                                 orderby item.CIGNUM
+                                 where item.PACKAGENO == GlobalPara.PackageNo && item.CIGSTATE == 10 && item.CIGTYPE =="2"
+                                 orderby  item.PACKTASKNUM,item.CIGNUM
                                  select item).Take(10).ToList();
                     if (query.Any())
                     {
+                        var UnCigQty =(from item  in  en.T_PACKAGE_TASK select item ).ToList().Where(a => a.PACKTASKNUM == query.FirstOrDefault().PACKTASKNUM && a.CIGTYPE == "2").Sum(a => a.NORMALQTY);
                         int index = 0;//双抓的索引
                         foreach (var item in query)
                         {
@@ -94,12 +95,12 @@ namespace Functions.BLL
                                     info += "T,";//头部T 代表这是机器人任务
                                 }
                                 info += item.PACKTASKNUM.ToString().PadLeft(10, '0') + ",";//任务流水号 
-                                info += item.CIGNUM.ToString().PadLeft(2, '0') + ",";//包内条烟流水号
+                                info += item.CIGSEQ.ToString().PadLeft(2, '0') + ",";//包内条烟流水号
                                 info +=Convert.ToInt32(item.CIGWIDTHX).ToString().PadLeft(3, '0') + ",";// item.CIGWIDTHX + ",";// item.CIGWIDTHX + ",";//坐标X
                                 info += 183.ToString().PadLeft(3, '0') + ","; //GlobalPara.BoxLenght/2 + ",";// (GlobalPara.BoxWidth / 2) + ",";//坐标Y
                                 info += Convert.ToInt32(item.CIGHIGHY).ToString().PadLeft(3, '0') + ",";// item.CIGHIGHY + ",";// item.CIGHIGHY + ",";//坐标z
                                 info += item.DOUBLETAKE + ",";//是否双抓
-                                info += item.PACKAGEQTY.ToString().PadLeft(2, '0') + ","; ;//包内总数
+                                info += UnCigQty.ToString().PadLeft(2, '0') + ","; ;//包内总数
                                 info += item.CIGARETTECODE + ","; ;//条烟编码
                                 info += item.CIGLENGTH.ToString().PadLeft(3, '0') + ","; ;//长
                                 info += item.CIGWIDTH.ToString().PadLeft(3, '0') + ","; ;//宽
@@ -130,12 +131,12 @@ namespace Functions.BLL
                             {
                                 info += "T,";//头部T 代表这是机器人任务
                                 info += item.PACKTASKNUM.ToString().PadLeft(10, '0') + ",";//任务流水号 
-                                info += item.CIGNUM.ToString().PadLeft(2, '0') + ",";//包内条烟流水号
+                                info += item.CIGSEQ.ToString().PadLeft(2, '0') + ",";//包内条烟流水号
                                 info += Convert.ToInt32(item.CIGWIDTHX).ToString().PadLeft(3, '0') + ",";// item.CIGWIDTHX + ",";// item.CIGWIDTHX + ",";//坐标X
                                 info += 183.ToString().PadLeft(3, '0') + ","; //GlobalPara.BoxLenght/2 + ",";// (GlobalPara.BoxWidth / 2) + ",";//坐标Y
                                 info += Convert.ToInt32(item.CIGHIGHY).ToString().PadLeft(3, '0') + ",";// item.CIGHIGHY + ",";// item.CIGHIGHY + ",";//坐标z
                                 info += item.DOUBLETAKE + ",";//是否双抓
-                                info += item.PACKAGEQTY.ToString().PadLeft(2, '0') + ","; ;//包内总数
+                                info += UnCigQty.ToString().PadLeft(2, '0') + ","; ;//包内总数
                                 info += item.CIGARETTECODE + ","; ;//条烟编码
                                 info += item.CIGLENGTH.ToString().PadLeft(3, '0') + ","; ;//长
                                 info += item.CIGWIDTH.ToString().PadLeft(3, '0') + ","; ;//宽
@@ -187,7 +188,7 @@ namespace Functions.BLL
                 using (Entities en = new Entities())
                 {
                     var query1 = (from item in en.T_PACKAGE_TASK
-                              where item.PACKTASKNUM == taskNum && item.PACKAGENO == packageno && item.CIGNUM == CigSeq
+                              where item.PACKTASKNUM == taskNum && item.PACKAGENO == packageno && item.CIGSEQ == CigSeq
                               select item).ToList();
                 if (query1.Any())
                 {
@@ -195,7 +196,7 @@ namespace Functions.BLL
                     {
                         item.CIGSTATE = 20;
                     }
-
+                    
                     en.SaveChanges();//更新数据库
                 }
                 else

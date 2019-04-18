@@ -49,7 +49,21 @@ namespace PackageMachine
 
             }
         }
+        public void updateCgyListBox(string info)
+        {
+            String time = DateTime.Now.ToLongTimeString();
 
+            if (this.listCgy.InvokeRequired)
+            {
+
+                this.listCgy.Invoke(new HandleDelegate(updateCgyListBox), info);
+            }
+            else
+            {
+                this.listCgy.Items.Insert(0, time + "    " + info);
+
+            }
+        }
         private void FmTaskDetail_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.Hide();
@@ -57,11 +71,14 @@ namespace PackageMachine
             return;
         }
 
-        private void FmTaskDetail_Resize(object sender, EventArgs e)
+ 
+        void ChangeContrlsLoaction()
         {
-            list_date.Height = (int)( this.Height * 0.8);
+            list_date.Width = Width / 2;
+            panel1.Height = (int)(Height * 0.82);
+            lbl1.Location = new Point(panel1.Location.X, panel1.Location.Y - lbl2.Height  );
+            lbl2.Location = new Point(Width / 2, panel1.Location.Y -lbl2.Height);
         }
-
         private void cbIsorNo_Click(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
@@ -78,6 +95,11 @@ namespace PackageMachine
         private void cbBsl_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void FmTaskDetail_SizeChanged(object sender, EventArgs e)
+        {
+            ChangeContrlsLoaction();
         }
     }
 }
