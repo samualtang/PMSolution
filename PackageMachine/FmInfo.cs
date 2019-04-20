@@ -178,7 +178,7 @@ namespace PackageMachine
             HrsUbs += BindUInfo;
             br = new BillResolution(cs.Size);
             //异型烟缓存
-            HrsUbs(1,0); 
+            HrsUbs(1,1,0); 
             //垛型展示
             Hrs(1, 0);
          
@@ -254,9 +254,9 @@ namespace PackageMachine
         /// 根据当前包装机，的整体包序，和条烟流水号获取数据显示到异型烟缓存
         /// </summary>
         /// <param name="cigNum"></param> 
-        void BindUInfo(int CinNum = 0,int flag = 0)
+        void BindUInfo(decimal CinNum = 1,int cigseq = 1,int flag = 0)
         {
-            List<TobaccoInfo> UN_list = br.GetUnNormallSort(CinNum);
+            List<TobaccoInfo> UN_list = br.GetUnNormallSort(CinNum, cigseq);
             if (UN_list.Any())
             {
                 cce1.UpdateValue(UN_list);
@@ -327,7 +327,7 @@ namespace PackageMachine
                 {
                     ftd.updateListBox(info);
                 }
-                else if ( info.Substring(0, 5).Contains("常规烟"))
+                else if ( info.Substring(0, 5).Contains("常规烟") || info.Substring(0, 5).Contains("机器人"))
                 {
                     ftd.updateCgyListBox(info);
                 }
@@ -469,9 +469,9 @@ namespace PackageMachine
         /// </summary>
         /// <param name="packageIndex"></param>
         /// <param name="cigNum"></param>
-        public static void AutoRefreshUnShow(int packagenum)
+        public static void AutoRefreshUnShow(decimal packagenum,int seq)
         {
-            HrsUbs(packagenum, 1);
+            HrsUbs(packagenum, seq, 1);
         }
          /// <summary>
          /// 自动刷新
@@ -479,8 +479,9 @@ namespace PackageMachine
          /// <param name="p"></param>
          /// <param name="f">0：包序，1：任务号</param>
         delegate void HandeleRefrshShow(int p,int f);
+        delegate void HandeleRefrshUssShow(decimal packtasknum, int cigseq, int f);
         static  HandeleRefrshShow Hrs;
-        static HandeleRefrshShow HrsUbs;
+        static HandeleRefrshUssShow HrsUbs;
         private void list_date_Click(object sender, EventArgs e)
         {
             if(ftd != null)

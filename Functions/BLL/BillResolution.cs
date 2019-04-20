@@ -125,7 +125,7 @@ namespace Functions.BLL
                         GlobalIndex = Convert.ToInt32(item.ALLPACKAGESEQ ?? 0),
                         CigNum = item.CIGNUM ?? 0,
                         DoubleTake = item.DOUBLETAKE,
-                        SortNum = item.SORTNUM ?? 0,
+                        SortNum = item.PACKTASKNUM ?? 0,
                         OrderPackageQty = item.ORDERPACKAGEQTY ?? 0,
                         PackgeSeq = item.PACKAGESEQ ?? 0,
                         NormalLayerNum = item.PUSHSPACE ?? 0,
@@ -170,15 +170,15 @@ namespace Functions.BLL
                 return list;
             }
         }
-        public List<TobaccoInfo> GetUnNormallSort(int CigNum)
+        public List<TobaccoInfo> GetUnNormallSort(decimal packtasknum,int seq)
         {
             List<TobaccoInfo> list = new List<TobaccoInfo>();
             using (Entities en = new Entities())
             {
                 var uninfo = (from item in en.T_PACKAGE_TASK
-                              where item.PACKTASKNUM > CigNum && item.PACKAGENO == packageno && item.CIGTYPE == "2" && item.CIGSTATE ==10
+                              where item.PACKTASKNUM >= packtasknum && item .CIGSEQ >= seq && item.PACKAGENO == packageno && item.CIGTYPE == "2" && item.CIGSTATE ==10
                               orderby  item.PACKTASKNUM, item.CIGSEQ
-                              select item).Take(40).ToList() ;
+                              select item).Take(200).ToList() ;
                 foreach (var item in uninfo)
                 {
                     TobaccoInfo info = new TobaccoInfo
@@ -200,6 +200,15 @@ namespace Functions.BLL
             return list;
         }
 
+        public void CallBackTBJ()
+        {
+            using(Entities en  = new Entities())
+            {
+                //获取当前包装机的数据
+                var pagTask = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno orderby item.PACKTASKNUM, item.CIGSEQ select item).ToList();
+                
+            }
+        }
 
         /// <summary>
         /// 返回客户信息

@@ -109,9 +109,9 @@
             this.lbl2.Font = new System.Drawing.Font("微软雅黑", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbl2.Location = new System.Drawing.Point(395, 78);
             this.lbl2.Name = "lbl2";
-            this.lbl2.Size = new System.Drawing.Size(144, 20);
+            this.lbl2.Size = new System.Drawing.Size(204, 20);
             this.lbl2.TabIndex = 6;
-            this.lbl2.Text = "常规烟翻板任务信息";
+            this.lbl2.Text = "常规烟翻板、机器人任务信息";
             // 
             // FmTaskDetail
             // 

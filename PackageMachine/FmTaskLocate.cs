@@ -37,7 +37,7 @@ namespace PackageMachine
             MinimizeBox = false;
             rts = new RobotTaskService();
             G7 = shpG7;
-            lblinfo.Text = "提示：定位会从指定的任务重新开始下发任务\r\n并且清空电控（倍速链，翻版，机器人）已缓存的任务数据！ ";
+            lblinfo.Text = "提示：定位会从指定的任务重新开始下发任务\r\n并且清空电控（倍速链，翻版，机器人）已缓存的任务数据！\r\n可选择输入定位，即定位输入的内容。 ";
         }
         private delegate void HandleDelegate1(string info, Label label);
         public void updateLabel(string info, Label label)
@@ -53,7 +53,7 @@ namespace PackageMachine
             }
         }
         RobotTaskService rts;
-        decimal yxyRobot, yxyCigSeq, cgyFb, yxyBsul;
+        decimal yxyRobot = 0, yxyCigSeq = 0, cgyFb = 0, yxyBsul = 0;
         private void btnDw_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtRobot.Text + txtFb.Text))

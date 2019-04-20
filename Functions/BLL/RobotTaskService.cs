@@ -159,6 +159,60 @@ namespace Functions.BLL
             }
         }
 
+        /// <summary>
+        /// 机器人在第一次发送任务的时候都调用 或者接收到2标志时调用
+        /// </summary>
+        /// <param name="ErrMsg"></param>
+        public void UpdateLastPacktaskNumCigstate()
+        {
+           
+            using(Entities en = new Entities())
+            {
+                //获取最小未完成任务包号
+                var mixPackTaskNum = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == GlobalPara.PackageNo && item.CIGSTATE == 10 && item.CIGTYPE == "2" select item).Min(a => a.PACKTASKNUM);
+
+                if( mixPackTaskNum > 0)
+                {
+                    //获取到最大已经完成的任务号集合
+                    var finishPackTaskNum = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == GlobalPara.PackageNo && item.PACKTASKNUM == mixPackTaskNum && item.CIGTYPE == "2" && item.CIGSTATE == 20 orderby item.CIGSEQ descending select item ).ToList();
+                    int index = 0;
+                    foreach (var item in finishPackTaskNum)
+                    {
+                        if(item.DOUBLETAKE == "1")
+                        {   if(index == 2)
+                            {
+                                break;
+                            }
+                            item.CIGSTATE = 10;
+                            index++;
+                        }
+                        else
+                        {
+                            item.CIGSTATE = 10;
+                            break;
+                        }
+                    }
+                    en.SaveChanges();
+                    //获取这个最大已经完成任务号的集合
+                    //var query = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == GlobalPara.PackageNo && item.PACKTASKNUM == finishPackTaskNum && item.CIGTYPE == "2" && item.CIGSTATE == 20 select item).ToList();
+                    //if (query.Any())
+                    //{
+                    //    foreach (var item in query)//重置这个任务号的条烟状态
+                    //    {
+                    //        if (item.CIGSTATE == 20)
+                    //        {
+                    //            item.CIGSTATE = 10;
+                    //        }
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    ErrMsg += "机器人：更新上次已经完成，原因：未找到已经已经完成的任务";
+                    //}
+                }
+             
+            }
+        }
         public bool GetTaskState(decimal state)
         {
             using(Entities en = new Entities())
@@ -255,52 +309,56 @@ namespace Functions.BLL
             {
                 using (Entities entity = new Entities())
                 {
-                    //更新这个包号之前的任务为完成(不包括）
-                    var query = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < packagenum && item.CIGSEQ < cigseq && item.CIGSTATE != 20 && item.PACKAGENO == packageno select item).ToList();
-                    if (query.Any())
+                    if( packagenum  > 0 && cigseq > 0)//机器人
                     {
-                        foreach (var item in query)
+                        //更新这个包号之前的任务为完成(不包括）
+                        var query1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < packagenum && item.CIGSEQ < cigseq && item.CIGSTATE != 20 && item.PACKAGENO == packageno select item).ToList();
+                        if (query1.Any())
                         {
-                            item.CIGSTATE = 20;//机器人条烟状态 
+                            query1.ForEach(a => { a.CIGSTATE = 10; }); 
+                        }
+
+                        //更新这个包号和之后的任务为新增（包括）
+                        var query2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= packagenum && item.CIGSEQ >= cigseq && item.PACKAGENO == packageno select item).ToList();
+                        if (query2.Any())
+                        {
+                            query2.ForEach(a => { a.CIGSTATE = 10; });
+
                         }
                     }
-                    else
+                   
+                    if( fbTaskNum > 0)//常规烟翻板
                     {
-                        //throw new Exception("未查询到这个包号之前的任务信息");//有可能从第一个任务开始，这肯定会报错
+                        var fbQuery1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < fbTaskNum && item.CIGTYPE == "1" && item.PACKAGENO == packageno select item).ToList();
+                        if (fbQuery1.Any())
+                        {
+                            fbQuery1.ForEach(a => { a.NORMAILSTATE = 20; });
+                        }
+                        //常规烟 翻版状态更新成信息 大于这个任务号的
+                        var fbQuery2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= fbTaskNum && item.CIGTYPE == "1" && item.PACKAGENO == packageno select item).ToList();
+                        if (fbQuery2.Any())
+                        {
+                            fbQuery2.ForEach(a => { a.NORMAILSTATE = 10; });
+                        }
                     }
-                    //更新这个包号和之后的任务为新增（包括）
-                    var query1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= packagenum && item.CIGSEQ >= cigseq && item.PACKAGENO == packageno select item).ToList();
-                    if (query.Any())
+                 
+                    if( yxyTaskNum > 0) //异型烟倍速链
                     {
-                        query1.ForEach(a => { a.CIGSTATE = 10; });
-
+                        //倍速链
+                        //合包标志更新成完成 小于这个任务号的）
+                        var yxyQuery1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < yxyTaskNum && item.CIGTYPE == "2" && item.PACKAGENO == packageno select item).ToList();
+                        if (yxyQuery1.Any())
+                        {
+                            yxyQuery1.ForEach(a => { a.STATE = 20; });
+                        }
+                        //合包标志更新成新增大于这个任务号的）
+                        var yxyQuery2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= yxyTaskNum && item.CIGTYPE == "2" && item.PACKAGENO == packageno select item).ToList();
+                        if (yxyQuery2.Any())
+                        {
+                            yxyQuery2.ForEach(a => { a.STATE = 10; });
+                        }
                     }
-
-                    var fbQuery1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < fbTaskNum && item.CIGTYPE == "1" && item.PACKAGENO == packageno select item).ToList();
-                    if (fbQuery1.Any())
-                    {
-                        fbQuery1.ForEach(a => { a.NORMAILSTATE = 20; });
-                    }
-                    //常规烟 翻版状态更新成信息 大于这个任务号的
-                    var fbQuery2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= fbTaskNum && item.CIGTYPE == "1" && item.PACKAGENO == packageno select item).ToList();
-                    if (fbQuery2.Any())
-                    {
-                        fbQuery2.ForEach(a => { a.NORMAILSTATE = 10; });
-                    }
-                    //倍速链
-                    //合包标志更新成完成 小于这个任务号的）
-                    var yxyQuery1 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM < yxyTaskNum && item.CIGTYPE == "2" && item.PACKAGENO == packageno select item).ToList();
-                    if (yxyQuery1.Any())
-                    {
-                        yxyQuery1.ForEach(a => { a.STATE = 20; });
-                    }
-                    //合包标志更新成新增大于这个任务号的）
-                    var yxyQuery2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= yxyTaskNum && item.CIGTYPE == "2" && item.PACKAGENO == packageno select item).ToList();
-                    if (yxyQuery2.Any())
-                    {
-                        yxyQuery2.ForEach(a => { a.STATE = 10; });
-                    }
-
+                    
                     if (entity.SaveChanges() > 0)
                     {
                         return true;
@@ -324,20 +382,33 @@ namespace Functions.BLL
             ErrInfo = "";
             using (Entities en = new Entities())
             {
-                var Robot = (from item in en.T_PACKAGE_TASK where item.PACKTASKNUM == packagenum && item.CIGSEQ == cigseq select item).ToList().Any();
-                if(!Robot)
+                if( packagenum > 0 && cigseq > 0)
                 {
-                    ErrInfo += "机器人：未找到任务号："+ packagenum +"，和条烟流水号"+ cigseq; 
+                    var Robot = (from item in en.T_PACKAGE_TASK where item.PACKTASKNUM == packagenum && item.CIGSEQ == cigseq select item).ToList().Any();
+                    if (!Robot)
+                    {
+                        ErrInfo += "机器人：未找到任务号：" + packagenum + "，和条烟流水号" + cigseq;
+                    }
                 }
-                var fb = (from item in en.T_PACKAGE_TASK where item.PACKTASKNUM == fbTaskNum select item).ToList().Any();
-                if (!fb)
+                if( fbTaskNum > 0)
                 {
-                    ErrInfo += "\r\n翻版：未找到任务号：" + fbTaskNum; 
+                    var fb = (from item in en.T_PACKAGE_TASK where item.PACKTASKNUM == fbTaskNum select item).ToList().Any();
+                    if (!fb)
+                    {
+                        ErrInfo += "\r\n翻版：未找到任务号：" + fbTaskNum;
+                    }
                 }
-                var bsl = (from item in en.T_PACKAGE_TASK where item.PACKTASKNUM == yxyTaskNum select item).ToList().Any();
-                if (!bsl)
+                if( yxyTaskNum > 0)
                 {
-                    ErrInfo += "\r\n倍速链：未找到任务号：" + yxyTaskNum; 
+                    var bsl = (from item in en.T_PACKAGE_TASK where item.PACKTASKNUM == yxyTaskNum select item).ToList().Any();
+                    if (!bsl)
+                    {
+                        ErrInfo += "\r\n倍速链：未找到任务号：" + yxyTaskNum;
+                    }
+                }
+                if(packagenum + cigseq + fbTaskNum + yxyTaskNum  <= 0)
+                {
+                    ErrInfo += "请输入对应的任务包号！";
                 }
                 if (string.IsNullOrWhiteSpace(ErrInfo)) 
                     return true;

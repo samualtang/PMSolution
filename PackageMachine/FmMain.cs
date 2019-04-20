@@ -32,7 +32,8 @@ namespace PackageMachine
             plc = new Functions.OPC_ToPLC();
           
              pbInfo_Click(null, null);  
-            robotService = new RobotTaskService(); 
+            robotService = new RobotTaskService();
+
           CreateOpcClinet();
         }
 
@@ -175,9 +176,18 @@ namespace PackageMachine
             if (falg == "1")
             { 
                 updateLabel("机器人状态：开启", lblRobotState);
+                FirstSend = false;
                 return    RoBotState = true;
             }
-            else
+            else if( falg == "2")//2标识 当前任务往前跳发送一个
+            {
+                flag = false;
+                robotService.UpdateLastPacktaskNumCigstate();
+                FmInfo.GetTaskInfo("机器人：收到标识2，重发前一个任务！");
+                flag = true;
+                updateLabel("机器人状态：开启", lblRobotState);
+                return RoBotState = true;
+            }
             {  
                 updateLabel("机器人状态：关闭", lblRobotState);
                 return  RoBotState = false;
@@ -278,6 +288,7 @@ namespace PackageMachine
                                 string[] arr2 = newArr[1].Trim().Split(',');
                                 robotService.UpDateFinishTask(arr1, out outStr);
                                 robotService.UpDateFinishTask(arr2, out outStr);
+                                FmInfo.AutoRefreshUnShow(Convert.ToDecimal( arr2[0]),Convert.ToInt32( arr2[1]));
                                 flag = true;
                                 //FmInfo.AutoRefreshUnShow(int.Parse(arr2[0]));
                                 if (!string.IsNullOrWhiteSpace(outStr))
@@ -322,7 +333,8 @@ namespace PackageMachine
                                 return;
                             }
                             robotService.UpDateFinishTask(Arr, out outStr);
-                           // FmInfo.AutoRefreshUnShow(int.Parse(Arr[0]));
+                            FmInfo.AutoRefreshUnShow(Convert.ToDecimal(Arr[0]), Convert.ToInt32(Arr[1]));
+                            // FmInfo.AutoRefreshUnShow(int.Parse(Arr[0]));
                             if (!string.IsNullOrWhiteSpace(outStr))
                             { 
                                 FmInfo.GetTaskInfo("机器人： " + outStr);
@@ -629,6 +641,11 @@ namespace PackageMachine
         /// 机器人任务数组
         /// </summary>
         byte[] bytes = null;
+
+        /// <summary>
+        /// 标记是否第一次发送
+        /// </summary>
+        bool FirstSend =true;
         /// <summary>
         /// 发送机器人任务
         /// </summary>
@@ -650,6 +667,11 @@ namespace PackageMachine
                         while (!flag)
                         {
                             FmInfo.GetTaskInfo("机器人：处理完成信号中");
+                        }
+                        if( FirstSend)//如果是第一次发送
+                        {
+                            robotService.UpdateLastPacktaskNumCigstate();
+                            FirstSend = false;
                         }
                         CreateTask: string taskInfo = robotService.GetRobotInfo(out string outStr); 
                         bytes = Encoding.ASCII.GetBytes(taskInfo);
@@ -763,7 +785,7 @@ namespace PackageMachine
                 RoBotState = false;
                 socketCore.Close();
                 socketCore = null;
-
+                FirstSend = true;
                 FmInfo.GetTaskInfo("断开与机器人的连接！");
             }
             else
