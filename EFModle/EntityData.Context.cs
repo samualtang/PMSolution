@@ -45,5 +45,6 @@ namespace EFModle
         public DbSet<T_UN_TASK_H> T_UN_TASK_H { get; set; }
         public DbSet<T_UN_TASKLINE_H> T_UN_TASKLINE_H { get; set; }
         public DbSet<T_UN_POKE_H> T_UN_POKE_H { get; set; }
+        public DbSet<T_PACKAGE_CALLBACK> T_PACKAGE_CALLBACK { get; set; }
     }
 }

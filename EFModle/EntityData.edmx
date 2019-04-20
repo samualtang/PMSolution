@@ -75,6 +75,45 @@
           <Property Name="CUSTOMCOL09" Type="varchar2" MaxLength="100" />
           <Property Name="CUSTOMCOL10" Type="varchar2" MaxLength="100" />
         </EntityType>
+        <EntityType Name="T_PACKAGE_CALLBACK">
+          <Key>
+            <PropertyRef Name="EXPORT" />
+            <PropertyRef Name="SORTNUM" />
+            <PropertyRef Name="CIGNUM" />
+          </Key>
+          <Property Name="BILLCODE" Type="varchar2" MaxLength="20" />
+          <Property Name="ROUTEPACKAGENUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="ORDERPACKAGENUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="PACKAGESEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="CIGARETTEQTY" Type="number" Precision="38" Scale="0" />
+          <Property Name="SHAPEDNUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="CIGARETTECODE" Type="varchar2" MaxLength="20" />
+          <Property Name="CIGARETTENAME" Type="varchar2" MaxLength="50" />
+          <Property Name="CIGARETTETYPE" Type="varchar2" MaxLength="2" />
+          <Property Name="ROUTECODE" Type="varchar2" MaxLength="20" />
+          <Property Name="PACKAGEQTY" Type="number" Precision="38" Scale="0" />
+          <Property Name="ORDERDATE" Type="date" />
+          <Property Name="LINECODE" Type="varchar2" MaxLength="20" />
+          <Property Name="ORDERCOUNT" Type="number" Precision="38" Scale="0" />
+          <Property Name="ORDERSEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="CIGSEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="EXPORT" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="PACKAGENUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="ORDERQUANTITY" Type="number" Precision="38" Scale="0" />
+          <Property Name="ADDRESS" Type="varchar2" MaxLength="200" />
+          <Property Name="CUSTOMERNAME" Type="varchar2" MaxLength="200" />
+          <Property Name="CUSTOMERNO" Type="varchar2" MaxLength="200" />
+          <Property Name="ORDERURL" Type="varchar2" MaxLength="200" />
+          <Property Name="ORDERAMOUNT" Type="number" Precision="38" Scale="0" />
+          <Property Name="PAYFLAG" Type="varchar2" MaxLength="20" />
+          <Property Name="SEQ" Type="number" Precision="38" Scale="0" />
+          <Property Name="NORMALPACKAGENUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="UNNORMALPACKAGENUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="UNIONTASKPACKAGENUM" Type="number" Precision="38" Scale="0" />
+          <Property Name="SORTNUM" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CIGNUM" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SYNSEQ" Type="number" Precision="38" Scale="0" />
+        </EntityType>
         <EntityType Name="T_PACKAGE_TASK">
           <Key>
             <PropertyRef Name="PTID" />
@@ -588,6 +627,7 @@
         </EntityType>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="PROJ_PRODUCT" EntityType="Self.PROJ_PRODUCT" Schema="ZOOMTEL" store:Type="Tables" />
+          <EntitySet Name="T_PACKAGE_CALLBACK" EntityType="Self.T_PACKAGE_CALLBACK" Schema="ZOOMTEL" store:Type="Tables" />
           <EntitySet Name="T_PACKAGE_TASK" EntityType="Self.T_PACKAGE_TASK" Schema="ZOOMTEL" store:Type="Tables" />
           <EntitySet Name="T_PRODUCE_ORDER" EntityType="Self.T_PRODUCE_ORDER" Schema="ZOOMTEL" store:Type="Tables" />
           <EntitySet Name="T_PRODUCE_ORDERLINE" EntityType="Self.T_PRODUCE_ORDERLINE" Schema="ZOOMTEL" store:Type="Tables" />
@@ -1075,6 +1115,7 @@ FROM "ZOOMTEL"."V_PRODUCE_PACKAGEINFO" "V_PRODUCE_PACKAGEINFO"</DefiningQuery>
           <EntitySet Name="T_UN_TASK_H" EntityType="Model.T_UN_TASK_H" />
           <EntitySet Name="T_UN_TASKLINE_H" EntityType="Model.T_UN_TASKLINE_H" />
           <EntitySet Name="T_UN_POKE_H" EntityType="Model.T_UN_POKE_H" />
+          <EntitySet Name="T_PACKAGE_CALLBACK" EntityType="Model.T_PACKAGE_CALLBACK" />
         </EntityContainer>
         <EntityType Name="T_WMS_ITEM">
           <Key>
@@ -1343,6 +1384,45 @@ FROM "ZOOMTEL"."V_PRODUCE_PACKAGEINFO" "V_PRODUCE_PACKAGEINFO"</DefiningQuery>
           <Property Name="INVFLAG" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="ORDERDATE" Type="DateTime" />
           <Property Name="SENDSEQ" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_PACKAGE_CALLBACK">
+          <Key>
+            <PropertyRef Name="EXPORT" />
+            <PropertyRef Name="SORTNUM" />
+            <PropertyRef Name="CIGNUM" />
+          </Key>
+          <Property Name="BILLCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ROUTEPACKAGENUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ORDERPACKAGENUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PACKAGESEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGARETTEQTY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SHAPEDNUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGARETTECODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CIGARETTENAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CIGARETTETYPE" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="ROUTECODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PACKAGEQTY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ORDERDATE" Type="DateTime" />
+          <Property Name="LINECODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ORDERCOUNT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ORDERSEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CIGSEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="EXPORT" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="PACKAGENUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ORDERQUANTITY" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ADDRESS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMERNAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTOMERNO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ORDERURL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ORDERAMOUNT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="PAYFLAG" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SEQ" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="NORMALPACKAGENUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="UNNORMALPACKAGENUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="UNIONTASKPACKAGENUM" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="SORTNUM" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="CIGNUM" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+          <Property Name="SYNSEQ" Type="Decimal" Precision="38" Scale="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1927,6 +2007,44 @@ FROM "ZOOMTEL"."V_PRODUCE_PACKAGEINFO" "V_PRODUCE_PACKAGEINFO"</DefiningQuery>
                 <ScalarProperty Name="POKENUM" ColumnName="POKENUM" />
                 <ScalarProperty Name="TROUGHNUM" ColumnName="TROUGHNUM" />
                 <ScalarProperty Name="POKEID" ColumnName="POKEID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_PACKAGE_CALLBACK">
+            <EntityTypeMapping TypeName="Model.T_PACKAGE_CALLBACK">
+              <MappingFragment StoreEntitySet="T_PACKAGE_CALLBACK">
+                <ScalarProperty Name="SYNSEQ" ColumnName="SYNSEQ" />
+                <ScalarProperty Name="CIGNUM" ColumnName="CIGNUM" />
+                <ScalarProperty Name="SORTNUM" ColumnName="SORTNUM" />
+                <ScalarProperty Name="UNIONTASKPACKAGENUM" ColumnName="UNIONTASKPACKAGENUM" />
+                <ScalarProperty Name="UNNORMALPACKAGENUM" ColumnName="UNNORMALPACKAGENUM" />
+                <ScalarProperty Name="NORMALPACKAGENUM" ColumnName="NORMALPACKAGENUM" />
+                <ScalarProperty Name="SEQ" ColumnName="SEQ" />
+                <ScalarProperty Name="PAYFLAG" ColumnName="PAYFLAG" />
+                <ScalarProperty Name="ORDERAMOUNT" ColumnName="ORDERAMOUNT" />
+                <ScalarProperty Name="ORDERURL" ColumnName="ORDERURL" />
+                <ScalarProperty Name="CUSTOMERNO" ColumnName="CUSTOMERNO" />
+                <ScalarProperty Name="CUSTOMERNAME" ColumnName="CUSTOMERNAME" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="ORDERQUANTITY" ColumnName="ORDERQUANTITY" />
+                <ScalarProperty Name="PACKAGENUM" ColumnName="PACKAGENUM" />
+                <ScalarProperty Name="EXPORT" ColumnName="EXPORT" />
+                <ScalarProperty Name="CIGSEQ" ColumnName="CIGSEQ" />
+                <ScalarProperty Name="ORDERSEQ" ColumnName="ORDERSEQ" />
+                <ScalarProperty Name="ORDERCOUNT" ColumnName="ORDERCOUNT" />
+                <ScalarProperty Name="LINECODE" ColumnName="LINECODE" />
+                <ScalarProperty Name="ORDERDATE" ColumnName="ORDERDATE" />
+                <ScalarProperty Name="PACKAGEQTY" ColumnName="PACKAGEQTY" />
+                <ScalarProperty Name="ROUTECODE" ColumnName="ROUTECODE" />
+                <ScalarProperty Name="CIGARETTETYPE" ColumnName="CIGARETTETYPE" />
+                <ScalarProperty Name="CIGARETTENAME" ColumnName="CIGARETTENAME" />
+                <ScalarProperty Name="CIGARETTECODE" ColumnName="CIGARETTECODE" />
+                <ScalarProperty Name="SHAPEDNUM" ColumnName="SHAPEDNUM" />
+                <ScalarProperty Name="CIGARETTEQTY" ColumnName="CIGARETTEQTY" />
+                <ScalarProperty Name="PACKAGESEQ" ColumnName="PACKAGESEQ" />
+                <ScalarProperty Name="ORDERPACKAGENUM" ColumnName="ORDERPACKAGENUM" />
+                <ScalarProperty Name="ROUTEPACKAGENUM" ColumnName="ROUTEPACKAGENUM" />
+                <ScalarProperty Name="BILLCODE" ColumnName="BILLCODE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
