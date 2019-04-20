@@ -147,6 +147,8 @@ namespace Functions.BLL
             return list;
         }
 
+
+       
         public List<decimal> GetTaskAllInfo()
         {
             List<decimal> list = new List<decimal>();
@@ -206,7 +208,97 @@ namespace Functions.BLL
             {
                 //获取当前包装机的数据
                 var pagTask = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno orderby item.PACKTASKNUM, item.CIGSEQ select item).ToList();
-                
+                var task = (from item in en.T_PRODUCE_TASK where item.PACKAGEMACHINE == packageno orderby item.TASKNUM select item).ToList();
+
+                decimal maxCigNum = (from item in en.T_PACKAGE_CALLBACK where item.PACKAGENUM == packageno select item).Max(a => a.CIGNUM)  ;//获取当前回写表中最大的条烟流水号
+             
+                var order = (from item in en.T_PRODUCE_ORDER orderby item.REGIONCODE, item.PRIORITY select item).ToList();
+
+               
+                T_PACKAGE_CALLBACK tb = new T_PACKAGE_CALLBACK();
+                foreach (var item in pagTask)
+                {
+                    var firstTask = task.Where(a => a.BILLCODE == item.BILLCODE).FirstOrDefault();//task信息
+                    var OrderTask = order.Where(a => a.BILLCODE == item.BILLCODE).FirstOrDefault();//订单信息
+                    if(item.NORMALQTY > 1)//如果条烟数量大于1 则需要拆分成一条一条的记录
+                    {
+                        for (int i = 1; i <= item.NORMALQTY; i++)//
+                        { 
+                            tb.BILLCODE = item.BILLCODE;//订单
+                            tb.ROUTEPACKAGENUM = pagTask.Where(a=> a.REGIONCODE == item.REGIONCODE).Max(a=> a.ALLPACKAGESEQ);//车组总包数
+                            tb.ORDERPACKAGENUM = pagTask.Where(a => a.PACKTASKNUM == item.PACKTASKNUM).Max(a => a.PACKAGEQTY);//订单总包数
+                            tb.PACKAGESEQ = item.PACKAGESEQ;//订单内包序
+                            tb.CIGARETTEQTY = 1;//品牌条烟数 
+                            tb.SHAPEDNUM = pagTask.Where(a => a.PACKTASKNUM == item.PACKTASKNUM && a.CIGTYPE == "2").Sum(a => a.NORMALQTY);//订单异型烟数量
+                            tb.CIGARETTECODE = item.CIGARETTECODE;//卷烟编码
+                            tb.CIGARETTENAME = item.CIGARETTENAME;//卷烟名称
+                            tb.CIGARETTETYPE = item.CIGTYPE;//卷烟类型
+                            tb.ROUTECODE = firstTask.REGIONCODE;//车组编号
+                            tb.PACKAGEQTY = item.PACKAGEQTY;//包内条烟数量
+                            tb.ORDERDATE = item.ORDERDATE;//订单日期
+                            tb.LINECODE = firstTask.LINENUM;//线路编号
+                            tb.ORDERCOUNT = 0;//车组内订单数
+                            tb.ORDERSEQ = firstTask.SORTSEQ;//订单户序
+                            tb.CIGSEQ = item.CIGSEQ;//条烟顺序
+                            tb.EXPORT = item.PACKAGENO ?? 0;//出口号（包装机号    ）
+                            tb.PACKAGENUM = item.PACKAGENO;// 包装机号    
+                            tb.ORDERQUANTITY = item.ORDERQTY;//订单总数
+                            tb.ADDRESS = OrderTask.ADDRESS;//订单地址
+                            tb.CUSTOMERNAME = OrderTask.CUSTOMERNAME;//客户名称
+                            tb.CUSTOMERNO = OrderTask.CUSTOMERCODE;//客户编码
+                            tb.ORDERURL = "";//客户URL  ？？
+                            tb.ORDERAMOUNT = OrderTask.ORDERMONEY;//订单总金额；
+                            tb.PAYFLAG = "1";//结算状态 ??
+                            tb.SEQ = item.ALLPACKAGESEQ;//整齐包序
+                            tb.NORMALPACKAGENUM = pagTask.Where(a => a.BILLCODE == item.BILLCODE && a.CIGTYPE == "1" && a.UNIONPACKAGETAG == 0).Select(a => new { packtasknum = a.PACKTASKNUM }).Distinct().Count();//常规烟包数 ？？
+                            tb.UNNORMALPACKAGENUM = 0;//异型烟总包数  ？？
+                            tb.UNIONTASKPACKAGENUM = 0;//合包总包数  ？？
+                            tb.SORTNUM = item.SORTNUM ?? 0;//流水号
+                            tb.CIGNUM = maxCigNum++;// 订单 条烟流水号   每台包装机从1 增长 
+                            tb.SYNSEQ = item.SYNSEQ; 
+                            en.T_PACKAGE_CALLBACK.Add(tb); 
+                        }
+                    }
+                    else
+                    {
+                        tb.BILLCODE = item.BILLCODE;//订单
+                        tb.ROUTEPACKAGENUM = pagTask.Where(a => a.REGIONCODE == item.REGIONCODE).Max(a => a.ALLPACKAGESEQ);//车组总包数
+                        tb.ORDERPACKAGENUM = pagTask.Where(a => a.PACKTASKNUM == item.PACKTASKNUM).Max(a => a.PACKAGEQTY);//订单总包数
+                        tb.PACKAGESEQ = item.PACKAGESEQ;//订单内包序
+                        tb.CIGARETTEQTY = item.NORMALQTY;//品牌条烟数
+                        tb.SHAPEDNUM = pagTask.Where(a => a.PACKTASKNUM == item.PACKTASKNUM && a.CIGTYPE == "2").Sum(a => a.NORMALQTY);//订单异型烟数量
+                        tb.CIGARETTECODE = item.CIGARETTECODE;//卷烟编码
+                        tb.CIGARETTENAME = item.CIGARETTENAME;//卷烟名称
+                        tb.CIGARETTETYPE = item.CIGTYPE;//卷烟类型
+                        tb.ROUTECODE = firstTask.REGIONCODE;//车组编号
+                        tb.PACKAGEQTY = item.PACKAGEQTY;//包内条烟数量
+                        tb.ORDERDATE = item.ORDERDATE;//订单日期
+                        tb.LINECODE = firstTask.LINENUM;//线路编号
+                        tb.ORDERCOUNT = 0;//车组内订单数
+                        tb.ORDERSEQ = firstTask.SORTSEQ;//订单户序
+                        tb.CIGSEQ = item.CIGSEQ;//条烟顺序
+                        tb.EXPORT = item.PACKAGENO ?? 0;//出口号（包装机号    ）
+                        tb.PACKAGENUM = item.PACKAGENO;// 包装机号    
+                        tb.ORDERQUANTITY = item.ORDERQTY;//订单总数
+                        tb.ADDRESS = OrderTask.ADDRESS;//订单地址
+                        tb.CUSTOMERNAME = OrderTask.CUSTOMERNAME;//客户名称
+                        tb.CUSTOMERNO = OrderTask.CUSTOMERCODE;//客户编码
+                        tb.ORDERURL = "";//客户URL  ？？
+                        tb.ORDERAMOUNT = OrderTask.ORDERMONEY;//订单总金额；
+                        tb.PAYFLAG = "1";//结算状态 ??
+                        tb.SEQ = item.ALLPACKAGESEQ;//整齐包序
+                        tb.NORMALPACKAGENUM = pagTask.Where(a => a.BILLCODE == item.BILLCODE && a.CIGTYPE == "1" && a.UNIONPACKAGETAG == 0).Select(a => new { packtasknum = a.PACKTASKNUM }).Distinct().Count();//常规烟包数 ？？
+                        tb.UNNORMALPACKAGENUM = 0;//异型烟总包数  ？？
+                        tb.UNIONTASKPACKAGENUM = 0;//合包总包数  ？？
+                        tb.SORTNUM = item.SORTNUM ?? 0;//流水号
+                        tb.CIGNUM = maxCigNum++;// 每台包装机从1 增长 
+                        tb.SYNSEQ = item.SYNSEQ;//批次号  
+
+                        en.T_PACKAGE_CALLBACK.Add(tb);
+                    }
+                  
+                }
+                en.SaveChanges();
             }
         }
 

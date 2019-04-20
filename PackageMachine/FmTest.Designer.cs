@@ -44,6 +44,7 @@
             this.button9 = new System.Windows.Forms.Button();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.btnReadExcel = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -193,11 +194,22 @@
             this.btnReadExcel.UseVisualStyleBackColor = true;
             this.btnReadExcel.Click += new System.EventHandler(this.btnReadExcel_Click);
             // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(201, 43);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(75, 23);
+            this.button10.TabIndex = 12;
+            this.button10.Text = "button10";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
             // FmTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button10);
             this.Controls.Add(this.btnReadExcel);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox3);
@@ -239,5 +251,6 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Button btnReadExcel;
+        private System.Windows.Forms.Button button10;
     }
 }
