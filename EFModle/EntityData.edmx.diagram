@@ -20,12 +20,12 @@
         <EntityTypeShape EntityType="Model.T_PRODUCE_POKESEQ" Width="1.5" PointX="13.375" PointY="0.75" />
         <EntityTypeShape EntityType="Model.T_PRODUCE_ORDER_H" Width="1.5" PointX="13.375" PointY="5.75" />
         <EntityTypeShape EntityType="Model.T_PRODUCE_ORDERLINE_H" Width="1.5" PointX="13.375" PointY="11.75" />
-        <EntityTypeShape EntityType="Model.T_PACKAGE_TASK" Width="1.5" PointX="7.375" PointY="12.75" />
         <EntityTypeShape EntityType="Model.V_PRODUCE_PACKAGEINFO" Width="1.5" PointX="15.375" PointY="0.75" />
         <EntityTypeShape EntityType="Model.T_UN_TASK_H" Width="1.5" PointX="15.375" PointY="8.75" />
         <EntityTypeShape EntityType="Model.T_UN_TASKLINE_H" Width="1.5" PointX="13.375" PointY="16.75" />
         <EntityTypeShape EntityType="Model.T_UN_POKE_H" Width="1.5" PointX="15.375" PointY="16.75" />
-        <EntityTypeShape EntityType="Model.T_PACKAGE_CALLBACK" Width="1.5" PointX="17.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.T_PACKAGE_CALLBACK" Width="2.875" PointX="17.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.T_PACKAGE_TASK" Width="1.5" PointX="7.375" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

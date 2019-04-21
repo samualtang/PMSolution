@@ -46,7 +46,7 @@ namespace EFModle
         public Nullable<decimal> CIGSTATE { get; set; }
         public Nullable<decimal> NORMAILSTATE { get; set; }
         public Nullable<decimal> NORMALQTY { get; set; }
-        public Nullable<decimal> REGIONCODE { get; set; }
+        public string REGIONCODE { get; set; }
         public Nullable<decimal> SYNSEQ { get; set; }
         public Nullable<decimal> MIANBELT { get; set; }
     }
