@@ -442,6 +442,7 @@ namespace Functions.PubFunction
         }
         static int BackHash;
         static int BackHash2;
+ 
         /// <summary>
         /// 和上次做对比 相同返回 真 反之 假
         /// </summary>
@@ -489,6 +490,7 @@ namespace Functions.PubFunction
                 throw ex;
             }
         }
+        
         private static string key = "abcd1234";
         #region DES加密
         public static string EncryptString(string pToEncrypt)
