@@ -71,6 +71,7 @@
     <Compile Include="BLL\BillResolution.cs" />
     <Compile Include="BLL\FmCommoditySizeFun.cs" />
     <Compile Include="BLL\FmOrderInofFun.cs" />
+    <Compile Include="BLL\GetAllOrderinfo.cs" />
     <Compile Include="BLL\ItemService.cs" />
     <Compile Include="BLL\PackageAlgorithm.cs" />
     <Compile Include="BLL\PackageService%282%29.cs" />

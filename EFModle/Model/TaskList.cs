@@ -44,6 +44,15 @@ namespace EFModle.Model
         /// 订单总烟量
         /// </summary>
         public decimal ALLQTY { get; set; }
+        /// <summary>
+        /// 整体包序
+        /// </summary>
+        public decimal ALLPACKAGENUM { get; set; }
+        /// <summary>
+        /// 当前包序
+        /// </summary>
+        public decimal PACKAGENUM { get; set; }
+
     }
 
 }
