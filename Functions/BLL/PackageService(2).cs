@@ -39,8 +39,8 @@ namespace Functions.BLL
                 ////var Packtasknum = entity.Database.SqlQuery( ); CS10448409  CS10453696
                 var data = entity.V_PRODUCE_PACKAGEINFO
                     //.Where(x => x.REGIONCODE == "0211")
-                    //.Where(x => x.EXPORT == packageNo && x.SYNSEQ == synseq)
-                    .Where(x=>x.BILLCODE == "CS10503046")
+                    .Where(x => x.EXPORT == 5 )//&& x.SYNSEQ == synseq)
+                    //.Where(x=>x.BILLCODE == "CS10509508")//"CS10507600")//CS10511167
                     .ToList();
                 //所有订单明细
                 var query = (from item in data
@@ -508,13 +508,13 @@ namespace Functions.BLL
             //分配的常规烟数量
             decimal packagenor;
             Remainder = normalnum % 6;
-            //常规烟层数大于4层，所有异型烟小于等于限宽，常规烟包设为3层+余数，剩余常规烟分给异型烟	
-            if (Math.Ceiling(normalnum /6 ) >4 &&datalist.Sum(x => x.CIGWIDTH) <= packageWidth && first)
+            //常规烟层数大于=4层，所有异型烟小于等于限宽，常规烟包设为3层+余数，剩余常规烟分给异型烟	
+            if (Math.Ceiling(normalnum /6 ) >= 4 && datalist.Sum(x => x.CIGWIDTH) <= packageWidth && first)
             {
                 //算出常规烟共可以多少层  将第二包分满的情况下，第二包可以分多少层
                 decimal allhigh = Math.Ceiling(normalnum / NorCount);
                 //如果在第五层的余数空隙的2/3放得下异型烟 跳出
-                if (allhigh == 5 &&( (6 - Remainder) * normalwidth )> datalist.Sum(x => x.CIGWIDTH))
+                if (allhigh == 4 &&( (6 - Remainder) * normalwidth )> datalist.Sum(x => x.CIGWIDTH))
                 {
                     packagenor = NorCount * 5 + Remainder;
                     goto a1;
@@ -643,7 +643,7 @@ namespace Functions.BLL
                     //将异型烟的层数加上，并合包
                     foreach (var it in datalist)
                     {
-                        it.PUSHSPACE = hight + 1;// + 1;
+                        it.PUSHSPACE = hight + 2;// + 1;
                         it.ALLPACKAGESEQ = allpackagenum;
                         it.UNIONPACKAGETAG = 1;
                         it.CIGSEQ = cigseq;
@@ -653,7 +653,7 @@ namespace Functions.BLL
                     foreach (var item in normaltask.Where(x => x.NORMAILSTATE != 10).ToList())
                     {
                         item.ALLPACKAGESEQ = allpackagenum;
-                        item.PUSHSPACE = hight + 1;
+                        item.PUSHSPACE = hight + 2;
                         item.NORMAILSTATE = 10;
                         item.UNIONPACKAGETAG = 1;
                         item.CIGSEQ = cigseq;
@@ -819,7 +819,7 @@ namespace Functions.BLL
                                 {
                                     addcount = 0;
                                 }
-                                if (datalist.Max(x => x.PACKAGESEQ != 1))//如果异型烟不是第一包
+                                else if (datalist.Max(x => x.PACKAGESEQ != 1))//如果异型烟不是第一包
                                 {
                                     addcount = 1;
                                 }
@@ -965,19 +965,21 @@ namespace Functions.BLL
                         else//换包
                         {
                             DiversionCoordinates(task.Where(x => x.ALLPACKAGESEQ == allpackagenum && x.STATE == 10).ToList());
-                            if (normaltask.Where(x => x.NORMAILSTATE == 0).Count() > 0)
+                            if (normaltask.Where(x => x.NORMAILSTATE == 0).Count() > 0)//存在常规烟未分配
                             {
                                 //log.Write("计算常规烟开始");
                                 NormalCig(task, normaltask, 1);
                                 //log.Write("计算常规烟完成");
                             }
-                            else
+                            else//常规烟都分配完成了，只剩纯异型烟
                             {
                                 int cigseq = 1;
                                 var datalist = task.Where(x => x.ALLPACKAGESEQ == allpackagenum && x.STATE == 10).ToList();
                                 //如果订单内有常规烟且不是第一包的纯异型烟 且没有纯常规烟包
-                                var packageseq = (normaltask.Where(x => x.NORMAILSTATE == 0).Count() == 0 && datalist.Select(x => x.PACKAGESEQ).FirstOrDefault() != 1 &&  task.Where(x => x.NORMAILSTATE == 10 || x.STATE == 10).GroupBy(x => new { x.ALLPACKAGESEQ, x.CIGTYPE }).Count() == 1 ) ?
-                                    datalist.Max(x => x.PACKAGESEQ) + 1 : datalist.Max(x => x.PACKAGESEQ);
+                                //var packageseq = (normaltask.Where(x => x.NORMAILSTATE == 0).Count() == 0 && datalist.Select(x => x.PACKAGESEQ).FirstOrDefault() != 1
+                                //    &&  task.Where(x => x.NORMAILSTATE == 10 || x.STATE == 10).GroupBy(x => new { x.ALLPACKAGESEQ, x.CIGTYPE }).Count() == 1 ) ?
+                                //    datalist.Max(x => x.PACKAGESEQ) + 1 : datalist.Max(x => x.PACKAGESEQ);
+                                var packageseq = datalist.Max(x => x.PACKAGESEQ) + 1;
                                 foreach (var item in datalist)
                                 {
                                     item.CIGSEQ = cigseq;

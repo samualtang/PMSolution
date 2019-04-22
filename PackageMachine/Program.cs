@@ -25,7 +25,7 @@ namespace PackageMachine
             }
             else
             {
-                Application.Run(new FmMain());
+                Application.Run(new t1());
             }
           
         }
