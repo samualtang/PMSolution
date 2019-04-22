@@ -194,6 +194,8 @@ namespace PackageMachine
 
         private void btnJump_Click(object sender, EventArgs e)
         {
+            Fm_Orderinfo_All all = new Fm_Orderinfo_All(Convert.ToDecimal(textBox1.Text));
+            all.Show();
             if (btnLast.Cursor == Cursors.No)
             {
                 return;

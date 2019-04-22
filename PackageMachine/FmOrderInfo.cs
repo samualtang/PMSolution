@@ -63,7 +63,8 @@ namespace PackageMachine
             DGV_OrderInfo.Columns[5].Width = 95;
             DGV_OrderInfo.Columns[6].HeaderText = "订单总烟量";
             DGV_OrderInfo.Columns[6].Width = 95;
-
+            DGV_OrderInfo.Columns[7].Visible = false;
+            DGV_OrderInfo.Columns[8].Visible = false;
             DGV_OrderInfo.ClearSelection();
         }
 

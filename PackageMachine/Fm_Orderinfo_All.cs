@@ -61,14 +61,13 @@ namespace PackageMachine
             MinAllpackageseq = (int)GetAllOrderinfo.GetMinAllpackageseq();
 
             label_allpackageseq.Text = "当前包装机共：" + br.Length + "包";
-            label_nowpackageseq.Text = "当前包装机第：" + MinAllpackageseq + "包";
-
+            label_nowpackageseq.Text = "当前包装机第：" + task.ALLPACKAGENUM + "包";
+            pkIndex = Convert.ToInt32(task.ALLPACKAGENUM);
         }
 
         BillResolution br;
         private void Fm_Orderinfo_All_Load(object sender, EventArgs e)
         {
-            pkIndex = MinAllpackageseq;
             BindBillInfo(pkIndex);
             GetValues();
         }
