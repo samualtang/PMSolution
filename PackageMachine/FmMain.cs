@@ -555,6 +555,7 @@ namespace PackageMachine
                 if (socketCore == null)//如果与服务器断开连接，则重新创建
                 {
                     CreateSocketClinet();
+                   
                 }
                 try
                 {
@@ -925,7 +926,7 @@ namespace PackageMachine
                     {
                         if (values[i] != null && int.Parse(values[i].ToString()) == 0)//接收
                         {
-                            int tasknum = plc.ShapeGroup1.Read(0).CastTo(-1);//读取到包号
+                            int tasknum = plc.ShapeGroup1.ReadD(0).CastTo(-1);//读取到包号
                             if (tasknum > 0)
                             {
                                 plc.UpDateToYxyState(tasknum, 15);//更新任务为接收
@@ -947,7 +948,7 @@ namespace PackageMachine
                     {
                         if (values[i] != null && int.Parse(values[i].ToString()) == 0)//接收
                         {
-                            int tasknum = plc.ShapeGroup4.Read(0).CastTo(-1);//读取到包号
+                            int tasknum = plc.ShapeGroup4.ReadD(0).CastTo(-1);//读取到包号
                             if (tasknum > 0)
                             {
                                 plc.UpDateToCgyState(tasknum, 15);//更新任务为接收

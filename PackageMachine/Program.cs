@@ -25,7 +25,7 @@ namespace PackageMachine
             }
             else
             {
-                Application.Run(new FmTest());
+                Application.Run(new FmMain());
             }
           
         }

@@ -148,7 +148,7 @@ namespace PackageMachine
             int j = 0;
             for (int i = 6; i >= 0; i--)
             {
-                var values = opcGroup.Read(j).CastTo("工位" + (i + 1));
+                var values = opcGroup.ReadD(j).CastTo("工位" + (i + 1));
                 var btn = listBtn[i];
                 if (values == "0")
                 {
