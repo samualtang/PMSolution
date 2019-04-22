@@ -21,26 +21,26 @@ namespace Functions.BLL
         /// 获取数据 计算
         /// </summary>
         /// <param name="packageNo"></param>
-        public void GetAllOrder(decimal packageNo)
+        public void GetAllOrder(decimal packageNo, decimal synseq=1)
         {
-            //System.Data.EntityClient.EntityConnection entityConnection = (System.Data.EntityClient.EntityConnection)entity.Connection;
-            //entityConnection.Open();
-            //System.Data.Common.DbConnection storeConnection = entityConnection.StoreConnection;
-            //System.Data.Common.DbCommand cmd = storeConnection.CreateCommand();
-            //cmd.CommandType = System.Data.CommandType.Text;
-            //cmd.CommandText = "select ZOOMTEL.S_PACKAGE_TASK.NEXTVAL from dual";
-            //string ss = cmd.ExecuteScalar().ToString();
 
+            List<T_WMS_ITEM> query1;
             int allCount = 0;
             using (Entities entity = new Entities())
             {
+                //System.Data.EntityClient.EntityConnection entityConnection = (System.Data.EntityClient.EntityConnection)entity.Database.Connection;
+                //entityConnection.Open();
+                System.Data.Common.DbConnection storeConnection = entity.Database.Connection;//entityConnection.StoreConnection;
+                System.Data.Common.DbCommand cmd = storeConnection.CreateCommand();
+                cmd.CommandType = System.Data.CommandType.Text;
+                cmd.CommandText = "select ZOOMTEL.S_PACKAGE_TASK.NEXTVAL from dual";
+
                 //log.Write("entity获取订单开始");
                 ////var Packtasknum = entity.Database.SqlQuery( ); CS10448409  CS10453696
                 var data = entity.V_PRODUCE_PACKAGEINFO
-                    .Where(x=>x.REGIONCODE == "0211")
-                    //.Where(x=>x.EXPORT == packageNo)
-                    //.Where(x => x.BILLCODE == "CS10488063")//CS10486222
-                    //.Where(x=>x.TASKNUM == 724835)  
+                    //.Where(x => x.REGIONCODE == "0211")
+                    //.Where(x => x.EXPORT == packageNo && x.SYNSEQ == synseq)
+                    .Where(x=>x.BILLCODE == "CS10503046")
                     .ToList();
                 //所有订单明细
                 var query = (from item in data
@@ -60,7 +60,7 @@ namespace Functions.BLL
                 //             select item).ToList();
 
 
-                var query1 = entity.T_WMS_ITEM.Select(x => x).ToList();
+                query1 = entity.T_WMS_ITEM.Select(x => x).ToList();
                 //查询ptid值
                 ptid = entity.T_PACKAGE_TASK.Count() > 0 ? entity.T_PACKAGE_TASK.Max(x => x.PTID) + 1 : 1;
                 allpackagenum = entity.T_PACKAGE_TASK.Count() > 0 ? (int)entity.T_PACKAGE_TASK.Max(x => x.ALLPACKAGESEQ).Value : 0;
@@ -101,9 +101,7 @@ namespace Functions.BLL
                                 temp.CIGSEQ = pcount;
                                 temp.PACKAGESEQ = 0;
                                 temp.ALLPACKAGESEQ = 0;
-                                //temp.PACKAGENO = v2.PACKAGEMACHINE;
-                                temp.PACKAGENO = 1;;
-                                //temp.CIGTYPE = "2";
+                                temp.PACKAGENO = 1; ;////////////
                                 temp.CIGTYPE = v2.ALLOWSORT == "非标" ? "2" : "1";
                                 temp.STATE = 0;//0 新增  10 确定
                                 temp.NORMAILSTATE = 0;//0 新增  10 确定
@@ -114,6 +112,9 @@ namespace Functions.BLL
                                 temp.ORDERQTY = v2.ORDERQUANTITY;
                                 temp.CIGSTATE = 10;
                                 temp.ORDERDATE = v2.ORDERDATE;
+                                temp.MIANBELT = Math.Ceiling((v2.EXPORT ?? 0) / 2);
+                                temp.SYNSEQ = v2.SYNSEQ;
+                                temp.REGIONCODE = v2.REGIONCODE;
                                 task.Add(temp);
                                 ptid++;
 
@@ -123,13 +124,22 @@ namespace Functions.BLL
                             GenPackageInfo(task, entity, query1);
                             //log.Write("计算完成");
                             decimal orderpackageqty = task.GroupBy(x => x.PACKAGESEQ ?? 0).Count();
-                            foreach (var item in task)
+                            decimal tempseq = 0;//上一个包号
+                            decimal temptask = 0;//任务号
+                            foreach (var item in task.OrderBy(x => x.ALLPACKAGESEQ).ToList())
                             {
-                                item.PACKTASKNUM = item.ALLPACKAGESEQ;
+                                if (tempseq != item.ALLPACKAGESEQ)
+                                {
+                                    cmd.Connection.Open();
+                                    temptask = Convert.ToDecimal(cmd.ExecuteScalar().ToString());
+                                    cmd.Connection.Close();
+                                }
+                                item.PACKTASKNUM = temptask;
                                 item.STATE = 10;
                                 item.NORMAILSTATE = 10;
                                 item.ORDERPACKAGEQTY = orderpackageqty;
                                 item.PACKAGEQTY = task.Where(x => x.ALLPACKAGESEQ == item.ALLPACKAGESEQ).Sum(X => X.NORMALQTY);
+                                tempseq = item.ALLPACKAGESEQ ?? 0;
                                 entity.T_PACKAGE_TASK.Add(item);
                                 //log.Write("entity.Add");
                             }
@@ -143,14 +153,21 @@ namespace Functions.BLL
                             }
                             //log.Write("数据库存储完成");
                         }
-
+                        query2 = null;
                     }
                     entity.SaveChanges();
                 }
+                var date = data.Max(x => x.ORDERDATE);
+                var seqtemp = entity.T_PRODUCE_SYNSEQ.Where(x => x.SYNSEQ == synseq && x.PACKAGENO == packageNo && x.ORDERDATE == date).FirstOrDefault();
+                seqtemp.PMSTATE = "2";
+                seqtemp.TBJSTATE = "1";
+                entity.SaveChanges();
+                data = null; ;
+                query = null;
             }
         }
 
-        decimal ptid;
+            decimal ptid;
         int packageWidth = 540;//宽
         int packageHeight = 200;//高
         int jx = 3;//间隙
@@ -730,6 +747,7 @@ namespace Functions.BLL
                 //    item.NORMAILSTATE = 10;
                 //    item.PACKAGESEQ = packageseq;
                 //}
+                packagenor = 36;
                 reflag = true;
                 goto a1;
             }
@@ -800,6 +818,10 @@ namespace Functions.BLL
                                 if (!normalfalg)
                                 {
                                     addcount = 0;
+                                }
+                                if (datalist.Max(x => x.PACKAGESEQ != 1))//如果异型烟不是第一包
+                                {
+                                    addcount = 1;
                                 }
                             }
                             foreach (var it in datalist)
@@ -1389,9 +1411,13 @@ namespace Functions.BLL
                 var datalist = task.Where(x => x.ALLPACKAGESEQ == allpackagenum && x.STATE == 10).ToList();
                 if (datalist.Count > 0)
                 {
-                    //已经没有常规烟 且 不是第一包烟
-                    var packageseq = (normaltask.Where(x => x.NORMAILSTATE == 0).Count() == 0 && datalist.Select(x => x.PACKAGESEQ).FirstOrDefault() != 1)|| normaltask.Count()<=0 ?
-                        datalist.Max(x => x.PACKAGESEQ): datalist.Max(x => x.PACKAGESEQ) +1;
+                    //有常规烟 已经没有未分配常规烟 且 不是第一包烟
+                    var packageseq = ( normaltask.Count() > 0 && normaltask.Where(x => x.NORMAILSTATE == 0).Count() == 0 && datalist.Select(x => x.PACKAGESEQ).FirstOrDefault() != 1) ?
+                        datalist.Max(x => x.PACKAGESEQ) +1: datalist.Max(x => x.PACKAGESEQ);
+                    if (normaltask.Count() <= 0)
+                    {
+                        packageseq = datalist.Max(x => x.PACKAGESEQ);
+                    }
                     foreach (var item in datalist)
                     {
                         item.CIGSEQ = cigseq;
