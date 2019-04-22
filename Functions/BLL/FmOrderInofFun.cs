@@ -18,12 +18,12 @@ namespace Functions.BLL
         /// <param name="contentstr">查询内容</param>
         /// <param name="packageno">包装机编号</param>
         /// <returns></returns>
-        public static List<TaskList> QueryTaskList(string qureystr, string contentstr,int packageno)
-        { 
+        public static List<TaskList> QueryTaskList(string qureystr, string contentstr, int packageno)
+        {
             decimal? content_decmail = 0;
             string content_string = contentstr;
             try
-            { 
+            {
                 content_decmail = Convert.ToDecimal(contentstr);
             }
             catch (Exception e)
@@ -33,44 +33,119 @@ namespace Functions.BLL
             using (Entities et = new Entities())//取出所有数据
             {
                 List<TaskList> taskLists = new List<TaskList>();
-                var lists =
-                    from lisitem in
-                    (from item in et.T_PRODUCE_ORDER
-                     join item2 in et.T_PACKAGE_TASK
-                     on item.BILLCODE equals item2.BILLCODE
-                     where item2.BILLCODE.Contains(content_string) //|| item.COMPANYNAME.Contains(contentstr) || item.CUSTOMERCODE.Contains(contentstr)
-                     //|| item.SORTNUM == content_decmail || item2.CIGARETTENAME.Contains(contentstr) || item2.CIGARETTECODE.Contains(contentstr)
-                     select new TaskList
-                     {
-                         SORTNUM = item2.SORTNUM ?? 0,
-                         CUSTOMERNAME = item.CUSTOMERNAME,
-                         CUSTOMERCODE = item.CUSTOMERCODE,
-                         REGIONCODE = item.REGIONCODE,
-                         SORTSEQ = item.PRIORITY ?? 0,
-                         ORDERPACKAGEQTY = item2.ORDERPACKAGEQTY ?? 0,
-                         ALLQTY = item2.ORDERQTY ?? 0
-                     })
-                    group lisitem by new { lisitem.REGIONCODE, lisitem.SORTNUM, lisitem.CUSTOMERCODE, lisitem.CUSTOMERNAME, lisitem.SORTSEQ, lisitem.ORDERPACKAGEQTY, lisitem.ALLQTY }
-                     into dates
-                    select new { dates.Key, dates }.Key;
-
-                int jjj = lists.Count();
-                int dsds = 1000;
-
-                foreach (var item in lists)
+                if (string.IsNullOrWhiteSpace(contentstr))
                 {
-                    TaskList taskList = new TaskList();
-                    taskList.SORTNUM = item.SORTNUM;
-                    taskList.CUSTOMERCODE = item.CUSTOMERCODE;
-                    taskList.CUSTOMERNAME = item.CUSTOMERNAME;
-                    taskList.REGIONCODE = item.REGIONCODE;
-                    taskList.SORTSEQ = item.SORTSEQ;
-                    taskList.ORDERPACKAGEQTY = item.ORDERPACKAGEQTY;
-                    taskList.ALLQTY = item.ALLQTY; 
-                    taskLists.Add(taskList); 
-                } 
 
-                return taskLists.OrderBy(x=>x.SORTNUM).ToList();
+                    var lists =
+                from lisitem in
+                (from item in et.T_PRODUCE_ORDER
+                 join item2 in et.T_PACKAGE_TASK
+                 on item.BILLCODE equals item2.BILLCODE
+                 where item2.PACKAGENO == packageno
+                 select new TaskList
+                 {
+                     SORTNUM = item2.SORTNUM ?? 0,
+                     CUSTOMERNAME = item.CUSTOMERNAME,
+                     CUSTOMERCODE = item.CUSTOMERCODE,
+                     REGIONCODE = item.REGIONCODE,
+                     SORTSEQ = item.PRIORITY ?? 0,
+                     ORDERPACKAGEQTY = item2.ORDERPACKAGEQTY ?? 0,
+                     ALLQTY = item2.ORDERQTY ?? 0
+                 })
+                group lisitem by new { lisitem.REGIONCODE, lisitem.SORTNUM, lisitem.CUSTOMERCODE, lisitem.CUSTOMERNAME, lisitem.SORTSEQ, lisitem.ORDERPACKAGEQTY, lisitem.ALLQTY }
+                 into dates
+                select new { dates.Key, dates }.Key;
+
+                    foreach (var item in lists)
+                    {
+                        TaskList taskList = new TaskList();
+                        taskList.SORTNUM = item.SORTNUM;
+                        taskList.CUSTOMERCODE = item.CUSTOMERCODE;
+                        taskList.CUSTOMERNAME = item.CUSTOMERNAME;
+                        taskList.REGIONCODE = item.REGIONCODE;
+                        taskList.SORTSEQ = item.SORTSEQ;
+                        taskList.ORDERPACKAGEQTY = item.ORDERPACKAGEQTY;
+                        taskList.ALLQTY = item.ALLQTY;
+                        taskLists.Add(taskList);
+                    }
+
+                    return taskLists.OrderBy(x => x.SORTNUM).ToList();
+                }
+                else if (qureystr == "SORTNUM")
+                {
+                    var lists =
+                            from lisitem in
+                            (from item in et.T_PRODUCE_ORDER
+                             join item2 in et.T_PACKAGE_TASK
+                             on item.BILLCODE equals item2.BILLCODE
+                             where item2.SORTNUM == content_decmail
+                             && item2.PACKAGENO == packageno
+                             select new TaskList
+                             {
+                                 SORTNUM = item2.SORTNUM ?? 0,
+                                 CUSTOMERNAME = item.CUSTOMERNAME,
+                                 CUSTOMERCODE = item.CUSTOMERCODE,
+                                 REGIONCODE = item.REGIONCODE,
+                                 SORTSEQ = item.PRIORITY ?? 0,
+                                 ORDERPACKAGEQTY = item2.ORDERPACKAGEQTY ?? 0,
+                                 ALLQTY = item2.ORDERQTY ?? 0
+                             })
+                            group lisitem by new { lisitem.REGIONCODE, lisitem.SORTNUM, lisitem.CUSTOMERCODE, lisitem.CUSTOMERNAME, lisitem.SORTSEQ, lisitem.ORDERPACKAGEQTY, lisitem.ALLQTY }
+                             into dates
+                            select new { dates.Key, dates }.Key;
+                    foreach (var item in lists)
+                    {
+                        TaskList taskList = new TaskList();
+                        taskList.SORTNUM = item.SORTNUM;
+                        taskList.CUSTOMERCODE = item.CUSTOMERCODE;
+                        taskList.CUSTOMERNAME = item.CUSTOMERNAME;
+                        taskList.REGIONCODE = item.REGIONCODE;
+                        taskList.SORTSEQ = item.SORTSEQ;
+                        taskList.ORDERPACKAGEQTY = item.ORDERPACKAGEQTY;
+                        taskList.ALLQTY = item.ALLQTY;
+                        taskLists.Add(taskList);
+                    }
+
+                    return taskLists.OrderBy(x => x.SORTNUM).ToList();
+                }
+                else
+                {
+                    var lists =
+                        from lisitem in
+                        (from item in et.T_PRODUCE_ORDER
+                         join item2 in et.T_PACKAGE_TASK
+                         on item.BILLCODE equals item2.BILLCODE
+                         where item2.PACKAGENO == packageno &&( item2.BILLCODE.IndexOf(contentstr) >= 0 || item.COMPANYNAME.IndexOf(contentstr) >= 0 ||    
+                         item.CUSTOMERCODE.IndexOf(contentstr)>= 0 ||item.CUSTOMERNAME.IndexOf(contentstr) >= 0 || 
+                         item2.CIGARETTENAME.IndexOf(contentstr) >= 0 || item2.CIGARETTECODE.IndexOf(contentstr) >= 0)
+                         select new TaskList
+                         {
+                             SORTNUM = item2.SORTNUM ?? 0,
+                             CUSTOMERNAME = item.CUSTOMERNAME,
+                             CUSTOMERCODE = item.CUSTOMERCODE,
+                             REGIONCODE = item.REGIONCODE,
+                             SORTSEQ = item.PRIORITY ?? 0,
+                             ORDERPACKAGEQTY = item2.ORDERPACKAGEQTY ?? 0,
+                             ALLQTY = item2.ORDERQTY ?? 0
+                         })
+                        group lisitem by new { lisitem.REGIONCODE, lisitem.SORTNUM, lisitem.CUSTOMERCODE, lisitem.CUSTOMERNAME, lisitem.SORTSEQ, lisitem.ORDERPACKAGEQTY, lisitem.ALLQTY }
+                        into dates
+                        select new { dates.Key, dates }.Key;
+                    foreach (var item in lists)
+                    {
+                        TaskList taskList = new TaskList();
+                        taskList.SORTNUM = item.SORTNUM;
+                        taskList.CUSTOMERCODE = item.CUSTOMERCODE;
+                        taskList.CUSTOMERNAME = item.CUSTOMERNAME;
+                        taskList.REGIONCODE = item.REGIONCODE;
+                        taskList.SORTSEQ = item.SORTSEQ;
+                        taskList.ORDERPACKAGEQTY = item.ORDERPACKAGEQTY;
+                        taskList.ALLQTY = item.ALLQTY;
+                        taskLists.Add(taskList);
+                    }
+
+                    return taskLists.OrderBy(x => x.SORTNUM).ToList();
+                }
             }
         }
         /// <summary>

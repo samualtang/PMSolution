@@ -61,7 +61,7 @@ namespace Functions.BLL
         }
         public static string[] GetLabelData(decimal seq)
         {
-            string[] str = new string[10];
+            string[] str = new string[11];
             using (Entities et = new Entities())
             {
                 var data = et.T_PACKAGE_TASK.Where(x => x.ALLPACKAGESEQ == seq).ToList();
@@ -78,6 +78,7 @@ namespace Functions.BLL
                 str[7] = data2.ORDERQUANTITY.ToString();
                 str[8] = data2.CUSTOMERCODE.ToString();
                 str[9] = data2.CUSTOMERNAME.ToString();
+                str[10] = data2.ORDERQUANTITY.ToString();
             }
             return str;
         }

@@ -33,7 +33,7 @@ namespace PackageMachine
             comboBox_QueryCriteria.ValueMember = "content";
             try
             {
-                packageno = Convert.ToInt32(ConfigurationManager.ConnectionStrings["packageno"]);
+                packageno = Functions.PubFunction.GlobalPara.PackageNo;
             }
             catch (Exception)
             { 

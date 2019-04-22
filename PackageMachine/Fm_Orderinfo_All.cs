@@ -70,6 +70,7 @@ namespace PackageMachine
         {
             BindBillInfo(pkIndex);
             GetValues();
+            labelChange();
         }
         /// <summary>
         /// DataType： GetValues类型 整包1  /常规2  /异型3  /整个订单4
@@ -120,7 +121,7 @@ namespace PackageMachine
                 Dgv_datainfo.Columns[4].HeaderText = "包序号";
                 Dgv_datainfo.Columns[4].Width = 80;
             }
-            label_allcig.Text = data1.Where(x => x.ALLPACKAGESEQ == pkIndex).Select(x => x.PACKAGEQTY).FirstOrDefault() + "条烟";
+            label_allcig.Text = GetAllOrderinfo.QueryBypacknum(SORTSEQ).Where(x => x.ALLPACKAGESEQ == pkIndex).Select(x => x.PACKAGEQTY).FirstOrDefault() + "条烟";
         }
         /// <summary>
         /// 获取数据绑定 数据控件datagridview
@@ -294,6 +295,7 @@ namespace PackageMachine
             label_customcode.Text = "专卖证号：" + task[8];
             label_SumCignum.Text = "订单总条数：" + task[7];
             label_customername.Text = "客户名称：" + task[9];
+            label_allpacksortnum.Text = "总条数：" + task[10];
         }
 
         private void button_end_Click(object sender, EventArgs e)
