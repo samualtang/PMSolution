@@ -109,5 +109,10 @@ namespace PackageMachine
             Fm_Orderinfo fm = new Fm_Orderinfo(task);
             fm.Show();
         }
+
+        private void btnSerchREgion_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

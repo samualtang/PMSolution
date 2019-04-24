@@ -99,9 +99,9 @@ namespace PackageMachine
                         updateLabel("校验通过！准备清空电控任务...", lblOper);
                         try
                         {
-                            G7.Write(1, 0);//清空指令 常规烟翻版
-                            G7.Write(yxyBsul, 2);//任务号 异型烟倍速链
-                            G7.Write(1, 3);//清空指令 异型烟倍速链
+                            //G7.Write(1, 0);//清空指令 常规烟翻版
+                            //G7.Write(yxyBsul, 2);//任务号 异型烟倍速链
+                            //G7.Write(1, 3);//清空指令 异型烟倍速链
                             Thread.Sleep(2000);//停顿两秒
                             if(G7.ReadD(0).CastTo(-1) == 0 && G7.ReadD(3).CastTo(-1) == 0)
                             {

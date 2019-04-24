@@ -106,7 +106,11 @@ namespace EFModle.Model
 
     }
 
-    public  class UnNormalInfo
+    public  class RouteDetail
     {  
+        //车组
+       public string Region { get; set; }
+        //包数
+        public decimal PackageCount { get; set; }
     }
 }
