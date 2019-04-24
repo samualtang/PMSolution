@@ -70,6 +70,7 @@
             this.lblDxdetail = new System.Windows.Forms.Label();
             this.lblGwcx = new System.Windows.Forms.Label();
             this.cbCgyOrNot = new System.Windows.Forms.CheckBox();
+            this.btnRouteSerch = new System.Windows.Forms.Button();
             this.cce1 = new PackageMachine.CigrCache();
             this.cs2 = new PackageMachine.CigrShow();
             this.cs = new PackageMachine.CigrShow();
@@ -112,7 +113,7 @@
             // 
             this.btnLast.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnLast.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnLast.Location = new System.Drawing.Point(95, 50);
+            this.btnLast.Location = new System.Drawing.Point(162, 19);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(75, 23);
             this.btnLast.TabIndex = 2;
@@ -126,7 +127,7 @@
             this.btnnext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnnext.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnnext.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnnext.Location = new System.Drawing.Point(184, 50);
+            this.btnnext.Location = new System.Drawing.Point(265, 2);
             this.btnnext.Name = "btnnext";
             this.btnnext.Size = new System.Drawing.Size(75, 23);
             this.btnnext.TabIndex = 2;
@@ -144,6 +145,7 @@
             this.panelInfo.Controls.Add(this.gbInfo);
             this.panelInfo.Controls.Add(this.lblcutname);
             this.panelInfo.Controls.Add(this.lblallcount);
+            this.panelInfo.Controls.Add(this.btnRouteSerch);
             this.panelInfo.Controls.Add(this.btnnext);
             this.panelInfo.Controls.Add(this.lblcuscode);
             this.panelInfo.Controls.Add(this.lblcutcode);
@@ -582,6 +584,19 @@
             this.cbCgyOrNot.Text = "工位明细显示常规烟";
             this.cbCgyOrNot.UseVisualStyleBackColor = true;
             // 
+            // btnRouteSerch
+            // 
+            this.btnRouteSerch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRouteSerch.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnRouteSerch.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnRouteSerch.Location = new System.Drawing.Point(114, 50);
+            this.btnRouteSerch.Name = "btnRouteSerch";
+            this.btnRouteSerch.Size = new System.Drawing.Size(75, 23);
+            this.btnRouteSerch.TabIndex = 2;
+            this.btnRouteSerch.Text = "车组包数";
+            this.btnRouteSerch.UseVisualStyleBackColor = true;
+            this.btnRouteSerch.Click += new System.EventHandler(this.btnRouteSerch_Click);
+            // 
             // cce1
             // 
             this.cce1.BackColor = System.Drawing.Color.White;
@@ -693,6 +708,7 @@
         private CigrShow cs2;
         private System.Windows.Forms.Label lblGwcx;
         private System.Windows.Forms.CheckBox cbCgyOrNot;
+        private System.Windows.Forms.Button btnRouteSerch;
     }
     
 }

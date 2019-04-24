@@ -160,12 +160,12 @@ namespace PackageMachine
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
         
-            TextBox tx = (TextBox)sender;
-            if (tx.Text.Any())
-            {
-                Task.Run(() => TaskAsync(tx));
+            //TextBox tx = (TextBox)sender;
+            //if (tx.Text.Any())
+            //{
+            //    Task.Run(() => TaskAsync(tx));
               
-            }
+            //}
         }
         async Task TaskAsync(TextBox tx)
         { 
@@ -254,7 +254,17 @@ namespace PackageMachine
         BillResolution br = new BillResolution();
         private void button10_Click(object sender, EventArgs e)
         {
-            br.CallBackTBJ(1);
+            Thread tg = new Thread(() => abc());
+            tg.Start();
+        
         }
+        void abc()
+        {
+
+            textBox1.Text = DateTime.Now.ToString() + "：开始时间";
+            br.CallBackTBJ(1);
+            textBox2.Text = DateTime.Now.ToString() + "：结束时间";
+        }
+
     }
 }

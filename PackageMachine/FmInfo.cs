@@ -576,6 +576,23 @@ namespace PackageMachine
 
         }
 
+        private void btnRouteSerch_Click(object sender, EventArgs e)
+        {
+          var list =  br.GetRegionPackageNum();
+            string info = "";
+            if( list.Any())
+            {
+                foreach (var item in list)
+                {
+                    info += "车组：" + item.Region + ",包数：" + item.PackageCount + "\r\n";
+                }
+            }
+            if (!string.IsNullOrEmpty(info))
+            {
+                MessageBox.Show(info,"车组包数查询");
+            }
+        }
+
         private void btngw1_MouseEnter(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
