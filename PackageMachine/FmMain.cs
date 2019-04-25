@@ -125,6 +125,7 @@ namespace PackageMachine
                 else
                 {
                     FmInfo.GetTaskInfo("机器人：服务器连接失败！");
+                    lblServerInfo.Text = "机器人：服务器连接失败！";
                 } 
               
             }
@@ -145,28 +146,31 @@ namespace PackageMachine
                 FmInfo.GetTaskInfo("尝试连接异型烟链板机和常规烟翻版");
                 if (plc.CheckYXYConnection())
                 {
-                    FmInfo.GetTaskInfo("倍速链:PLC连接成功!");
-
+                    FmInfo.GetTaskInfo("倍速链:PLC连接成功!"); 
                     FmInfo.GetGroup(plc.UnNormalGroup, plc.ShapeGroup7);//传入OPC组到信息显示界面
+                    CreateState = true;
                 }
                 else
                 {
                     FmInfo.GetTaskInfo("倍速链:PLC连接失败!");
-                   
+                    CreateState = false;
+
                 }
                 if (plc.CheckFbConnction())
                 {
                     FmInfo.GetTaskInfo("翻板:PLC连接成功!");
-
+                    CreateState = true;
                 }
                 else
                 {
                     FmInfo.GetTaskInfo("翻板:PLC连接失败!");
-                }
+                    CreateState = false;
+                } 
             }
             else
             {
                 FmInfo.GetTaskInfo("OPC服务创建失败，错误："+strmessage[0]);
+                CreateState = false;
             }
  
  
@@ -475,7 +479,7 @@ namespace PackageMachine
             {
                 return;
             }
-            CreateState = true;
+     
             if (!CreateState)
             {
                 FmInfo.GetTaskInfo("必须在所有服务创建成功后，才能开始任务！");
@@ -701,6 +705,7 @@ namespace PackageMachine
                             {
                                 connectSuccess = false;
                                 FmInfo.GetTaskInfo("机器人：远程主机强制断开一个现有连接，发送任务失败！");
+                                lblServerInfo.Text = "机器人：服务器连接失败！";
                                 CheckAlive();//断开连接 间隔
                             }
                          
@@ -786,6 +791,7 @@ namespace PackageMachine
                 RoBotState = false;
                 socketCore.Close();
                 socketCore = null;
+                CreateState = false;
                 FirstSend = true;
                 FmInfo.GetTaskInfo("断开与机器人的连接！");
             }

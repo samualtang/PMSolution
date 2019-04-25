@@ -325,7 +325,7 @@ namespace Functions
                  
                 object[] vs = new object[ItemCollection.GetTaskStatusBySend_yxy().Count()];
                 //取当前包装机未发送的的异型烟链板机（合包）任务
-                List<EFModle.T_PACKAGE_TASK> values = await Task.Run(() => BLL.PLCDataGet.GetAllNotSendTask_YXY(GlobalPara.PackageNo));
+             aa: List<EFModle.T_PACKAGE_TASK> values = await Task.Run(() => BLL.PLCDataGet.GetAllNotSendTask_YXY(GlobalPara.PackageNo));
                 if (values.Count > 0)
                 {
                     //取最小任务号(要发送的任务)
@@ -349,7 +349,7 @@ namespace Functions
                     {
                         ShapeGroup1.SyncWrite(vs);
                         //BLL.PLCDataGet.WriteReceive_YXY((int)packtasknum);//测试用的  
-                        Strmessage = "异型烟倍速链：写入异型烟链板机：\r\n任务号：" + vs[0] + "，异型烟数量：" + vs[1] + "，合包标志：" +
+                        Strmessage = "异型烟倍速链：：\r\n任务号：" + vs[0] + "，异型烟数量：" + vs[1] + "，合包标志：" +
                             vs[2] + "，合包常规烟数：" + vs[4] + "，推烟位置：" + vs[3] + "，接收标志：" + vs[7];
                     }
                     else
@@ -360,7 +360,9 @@ namespace Functions
                 }
                 else
                 {
-                    Strmessage = "异型烟倍速链：当前没有可发送的任务！";
+                    Strmessage = "异型烟倍速链：当前没有可发送的任务！10秒之后再次获取";
+                    Thread.Sleep(10000);
+                    goto aa;
                 }
                 startatg = false;
             }
@@ -371,7 +373,7 @@ namespace Functions
                 {
                     writeLog.Write(ex.InnerException.Message);
                 }
-                Strmessage += "异型烟倍速链：发生异常，重新发送任务；";
+                Strmessage += "异型烟倍速链：发生异常，10秒后重新发送任务；";
                 DateTime endtime = DateTime.Now.AddSeconds(10);
                 Thread.Sleep(10000);
                 await WriteTaskSend_YXY();//异常后重新发送  没有考虑失败暂停
@@ -392,7 +394,7 @@ namespace Functions
                 object[] vs = new object[ItemCollection.GetTaskStatusBySend_cgy().Count()];
 
                 //取当前包装机未发送的的异型烟链板机（合包）任务
-                List<EFModle.T_PACKAGE_TASK> values = await Task.Run(() => BLL.PLCDataGet.GetAllNotSendTask_CGY(GlobalPara.PackageNo));
+               aa: List<EFModle.T_PACKAGE_TASK> values = await Task.Run(() => BLL.PLCDataGet.GetAllNotSendTask_CGY(GlobalPara.PackageNo));
                 if (values.Count > 0)
                 {
                     //取最小任务号(要发送的任务)
@@ -414,7 +416,7 @@ namespace Functions
                     //{
                         //BLL.PLCDataGet.WriteReceive_CGY((int)packtasknum);//测试用的  
                         ShapeGroup4.SyncWrite(vs);
-                        Strmessage = "常规烟翻版：写入常规烟翻板机：\r\n任务号：" + vs[0] + "，常规烟数量：" + vs[1] + "，合包标志：" +
+                        Strmessage = "常规烟翻版：\r\n任务号：" + vs[0] + "，常规烟数量：" + vs[1] + "，合包标志：" +
                             vs[2] + "，合包异型烟数：" + vs[3] + "，接收标志：" + vs[6];
                     //}
                     //else
@@ -425,7 +427,9 @@ namespace Functions
                 }
                 else
                 {
-                    Strmessage = "常规烟翻版：当前没有可发送常规烟的任务！";
+                    Strmessage = "常规烟翻版：当前没有可发送常规烟的任务！10秒之后再次获取";
+                    Thread.Sleep(10000);
+                    goto aa;
                 }
             }
 

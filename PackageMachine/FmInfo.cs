@@ -28,7 +28,7 @@ namespace PackageMachine
             Func += ChangeControlEnabled;
             handle += updateListBox;
             GetGroup = GetOpcServerGroup;
-
+            cbCgyOrNot.Checked = true;
             listBtn.Add(btngw7);
             listBtn.Add(btngw6);
             listBtn.Add(btngw5);
@@ -159,7 +159,7 @@ namespace PackageMachine
                 else
                 {
 
-                    btn.Text = values;
+                    btn.Text = "工位" + (j + 1)+"\r\n"+ values;
                     btn.BackColor = Color.LightGreen;
                     btn.Cursor = Cursors.Hand;
                 }

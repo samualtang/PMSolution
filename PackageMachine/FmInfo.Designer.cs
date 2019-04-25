@@ -43,12 +43,14 @@
             this.list_date = new System.Windows.Forms.ListBox();
             this.lblcutname = new System.Windows.Forms.Label();
             this.lblallcount = new System.Windows.Forms.Label();
+            this.btnRouteSerch = new System.Windows.Forms.Button();
             this.lblcuscode = new System.Windows.Forms.Label();
             this.lblcutcode = new System.Windows.Forms.Label();
             this.lbllinename = new System.Windows.Forms.Label();
             this.btnAuto = new System.Windows.Forms.Button();
             this.lblCache = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cce1 = new PackageMachine.CigrCache();
             this.plcrtl = new System.Windows.Forms.Panel();
             this.lblInfo = new System.Windows.Forms.Label();
             this.lblNotFish = new System.Windows.Forms.Label();
@@ -70,8 +72,6 @@
             this.lblDxdetail = new System.Windows.Forms.Label();
             this.lblGwcx = new System.Windows.Forms.Label();
             this.cbCgyOrNot = new System.Windows.Forms.CheckBox();
-            this.btnRouteSerch = new System.Windows.Forms.Button();
-            this.cce1 = new PackageMachine.CigrCache();
             this.cs2 = new PackageMachine.CigrShow();
             this.cs = new PackageMachine.CigrShow();
             this.panelInfo.SuspendLayout();
@@ -252,6 +252,19 @@
             this.lblallcount.TabIndex = 16;
             this.lblallcount.Text = "总 包 号：0000-000";
             // 
+            // btnRouteSerch
+            // 
+            this.btnRouteSerch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRouteSerch.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnRouteSerch.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnRouteSerch.Location = new System.Drawing.Point(89, 48);
+            this.btnRouteSerch.Name = "btnRouteSerch";
+            this.btnRouteSerch.Size = new System.Drawing.Size(75, 23);
+            this.btnRouteSerch.TabIndex = 2;
+            this.btnRouteSerch.Text = "车组包数";
+            this.btnRouteSerch.UseVisualStyleBackColor = true;
+            this.btnRouteSerch.Click += new System.EventHandler(this.btnRouteSerch_Click);
+            // 
             // lblcuscode
             // 
             this.lblcuscode.AutoSize = true;
@@ -318,6 +331,14 @@
             this.panel1.Size = new System.Drawing.Size(176, 608);
             this.panel1.TabIndex = 8;
             // 
+            // cce1
+            // 
+            this.cce1.BackColor = System.Drawing.Color.White;
+            this.cce1.Location = new System.Drawing.Point(11, 48);
+            this.cce1.Name = "cce1";
+            this.cce1.Size = new System.Drawing.Size(137, 526);
+            this.cce1.TabIndex = 6;
+            // 
             // plcrtl
             // 
             this.plcrtl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -372,7 +393,7 @@
             // 
             this.btngw8.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btngw8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btngw8.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.btngw8.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.btngw8.Location = new System.Drawing.Point(160, 9);
             this.btngw8.Name = "btngw8";
             this.btngw8.Size = new System.Drawing.Size(93, 47);
@@ -385,7 +406,7 @@
             // 
             this.btngw9.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btngw9.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btngw9.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.btngw9.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.btngw9.Location = new System.Drawing.Point(54, 9);
             this.btngw9.Name = "btngw9";
             this.btngw9.Size = new System.Drawing.Size(93, 47);
@@ -413,7 +434,7 @@
             // 
             this.btngw7.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btngw7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btngw7.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.btngw7.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.btngw7.Location = new System.Drawing.Point(608, 11);
             this.btngw7.Name = "btngw7";
             this.btngw7.Size = new System.Drawing.Size(93, 47);
@@ -427,7 +448,7 @@
             // 
             this.btngw6.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btngw6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btngw6.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.btngw6.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.btngw6.Location = new System.Drawing.Point(502, 11);
             this.btngw6.Name = "btngw6";
             this.btngw6.Size = new System.Drawing.Size(93, 47);
@@ -441,7 +462,7 @@
             // 
             this.btngw5.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btngw5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btngw5.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.btngw5.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.btngw5.Location = new System.Drawing.Point(403, 11);
             this.btngw5.Name = "btngw5";
             this.btngw5.Size = new System.Drawing.Size(93, 47);
@@ -455,7 +476,7 @@
             // 
             this.btngw2.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btngw2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btngw2.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.btngw2.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.btngw2.Location = new System.Drawing.Point(106, 11);
             this.btngw2.Name = "btngw2";
             this.btngw2.Size = new System.Drawing.Size(93, 47);
@@ -469,7 +490,7 @@
             // 
             this.btngw4.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btngw4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btngw4.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.btngw4.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.btngw4.Location = new System.Drawing.Point(304, 11);
             this.btngw4.Name = "btngw4";
             this.btngw4.Size = new System.Drawing.Size(93, 47);
@@ -483,7 +504,7 @@
             // 
             this.btngw1.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btngw1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btngw1.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.btngw1.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.btngw1.Location = new System.Drawing.Point(7, 11);
             this.btngw1.Name = "btngw1";
             this.btngw1.Size = new System.Drawing.Size(93, 47);
@@ -497,7 +518,7 @@
             // 
             this.btngw3.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btngw3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btngw3.Font = new System.Drawing.Font("微软雅黑", 11F);
+            this.btngw3.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.btngw3.Location = new System.Drawing.Point(205, 11);
             this.btngw3.Name = "btngw3";
             this.btngw3.Size = new System.Drawing.Size(93, 47);
@@ -583,27 +604,6 @@
             this.cbCgyOrNot.TabIndex = 88;
             this.cbCgyOrNot.Text = "工位明细显示常规烟";
             this.cbCgyOrNot.UseVisualStyleBackColor = true;
-            // 
-            // btnRouteSerch
-            // 
-            this.btnRouteSerch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnRouteSerch.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnRouteSerch.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnRouteSerch.Location = new System.Drawing.Point(114, 50);
-            this.btnRouteSerch.Name = "btnRouteSerch";
-            this.btnRouteSerch.Size = new System.Drawing.Size(75, 23);
-            this.btnRouteSerch.TabIndex = 2;
-            this.btnRouteSerch.Text = "车组包数";
-            this.btnRouteSerch.UseVisualStyleBackColor = true;
-            this.btnRouteSerch.Click += new System.EventHandler(this.btnRouteSerch_Click);
-            // 
-            // cce1
-            // 
-            this.cce1.BackColor = System.Drawing.Color.White;
-            this.cce1.Location = new System.Drawing.Point(11, 48);
-            this.cce1.Name = "cce1";
-            this.cce1.Size = new System.Drawing.Size(137, 526);
-            this.cce1.TabIndex = 6;
             // 
             // cs2
             // 
