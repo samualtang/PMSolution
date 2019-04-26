@@ -20,11 +20,13 @@ namespace PackageMachine
             
             this.p_Main = new Panel();
             this.lb_ShowDetail = new LinkLabel();
+            lb_ShowLastDetail = new LinkLabel();
             this.timer1 = new Timer(this.components);
             this.p_Main.SuspendLayout();
             base.SuspendLayout();
             this.p_Main.BorderStyle = BorderStyle.FixedSingle;
             this.p_Main.Controls.Add(this.lb_ShowDetail);
+            p_Main.Controls.Add(lb_ShowLastDetail);
             this.p_Main.Dock = DockStyle.Fill;
             this.p_Main.Location = new Point(0, 0);
             this.p_Main.Margin = new Padding(4, 4, 4, 4);
@@ -38,8 +40,17 @@ namespace PackageMachine
             this.lb_ShowDetail.Size = new Size(67, 15);
             this.lb_ShowDetail.TabIndex = 0;
             this.lb_ShowDetail.TabStop = true;
-            this.lb_ShowDetail.Text = "显\r\n示\r\n更\r\n多";
+            this.lb_ShowDetail.Text = "显\r\n 示\r\n 更\r\n 多";
             this.lb_ShowDetail.LinkClicked += this.lb_ShowDetail_LinkClicked;
+            
+            lb_ShowLastDetail.AutoSize = true;
+            lb_ShowLastDetail.Location = new Point( 150, 5);
+            this.lb_ShowLastDetail.Margin = new Padding(4, 0, 4, 0);
+            this.lb_ShowLastDetail.Name = "lb_ShowDetail";
+            this.lb_ShowLastDetail.Size = new Size(67, 15); 
+ 
+            this.lb_ShowLastDetail.Text = "查\r\n 已\r\n 完\r\n 成";
+            this.lb_ShowLastDetail.LinkClicked += Lb_ShowLastDetail_LinkClicked;
             this.timer1.Enabled = true;
             this.timer1.Interval = 500;
             base.AutoScaleDimensions = new SizeF(8f, 15f);
@@ -54,6 +65,14 @@ namespace PackageMachine
             this.p_Main.ResumeLayout(false);
             this.p_Main.PerformLayout();
             base.ResumeLayout(false);
+        }
+
+        private void Lb_ShowLastDetail_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var info = (from item in TobaccoList where item.TobaccoState == 20 orderby item.SortNum descending, item.PacktaskNum, item.CigNum select item).ToList();
+
+            FmCacheDetail fcd = new FmCacheDetail(info);
+            fcd.ShowDialog();
         }
 
         private void CreateButton()
@@ -114,16 +133,21 @@ namespace PackageMachine
         }
 
         // Token: 0x060000E5 RID: 229 RVA: 0x00010168 File Offset: 0x0000E368
-        public void ClearData()
-        {
-            //this.TobaccoList.Clear();
-            //TobaccoListShow.TobaccoListAll.Clear();
-            //this.UpdateTobaccoShow();
-        }
+       
         public void UpdateValue(List<TobaccoInfo> Linfo)
         {
-            TobaccoList = Linfo;
+            TobaccoList = Linfo.Where(a => a.TobaccoState == 10).ToList(); ;
             this.UpdateTobaccoShow();
+        }
+        /// <summary>
+        /// 最后一个任务 清除整个界面
+        /// </summary>
+        public void ClearData()
+        {
+            for (int i = 0; i < this.buttonList.Count; i++)
+            {
+                this.buttonList[i].Visible = false;
+            }
         }
         // Token: 0x060000E6 RID: 230 RVA: 0x0001018C File Offset: 0x0000E38C
         public void OnPosition(int TobaccoIndex)
@@ -234,5 +258,6 @@ namespace PackageMachine
 
         // Token: 0x040000EC RID: 236
         private LinkLabel lb_ShowDetail;
+        private LinkLabel lb_ShowLastDetail;
     }
 }

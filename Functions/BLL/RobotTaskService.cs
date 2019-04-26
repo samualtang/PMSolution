@@ -242,7 +242,7 @@ namespace Functions.BLL
                 using (Entities en = new Entities())
                 {
                     var query1 = (from item in en.T_PACKAGE_TASK
-                              where item.PACKTASKNUM == taskNum && item.PACKAGENO == packageno && item.CIGSEQ == CigSeq
+                              where item.PACKTASKNUM == taskNum && item.PACKAGENO == packageno && item.CIGSEQ == CigSeq && item.CIGTYPE =="2"
                               select item).ToList();
                 if (query1.Any())
                 {
