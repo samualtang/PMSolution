@@ -66,6 +66,11 @@ namespace EFModle.Model
         /// 条烟宽
         /// </summary>
         public float TobaccoWidth { get; set; }
+
+        /// <summary>
+        /// 任务包号
+        /// </summary>
+        public decimal PacktaskNum { get; set; }
         /// <summary>
         /// 条烟高
         /// </summary>
@@ -73,7 +78,7 @@ namespace EFModle.Model
         /// <summary>
         /// 卷烟状态  包装状态
         /// </summary>
-        public int TobaccoState { get; set; } 
+        public decimal TobaccoState { get; set; } 
 
         /// <summary>
         /// 卷烟名称

@@ -80,9 +80,10 @@ namespace Functions.BLL
                     {
                         TobaccoName = item.CIGARETTENAME,
                         TobaccoLength = (float)Convert.ToDouble(item.CIGLENGTH),
-                        TobaccoWidth = (float)Convert.ToDouble(item.CIGWIDTH)  ,
-                        TobaccoHeight = (float)Convert.ToDouble(item.CIGHIGH)   ,
+                        TobaccoWidth = (float)Convert.ToDouble(item.CIGWIDTH),
+                        TobaccoHeight = (float)Convert.ToDouble(item.CIGHIGH),
                         GlobalIndex = Convert.ToInt32(item.ALLPACKAGESEQ ?? 0),
+                        TobaccoState = item.CIGSTATE ??0,
                         CigNum = item.CIGNUM ?? 0,
                         DoubleTake = item.DOUBLETAKE,
                         SortNum = item.SORTNUM ?? 0,
@@ -123,6 +124,7 @@ namespace Functions.BLL
                         TobaccoWidth = (float)Convert.ToDouble(item.CIGWIDTH),
                         TobaccoHeight = (float)Convert.ToDouble(item.CIGHIGH),
                         GlobalIndex = Convert.ToInt32(item.ALLPACKAGESEQ ?? 0),
+                        TobaccoState = item.CIGSTATE ?? 0,
                         CigNum = item.CIGNUM ?? 0,
                         DoubleTake = item.DOUBLETAKE,
                         SortNum = item.PACKTASKNUM ?? 0,
@@ -145,6 +147,21 @@ namespace Functions.BLL
                 }
             }
             return list;
+        }
+
+
+        public decimal GetRobtMinTaskNUm()
+        {
+            using (Entities en = new Entities())
+            {
+
+                decimal TaskNum = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno && item.CIGTYPE == "2" && item.CIGSTATE == 10 select item).Min(a => a.PACKTASKNUM) ??0;
+                if(TaskNum > 0)
+                {
+                    return TaskNum;
+                }
+                return 0;
+            }
         }
 
 
@@ -184,7 +201,7 @@ namespace Functions.BLL
             using (Entities en = new Entities())
             {
                 var uninfo = (from item in en.T_PACKAGE_TASK
-                              where item.PACKTASKNUM >= packtasknum && item .CIGSEQ >= seq && item.PACKAGENO == packageno && item.CIGTYPE == "2" && item.CIGSTATE ==10
+                              where item.PACKTASKNUM >= packtasknum && item .CIGSEQ >= seq && item.PACKAGENO == packageno && item.CIGTYPE == "2" 
                               orderby  item.PACKTASKNUM, item.CIGSEQ
                               select item).Take(200).ToList() ;
                 foreach (var item in uninfo)
@@ -196,6 +213,8 @@ namespace Functions.BLL
                         TobaccoWidth = (float)Convert.ToDouble(item.CIGWIDTH),
                         TobaccoHeight = (float)Convert.ToDouble(item.CIGHIGH),
                         GlobalIndex = Convert.ToInt32(item.ALLPACKAGESEQ ?? 0),
+                        TobaccoState = item.CIGSTATE??0,
+                        PacktaskNum = item.PACKTASKNUM ??0 ,
                         CigNum = item.CIGSEQ ?? 0,
                         NormalLayerNum = item.PUSHSPACE ?? 0,
                         Speed = 1,

@@ -25,6 +25,7 @@ namespace PackageMachine
 
             InitializeComponent();
             ftd = new FmTaskDetail();
+            label3.Text = "|\r\n|\r\n|\r\n|\r\n|\r\n|\r\n|\r\n|\r\n|\r\n|\r\n|\r\n";
             Func += ChangeControlEnabled;
             handle += updateListBox;
             GetGroup = GetOpcServerGroup;
@@ -36,6 +37,9 @@ namespace PackageMachine
             listBtn.Add(btngw3);
             listBtn.Add(btngw2);
             listBtn.Add(btngw1);
+            listBtn.Add(btngw8);//拨杆二
+            listBtn.Add(btngw9);//拨杆一
+            listBtn.Add(btnRobt);//机器人
 
             // AutoScroll = true; 
         }
@@ -137,6 +141,39 @@ namespace PackageMachine
                         {
                              GetTaskInfo("缓存工位队列不包含任何元素" + ex.Message);
                         }
+                    if(clientId[i] == 10)//如果是机器人工位
+                    {
+                        if (values[i].ToString() == "0")
+                        {
+                            btngw9.Text = "机器人工位";
+                            btngw9.Cursor = Cursors.No;
+                            btnRobt.BackColor = Color.Red;
+                          
+                        }
+                        else
+                        {
+
+                            btnRobt.Text = values[i].ToString();//
+                            btnRobt.BackColor = Color.LightYellow;
+                            btngw9.Cursor = Cursors.Hand; 
+                        }
+                    }
+                    if( clientId[i] == 8)//如果拨杆一的位置
+                    {
+                        if( values[i].ToString() == "0")
+                        {
+                            btngw9.Text = "拨杆一";
+                            btngw9.Cursor = Cursors.No;
+                            btngw9.BackColor = Color.Red;
+                             
+                        }
+                        else
+                        { 
+                            btngw9.Text = values[i].ToString();
+                            btngw9.BackColor = Color.LightGreen;
+                            btngw9.Cursor = Cursors.Hand; 
+                        }
+                    }
                     //}
                     //else { GetTaskInfo("读取缓存工位值异常，值为："+tempvalue); }
                 }
@@ -261,8 +298,12 @@ namespace PackageMachine
             List<TobaccoInfo> UN_list = br.GetUnNormallSort(CinNum, cigseq);
             if (UN_list.Any())
             {
-                cce1.UpdateValue(UN_list);
-            } 
+                cce1.UpdateValue(UN_list );
+            }
+            else
+            {
+                cce1.ClearData();
+            }
         } 
         /// <summary>
         /// 当前索引
@@ -528,10 +569,15 @@ namespace PackageMachine
                 return;
             }
             decimal pmNum = Convert.ToDecimal(btn.Text);
+            //if (btn.Name == "btnRobt")//如果是机器人工位
+            //{
+            //    pmNum = br.GetRobtMinTaskNUm();
+            //}
             if (pmNum > 0)
             {
                 if (Regex.IsMatch(btn.Text, @"^[+-]?\d*[.]?\d*$"))
                 {
+                    
                     var list = br.GetTobaccoInfos(pmNum, cs2.Height);
                     if (list.Any())
                     {
@@ -540,6 +586,7 @@ namespace PackageMachine
                           
                             cs2.UpdateValue(list, 0);
                         }
+                      
                         else
                         {
                             if (cbCgyOrNot.Checked)

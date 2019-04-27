@@ -790,8 +790,7 @@ namespace PackageMachine
                 connectSuccess = false;
                 RoBotState = false;
                 socketCore.Close();
-                socketCore = null;
-                CreateState = false;
+                socketCore = null; 
                 FirstSend = true;
                 FmInfo.GetTaskInfo("断开与机器人的连接！");
             }
@@ -887,7 +886,7 @@ namespace PackageMachine
                             {
                                 FmInfo.GetTaskInfo("异型烟倍速链：任务号" + tempvalue + "完成"); 
                                 FmInfo.GetTaskInfo(plc.ReadAndWriteYXYTaskConpelte(tempvalue, i));//更新数据库 更新DB块
-                                FmInfo.AutoRefreshShow(tempvalue);//更新跺形显示
+                               // FmInfo.AutoRefreshShow(tempvalue);//更新跺形显示 暂时用常规烟任务号刷新(2019/04/26)
                             }
                         //}
                         //catch (Exception ex)

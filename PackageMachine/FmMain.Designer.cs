@@ -87,7 +87,7 @@
             // lblTask
             // 
             this.lblTask.AutoSize = true;
-            this.lblTask.Location = new System.Drawing.Point(542, 17);
+            this.lblTask.Location = new System.Drawing.Point(547, 17);
             this.lblTask.Name = "lblTask";
             this.lblTask.Size = new System.Drawing.Size(53, 12);
             this.lblTask.TabIndex = 4;
@@ -96,7 +96,7 @@
             // lblFinshiTask
             // 
             this.lblFinshiTask.AutoSize = true;
-            this.lblFinshiTask.Location = new System.Drawing.Point(111, 17);
+            this.lblFinshiTask.Location = new System.Drawing.Point(116, 17);
             this.lblFinshiTask.Name = "lblFinshiTask";
             this.lblFinshiTask.Size = new System.Drawing.Size(53, 12);
             this.lblFinshiTask.TabIndex = 3;
@@ -114,7 +114,7 @@
             // lblServerInfo
             // 
             this.lblServerInfo.AutoSize = true;
-            this.lblServerInfo.Location = new System.Drawing.Point(1219, 17);
+            this.lblServerInfo.Location = new System.Drawing.Point(1260, 17);
             this.lblServerInfo.Name = "lblServerInfo";
             this.lblServerInfo.Size = new System.Drawing.Size(53, 12);
             this.lblServerInfo.TabIndex = 1;

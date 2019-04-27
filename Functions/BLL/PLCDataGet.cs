@@ -124,13 +124,27 @@ namespace Functions.BLL
                 {
                     return false;
                 }
-                foreach (var item in lists)
+                if( lists.Where(a=>a.UNIONPACKAGETAG ==1).Any())//如果需要合包
                 {
-                    if (item.NORMAILSTATE == 15)
+                    foreach (var item in lists)
                     {
-                        item.NORMAILSTATE = 20;
+                        if (item.NORMAILSTATE == 15)
+                        {
+                            item.NORMAILSTATE = 20;
+                        }
                     }
                 }
+                else//如果不需要合包 则视这个任务已经全部完成
+                {
+                    foreach (var item in lists)
+                    {
+                        if (item.STATE == 15)
+                        {
+                            item.STATE = 20;    
+                        }
+                    }
+                }
+             
                 if (et.SaveChanges() > 0)
                 {
                     return true;
