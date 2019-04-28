@@ -40,9 +40,31 @@ namespace PackageMachine
             listBtn.Add(btngw8);//拨杆二
             listBtn.Add(btngw9);//拨杆一
             listBtn.Add(btnRobt);//机器人
+            //自动刷新机器人工位
+            thToClike = new Thread(() =>
+            {
+                while (true)
+                {
+                    if (cbAutoRefsh.Checked)
+                    {
+                        Thread.Sleep(200);
+                        gbtnw1_Click(btnRobt, null);
+                    }
+                    else
+                    {
+                        Thread.Sleep(500);
+                    }
+                }
+                
+            });
+          
 
             // AutoScroll = true; 
         }
+        /// <summary>
+        /// 机器人工位单击事件
+        /// </summary>
+        Thread thToClike;
         /// <summary>
         /// OPC服务器
         /// </summary> 
@@ -108,6 +130,12 @@ namespace PackageMachine
                 opcGroup7 = group7; 
                 opcGroup.callback = OnDataChange;
                 ChangeListBtn();
+                btngw9.Text = "拨杆一";
+                btngw9.Cursor = Cursors.No;
+                btngw9.BackColor = Color.Red;
+                btnRobt.Text = "机器人工位";
+                btnRobt.Cursor = Cursors.No;
+                btnRobt.BackColor = Color.Red;
                 return 1;
             }
             else
@@ -145,8 +173,8 @@ namespace PackageMachine
                     {
                         if (values[i].ToString() == "0")
                         {
-                            btngw9.Text = "机器人工位";
-                            btngw9.Cursor = Cursors.No;
+                            btnRobt.Text = "机器人工位";
+                            btnRobt.Cursor = Cursors.No;
                             btnRobt.BackColor = Color.Red;
                           
                         }
@@ -155,7 +183,7 @@ namespace PackageMachine
 
                             btnRobt.Text = values[i].ToString();//
                             btnRobt.BackColor = Color.LightYellow;
-                            btngw9.Cursor = Cursors.Hand; 
+                            btnRobt.Cursor = Cursors.Hand; 
                         }
                     }
                     if( clientId[i] == 8)//如果拨杆一的位置
@@ -196,14 +224,31 @@ namespace PackageMachine
                 else
                 {
 
-                    btn.Text = "工位" + (j + 1)+"\r\n"+ values;
+                    btn.Text =  values;
                     btn.BackColor = Color.LightGreen;
                     btn.Cursor = Cursors.Hand;
                 }
                 j++;
             }
         }
- 
+        /// <summary>
+        /// 传入标志，标记是否能点击 
+        /// </summary>
+        /// <param name="flag">真为启用，假为禁用</param>
+        void EnbaleContrls(bool flag)
+        {
+            foreach (var item in listBtn)
+            {
+                if (flag)
+                {
+                    item.Enabled = true;
+                }
+                else
+                {
+                    item.Enabled = false;
+                }
+            }
+        }
  
   
         /// <summary>
@@ -231,7 +276,19 @@ namespace PackageMachine
 
         private void btnJump_Click(object sender, EventArgs e)
         {
-            Fm_Orderinfo_All all = new Fm_Orderinfo_All(Convert.ToDecimal(textBox1.Text));
+            Fm_Orderinfo_All all = null;
+            try
+            {
+                all = new Fm_Orderinfo_All(Convert.ToDecimal(textBox1.Text));
+            }
+            catch (Exception)
+            {
+                 
+            }
+            if (all == null)
+            {
+                return;
+            }
             all.Show();
             if (btnLast.Cursor == Cursors.No)
             {
@@ -563,12 +620,22 @@ namespace PackageMachine
 
         private void gbtnw1_Click(object sender, EventArgs e)
         {
+            decimal pmNum=0;
             Button btn = (Button)sender;
             if(btn.Cursor == Cursors.No)
             {
                 return;
             }
-            decimal pmNum = Convert.ToDecimal(btn.Text);
+            try
+            {
+                pmNum = Convert.ToDecimal(btn.Text);
+            }
+            catch (Exception)
+            {
+
+               
+            }
+         
             //if (btn.Name == "btnRobt")//如果是机器人工位
             //{
             //    pmNum = br.GetRobtMinTaskNUm();
@@ -612,16 +679,8 @@ namespace PackageMachine
         }
         private ToolTip tp_CodeInfo;
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(Width + "   " + Height);
-        }
-
-        private void btngw9_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-
-        }
+ 
+ 
 
         private void btnRouteSerch_Click(object sender, EventArgs e)
         {
@@ -638,6 +697,29 @@ namespace PackageMachine
             {
                 MessageBox.Show(info,"车组包数查询");
             }
+        }
+
+        private void cbAutoRefsh_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbAutoRefsh.Checked)
+            {
+                if(thToClike.ThreadState != ThreadState.Running)
+                {
+
+                    thToClike.Start();
+                }
+                EnbaleContrls(false);
+            }
+            else
+            {
+                EnbaleContrls(true);
+               
+            }
+        }
+
+        private void timeToClike_Tick(object sender, EventArgs e)
+        {
+          
         }
 
         private void btngw1_MouseEnter(object sender, EventArgs e)

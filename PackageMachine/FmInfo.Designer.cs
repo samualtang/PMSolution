@@ -29,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnJump = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.txtInTask = new System.Windows.Forms.TextBox();
@@ -50,8 +51,8 @@
             this.btnAuto = new System.Windows.Forms.Button();
             this.lblCache = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.cce1 = new PackageMachine.CigrCache();
             this.plcrtl = new System.Windows.Forms.Panel();
+            this.cbAutoRefsh = new System.Windows.Forms.CheckBox();
             this.lblInfo = new System.Windows.Forms.Label();
             this.lblNotFish = new System.Windows.Forms.Label();
             this.panelLb = new System.Windows.Forms.Panel();
@@ -63,8 +64,10 @@
             this.btngw5 = new System.Windows.Forms.Button();
             this.btngw2 = new System.Windows.Forms.Button();
             this.btngw4 = new System.Windows.Forms.Button();
+            this.btnRobt = new System.Windows.Forms.Button();
             this.btngw1 = new System.Windows.Forms.Button();
             this.btngw3 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.lblCigCount = new System.Windows.Forms.Label();
             this.lblUnNormal = new System.Windows.Forms.Label();
             this.lblNormalcOUNT = new System.Windows.Forms.Label();
@@ -72,10 +75,10 @@
             this.lblDxdetail = new System.Windows.Forms.Label();
             this.lblGwcx = new System.Windows.Forms.Label();
             this.cbCgyOrNot = new System.Windows.Forms.CheckBox();
+            this.cce1 = new PackageMachine.CigrCache();
             this.cs2 = new PackageMachine.CigrShow();
             this.cs = new PackageMachine.CigrShow();
-            this.btnRobt = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.timeToClike = new System.Windows.Forms.Timer(this.components);
             this.panelInfo.SuspendLayout();
             this.gbInfo.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -333,17 +336,10 @@
             this.panel1.Size = new System.Drawing.Size(176, 608);
             this.panel1.TabIndex = 8;
             // 
-            // cce1
-            // 
-            this.cce1.BackColor = System.Drawing.Color.White;
-            this.cce1.Location = new System.Drawing.Point(11, 48);
-            this.cce1.Name = "cce1";
-            this.cce1.Size = new System.Drawing.Size(137, 526);
-            this.cce1.TabIndex = 6;
-            // 
             // plcrtl
             // 
             this.plcrtl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.plcrtl.Controls.Add(this.cbAutoRefsh);
             this.plcrtl.Controls.Add(this.lblInfo);
             this.plcrtl.Controls.Add(this.btnAuto);
             this.plcrtl.Controls.Add(this.lblNotFish);
@@ -358,6 +354,18 @@
             this.plcrtl.Name = "plcrtl";
             this.plcrtl.Size = new System.Drawing.Size(1018, 181);
             this.plcrtl.TabIndex = 9;
+            // 
+            // cbAutoRefsh
+            // 
+            this.cbAutoRefsh.AutoSize = true;
+            this.cbAutoRefsh.Font = new System.Drawing.Font("微软雅黑", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbAutoRefsh.Location = new System.Drawing.Point(183, 57);
+            this.cbAutoRefsh.Name = "cbAutoRefsh";
+            this.cbAutoRefsh.Size = new System.Drawing.Size(163, 24);
+            this.cbAutoRefsh.TabIndex = 88;
+            this.cbAutoRefsh.Text = "自动刷新机器人跺型";
+            this.cbAutoRefsh.UseVisualStyleBackColor = true;
+            this.cbAutoRefsh.CheckedChanged += new System.EventHandler(this.cbAutoRefsh_CheckedChanged);
             // 
             // lblInfo
             // 
@@ -402,7 +410,7 @@
             this.btngw8.TabIndex = 0;
             this.btngw8.Text = "拨板二";
             this.btngw8.UseVisualStyleBackColor = false;
-            this.btngw8.Click += new System.EventHandler(this.btngw9_Click);
+            this.btngw8.Click += new System.EventHandler(this.gbtnw1_Click);
             // 
             // btngw9
             // 
@@ -415,7 +423,7 @@
             this.btngw9.TabIndex = 0;
             this.btngw9.Text = "拨板一";
             this.btngw9.UseVisualStyleBackColor = false;
-            this.btngw9.Click += new System.EventHandler(this.btngw9_Click);
+            this.btngw9.Click += new System.EventHandler(this.gbtnw1_Click);
             // 
             // panelUN
             // 
@@ -504,6 +512,20 @@
             this.btngw4.Click += new System.EventHandler(this.gbtnw1_Click);
             this.btngw4.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
             // 
+            // btnRobt
+            // 
+            this.btnRobt.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btnRobt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnRobt.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.btnRobt.Location = new System.Drawing.Point(7, 14);
+            this.btnRobt.Name = "btnRobt";
+            this.btnRobt.Size = new System.Drawing.Size(93, 47);
+            this.btnRobt.TabIndex = 0;
+            this.btnRobt.Text = "机器人工位";
+            this.btnRobt.UseVisualStyleBackColor = false;
+            this.btnRobt.Click += new System.EventHandler(this.gbtnw1_Click);
+            this.btnRobt.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
+            // 
             // btngw1
             // 
             this.btngw1.BackColor = System.Drawing.Color.LightSkyBlue;
@@ -531,6 +553,15 @@
             this.btngw3.UseVisualStyleBackColor = false;
             this.btngw3.Click += new System.EventHandler(this.gbtnw1_Click);
             this.btngw3.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(98, 2);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(11, 12);
+            this.label3.TabIndex = 89;
+            this.label3.Text = "|";
             // 
             // lblCigCount
             // 
@@ -609,6 +640,14 @@
             this.cbCgyOrNot.Text = "工位明细显示常规烟";
             this.cbCgyOrNot.UseVisualStyleBackColor = true;
             // 
+            // cce1
+            // 
+            this.cce1.BackColor = System.Drawing.Color.White;
+            this.cce1.Location = new System.Drawing.Point(11, 48);
+            this.cce1.Name = "cce1";
+            this.cce1.Size = new System.Drawing.Size(137, 526);
+            this.cce1.TabIndex = 6;
+            // 
             // cs2
             // 
             this.cs2.BackColor = System.Drawing.Color.White;
@@ -631,28 +670,9 @@
             this.cs.TabIndex = 3;
             this.cs.W = 540;
             // 
-            // btnRobt
+            // timeToClike
             // 
-            this.btnRobt.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.btnRobt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnRobt.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.btnRobt.Location = new System.Drawing.Point(7, 14);
-            this.btnRobt.Name = "btnRobt";
-            this.btnRobt.Size = new System.Drawing.Size(93, 47);
-            this.btnRobt.TabIndex = 0;
-            this.btnRobt.Text = "机器人工位";
-            this.btnRobt.UseVisualStyleBackColor = false;
-            this.btnRobt.Click += new System.EventHandler(this.gbtnw1_Click);
-            this.btnRobt.MouseEnter += new System.EventHandler(this.btngw1_MouseEnter);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(98, 2);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(11, 12);
-            this.label3.TabIndex = 89;
-            this.label3.Text = "|";
+            this.timeToClike.Tick += new System.EventHandler(this.timeToClike_Tick);
             // 
             // FmInfo
             // 
@@ -739,6 +759,8 @@
         private System.Windows.Forms.Button btnRouteSerch;
         private System.Windows.Forms.Button btnRobt;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox cbAutoRefsh;
+        private System.Windows.Forms.Timer timeToClike;
     }
     
 }

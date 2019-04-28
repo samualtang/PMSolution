@@ -103,17 +103,17 @@ namespace PackageMachine
                             //G7.Write(yxyBsul, 2);//任务号 异型烟倍速链
                             //G7.Write(1, 3);//清空指令 异型烟倍速链
                             Thread.Sleep(2000);//停顿两秒
-                            if(G7.ReadD(0).CastTo(-1) == 0 && G7.ReadD(3).CastTo(-1) == 0)
-                            {
-                                //FmInfo.GetTaskInfo("电控任务清除成功！");
-                                updateLabel("电控任务清除成功！", lblOper);
-                            }
-                            else
-                            {
-                                FmInfo.GetTaskInfo("电控任务清除失败，定位失败！");
-                                updateLabel("电控任务清除失败，定位失败！", lblOper);
-                                return;
-                            }
+                            //if(G7.ReadD(0).CastTo(-1) == 0 && G7.ReadD(3).CastTo(-1) == 0)
+                            //{
+                            //    //FmInfo.GetTaskInfo("电控任务清除成功！");
+                            //    updateLabel("电控任务清除成功！", lblOper);
+                            //}
+                            //else
+                            //{
+                            //    FmInfo.GetTaskInfo("电控任务清除失败，定位失败！");
+                            //    updateLabel("电控任务清除失败，定位失败！", lblOper);
+                            //    return;
+                            //}
                         }
                         catch (Exception ex )
                         { 

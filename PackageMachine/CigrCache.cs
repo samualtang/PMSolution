@@ -40,7 +40,7 @@ namespace PackageMachine
             this.lb_ShowDetail.Size = new Size(67, 15);
             this.lb_ShowDetail.TabIndex = 0;
             this.lb_ShowDetail.TabStop = true;
-            this.lb_ShowDetail.Text = "显\r\n 示\r\n 更\r\n 多";
+            this.lb_ShowDetail.Text = "显\r\n示\r\n更\r\n多";
             this.lb_ShowDetail.LinkClicked += this.lb_ShowDetail_LinkClicked;
             
             lb_ShowLastDetail.AutoSize = true;
@@ -49,7 +49,7 @@ namespace PackageMachine
             this.lb_ShowLastDetail.Name = "lb_ShowDetail";
             this.lb_ShowLastDetail.Size = new Size(67, 15); 
  
-            this.lb_ShowLastDetail.Text = "查\r\n 已\r\n 完\r\n 成";
+            this.lb_ShowLastDetail.Text = "查\r\n已\r\n完\r\n成";
             this.lb_ShowLastDetail.LinkClicked += Lb_ShowLastDetail_LinkClicked;
             this.timer1.Enabled = true;
             this.timer1.Interval = 500;
@@ -69,7 +69,7 @@ namespace PackageMachine
 
         private void Lb_ShowLastDetail_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var info = (from item in TobaccoList where item.TobaccoState == 20 orderby item.SortNum descending, item.PacktaskNum, item.CigNum select item).ToList();
+            var info = (from item in TobaccoList1 where item.TobaccoState == 20 orderby item.SortNum descending, item.PacktaskNum descending, item.CigNum descending select item).ToList();
 
             FmCacheDetail fcd = new FmCacheDetail(info);
             fcd.ShowDialog();
@@ -136,7 +136,8 @@ namespace PackageMachine
        
         public void UpdateValue(List<TobaccoInfo> Linfo)
         {
-            TobaccoList = Linfo.Where(a => a.TobaccoState == 10).ToList(); ;
+            TobaccoList = Linfo.Where(a => a.TobaccoState == 10).ToList();
+            TobaccoList1 = Linfo;
             this.UpdateTobaccoShow();
         }
         /// <summary>
@@ -245,6 +246,8 @@ namespace PackageMachine
 
         // Token: 0x040000E7 RID: 231
         private List<TobaccoInfo> TobaccoList = new List<TobaccoInfo>();
+
+        private List<TobaccoInfo> TobaccoList1 = new List<TobaccoInfo>();
 
         // Token: 0x040000E8 RID: 232
         private static List<TobaccoInfo> TobaccoListAll = new List<TobaccoInfo>();
