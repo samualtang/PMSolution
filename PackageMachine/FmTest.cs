@@ -207,6 +207,7 @@ namespace PackageMachine
         {
             try
             {
+                sim.Read(1);
                 if (!string.IsNullOrEmpty(textBox3.Text) && sim != null)
                 {
                     string info = " ";

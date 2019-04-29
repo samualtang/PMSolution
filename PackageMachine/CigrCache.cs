@@ -108,32 +108,7 @@ namespace PackageMachine
             //}
         }
 
-        // Token: 0x060000E3 RID: 227 RVA: 0x000100C8 File Offset: 0x0000E2C8
-        public void AddData(TobaccoInfo data)
-        {
-            //if (!this.TobaccoList.Contains(data))
-            //{
-            //    data.OnPosition = false;
-            //    this.TobaccoList.Add(data);
-            //    TobaccoListShow.TobaccoListAll.Add(data);
-            //}
-        }
 
-        // Token: 0x060000E4 RID: 228 RVA: 0x00010108 File Offset: 0x0000E308
-        public void RemoveData(TobaccoInfo data)
-        {
-            //this.TobaccoList.Remove(data);
-            //TobaccoListShow.TobaccoListAll.Remove(data);
-            //if (data.OtherDoubleTobacco != null)
-            //{
-            //    this.TobaccoList.Remove(data.OtherDoubleTobacco);
-            //    TobaccoListShow.TobaccoListAll.Remove(data.OtherDoubleTobacco);
-            //}
-            //this.UpdateTobaccoShow();
-        }
-
-        // Token: 0x060000E5 RID: 229 RVA: 0x00010168 File Offset: 0x0000E368
-       
         public void UpdateValue(List<TobaccoInfo> Linfo)
         {
             TobaccoList = Linfo.Where(a => a.TobaccoState == 10).ToList();
@@ -150,22 +125,7 @@ namespace PackageMachine
                 this.buttonList[i].Visible = false;
             }
         }
-        // Token: 0x060000E6 RID: 230 RVA: 0x0001018C File Offset: 0x0000E38C
-        public void OnPosition(int TobaccoIndex)
-        {
-            //foreach (TobaccoInfo tobaccoInfo in this.TobaccoList)
-            //{
-            //    if (tobaccoInfo.TobaccoIndex <= TobaccoIndex)
-            //    {
-            //        tobaccoInfo.OnPosition = true;
-            //    }
-            //    else
-            //    {
-            //        tobaccoInfo.OnPosition = false;
-            //    }
-            //}
-            //this.UpdateTobaccoShow();
-        }
+
 
         // Token: 0x060000E7 RID: 231 RVA: 0x00010208 File Offset: 0x0000E408
         public void UpdateTobaccoShow()

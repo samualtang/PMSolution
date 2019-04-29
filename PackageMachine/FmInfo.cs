@@ -30,16 +30,7 @@ namespace PackageMachine
             handle += updateListBox;
             GetGroup = GetOpcServerGroup;
             cbCgyOrNot.Checked = true;
-            listBtn.Add(btngw7);
-            listBtn.Add(btngw6);
-            listBtn.Add(btngw5);
-            listBtn.Add(btngw4);
-            listBtn.Add(btngw3);
-            listBtn.Add(btngw2);
-            listBtn.Add(btngw1);
-            listBtn.Add(btngw8);//拨杆二
-            listBtn.Add(btngw9);//拨杆一
-            listBtn.Add(btnRobt);//机器人
+            AddListBtn();
             FuncAutoRefsh = AutoRefshRobotShow; 
             // AutoScroll = true; 
         }
@@ -114,32 +105,32 @@ namespace PackageMachine
                 opcGroup7 = group7; 
                 opcGroup.callback = OnDataChange;
                 ChangeListBtn();
-                btngw9.Text = "拨杆一";
-                btngw9.Cursor = Cursors.No;
-                btngw9.BackColor = Color.Red;
-                btnRobt.Text = "机器人工位";
-                btnRobt.Cursor = Cursors.No;
-                btnRobt.BackColor = Color.Red;
+                //btngw9.Text = "拨杆一";
+                //btngw9.Cursor = Cursors.No;
+                //btngw9.BackColor = Color.Red;
+                //btnRobt.Text = "机器人工位";
+                //btnRobt.Cursor = Cursors.No;
+                //btnRobt.BackColor = Color.Red;
 
 
-                decimal fanban1 = opcGroup.ReadD(8).CastTo<decimal>(-1);//翻板一
-                //decimal fanban2 = opcGroup.ReadD(0).CastTo<decimal>(-1);//翻板二
-                //decimal fanban3 = opcGroup.ReadD(0).CastTo<decimal>(-1);//翻板三
-                decimal robot = opcGroup.ReadD(10).CastTo<decimal>(-1);//机器人
+                //decimal fanban1 = opcGroup.ReadD(8).CastTo<decimal>(-1);//翻板一
+                ////decimal fanban2 = opcGroup.ReadD(0).CastTo<decimal>(-1);//翻板二
+                ////decimal fanban3 = opcGroup.ReadD(0).CastTo<decimal>(-1);//翻板三
+                //decimal robot = opcGroup.ReadD(10).CastTo<decimal>(-1);//机器人
 
-                if(fanban1 > 0)
-                {
-                    btngw9.Text = fanban1.ToString();
-                    btngw9.Cursor = Cursors.Hand;
-                    btngw9.BackColor = Color.LightGreen;
+                //if(fanban1 > 0)
+                //{
+                //    btngw9.Text = fanban1.ToString();
+                //    btngw9.Cursor = Cursors.Hand;
+                //    btngw9.BackColor = Color.LightGreen;
 
-                }
-                if(robot > 0)
-                {
-                    btnRemake.Text = robot.ToString();
-                    btnRemake.Cursor = Cursors.Hand;
-                    btnRemake.BackColor = Color.LightGreen;
-                }
+                //}
+                //if(robot > 0)
+                //{
+                //    btnRemake.Text = robot.ToString();
+                //    btnRemake.Cursor = Cursors.Hand;
+                //    btnRemake.BackColor = Color.LightGreen;
+                //}
                 
                 return 1;
             }
@@ -162,6 +153,7 @@ namespace PackageMachine
             } 
             return 0;
         }
+      
         /// <summary>
         /// opc监控PLC中的值，当发生改变时进入
         /// </summary>
@@ -186,39 +178,6 @@ namespace PackageMachine
                         {
                              GetTaskInfo("缓存工位队列不包含任何元素" + ex.Message);
                         }
-                    if(clientId[i] == 10)//如果是机器人工位
-                    {
-                        if (values[i].ToString() == "0")
-                        {
-                            btnRobt.Text = "机器人工位";
-                            btnRobt.Cursor = Cursors.No;
-                            btnRobt.BackColor = Color.Red;
-                          
-                        }
-                        else
-                        {
-
-                            btnRobt.Text = values[i].ToString();//
-                            btnRobt.BackColor = Color.LightYellow;
-                            btnRobt.Cursor = Cursors.Hand; 
-                        }
-                    }
-                    if( clientId[i] == 8)//如果拨杆一的位置
-                    {
-                        if( values[i].ToString() == "0")
-                        {
-                            btngw9.Text = "拨杆一";
-                            btngw9.Cursor = Cursors.No;
-                            btngw9.BackColor = Color.Red;
-                             
-                        }
-                        else
-                        { 
-                            btngw9.Text = values[i].ToString();
-                            btngw9.BackColor = Color.LightGreen;
-                            btngw9.Cursor = Cursors.Hand; 
-                        }
-                    }
                     //}
                     //else { GetTaskInfo("读取缓存工位值异常，值为："+tempvalue); }
                 }
@@ -228,15 +187,33 @@ namespace PackageMachine
         void ChangeListBtn()
         {
             int j = 0;
-            for (int i = 6; i >= 0; i--)
+            for (int i = listBtn.Count(); i >= 0; i--)//10 9 8 7 6
             {
-                var values = opcGroup.ReadD(j).CastTo("工位" + (i + 1));
+                var values = opcGroup.ReadD(j).CastTo("0");
                 var btn = listBtn[i];
                 if (values == "0")
                 {
-                    btn.Text = "工位" + (j + 1);
-                    btn.BackColor = Color.Red;
-                    btn.Cursor = Cursors.No;
+                    if(btn.Name == "btnRobt")
+                    {
+                        btn.Text = "机器人工位" ;
+                        btn.BackColor = Color.Red;
+                        btn.Cursor = Cursors.No;
+                    }
+                    else
+                    { 
+                        if(btn.Name.Contains("8") || btn.Name.Contains("9")|| btn.Name.Contains("10") )
+                        { 
+                            btn.Text = "拨杆" + (j + 1);
+                            btn.BackColor = Color.Red;
+                            btn.Cursor = Cursors.No;
+                        }
+                        else
+                        { 
+                            btn.Text = "工位" + (j + 1);
+                            btn.BackColor = Color.Red;
+                            btn.Cursor = Cursors.No;
+                        }
+                    }
                 }
                 else
                 {
@@ -248,6 +225,21 @@ namespace PackageMachine
                 j++;
             }
 
+        }
+        void AddListBtn()
+        {
+
+            listBtn.Add(btngw7);//0
+            listBtn.Add(btngw6);//1
+            listBtn.Add(btngw5);//2
+            listBtn.Add(btngw4);//3
+            listBtn.Add(btngw3);//4
+            listBtn.Add(btngw2);//5
+            listBtn.Add(btngw1);//6
+            listBtn.Add(btngw8);//拨杆一7
+            listBtn.Add(btngw9);//拨杆二8
+            listBtn.Add(btngw10);//拨杆三9
+            listBtn.Add(btnRobt);//机器人10
         }
         /// <summary>
         /// 传入标志，标记是否能点击 

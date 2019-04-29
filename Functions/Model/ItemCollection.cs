@@ -94,12 +94,12 @@ namespace Functions.Model
                 //list.Add(S7Name + "DB8,INT" + (6 + (i * 12)));//合单标志
                 //list.Add(S7Name + "DB8,INT" + (8 + (i * 12)));//推烟位置
                 //list.Add(S7Name + "DB8,INT" +( 10 + (i * 12)));//顺序标志
-            }
-           
-
-            list.Add(S7Name1 + "DB1,DINT1260");//常规烟拨杆一  位置 8
-            list.Add(S7Name1 + "DB1,DINT1260");//常规烟拨杆二  位置9
+            } 
+            list.Add(S7Name1 + "DB1,DINT1260");//常规烟拨杆一  位置 7
+            list.Add(S7Name1 + "DB1,DINT1272");//常规烟拨杆二  位置8
+            list.Add(S7Name1 + "DB1,DINT1260");//常规烟拨杆三  位置9
             list.Add(S7Name + "DB6,DINT0");//机器人 任务号w  位置 10
+
             return list;
         }
 

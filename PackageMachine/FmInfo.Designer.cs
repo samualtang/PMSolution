@@ -51,6 +51,7 @@
             this.btnAuto = new System.Windows.Forms.Button();
             this.lblCache = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cce1 = new PackageMachine.CigrCache();
             this.plcrtl = new System.Windows.Forms.Panel();
             this.cbAutoRefsh = new System.Windows.Forms.CheckBox();
             this.lblInfo = new System.Windows.Forms.Label();
@@ -75,10 +76,10 @@
             this.lblDxdetail = new System.Windows.Forms.Label();
             this.lblGwcx = new System.Windows.Forms.Label();
             this.cbCgyOrNot = new System.Windows.Forms.CheckBox();
-            this.cce1 = new PackageMachine.CigrCache();
             this.cs2 = new PackageMachine.CigrShow();
             this.cs = new PackageMachine.CigrShow();
             this.timeToClike = new System.Windows.Forms.Timer(this.components);
+            this.btngw10 = new System.Windows.Forms.Button();
             this.panelInfo.SuspendLayout();
             this.gbInfo.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -336,6 +337,14 @@
             this.panel1.Size = new System.Drawing.Size(176, 608);
             this.panel1.TabIndex = 8;
             // 
+            // cce1
+            // 
+            this.cce1.BackColor = System.Drawing.Color.White;
+            this.cce1.Location = new System.Drawing.Point(11, 48);
+            this.cce1.Name = "cce1";
+            this.cce1.Size = new System.Drawing.Size(137, 526);
+            this.cce1.TabIndex = 6;
+            // 
             // plcrtl
             // 
             this.plcrtl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -392,11 +401,12 @@
             // panelLb
             // 
             this.panelLb.BackColor = System.Drawing.Color.LightBlue;
+            this.panelLb.Controls.Add(this.btngw10);
             this.panelLb.Controls.Add(this.btngw8);
             this.panelLb.Controls.Add(this.btngw9);
             this.panelLb.Location = new System.Drawing.Point(594, 25);
             this.panelLb.Name = "panelLb";
-            this.panelLb.Size = new System.Drawing.Size(223, 63);
+            this.panelLb.Size = new System.Drawing.Size(324, 63);
             this.panelLb.TabIndex = 86;
             // 
             // btngw8
@@ -570,9 +580,9 @@
             this.lblCigCount.Font = new System.Drawing.Font("微软雅黑", 16.25F);
             this.lblCigCount.Location = new System.Drawing.Point(825, 11);
             this.lblCigCount.Name = "lblCigCount";
-            this.lblCigCount.Size = new System.Drawing.Size(186, 30);
+            this.lblCigCount.Size = new System.Drawing.Size(208, 30);
             this.lblCigCount.TabIndex = 0;
-            this.lblCigCount.Text = "卷烟总量：         ";
+            this.lblCigCount.Text = "总卷烟总量：         ";
             // 
             // lblUnNormal
             // 
@@ -640,14 +650,6 @@
             this.cbCgyOrNot.Text = "工位明细显示常规烟";
             this.cbCgyOrNot.UseVisualStyleBackColor = true;
             // 
-            // cce1
-            // 
-            this.cce1.BackColor = System.Drawing.Color.White;
-            this.cce1.Location = new System.Drawing.Point(11, 48);
-            this.cce1.Name = "cce1";
-            this.cce1.Size = new System.Drawing.Size(137, 526);
-            this.cce1.TabIndex = 6;
-            // 
             // cs2
             // 
             this.cs2.BackColor = System.Drawing.Color.White;
@@ -673,6 +675,19 @@
             // timeToClike
             // 
             this.timeToClike.Tick += new System.EventHandler(this.timeToClike_Tick);
+            // 
+            // btngw10
+            // 
+            this.btngw10.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btngw10.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw10.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.btngw10.Location = new System.Drawing.Point(220, 9);
+            this.btngw10.Name = "btngw10";
+            this.btngw10.Size = new System.Drawing.Size(93, 47);
+            this.btngw10.TabIndex = 0;
+            this.btngw10.Text = "拨板三";
+            this.btngw10.UseVisualStyleBackColor = false;
+            this.btngw10.Click += new System.EventHandler(this.gbtnw1_Click);
             // 
             // FmInfo
             // 
@@ -761,6 +776,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox cbAutoRefsh;
         private System.Windows.Forms.Timer timeToClike;
+        private System.Windows.Forms.Button btngw10;
     }
     
 }
