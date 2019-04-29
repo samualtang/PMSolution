@@ -24,7 +24,7 @@ namespace Functions.BLL
         public void GetAllOrder(decimal packageNo, decimal synseq=1)
         {
 
-            List<T_WMS_ITEM> query1;
+            
             int allCount = 0;
             using (Entities entity = new Entities())
             {
@@ -41,8 +41,8 @@ namespace Functions.BLL
                     //.Where(x => x.REGIONCODE == "0255" && x.EXPORT== 5)
                     //.Where(x => x.EXPORT == 5 )//&& x.SYNSEQ == synseq)
                     //.Where(x=>x.BILLCODE == "CS10513113")//|| x.BILLCODE == "CS10523974")//"
-                    //.Where(x => x.BILLCODE == "CS10540717")
-                    .Where(x => x.TASKNUM == 785478)// || x.TASKNUM == 785440 || x.TASKNUM ==785478)
+                   // .Where(x => x.BILLCODE == "CS10536173")
+                    .Where(x => x.TASKNUM == 798524)// || x.TASKNUM == 785440 || x.TASKNUM ==785478)
                     .ToList();
                 //所有订单明细
                 var query = (from item in data
@@ -102,7 +102,7 @@ namespace Functions.BLL
                                 temp.CIGSEQ = pcount;
                                 temp.PACKAGESEQ = 0;
                                 temp.ALLPACKAGESEQ = 0;
-                                temp.PACKAGENO = v2.EXPORT; ;////////////
+                                temp.PACKAGENO = v2.EXPORT ;////////////
                                 temp.CIGTYPE = v2.ALLOWSORT == "非标" ? "2" : "1";
                                 temp.STATE = 0;//0 新增  10 确定
                                 temp.NORMAILSTATE = 0;//0 新增  10 确定
@@ -174,14 +174,15 @@ namespace Functions.BLL
                 query = null;
             }
         }
-
-            decimal ptid;
+        List<T_WMS_ITEM> query1;
+        decimal ptid;
         int packageWidth = 540;//宽
         int packageLenghth = 366; //长
         int packageHeight = 150;//高
         int jx = 4;//间隙
         int lc = 60;//长度差
         decimal deviation = 3;//高度误差
+        decimal Widthdeviation = 3;//宽度误差
         /// <summary>
         /// 常规烟高
         /// </summary>
@@ -1103,7 +1104,7 @@ namespace Functions.BLL
                     List<ItemGroup1> itemGroupSave = new List<ItemGroup1>();
                     foreach (var item in allGroupList1)//遍历组合双抓
                     {
-                        if ((Math.Abs(item.Hight - LastHight) < deviation || LastHight == 0) && LastDoubletask == "1" && Math.Abs(LastWidth - item.Width)<=3 && Math.Abs(LastSeq -item.CigaretteSeq)==1)//如果当前条烟与上条烟 高度相差在偏差范围内且能双抓   或是第一条烟  暂时宽度要求相等
+                        if ((Math.Abs(item.Hight - LastHight) < deviation || LastHight == 0) && LastDoubletask == "1" && Math.Abs(LastWidth - item.Width)<=Widthdeviation && Math.Abs(LastSeq -item.CigaretteSeq)==1)//如果当前条烟与上条烟 高度相差在偏差范围内且能双抓   或是第一条烟  暂时宽度要求相等
                         {
                             cigindex += 1;
                             item.Cigindex = cigindex;
@@ -1167,26 +1168,48 @@ namespace Functions.BLL
                     //读取能单抓的条烟数据
                     var groupsList2 = allGroupLists.FindAll(x => x.Cigarette.Count == 1).Select(x => x.Cigarette).ToList();
                     //如果单抓的集合还剩一条，还有异型烟烟未分配，往后取一条看是否能组成双抓
-                    //if (groupsList1.Count == 0 && groupsList2.Count > 1 && task.Where(x => x.STATE == 0 && x.CIGTYPE == "2").Count() > 1)
-                    //{
-                    //    var maxdata = groupsList2.OrderByDescending(x => x.OrderByDescending(t => t.CigaretteSeq)).ToList().FirstOrDefault();
-                    //    var nextdata = task.Where(x => x.CIGSEQ == groupsList2[0][0].CigaretteSeq + 1).FirstOrDefault();
-                    //    //如果接下来的一条烟可以与上一条双抓
-                    //    if ((Math.Abs((nextdata.CIGHIGH ?? 0) - maxdata[0].Hight) == 0) && (nextdata.DOUBLETAKE == "1" && maxdata[0].DoubleTake == "1") && Math.Abs((nextdata.CIGWIDTH ?? 0) - maxdata[0].Width) <= 3)//如果当前条烟与上条烟 高度相差在偏差范围内且能双抓  
-                    //    {
-                    //        groupsList1.Add(maxdata);
-                    //        ItemGroup1 itemGroup = new ItemGroup1();
-                    //        itemGroup.CigaretteCode = nextdata.CIGARETTECODE;
-                    //        itemGroup.CigaretteSeq = nextdata.CIGSEQ ?? 0;
-                    //        itemGroup.Cigindex = 2;
-                    //        itemGroup.DoubleTake = nextdata.DOUBLETAKE;
-                    //        itemGroup.Hight = nextdata.CIGHIGH ?? 0;
-                    //        itemGroup.Length = nextdata.CIGLENGTH ?? 0;
-                    //        itemGroup.Total = 1;
-                    //        itemGroup.Width = nextdata.CIGWIDTH ?? 0;
-                    //        groupsList1[0].Add(itemGroup);
-                    //    }
-                    //}
+                    if (groupsList1.Count == 0 && groupsList2.Count > 1 && task.Where(x => x.STATE == 0 && x.CIGTYPE == "2").Count() > groupsList2.Count())
+                    {
+                        decimal maxcigseq = 0;
+                        foreach (var item in groupsList2)
+                        {
+                            maxcigseq = item[0].CigaretteSeq > maxcigseq ? item[0].CigaretteSeq : maxcigseq;
+                        }
+                        var lastdata = task.Where(x => x.CIGSEQ == maxcigseq).FirstOrDefault();
+                        var nextdata = task.Where(x => x.CIGSEQ == maxcigseq + 1).FirstOrDefault();
+                        var doubletakelast = query1.Where(x => x.ITEMNO == lastdata.CIGARETTECODE).Select(x => x.DOUBLETAKE).FirstOrDefault();
+                        var doubletakenext = query1.Where(x => x.ITEMNO == nextdata.CIGARETTECODE).Select(x => x.DOUBLETAKE).FirstOrDefault();
+                        List<ItemGroup1> l1 = new List<ItemGroup1>();
+                        //如果接下来的一条烟可以与上一条双抓
+                        if ((Math.Abs((nextdata.CIGHIGH ?? 0) - (lastdata.CIGHIGH ?? 0)) < deviation) && (doubletakelast == "1" && doubletakenext == "1") && Math.Abs((nextdata.CIGWIDTH ?? 0) - (lastdata.CIGWIDTH ?? 0)) <= Widthdeviation)//如果当前条烟与上条烟 高度相差在偏差范围内且能双抓  
+                        {
+                            
+                            ItemGroup1 itemGroup1 = new ItemGroup1();
+                            itemGroup1.CigaretteCode = lastdata.CIGARETTECODE;
+                            itemGroup1.CigaretteSeq = lastdata.CIGSEQ ?? 0;
+                            itemGroup1.Cigindex = 1;
+                            itemGroup1.DoubleTake = doubletakelast;
+                            itemGroup1.Hight = lastdata.CIGHIGH ?? 0;
+                            itemGroup1.Length = lastdata.CIGLENGTH ?? 0;
+                            itemGroup1.Total = 1;
+                            itemGroup1.Width = lastdata.CIGWIDTH ?? 0;
+                            l1.Add(itemGroup1);
+                            ItemGroup1 itemGroup2 = new ItemGroup1();
+                            itemGroup2.CigaretteCode = nextdata.CIGARETTECODE;
+                            itemGroup2.CigaretteSeq = nextdata.CIGSEQ ?? 0;
+                            itemGroup2.Cigindex = 2;
+                            itemGroup2.DoubleTake = doubletakenext;
+                            itemGroup2.Hight = nextdata.CIGHIGH ?? 0;
+                            itemGroup2.Length = nextdata.CIGLENGTH ?? 0;
+                            itemGroup2.Total = 1;
+                            itemGroup2.Width = nextdata.CIGWIDTH ?? 0;
+                            l1.Add(itemGroup2);
+                            groupsList1.Add(l1);
+                            groupsList2.Remove(groupsList2.Where(x => x[0].CigaretteSeq == lastdata.CIGSEQ).FirstOrDefault());
+                            templist.Add(nextdata);
+                        }
+                    }
+
                     decimal[] tempcode = new decimal[2];
                     decimal tempWidth = 0;
                     decimal gdc = 0;//高度差
@@ -1635,7 +1658,7 @@ namespace Functions.BLL
                 //找出只有一层的异型烟包(6条常规烟宽度*0.8)
                 var oneleveldata = sortdata.Where(x => x.ww <= (normalwidth * NorCount));//* (decimal)0.8));
                 //如果常规烟有余数，总层数减 
-                if (Remainder > 0 && AllNormalLevel > 4 )
+                if (Remainder > 0 && AllNormalLevel > 2 )
                 {
                     AllNormalLevel -= 2;
                 }
@@ -1764,15 +1787,20 @@ namespace Functions.BLL
                                         }
                                         var tmp = unnormallist.Where(x => x[0] == item.allpackageq).ToList();
                                         tmp[0][1] = maxlevel;
+                                        AllNormalLevel = surp;
                                     }
                                 }
-                                var it = unnormallist.OrderByDescending(x => x[1]).FirstOrDefault();
-                                //如果剩余常规烟的层数分包后小于2
-                                if ((AllNormalLevel - it[1]) % 6 < 2 && (AllNormalLevel - it[1]) % 6 != 0)
+                                var it = unnormallist.OrderByDescending(x => x[1]).ToList();
+                                //如果剩余常规烟的层数分包后小于2 , 从合包异型烟最多的包取一层常规烟
+                                if (AllNormalLevel > 0 && (AllNormalLevel - it[0].FirstOrDefault()) % 6 < 2)
                                 {
-                                    if (it[1] >= 1)
+                                    foreach (var item in it)
                                     {
-                                        it[1] -= 1;
+                                        if (item[1] > 1)
+                                        {
+                                            item[1] -= 1;
+                                            break;
+                                        }
                                     }
                                 }
                             }
