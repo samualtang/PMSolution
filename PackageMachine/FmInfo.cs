@@ -58,8 +58,10 @@ namespace PackageMachine
         /// 取消按钮使用(传入1停用，传入2使用)
         /// </summary>
         public static Func<int, int> Func;
-
-
+        /// <summary>
+        /// 标记是否自动刷新
+        /// </summary>
+        bool CheackFlag;
         /// <summary>
         /// 界面工位按钮显示集合
         /// </summary>
@@ -147,7 +149,7 @@ namespace PackageMachine
         /// <returns></returns>
         int AutoRefshRobotShow()
         {
-            if (cbAutoRefsh.Checked)
+            if (CheackFlag )
             {
                 gbtnw1_Click(btnRobt, null); 
             } 
@@ -187,7 +189,7 @@ namespace PackageMachine
         void ChangeListBtn()
         {
             int j = 0;
-            for (int i = listBtn.Count(); i >= 0; i--)//10 9 8 7 6
+            for (int i = listBtn.Count()-1; i >= 0; i--)//10 9 8 7 6
             {
                 var values = opcGroup.ReadD(j).CastTo("0");
                 var btn = listBtn[i];
@@ -708,17 +710,18 @@ namespace PackageMachine
                 MessageBox.Show(info,"车组包数查询");
             }
         }
-   
+
         private void cbAutoRefsh_CheckedChanged(object sender, EventArgs e)
         {
-            if (cbAutoRefsh.Checked)
+            if (CheackFlag)
             { 
                 EnbaleContrls(false);
+                CheackFlag = false;
             }
             else
             { 
                 EnbaleContrls(true);
-               
+                CheackFlag = true;
             }
         }
 
