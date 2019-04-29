@@ -40,25 +40,7 @@ namespace PackageMachine
             listBtn.Add(btngw8);//拨杆二
             listBtn.Add(btngw9);//拨杆一
             listBtn.Add(btnRobt);//机器人
-            //自动刷新机器人工位
-            thToClike = new Thread(() =>
-            {
-                while (true)
-                {
-                    if (cbAutoRefsh.Checked)
-                    {
-                        Thread.Sleep(200);
-                        gbtnw1_Click(btnRobt, null);
-                    }
-                    else
-                    {
-                        Thread.Sleep(500);
-                    }
-                }
-                
-            });
-          
-
+            FuncAutoRefsh = AutoRefshRobotShow; 
             // AutoScroll = true; 
         }
         /// <summary>
@@ -77,8 +59,10 @@ namespace PackageMachine
         /// 获取OPC组
         /// </summary>
         public static Func<Group, Group, int> GetGroup;
-
-
+        /// <summary>
+        /// 自动刷新委托
+        /// </summary>
+        public static Func<int> FuncAutoRefsh;
         /// <summary>
         /// 取消按钮使用(传入1停用，传入2使用)
         /// </summary>
@@ -136,6 +120,27 @@ namespace PackageMachine
                 btnRobt.Text = "机器人工位";
                 btnRobt.Cursor = Cursors.No;
                 btnRobt.BackColor = Color.Red;
+
+
+                decimal fanban1 = opcGroup.ReadD(8).CastTo<decimal>(-1);//翻板一
+                //decimal fanban2 = opcGroup.ReadD(0).CastTo<decimal>(-1);//翻板二
+                //decimal fanban3 = opcGroup.ReadD(0).CastTo<decimal>(-1);//翻板三
+                decimal robot = opcGroup.ReadD(10).CastTo<decimal>(-1);//机器人
+
+                if(fanban1 > 0)
+                {
+                    btngw9.Text = fanban1.ToString();
+                    btngw9.Cursor = Cursors.Hand;
+                    btngw9.BackColor = Color.LightGreen;
+
+                }
+                if(robot > 0)
+                {
+                    btnRemake.Text = robot.ToString();
+                    btnRemake.Cursor = Cursors.Hand;
+                    btnRemake.BackColor = Color.LightGreen;
+                }
+                
                 return 1;
             }
             else
@@ -144,6 +149,18 @@ namespace PackageMachine
                 GetTaskInfo("任务信息界面：OPC服务创建失败，将无法获取异形烟缓存工位信息！");
                 return 0;
             }
+        }
+        /// <summary>
+        /// 自动刷新机器人工位跺型
+        /// </summary>
+        /// <returns></returns>
+        int AutoRefshRobotShow()
+        {
+            if (cbAutoRefsh.Checked)
+            {
+                gbtnw1_Click(btnRobt, null); 
+            } 
+            return 0;
         }
         /// <summary>
         /// opc监控PLC中的值，当发生改变时进入
@@ -230,6 +247,7 @@ namespace PackageMachine
                 }
                 j++;
             }
+
         }
         /// <summary>
         /// 传入标志，标记是否能点击 
@@ -698,20 +716,15 @@ namespace PackageMachine
                 MessageBox.Show(info,"车组包数查询");
             }
         }
-
+   
         private void cbAutoRefsh_CheckedChanged(object sender, EventArgs e)
         {
             if (cbAutoRefsh.Checked)
-            {
-                if(thToClike.ThreadState != ThreadState.Running)
-                {
-
-                    thToClike.Start();
-                }
+            { 
                 EnbaleContrls(false);
             }
             else
-            {
+            { 
                 EnbaleContrls(true);
                
             }

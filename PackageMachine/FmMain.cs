@@ -304,6 +304,7 @@ namespace PackageMachine
                                     FmInfo.GetTaskInfo("机器人：任务号" + arr1[0] + "，条烟流水号：" + arr1[1] + "，数据库更新完成！");
                                     FmInfo.GetTaskInfo("机器人：任务号" + arr2[0] + "，条烟流水号：" + arr2[1] + "，数据库更新完成！");
                                     updateLabel("机器人：任务号" + arr2[0] + "，条烟流水号：" + arr2[1] + "，数据库更新完成！", lblFinshiTask);
+                                    FmInfo.FuncAutoRefsh();//更新显示界面
                                 }
                                 
                                 if (!string.IsNullOrWhiteSpace(outStr))//
@@ -347,6 +348,7 @@ namespace PackageMachine
                             {
                                 FmInfo.GetTaskInfo("机器人：任务号" + Arr[0] + "，条烟流水号：" + Arr[1] + "，数据库更新完成！"); 
                                 updateLabel("机器人：任务号" + Arr[0] + "，条烟流水号：" + Arr[1] + "，数据库更新完成！", lblFinshiTask);
+                                FmInfo.FuncAutoRefsh();//更新显示界面
                             }
                         }
                     }
