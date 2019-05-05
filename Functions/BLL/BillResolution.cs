@@ -171,7 +171,7 @@ namespace Functions.BLL
             List<decimal> list = new List<decimal>();
             using(Entities en = new Entities())
             {
-
+                var query = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == item.PACKAGENO && item.STATE == 10 orderby item.PACKTASKNUM, item.CIGTYPE, item.CIGNUM   select item  ).ToList();
 
            
                 var normalQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno && item.CIGTYPE =="1" select item).Distinct().Sum(a => a.NORMALQTY);
@@ -179,6 +179,7 @@ namespace Functions.BLL
                 var orderQty = normalQty + UnnormalQty;// (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item).Select(a => new { orderQty = a.ORDERQTY, billcode = a.BILLCODE }).Distinct().Sum(a => a.orderQty);
                 var FinshQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno   select item).Distinct().Where(a => a.STATE == 20).Sum(a=> a.NORMALQTY);
                 var NotFinshQty = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno   select item).Distinct().Where(a => a.STATE != 20).Sum(a => a.NORMALQTY);
+                
 
                 list.Add(orderQty ?? 0);
                 list.Add(normalQty ?? 0);
@@ -451,7 +452,7 @@ namespace Functions.BLL
                     foreach (var item in region)
                     {
                         RouteDetail rd = new RouteDetail(); 
-                        var count = (from one in en.T_PACKAGE_TASK where one.REGIONCODE == item.region select one).Select(a => new { packtasknum = a.PACKTASKNUM }).Distinct().Count();
+                        var count = (from one in en.T_PACKAGE_TASK where one.REGIONCODE == item.region && one.PACKAGENO == packageno select one).Select(a => new { packtasknum = a.PACKTASKNUM }).Distinct().Count();
                         rd.Region = item.region;
                         rd.PackageCount = count;
                         list.Add(rd);

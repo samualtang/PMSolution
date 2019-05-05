@@ -266,6 +266,10 @@ namespace PackageMachine
             br.CallBackTBJ(1);
             textBox2.Text = DateTime.Now.ToString() + "：结束时间";
         }
-
+        RobotTaskService tr = new RobotTaskService();
+        private void button11_Click(object sender, EventArgs e)
+        {
+            tr.GetRobotInfo(out string errmsg);
+        }
     }
 }

@@ -107,32 +107,7 @@ namespace PackageMachine
                 opcGroup7 = group7; 
                 opcGroup.callback = OnDataChange;
                 ChangeListBtn();
-                //btngw9.Text = "拨杆一";
-                //btngw9.Cursor = Cursors.No;
-                //btngw9.BackColor = Color.Red;
-                //btnRobt.Text = "机器人工位";
-                //btnRobt.Cursor = Cursors.No;
-                //btnRobt.BackColor = Color.Red;
 
-
-                //decimal fanban1 = opcGroup.ReadD(8).CastTo<decimal>(-1);//翻板一
-                ////decimal fanban2 = opcGroup.ReadD(0).CastTo<decimal>(-1);//翻板二
-                ////decimal fanban3 = opcGroup.ReadD(0).CastTo<decimal>(-1);//翻板三
-                //decimal robot = opcGroup.ReadD(10).CastTo<decimal>(-1);//机器人
-
-                //if(fanban1 > 0)
-                //{
-                //    btngw9.Text = fanban1.ToString();
-                //    btngw9.Cursor = Cursors.Hand;
-                //    btngw9.BackColor = Color.LightGreen;
-
-                //}
-                //if(robot > 0)
-                //{
-                //    btnRemake.Text = robot.ToString();
-                //    btnRemake.Cursor = Cursors.Hand;
-                //    btnRemake.BackColor = Color.LightGreen;
-                //}
                 
                 return 1;
             }
@@ -186,6 +161,9 @@ namespace PackageMachine
             }
  
         }
+        /// <summary>
+        /// 更改工位（button）显示
+        /// </summary>
         void ChangeListBtn()
         {
             int j = 0;
@@ -204,7 +182,7 @@ namespace PackageMachine
                     btn = listBtn[i+3+index];
                     index+=2;
                 } 
-                if (values == "0")
+                if (values == "0" || string.IsNullOrWhiteSpace(values))
                 {
                     if(btn.Name == "btnRobt")
                     {
@@ -242,7 +220,16 @@ namespace PackageMachine
                 }
                 else
                 { 
-                    btn.Text =  values;
+                    
+                    
+                    if (values != listBtn[9].Text && btn.Text.Contains("9"))//如果是合包处工位任务号不同 就把这个任务移到拨杆三的位置
+                    {
+                        listBtn[9].Text = btn.Text;
+                        listBtn[9].BackColor = Color.LightGreen;
+                        listBtn[9].Cursor = Cursors.Hand;
+                    }
+
+                    btn.Text = values;
                     btn.BackColor = Color.LightGreen;
                     btn.Cursor = Cursors.Hand;
                 }
@@ -250,6 +237,9 @@ namespace PackageMachine
             }
 
         }
+        /// <summary>
+        /// 添加工位（button）到集合
+        /// </summary>
         void AddListBtn()
         {
 
@@ -260,13 +250,6 @@ namespace PackageMachine
             listBtn.Add(btngw3);//4
             listBtn.Add(btngw2);//5
             listBtn.Add(btngw1);//6
-            //listBtn.Add(btngw1);//0
-            //listBtn.Add(btngw2);//1
-            //listBtn.Add(btngw3);//2
-            //listBtn.Add(btngw4);//3
-            //listBtn.Add(btngw5);//4
-            //listBtn.Add(btngw6);//5
-            //listBtn.Add(btngw7);//6
             listBtn.Add(btngw8);//拨杆一7
             listBtn.Add(btngw9);//拨杆二8
             listBtn.Add(btngw10);//拨杆三9
@@ -378,10 +361,11 @@ namespace PackageMachine
                 {
                     lblcutcode.Text = "任务流水号：" + task.SORTNUM;
                     lbllinename.Text = "线路名称：" + task.REGIONCODE;
-                    lblcutname.Text = "客户名称" + task.CUSTOMERNAME;
-                    lblcuscode.Text = "客户编码" + task.CUSTOMERCODE;
+                    lblcutname.Text = "客户名称：" + task.CUSTOMERNAME;
+                    lblcuscode.Text = "客户编码：" + task.CUSTOMERCODE;
                     lblcutcount.Text = "客户包数：" + firstList.PackgeSeq + "/" + firstList.OrderPackageQty;
-                    lblallcount.Text = "总 包 号:" + firstList.GlobalIndex + "/" + br.Length;
+                    lblallcount.Text = "总 包 号：" + firstList.GlobalIndex + "/" + br.Length;
+                    lblRcOUNT.Text = "车组包数："+"/";
                 } 
               
             }
@@ -548,10 +532,11 @@ namespace PackageMachine
             lblallcount.Left = left;//总包号
             lblcutcode.Left = left;//流水号
             lblcutcount.Left = left;//客户包数 
+            lblRcOUNT.Left = left;//车组包数
 
-            lbllinename.Left = panelInfo.Width / 2 - 50;
-            lblcuscode.Left = panelInfo.Width / 2 - 50; 
-            lblcutname.Left = panelInfo.Width / 2 - 50; 
+            lbllinename.Left = panelInfo.Width / 2 - 50;//线路名称
+            lblcuscode.Left = panelInfo.Width / 2 - 50; //客户名称
+            lblcutname.Left = panelInfo.Width / 2 - 50; //客户编号
         }
         private void btnnext_Click(object sender, EventArgs e)
         {
@@ -580,7 +565,7 @@ namespace PackageMachine
             var list = br.GetTaskAllInfo();
             if (list.Any())
             {
-                    lblCigCount.Text = "卷烟总量：" + list[0];// list.Distinct().Sum(a => a.ORDERQTY);
+                    lblCigCount.Text = "总卷烟数量：" + list[0];// list.Distinct().Sum(a => a.ORDERQTY);
                     lblNormalcOUNT.Text = "常规烟总量：" + list[1];// list.Where(a => a.CIGTYPE == "2").Sum(a => a.NORMALQTY);
                     lblUnNormal.Text = "异型烟总量：" + list[2];// list.Where(a => a.CIGTYPE == "1").Sum(a => a.NORMALQTY);
                     lbFinsh.Text = "已包装数量：" + list[3];// list.Distinct().Where(a => a.UNIONPACKAGETAG == 20).Count();
@@ -736,7 +721,7 @@ namespace PackageMachine
             }
             if (!string.IsNullOrEmpty(info))
             {
-                MessageBox.Show(info,"车组包数查询");
+                MessageBox.Show(info,"车组包数查询,车组数："+list.Count());
             }
         }
 

@@ -80,10 +80,11 @@ namespace Functions.BLL
                     var query = (from item in en.T_PACKAGE_TASK
                                  where item.PACKAGENO == GlobalPara.PackageNo && item.CIGSTATE == 10 && item.CIGTYPE =="2"
                                  orderby  item.PACKTASKNUM,item.CIGNUM
-                                 select item).Take(10).ToList();
+                                 select item).Take(2).ToList();
                     if (query.Any())
                     {
-                        var UnCigQty =(from item  in  en.T_PACKAGE_TASK select item ).ToList().Where(a => a.PACKTASKNUM == query.FirstOrDefault().PACKTASKNUM && a.CIGTYPE == "2").Sum(a => a.NORMALQTY);
+                        var list = query.FirstOrDefault();
+                        var UnCigQty =(from item  in  en.T_PACKAGE_TASK where item.PACKTASKNUM ==list.PACKTASKNUM && item.CIGTYPE =="2" select item ).ToList().Sum(a => a.NORMALQTY);
                         int index = 0;//双抓的索引
                         foreach (var item in query)
                         {

@@ -51,7 +51,6 @@
             this.btnAuto = new System.Windows.Forms.Button();
             this.lblCache = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.cce1 = new PackageMachine.CigrCache();
             this.plcrtl = new System.Windows.Forms.Panel();
             this.cbAutoRefsh = new System.Windows.Forms.CheckBox();
             this.lblInfo = new System.Windows.Forms.Label();
@@ -77,9 +76,11 @@
             this.lblDxdetail = new System.Windows.Forms.Label();
             this.lblGwcx = new System.Windows.Forms.Label();
             this.cbCgyOrNot = new System.Windows.Forms.CheckBox();
+            this.timeToClike = new System.Windows.Forms.Timer(this.components);
+            this.cce1 = new PackageMachine.CigrCache();
             this.cs2 = new PackageMachine.CigrShow();
             this.cs = new PackageMachine.CigrShow();
-            this.timeToClike = new System.Windows.Forms.Timer(this.components);
+            this.lblRcOUNT = new System.Windows.Forms.Label();
             this.panelInfo.SuspendLayout();
             this.gbInfo.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -149,6 +150,7 @@
             this.panelInfo.Controls.Add(this.lblcutcount);
             this.panelInfo.Controls.Add(this.btnRemake);
             this.panelInfo.Controls.Add(this.gbInfo);
+            this.panelInfo.Controls.Add(this.lblRcOUNT);
             this.panelInfo.Controls.Add(this.lblcutname);
             this.panelInfo.Controls.Add(this.lblallcount);
             this.panelInfo.Controls.Add(this.btnRouteSerch);
@@ -164,7 +166,7 @@
             this.panelInfo.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.panelInfo.Location = new System.Drawing.Point(0, 0);
             this.panelInfo.Name = "panelInfo";
-            this.panelInfo.Size = new System.Drawing.Size(1194, 90);
+            this.panelInfo.Size = new System.Drawing.Size(1194, 119);
             this.panelInfo.TabIndex = 5;
             // 
             // label2
@@ -193,7 +195,7 @@
             this.lblcutcount.AutoSize = true;
             this.lblcutcount.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblcutcount.ForeColor = System.Drawing.Color.Indigo;
-            this.lblcutcount.Location = new System.Drawing.Point(765, 32);
+            this.lblcutcount.Location = new System.Drawing.Point(765, 61);
             this.lblcutcount.Name = "lblcutcount";
             this.lblcutcount.Size = new System.Drawing.Size(115, 21);
             this.lblcutcount.TabIndex = 19;
@@ -218,7 +220,7 @@
             this.gbInfo.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.gbInfo.Location = new System.Drawing.Point(1019, 0);
             this.gbInfo.Name = "gbInfo";
-            this.gbInfo.Size = new System.Drawing.Size(175, 90);
+            this.gbInfo.Size = new System.Drawing.Size(175, 119);
             this.gbInfo.TabIndex = 84;
             this.gbInfo.TabStop = false;
             this.gbInfo.Text = "任务信息";
@@ -232,7 +234,7 @@
             this.list_date.ItemHeight = 17;
             this.list_date.Location = new System.Drawing.Point(3, 19);
             this.list_date.Name = "list_date";
-            this.list_date.Size = new System.Drawing.Size(169, 68);
+            this.list_date.Size = new System.Drawing.Size(169, 97);
             this.list_date.TabIndex = 0;
             this.list_date.Click += new System.EventHandler(this.list_date_Click);
             // 
@@ -287,7 +289,7 @@
             this.lblcutcode.AutoSize = true;
             this.lblcutcode.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblcutcode.ForeColor = System.Drawing.Color.Indigo;
-            this.lblcutcode.Location = new System.Drawing.Point(765, 59);
+            this.lblcutcode.Location = new System.Drawing.Point(765, 88);
             this.lblcutcode.Name = "lblcutcode";
             this.lblcutcode.Size = new System.Drawing.Size(137, 21);
             this.lblcutcode.TabIndex = 17;
@@ -332,22 +334,15 @@
             this.panel1.Controls.Add(this.cce1);
             this.panel1.Controls.Add(this.lblCache);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(1018, 90);
+            this.panel1.Location = new System.Drawing.Point(1018, 119);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(176, 608);
+            this.panel1.Size = new System.Drawing.Size(176, 579);
             this.panel1.TabIndex = 8;
-            // 
-            // cce1
-            // 
-            this.cce1.BackColor = System.Drawing.Color.White;
-            this.cce1.Location = new System.Drawing.Point(11, 48);
-            this.cce1.Name = "cce1";
-            this.cce1.Size = new System.Drawing.Size(137, 526);
-            this.cce1.TabIndex = 6;
             // 
             // plcrtl
             // 
             this.plcrtl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.plcrtl.Controls.Add(this.cbCgyOrNot);
             this.plcrtl.Controls.Add(this.cbAutoRefsh);
             this.plcrtl.Controls.Add(this.lblInfo);
             this.plcrtl.Controls.Add(this.btnAuto);
@@ -359,7 +354,7 @@
             this.plcrtl.Controls.Add(this.lblNormalcOUNT);
             this.plcrtl.Controls.Add(this.lbFinsh);
             this.plcrtl.Dock = System.Windows.Forms.DockStyle.Top;
-            this.plcrtl.Location = new System.Drawing.Point(0, 90);
+            this.plcrtl.Location = new System.Drawing.Point(0, 119);
             this.plcrtl.Name = "plcrtl";
             this.plcrtl.Size = new System.Drawing.Size(1018, 181);
             this.plcrtl.TabIndex = 9;
@@ -368,7 +363,7 @@
             // 
             this.cbAutoRefsh.AutoSize = true;
             this.cbAutoRefsh.Font = new System.Drawing.Font("微软雅黑", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbAutoRefsh.Location = new System.Drawing.Point(183, 57);
+            this.cbAutoRefsh.Location = new System.Drawing.Point(176, 57);
             this.cbAutoRefsh.Name = "cbAutoRefsh";
             this.cbAutoRefsh.Size = new System.Drawing.Size(163, 24);
             this.cbAutoRefsh.TabIndex = 88;
@@ -656,12 +651,24 @@
             // 
             this.cbCgyOrNot.AutoSize = true;
             this.cbCgyOrNot.Font = new System.Drawing.Font("微软雅黑", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbCgyOrNot.Location = new System.Drawing.Point(15, 148);
+            this.cbCgyOrNot.Location = new System.Drawing.Point(7, 57);
             this.cbCgyOrNot.Name = "cbCgyOrNot";
             this.cbCgyOrNot.Size = new System.Drawing.Size(163, 24);
             this.cbCgyOrNot.TabIndex = 88;
             this.cbCgyOrNot.Text = "工位明细显示常规烟";
             this.cbCgyOrNot.UseVisualStyleBackColor = true;
+            // 
+            // timeToClike
+            // 
+            this.timeToClike.Tick += new System.EventHandler(this.timeToClike_Tick);
+            // 
+            // cce1
+            // 
+            this.cce1.BackColor = System.Drawing.Color.White;
+            this.cce1.Location = new System.Drawing.Point(11, 48);
+            this.cce1.Name = "cce1";
+            this.cce1.Size = new System.Drawing.Size(137, 526);
+            this.cce1.TabIndex = 6;
             // 
             // cs2
             // 
@@ -685,9 +692,16 @@
             this.cs.TabIndex = 3;
             this.cs.W = 540;
             // 
-            // timeToClike
+            // lblRcOUNT
             // 
-            this.timeToClike.Tick += new System.EventHandler(this.timeToClike_Tick);
+            this.lblRcOUNT.AutoSize = true;
+            this.lblRcOUNT.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblRcOUNT.ForeColor = System.Drawing.Color.Indigo;
+            this.lblRcOUNT.Location = new System.Drawing.Point(765, 32);
+            this.lblRcOUNT.Name = "lblRcOUNT";
+            this.lblRcOUNT.Size = new System.Drawing.Size(115, 21);
+            this.lblRcOUNT.TabIndex = 18;
+            this.lblRcOUNT.Text = "车组包数：0/0";
             // 
             // FmInfo
             // 
@@ -695,7 +709,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1194, 698);
-            this.Controls.Add(this.cbCgyOrNot);
             this.Controls.Add(this.lblGwcx);
             this.Controls.Add(this.lblDxdetail);
             this.Controls.Add(this.plcrtl);
@@ -777,6 +790,7 @@
         private System.Windows.Forms.CheckBox cbAutoRefsh;
         private System.Windows.Forms.Timer timeToClike;
         private System.Windows.Forms.Button btngw10;
+        private System.Windows.Forms.Label lblRcOUNT;
     }
     
 }
