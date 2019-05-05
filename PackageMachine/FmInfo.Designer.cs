@@ -57,6 +57,7 @@
             this.lblInfo = new System.Windows.Forms.Label();
             this.lblNotFish = new System.Windows.Forms.Label();
             this.panelLb = new System.Windows.Forms.Panel();
+            this.btngw10 = new System.Windows.Forms.Button();
             this.btngw8 = new System.Windows.Forms.Button();
             this.btngw9 = new System.Windows.Forms.Button();
             this.panelUN = new System.Windows.Forms.Panel();
@@ -79,7 +80,6 @@
             this.cs2 = new PackageMachine.CigrShow();
             this.cs = new PackageMachine.CigrShow();
             this.timeToClike = new System.Windows.Forms.Timer(this.components);
-            this.btngw10 = new System.Windows.Forms.Button();
             this.panelInfo.SuspendLayout();
             this.gbInfo.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -409,16 +409,29 @@
             this.panelLb.Size = new System.Drawing.Size(324, 63);
             this.panelLb.TabIndex = 86;
             // 
+            // btngw10
+            // 
+            this.btngw10.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btngw10.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btngw10.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.btngw10.Location = new System.Drawing.Point(220, 9);
+            this.btngw10.Name = "btngw10";
+            this.btngw10.Size = new System.Drawing.Size(93, 47);
+            this.btngw10.TabIndex = 0;
+            this.btngw10.Text = "拨板三";
+            this.btngw10.UseVisualStyleBackColor = false;
+            this.btngw10.Click += new System.EventHandler(this.gbtnw1_Click);
+            // 
             // btngw8
             // 
             this.btngw8.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btngw8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btngw8.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.btngw8.Location = new System.Drawing.Point(121, 9);
+            this.btngw8.Location = new System.Drawing.Point(14, 9);
             this.btngw8.Name = "btngw8";
             this.btngw8.Size = new System.Drawing.Size(93, 47);
             this.btngw8.TabIndex = 0;
-            this.btngw8.Text = "拨板二";
+            this.btngw8.Text = "拨板一";
             this.btngw8.UseVisualStyleBackColor = false;
             this.btngw8.Click += new System.EventHandler(this.gbtnw1_Click);
             // 
@@ -427,11 +440,11 @@
             this.btngw9.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btngw9.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btngw9.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.btngw9.Location = new System.Drawing.Point(15, 9);
+            this.btngw9.Location = new System.Drawing.Point(120, 9);
             this.btngw9.Name = "btngw9";
             this.btngw9.Size = new System.Drawing.Size(93, 47);
             this.btngw9.TabIndex = 0;
-            this.btngw9.Text = "拨板一";
+            this.btngw9.Text = "拨板二";
             this.btngw9.UseVisualStyleBackColor = false;
             this.btngw9.Click += new System.EventHandler(this.gbtnw1_Click);
             // 
@@ -675,19 +688,6 @@
             // timeToClike
             // 
             this.timeToClike.Tick += new System.EventHandler(this.timeToClike_Tick);
-            // 
-            // btngw10
-            // 
-            this.btngw10.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.btngw10.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btngw10.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.btngw10.Location = new System.Drawing.Point(220, 9);
-            this.btngw10.Name = "btngw10";
-            this.btngw10.Size = new System.Drawing.Size(93, 47);
-            this.btngw10.TabIndex = 0;
-            this.btngw10.Text = "拨板三";
-            this.btngw10.UseVisualStyleBackColor = false;
-            this.btngw10.Click += new System.EventHandler(this.gbtnw1_Click);
             // 
             // FmInfo
             // 

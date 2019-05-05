@@ -61,7 +61,7 @@ namespace PackageMachine
         /// <summary>
         /// 标记是否自动刷新
         /// </summary>
-        bool CheackFlag;
+        bool CheackFlag = true;
         /// <summary>
         /// 界面工位按钮显示集合
         /// </summary>
@@ -149,7 +149,7 @@ namespace PackageMachine
         /// <returns></returns>
         int AutoRefshRobotShow()
         {
-            if (CheackFlag )
+            if (!CheackFlag )
             {
                 gbtnw1_Click(btnRobt, null); 
             } 
@@ -189,10 +189,21 @@ namespace PackageMachine
         void ChangeListBtn()
         {
             int j = 0;
+            int index = 1;
+            Button btn = null;
             for (int i = listBtn.Count()-1; i >= 0; i--)//10 9 8 7 6
             {
                 var values = opcGroup.ReadD(j).CastTo("0");
-                var btn = listBtn[i];
+                if(j<= 6)
+                {
+                    btn = listBtn[i-4];
+                }
+                else
+                {
+             
+                    btn = listBtn[i+3+index];
+                    index+=2;
+                } 
                 if (values == "0")
                 {
                     if(btn.Name == "btnRobt")
@@ -203,9 +214,21 @@ namespace PackageMachine
                     }
                     else
                     { 
-                        if(btn.Name.Contains("8") || btn.Name.Contains("9")|| btn.Name.Contains("10") )
+                        if(btn.Name.Contains("8")  )
                         { 
-                            btn.Text = "拨杆" + (j + 1);
+                            btn.Text = "拨杆一";
+                            btn.BackColor = Color.Red;
+                            btn.Cursor = Cursors.No;
+                        }
+                        else if (btn.Name.Contains("9"))
+                        {
+                            btn.Text = "拨杆二" ;
+                            btn.BackColor = Color.Red;
+                            btn.Cursor = Cursors.No;
+                        }
+                        else if (btn.Name.Contains("10"))
+                        {
+                            btn.Text = "拨杆三" ;
                             btn.BackColor = Color.Red;
                             btn.Cursor = Cursors.No;
                         }
@@ -218,8 +241,7 @@ namespace PackageMachine
                     }
                 }
                 else
-                {
-
+                { 
                     btn.Text =  values;
                     btn.BackColor = Color.LightGreen;
                     btn.Cursor = Cursors.Hand;
@@ -238,6 +260,13 @@ namespace PackageMachine
             listBtn.Add(btngw3);//4
             listBtn.Add(btngw2);//5
             listBtn.Add(btngw1);//6
+            //listBtn.Add(btngw1);//0
+            //listBtn.Add(btngw2);//1
+            //listBtn.Add(btngw3);//2
+            //listBtn.Add(btngw4);//3
+            //listBtn.Add(btngw5);//4
+            //listBtn.Add(btngw6);//5
+            //listBtn.Add(btngw7);//6
             listBtn.Add(btngw8);//拨杆一7
             listBtn.Add(btngw9);//拨杆二8
             listBtn.Add(btngw10);//拨杆三9
