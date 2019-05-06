@@ -627,10 +627,10 @@ namespace PackageMachine
                         socketCore.Connect(IPAddress.Parse(GlobalPara.RobitPlc_Ip), int.Parse(GlobalPara.RobitPlc_Port));
                         if (socketCore.Connected)
                         {
-                             SendRobotTask();
+                           
                             socketCore.BeginReceive(buffer, 0, 2048, SocketFlags.None, new AsyncCallback(ReceiveCallBack), socketCore);
                             connectSuccess = true;
-                     
+                            SendRobotTask();
                             updateLabel("机器人服务器重连连接成功！", lblServerInfo);
                             break;
                         } 
@@ -659,8 +659,8 @@ namespace PackageMachine
         /// <returns></returns>
         void SendRobotTask()
         {
-            FmInfo.GetTaskInfo("机器人：五秒后发送机器人任务");
-            Thread.Sleep(5000);
+            FmInfo.GetTaskInfo("机器人：三秒后发送机器人任务");
+            Thread.Sleep(3000);
         sendTask: if (RoBotState)//读取机器人状态为自动运行
             {
            

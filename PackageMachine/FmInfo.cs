@@ -58,10 +58,7 @@ namespace PackageMachine
         /// 取消按钮使用(传入1停用，传入2使用)
         /// </summary>
         public static Func<int, int> Func;
-        /// <summary>
-        /// 标记是否自动刷新
-        /// </summary>
-        bool CheackFlag = true;
+ 
         /// <summary>
         /// 界面工位按钮显示集合
         /// </summary>
@@ -118,18 +115,7 @@ namespace PackageMachine
                 return 0;
             }
         }
-        /// <summary>
-        /// 自动刷新机器人工位跺型
-        /// </summary>
-        /// <returns></returns>
-        int AutoRefshRobotShow()
-        {
-            if (!CheackFlag )
-            {
-                gbtnw1_Click(btnRobt, null); 
-            } 
-            return 0;
-        }
+  
       
         /// <summary>
         /// opc监控PLC中的值，当发生改变时进入
@@ -171,7 +157,7 @@ namespace PackageMachine
             Button btn = null;
             for (int i = listBtn.Count()-1; i >= 0; i--)//10 9 8 7 6
             {
-                var values = opcGroup.ReadD(j).CastTo("0");
+                var values = opcGroup.ReadD(j).CastTo("0");//7
                 if(j<= 6)
                 {
                     btn = listBtn[i-4];
@@ -222,7 +208,7 @@ namespace PackageMachine
                 { 
                     
                     
-                    if (values != listBtn[9].Text && btn.Text.Contains("9"))//如果是合包处工位任务号不同 就把这个任务移到拨杆三的位置
+                    if (values != listBtn[9].Text && btn.Name.Contains("9"))//如果是合包处工位任务号不同 就把这个任务移到拨杆三的位置
                     {
                         listBtn[9].Text = btn.Text;
                         listBtn[9].BackColor = Color.LightGreen;
@@ -359,7 +345,7 @@ namespace PackageMachine
                 var task = FmOrderInofFun.QueryTaskList("", firstList.BillCode, GlobalPara.PackageNo).FirstOrDefault() ;
                 if(task != null)
                 {
-                    lblcutcode.Text = "任务流水号：" + task.SORTNUM;
+                    lblcutcode.Text = "任务流水号：" + task.PACKAGENUM;
                     lbllinename.Text = "线路名称：" + task.REGIONCODE;
                     lblcutname.Text = "客户名称：" + task.CUSTOMERNAME;
                     lblcuscode.Text = "客户编码：" + task.CUSTOMERCODE;
@@ -727,18 +713,29 @@ namespace PackageMachine
 
         private void cbAutoRefsh_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheackFlag)
+            if (btnRobt.Enabled)
             { 
                 EnbaleContrls(false);
-                CheackFlag = false;
+                gbtnw1_Click(btnRobt, null);//单击机器人工位
+            
             }
             else
             { 
                 EnbaleContrls(true);
-                CheackFlag = true;
             }
         }
-
+        /// <summary>
+        /// 自动刷新机器人工位跺型
+        /// </summary>
+        /// <returns></returns>
+        int AutoRefshRobotShow()
+        {
+            if (!btnRobt.Enabled)
+            {
+                gbtnw1_Click(btnRobt, null);
+            }
+            return 0;
+        }
         private void timeToClike_Tick(object sender, EventArgs e)
         {
           
