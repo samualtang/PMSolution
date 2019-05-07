@@ -31,7 +31,8 @@ namespace PackageMachine
             GetGroup = GetOpcServerGroup;
             cbCgyOrNot.Checked = true;
             AddListBtn();
-            FuncAutoRefsh = AutoRefshRobotShow; 
+            FuncAutoRefsh = AutoRefshRobotShow;
+            rf.CheckFlag = true;
             // AutoScroll = true; 
         }
         /// <summary>
@@ -44,7 +45,7 @@ namespace PackageMachine
         Group opcGroup, opcGroup7;
         /// <summary>
         /// 常规烟翻版任务号
-        /// </summary>
+        /// </summary> 
         public static decimal FbPackageNum { get; set; }
         /// <summary>
         /// 获取OPC组
@@ -213,6 +214,7 @@ namespace PackageMachine
                         listBtn[9].Text = btn.Text;
                         listBtn[9].BackColor = Color.LightGreen;
                         listBtn[9].Cursor = Cursors.Hand;
+                        textBox1.Text = values;
                     }
 
                     btn.Text = values;
@@ -345,13 +347,13 @@ namespace PackageMachine
                 var task = FmOrderInofFun.QueryTaskList("", firstList.BillCode, GlobalPara.PackageNo).FirstOrDefault() ;
                 if(task != null)
                 {
-                    lblcutcode.Text = "任务流水号：" + task.PACKAGENUM;
+                    lblcutcode.Text = "任务流水号：" + firstList.PacktaskNum;
                     lbllinename.Text = "线路名称：" + task.REGIONCODE;
                     lblcutname.Text = "客户名称：" + task.CUSTOMERNAME;
                     lblcuscode.Text = "客户编码：" + task.CUSTOMERCODE;
                     lblcutcount.Text = "客户包数：" + firstList.PackgeSeq + "/" + firstList.OrderPackageQty;
                     lblallcount.Text = "总 包 号：" + firstList.GlobalIndex + "/" + br.Length;
-                    lblRcOUNT.Text = "车组包数："+"/";
+                    //lblRcOUNT.Text = "车组包数："+"/";
                 } 
               
             }
@@ -710,18 +712,23 @@ namespace PackageMachine
                 MessageBox.Show(info,"车组包数查询,车组数："+list.Count());
             }
         }
+ 
+        RobotFlag rf;
 
         private void cbAutoRefsh_CheckedChanged(object sender, EventArgs e)
         {
-            if (btnRobt.Enabled)
+            if (rf.CheckFlag)
             { 
                 EnbaleContrls(false);
                 gbtnw1_Click(btnRobt, null);//单击机器人工位
-            
+                rf.CheckFlag = false;
+
+
             }
             else
             { 
                 EnbaleContrls(true);
+                rf.CheckFlag = true;
             }
         }
         /// <summary>
@@ -730,7 +737,7 @@ namespace PackageMachine
         /// <returns></returns>
         int AutoRefshRobotShow()
         {
-            if (!btnRobt.Enabled)
+            if (!rf.CheckFlag)
             {
                 gbtnw1_Click(btnRobt, null);
             }
@@ -747,5 +754,11 @@ namespace PackageMachine
            // tp_CodeInfo.SetToolTip(btn, "");
         }
     }
-    
+    /// <summary>
+    /// 是否自动刷新标志
+    /// </summary>
+    struct RobotFlag
+    {
+        public bool CheckFlag  ;
+    }
 }

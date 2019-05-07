@@ -396,7 +396,7 @@ namespace PackageMachine
             Button win = (Button)sender;
             this.tp_CodeInfo.Hide(win);
         }
-        // Token: 0x0400014C RID: 332
+       
         private List<Button> buttonList;
 
         public int W { get; set; }

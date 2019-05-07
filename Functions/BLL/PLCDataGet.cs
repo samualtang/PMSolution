@@ -28,6 +28,7 @@ namespace Functions.BLL
                 {
                     if (item.STATE == 15)
                     {
+                        item.FINISHTIME = DateTime.Now;
                         item.STATE = 20;
                     }
                 }
@@ -42,7 +43,7 @@ namespace Functions.BLL
             }
         }
         /// <summary>
-        /// 异型烟合包状态
+        /// 异型烟接收状态
         /// </summary>
         /// <param name="packageNUm">任务包号</param>
         /// <param name="state">状态</param>
@@ -59,7 +60,7 @@ namespace Functions.BLL
                 foreach (var item in lists)
                 {
                     if (item.STATE == 10)//等于新增，才更新成接收状态
-                    {
+                    { 
                         item.STATE = state;
                     }
                 }
@@ -130,6 +131,7 @@ namespace Functions.BLL
                     {
                         if (item.NORMAILSTATE == 15)
                         {
+                            item.FINISHTIME = DateTime.Now;
                             item.NORMAILSTATE = 20;
                         }
                     }
@@ -140,6 +142,7 @@ namespace Functions.BLL
                     {
                         if (item.STATE == 15)
                         {
+                            item.FINISHTIME = DateTime.Now;
                             item.STATE = 20;    
                         }
                     }

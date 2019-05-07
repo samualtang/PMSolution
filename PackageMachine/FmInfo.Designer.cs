@@ -39,6 +39,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblcutcount = new System.Windows.Forms.Label();
+            this.btnAuto = new System.Windows.Forms.Button();
             this.btnRemake = new System.Windows.Forms.Button();
             this.gbInfo = new System.Windows.Forms.GroupBox();
             this.list_date = new System.Windows.Forms.ListBox();
@@ -49,7 +50,6 @@
             this.lblcuscode = new System.Windows.Forms.Label();
             this.lblcutcode = new System.Windows.Forms.Label();
             this.lbllinename = new System.Windows.Forms.Label();
-            this.btnAuto = new System.Windows.Forms.Button();
             this.lblCache = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cce1 = new PackageMachine.CigrCache();
@@ -62,6 +62,7 @@
             this.btngw10 = new System.Windows.Forms.Button();
             this.btngw8 = new System.Windows.Forms.Button();
             this.btngw9 = new System.Windows.Forms.Button();
+            this.lblCgyTips = new System.Windows.Forms.Label();
             this.panelUN = new System.Windows.Forms.Panel();
             this.btngw7 = new System.Windows.Forms.Button();
             this.btngw6 = new System.Windows.Forms.Button();
@@ -72,19 +73,18 @@
             this.btngw1 = new System.Windows.Forms.Button();
             this.btngw3 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.lblRobot = new System.Windows.Forms.Label();
+            this.lbl = new System.Windows.Forms.Label();
             this.lblCigCount = new System.Windows.Forms.Label();
             this.lblUnNormal = new System.Windows.Forms.Label();
             this.lblNormalcOUNT = new System.Windows.Forms.Label();
+            this.lblfX = new System.Windows.Forms.Label();
             this.lbFinsh = new System.Windows.Forms.Label();
             this.lblDxdetail = new System.Windows.Forms.Label();
             this.lblGwcx = new System.Windows.Forms.Label();
             this.timeToClike = new System.Windows.Forms.Timer(this.components);
             this.cs2 = new PackageMachine.CigrShow();
             this.cs = new PackageMachine.CigrShow();
-            this.lblfX = new System.Windows.Forms.Label();
-            this.lblCgyTips = new System.Windows.Forms.Label();
-            this.lbl = new System.Windows.Forms.Label();
-            this.lblRobot = new System.Windows.Forms.Label();
             this.panelInfo.SuspendLayout();
             this.gbInfo.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -200,11 +200,23 @@
             this.lblcutcount.AutoSize = true;
             this.lblcutcount.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblcutcount.ForeColor = System.Drawing.Color.Indigo;
-            this.lblcutcount.Location = new System.Drawing.Point(765, 61);
+            this.lblcutcount.Location = new System.Drawing.Point(765, 32);
             this.lblcutcount.Name = "lblcutcount";
             this.lblcutcount.Size = new System.Drawing.Size(115, 21);
             this.lblcutcount.TabIndex = 19;
             this.lblcutcount.Text = "客户包数：0-0";
+            // 
+            // btnAuto
+            // 
+            this.btnAuto.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAuto.Location = new System.Drawing.Point(326, 86);
+            this.btnAuto.Name = "btnAuto";
+            this.btnAuto.Size = new System.Drawing.Size(75, 23);
+            this.btnAuto.TabIndex = 87;
+            this.btnAuto.Text = "自动获取";
+            this.btnAuto.UseVisualStyleBackColor = true;
+            this.btnAuto.Visible = false;
+            this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
             // 
             // btnRemake
             // 
@@ -248,11 +260,12 @@
             this.lblRcOUNT.AutoSize = true;
             this.lblRcOUNT.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblRcOUNT.ForeColor = System.Drawing.Color.Indigo;
-            this.lblRcOUNT.Location = new System.Drawing.Point(765, 32);
+            this.lblRcOUNT.Location = new System.Drawing.Point(775, 85);
             this.lblRcOUNT.Name = "lblRcOUNT";
             this.lblRcOUNT.Size = new System.Drawing.Size(115, 21);
             this.lblRcOUNT.TabIndex = 18;
             this.lblRcOUNT.Text = "车组包数：0/0";
+            this.lblRcOUNT.Visible = false;
             // 
             // lblcutname
             // 
@@ -305,7 +318,7 @@
             this.lblcutcode.AutoSize = true;
             this.lblcutcode.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblcutcode.ForeColor = System.Drawing.Color.Indigo;
-            this.lblcutcode.Location = new System.Drawing.Point(765, 88);
+            this.lblcutcode.Location = new System.Drawing.Point(765, 59);
             this.lblcutcode.Name = "lblcutcode";
             this.lblcutcode.Size = new System.Drawing.Size(137, 21);
             this.lblcutcode.TabIndex = 17;
@@ -321,18 +334,6 @@
             this.lbllinename.Size = new System.Drawing.Size(117, 21);
             this.lbllinename.TabIndex = 14;
             this.lbllinename.Text = "线路名称：000";
-            // 
-            // btnAuto
-            // 
-            this.btnAuto.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAuto.Location = new System.Drawing.Point(326, 86);
-            this.btnAuto.Name = "btnAuto";
-            this.btnAuto.Size = new System.Drawing.Size(75, 23);
-            this.btnAuto.TabIndex = 87;
-            this.btnAuto.Text = "自动获取";
-            this.btnAuto.UseVisualStyleBackColor = true;
-            this.btnAuto.Visible = false;
-            this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
             // 
             // lblCache
             // 
@@ -481,6 +482,17 @@
             this.btngw9.UseVisualStyleBackColor = false;
             this.btngw9.Click += new System.EventHandler(this.gbtnw1_Click);
             // 
+            // lblCgyTips
+            // 
+            this.lblCgyTips.AutoSize = true;
+            this.lblCgyTips.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblCgyTips.ForeColor = System.Drawing.Color.Black;
+            this.lblCgyTips.Location = new System.Drawing.Point(12, 12);
+            this.lblCgyTips.Name = "lblCgyTips";
+            this.lblCgyTips.Size = new System.Drawing.Size(122, 21);
+            this.lblCgyTips.TabIndex = 18;
+            this.lblCgyTips.Text = "常规烟拨杆工位";
+            // 
             // panelUN
             // 
             this.panelUN.BackColor = System.Drawing.Color.LightBlue;
@@ -619,6 +631,28 @@
             this.label3.TabIndex = 89;
             this.label3.Text = "|";
             // 
+            // lblRobot
+            // 
+            this.lblRobot.AutoSize = true;
+            this.lblRobot.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblRobot.ForeColor = System.Drawing.Color.Black;
+            this.lblRobot.Location = new System.Drawing.Point(17, 78);
+            this.lblRobot.Name = "lblRobot";
+            this.lblRobot.Size = new System.Drawing.Size(90, 21);
+            this.lblRobot.TabIndex = 18;
+            this.lblRobot.Text = "机器人工位";
+            // 
+            // lbl
+            // 
+            this.lbl.AutoSize = true;
+            this.lbl.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbl.ForeColor = System.Drawing.Color.Black;
+            this.lbl.Location = new System.Drawing.Point(113, 77);
+            this.lbl.Name = "lbl";
+            this.lbl.Size = new System.Drawing.Size(195, 21);
+            this.lbl.TabIndex = 18;
+            this.lbl.Text = "异型烟倍速链工位（1-7）";
+            // 
             // lblCigCount
             // 
             this.lblCigCount.AutoSize = true;
@@ -651,6 +685,17 @@
             this.lblNormalcOUNT.Size = new System.Drawing.Size(187, 30);
             this.lblNormalcOUNT.TabIndex = 0;
             this.lblNormalcOUNT.Text = "常规烟总量：      ";
+            // 
+            // lblfX
+            // 
+            this.lblfX.AutoSize = true;
+            this.lblfX.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblfX.ForeColor = System.Drawing.Color.Black;
+            this.lblfX.Location = new System.Drawing.Point(663, 15);
+            this.lblfX.Name = "lblfX";
+            this.lblfX.Size = new System.Drawing.Size(154, 21);
+            this.lblfX.TabIndex = 15;
+            this.lblfX.Text = "——包装方向——>";
             // 
             // lbFinsh
             // 
@@ -710,50 +755,6 @@
             this.cs.Size = new System.Drawing.Size(473, 328);
             this.cs.TabIndex = 3;
             this.cs.W = 540;
-            // 
-            // lblfX
-            // 
-            this.lblfX.AutoSize = true;
-            this.lblfX.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblfX.ForeColor = System.Drawing.Color.Black;
-            this.lblfX.Location = new System.Drawing.Point(663, 15);
-            this.lblfX.Name = "lblfX";
-            this.lblfX.Size = new System.Drawing.Size(154, 21);
-            this.lblfX.TabIndex = 15;
-            this.lblfX.Text = "——包装方向——>";
-            // 
-            // lblCgyTips
-            // 
-            this.lblCgyTips.AutoSize = true;
-            this.lblCgyTips.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblCgyTips.ForeColor = System.Drawing.Color.Black;
-            this.lblCgyTips.Location = new System.Drawing.Point(12, 12);
-            this.lblCgyTips.Name = "lblCgyTips";
-            this.lblCgyTips.Size = new System.Drawing.Size(122, 21);
-            this.lblCgyTips.TabIndex = 18;
-            this.lblCgyTips.Text = "常规烟拨杆工位";
-            // 
-            // lbl
-            // 
-            this.lbl.AutoSize = true;
-            this.lbl.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbl.ForeColor = System.Drawing.Color.Black;
-            this.lbl.Location = new System.Drawing.Point(113, 77);
-            this.lbl.Name = "lbl";
-            this.lbl.Size = new System.Drawing.Size(195, 21);
-            this.lbl.TabIndex = 18;
-            this.lbl.Text = "异型烟倍速链工位（1-7）";
-            // 
-            // lblRobot
-            // 
-            this.lblRobot.AutoSize = true;
-            this.lblRobot.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblRobot.ForeColor = System.Drawing.Color.Black;
-            this.lblRobot.Location = new System.Drawing.Point(17, 78);
-            this.lblRobot.Name = "lblRobot";
-            this.lblRobot.Size = new System.Drawing.Size(90, 21);
-            this.lblRobot.TabIndex = 18;
-            this.lblRobot.Text = "机器人工位";
             // 
             // FmInfo
             // 
