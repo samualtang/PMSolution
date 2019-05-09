@@ -30,7 +30,7 @@ namespace PackageMachine
             CheckForIllegalCrossThreadCalls = false;
         
             plc = new Functions.OPC_ToPLC();
-          
+            Text = "[" + GlobalPara.PackageNo + "号]包装机系统 版本" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
              pbInfo_Click(null, null);  
             robotService = new RobotTaskService();
 
