@@ -272,6 +272,7 @@
             this.IsMdiContainer = true;
             this.Name = "FmMain";
             this.Text = "包装机系统";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FmMain_FormClosing);
             this.SizeChanged += new System.EventHandler(this.FmMain_SizeChanged);
             this.gbSysDate.ResumeLayout(false);
             this.gbSysDate.PerformLayout();

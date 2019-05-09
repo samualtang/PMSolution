@@ -996,6 +996,22 @@ namespace PackageMachine
             Location = new System.Drawing.Point(0, 0);
         }
 
-       
+        private void FmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult MsgBoxResult = MessageBox.Show("确定要关闭程序?\r\n ",//对话框的显示内容 
+                                                        "操作提示",//对话框的标题 
+                                                        MessageBoxButtons.YesNo,//定义对话框的按钮，这里定义了YSE和NO两个按钮 
+                                                        MessageBoxIcon.Question,//定义对话框内的图表式样，这里是一个黄色三角型内加一个感叹号 
+                                                        MessageBoxDefaultButton.Button2);//定义对话框的按钮式样
+            if (DialogResult.Yes == MsgBoxResult)
+            {
+                Dispose();
+                Close();
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }

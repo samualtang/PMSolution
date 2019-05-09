@@ -33,8 +33,14 @@ namespace PackageMachine
             AddListBtn();
             FuncAutoRefsh = AutoRefshRobotShow;
             rf.CheckFlag = true;
+           th = new Thread(() => { GetInfo(); });
+            
             // AutoScroll = true; 
         }
+        /// <summary>
+        /// 自动刷新界面
+        /// </summary>
+        Thread th;
         /// <summary>
         /// 机器人工位单击事件
         /// </summary>
@@ -69,6 +75,7 @@ namespace PackageMachine
         {
 
             Loading.Masklayer(this, delegate () { LoadFucn(); });
+            
             // ft.Show();
         }
 
@@ -148,6 +155,8 @@ namespace PackageMachine
             }
  
         }
+
+      
         /// <summary>
         /// 更改工位（button）显示
         /// </summary>
@@ -209,12 +218,13 @@ namespace PackageMachine
                 { 
                     
                     
-                    if (values != listBtn[9].Text && btn.Name.Contains("9"))//如果是合包处工位任务号不同 就把这个任务移到拨杆三的位置
+                    if ( btn.Name.Contains("9"))//如果是合包处工位任务号不同 就把这个任务移到拨杆三的位置
                     {
-                        listBtn[9].Text = btn.Text;
-                        listBtn[9].BackColor = Color.LightGreen;
-                        listBtn[9].Cursor = Cursors.Hand;
-                        textBox1.Text = values;
+                        ChangeButton3(values);
+                        //listBtn[9].Text = btn.Text;
+                        //listBtn[9].BackColor = Color.LightGreen;
+                        //listBtn[9].Cursor = Cursors.Hand;
+                        //textBox1.Text = values;
                     }
 
                     btn.Text = values;
@@ -222,6 +232,23 @@ namespace PackageMachine
                     btn.Cursor = Cursors.Hand;
                 }
                 j++;
+            }
+
+        }
+
+        void ChangeButton3(string text )
+        {
+            if(!text.Equals( btngw10.Text))
+            {
+                btngw10.Text = text; 
+                btngw10.BackColor = Color.LightGreen;
+                btngw10.Cursor = Cursors.Hand;
+            }
+            else if(!Regex.IsMatch(text, @"^[+-]?\d*[.]?\d*$"))
+            {
+                btngw10.Text = "拨杆三";
+                btngw10.BackColor = Color.Red;
+                btngw10.Cursor = Cursors.No;
             }
 
         }
@@ -275,10 +302,25 @@ namespace PackageMachine
             HrsUbs(1,1,0); 
             //垛型展示
             Hrs(1, 0);
-         
+            th.Start();
+
+
         }
         BillResolution br;
- 
+        void GetInfo()
+        {
+            while (true)
+            {
+                if (br.GetMinTaskNUm() > 0)
+                {
+                    HrsUbs(1, 1, 0);
+                    //垛型展示
+                    Hrs(1, 0);
+                    break;
+                }
+                Thread.Sleep(10000);
+            }
+        }
         private void FmInfo_Resize(object sender, EventArgs e)
         {
             CompSizeChanged();
@@ -632,65 +674,6 @@ namespace PackageMachine
 
         }
 
-        private void gbtnw1_Click(object sender, EventArgs e)
-        {
-            decimal pmNum=0;
-            Button btn = (Button)sender;
-            if(btn.Cursor == Cursors.No)
-            {
-                return;
-            }
-            try
-            {
-                pmNum = Convert.ToDecimal(btn.Text);
-            }
-            catch (Exception)
-            {
-
-               
-            }
-         
-            //if (btn.Name == "btnRobt")//如果是机器人工位
-            //{
-            //    pmNum = br.GetRobtMinTaskNUm();
-            //}
-            if (pmNum > 0)
-            {
-                if (Regex.IsMatch(btn.Text, @"^[+-]?\d*[.]?\d*$"))
-                {
-                    
-                    var list = br.GetTobaccoInfos(pmNum, cs2.Height);
-                    if (list.Any())
-                    {
-                        if (btn.Name == "btngw7")//工位7 就显示全部
-                        {
-                          
-                            cs2.UpdateValue(list, 0);
-                        }
-                      
-                        else
-                        {
-                            if (cbCgyOrNot.Checked)
-                            {
-                                cs2.UpdateValue(list, 0);
-                            }
-                            else
-                            {
-
-                                cs2.UpdateValue(list, 2);
-                            }
-                        }
-                    }
-                    else { GetTaskInfo("显示界面：未找到任务号:" + pmNum); };
-
-                }
-                else
-                {
-                    GetTaskInfo("显示界面：工位" + btn.Name + "的包号不为数值类型" + btn.Text);
-                }
-            }
-
-        }
         private ToolTip tp_CodeInfo;
 
  
@@ -737,11 +720,74 @@ namespace PackageMachine
         /// <returns></returns>
         int AutoRefshRobotShow()
         {
-            if (!rf.CheckFlag)
-            {
-                gbtnw1_Click(btnRobt, null);
-            }
+             
+            gbtnw1_Click(btnRobt, null);
+             
             return 0;
+        }
+
+        private void gbtnw1_Click(object sender, EventArgs e)
+        {
+            decimal pmNum = 0;
+            Button btn = (Button)sender;
+            if (btn.Cursor == Cursors.No)
+            {
+                return;
+            }
+            try
+            {
+                pmNum = Convert.ToDecimal(btn.Text);
+            }
+            catch (Exception)
+            {
+
+
+            }
+
+            if (btn.Name == "btnRobt")//如果是机器人工位
+            {
+                if (rf.CheckFlag)
+                {
+                    return ;
+                }
+                    //pmNum = br.GetRobtMinTaskNUm();
+            }
+            if (pmNum > 0)
+            {
+                if (Regex.IsMatch(btn.Text, @"^[+-]?\d*[.]?\d*$"))
+                {
+
+                    var list = br.GetTobaccoInfos(pmNum, cs2.Height);
+                    if (list.Any())
+                    {
+                        if (btn.Name == "btngw7")//工位7 就显示全部
+                        {
+
+                            cs2.UpdateValue(list, 0);
+                        }
+
+                        else
+                        {
+                            if (cbCgyOrNot.Checked)
+                            {
+                                cs2.UpdateValue(list, 0);
+                            }
+                            else
+                            {
+
+                                cs2.UpdateValue(list, 2);
+                            }
+                        }
+                    }
+                    else { GetTaskInfo("显示界面：未找到任务号:" + pmNum); };
+
+                }
+                else
+                {
+                    GetTaskInfo("显示界面：工位" + btn.Name + "的包号不为数值类型" + btn.Text);
+                }
+            }
+
         }
         private void timeToClike_Tick(object sender, EventArgs e)
         {

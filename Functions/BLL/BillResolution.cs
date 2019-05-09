@@ -91,6 +91,7 @@ namespace Functions.BLL
                         PackgeSeq = item.PACKAGESEQ ?? 0,
                         NormalLayerNum = item.PUSHSPACE ?? 0,
                         Speed = 1,
+                        PacktaskNum = item.PACKTASKNUM ?? 0,
                         BillCode = item.BILLCODE,
                         CigQuantity = item.NORMALQTY ?? 0,
                         OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0),
@@ -132,6 +133,7 @@ namespace Functions.BLL
                         PackgeSeq = item.PACKAGESEQ ?? 0,
                         NormalLayerNum = item.PUSHSPACE ?? 0,
                         Speed = 1,
+                        PacktaskNum = item.PACKTASKNUM ??0,
                         BillCode = item.BILLCODE,
                         CigQuantity = item.NORMALQTY ?? 0,
                         OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0),
@@ -150,12 +152,12 @@ namespace Functions.BLL
         }
 
 
-        public decimal GetRobtMinTaskNUm()
+        public decimal GetMinTaskNUm()
         {
             using (Entities en = new Entities())
             {
 
-                decimal TaskNum = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno && item.CIGTYPE == "2" && item.CIGSTATE == 10 select item).Min(a => a.PACKTASKNUM) ??0;
+                decimal TaskNum = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno && item.STATE == 10 select item).Min(a => a.PACKTASKNUM) ??0;
                 if(TaskNum > 0)
                 {
                     return TaskNum;
