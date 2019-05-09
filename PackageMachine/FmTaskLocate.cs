@@ -56,7 +56,7 @@ namespace PackageMachine
         decimal yxyRobot = 0, yxyCigSeq = 0, cgyFb = 0, yxyBsul = 0;
         private void btnDw_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtRobot.Text + txtFb.Text))
+            if (string.IsNullOrWhiteSpace(txtRobot.Text + txtFb.Text + txtBsul.Text))
             {
                 return;
             } 
