@@ -151,23 +151,44 @@ namespace Functions.BLL
             return list;
         }
 
-
-        public decimal GetMinTaskNUm()
+ 
+        /// <summary>
+        /// 刷新 获取最新任务号
+        /// </summary>
+        /// <returns></returns>
+        public decimal[] GetReadyTaskNum()
         {
-            using (Entities en = new Entities())
+            decimal[] arrStr = new decimal[5];
+            using(Entities en = new Entities())
             {
-
-                decimal TaskNum = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno && item.STATE == 10 select item).Min(a => a.PACKTASKNUM) ??0;
-                if(TaskNum > 0)
+                var fbTasknum = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno && item.STATE != 20  select item).Take(100).ToList(); ;
+                if(fbTasknum.Any())
                 {
-                    return TaskNum;
+                    arrStr[0] =( fbTasknum.Min(a=> a.PACKTASKNUM) ?? 0 )  ;//任务号
+                    var robottask = fbTasknum.Where(a => a.CIGTYPE == "2" && a.CIGSTATE == 10).ToList();
+                    if(robottask.Any())
+                    {
+                        arrStr[1] = fbTasknum.Max(a => a.PACKTASKNUM) ?? 0; ;
+                        arrStr[2] = robottask.Min(a => a.CIGSEQ) ?? 0 ;//条烟流水号
+                    }
+                    else
+                    {
+                        arrStr[1] = fbTasknum.Max(a =>   a.PACKTASKNUM) ??0;
+                        arrStr[2] = (fbTasknum.Max(a => a.CIGSEQ) ?? 0);//条烟流水号
+                    } 
+                    return arrStr;
                 }
-                return 0;
+                else
+                {
+                    return null;
+                }
+
+               
             }
         }
 
 
-       
+
         public List<decimal> GetTaskAllInfo()
         {
             List<decimal> list = new List<decimal>();

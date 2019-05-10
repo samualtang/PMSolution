@@ -128,8 +128,8 @@ namespace PackageMachine
                         }
                         else
                         {
-                            updateLabel("定位失败！", lblOper);
-                            MessageBox.Show("定位失败！"); 
+                            updateLabel("定位成功！\r\n但数据库改变行数为0！", lblOper);
+                            MessageBox.Show("定位成功！\r\n但数据库改变行数为0！"); 
                         }
                     }
                     else
