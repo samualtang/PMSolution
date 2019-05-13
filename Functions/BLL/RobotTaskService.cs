@@ -334,7 +334,7 @@ namespace Functions.BLL
                         }
 
                         //更新这个包号和之后的任务为新增（包括）
-                        var query2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= packagenum  && item.CIGTYPE == "2" && item.PACKAGENO == packageno  && item.CIGSTATE ==20 select item).ToList();
+                        var query2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= packagenum  && item.CIGTYPE == "2" && item.PACKAGENO == packageno  && item.CIGSTATE !=10 select item).ToList();
                         if (query2.Any())
                         {
                             foreach (var item in query2)
@@ -363,7 +363,7 @@ namespace Functions.BLL
                             fbQuery1.ForEach(a => { a.NORMAILSTATE = 20; });
                         }
                         //常规烟 翻版状态更新成新增 大于这个任务号的
-                        var fbQuery2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= fbTaskNum && item.PACKAGENO == packageno && item.NORMAILSTATE == 20 select item).ToList();
+                        var fbQuery2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= fbTaskNum && item.PACKAGENO == packageno && item.NORMAILSTATE != 10 select item).ToList();
                         if (fbQuery2.Any())
                         {
                             fbQuery2.ForEach(a => { a.NORMAILSTATE = 10; });
@@ -380,7 +380,7 @@ namespace Functions.BLL
                             yxyQuery1.ForEach(a => { a.STATE = 20; });
                         }
                         //合包标志更新成新增大于这个任务号的）
-                        var yxyQuery2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= yxyTaskNum  && item.PACKAGENO == packageno && item.STATE == 20 select item).ToList();
+                        var yxyQuery2 = (from item in entity.T_PACKAGE_TASK where item.PACKTASKNUM >= yxyTaskNum  && item.PACKAGENO == packageno && item.STATE != 10 select item).ToList();
                         if (yxyQuery2.Any())
                         {
                             yxyQuery2.ForEach(a => { a.STATE = 10; });
