@@ -25,6 +25,7 @@ namespace PackageMachine
 
             InitializeComponent();
             ftd = new FmTaskDetail();
+            br = new BillResolution(cs.Size);
             label3.Text = "|\r\n|\r\n|\r\n|\r\n|\r\n|\r\n|\r\n|\r\n|\r\n|\r\n|\r\n";
             Func += ChangeControlEnabled;
             handle += updateListBox;
@@ -180,8 +181,7 @@ namespace PackageMachine
                         btn.Text = "机器人工位" ;
                         btn.BackColor = Color.Red;
                         btn.Cursor = Cursors.No;
-                        gbtnw1_Click(btnRobt, null);
-
+                        gbtnw1_Click(btnRobt, null); 
                     }
                     else
                     { 
@@ -215,18 +215,18 @@ namespace PackageMachine
                 {
                     
 
-                    if ( btn.Name.Equals("btngw9"))//如果是合包处工位任务号不同 就把这个任务移到拨杆三的位置
+                    if ( btn.Name=="btngw9")//如果是合包处工位任务号不同 就把这个任务移到拨杆三的位置
                     {
                         ChangeButton3(values); 
                     }
                     btn.Text = values;
                     btn.BackColor = Color.LightGreen;
                     btn.Cursor = Cursors.Hand;
-                    if (btn.Name == "btnRobt")//如果是机器人 则单击一次 刷新
-                    {
-                        gbtnw1_Click(btnRobt, null);
+                    //if (btn.Name == "btnRobt")//如果是机器人 则单击一次 刷新
+                    //{
+                    //    gbtnw1_Click(btnRobt, null);
 
-                    }
+                    //}
                 }
                 j++;
             }
@@ -235,13 +235,19 @@ namespace PackageMachine
 
         void ChangeButton3(string text )
         {
-            if(!text.Equals( btngw10.Text))//如果新的数据 和旧数据不一样
+            if( text != btngw10.Text )//如果新的数据 和旧数据不一样
             {
                 btngw10.Text = btngw9.Text; //就把旧数据赋值给 拨杆三
                 btngw10.BackColor = Color.LightGreen;
                 btngw10.Cursor = Cursors.Hand;
             }
             else if(!Regex.IsMatch(text, @"^[+-]?\d*[.]?\d*$"))//如果不包含数字
+            {
+                btngw10.Text = "拨杆三";
+                btngw10.BackColor = Color.Red;
+                btngw10.Cursor = Cursors.No;
+            }
+            else
             {
                 btngw10.Text = "拨杆三";
                 btngw10.BackColor = Color.Red;
@@ -294,7 +300,7 @@ namespace PackageMachine
         {
             Hrs += BindBillInfo;
             HrsUbs += BindUInfo;
-            br = new BillResolution(cs.Size);
+         
             //异型烟缓存
             HrsUbs(1,1,0); 
             //垛型展示
@@ -663,12 +669,7 @@ namespace PackageMachine
             }
         
         }
-
-        private ToolTip tp_CodeInfo;
-
- 
- 
-
+         
         private void btnRouteSerch_Click(object sender, EventArgs e)
         {
           var list =  br.GetRegionPackageNum();
@@ -685,23 +686,23 @@ namespace PackageMachine
                 MessageBox.Show(info,"车组包数查询,车组数："+list.Count());
             }
         }
- 
-        RobotFlag rf;
+  
+        bool CheckFlag = true;
 
         private void cbAutoRefsh_CheckedChanged(object sender, EventArgs e)
         {
-            if (rf.CheckFlag)
+            if (CheckFlag)
             { 
                 EnbaleContrls(false);
                 gbtnw1_Click(btnRobt, null);//单击机器人工位
-                rf.CheckFlag = false;
+                 CheckFlag = false;
 
 
             }
             else
             { 
                 EnbaleContrls(true);
-                rf.CheckFlag = true;
+                CheckFlag = true;
             }
         }
         /// <summary>
@@ -710,7 +711,7 @@ namespace PackageMachine
         /// <returns></returns>
         int AutoRefshRobotShow()
         {
-            if (!rf.CheckFlag)
+            if (!CheckFlag)
             {
                 gbtnw1_Click(btnRobt, null);
             }
@@ -733,16 +734,7 @@ namespace PackageMachine
             {
 
 
-            }
-
-            //if (btn.Name == "btnRobt")//如果是机器人工位
-            //{
-            //    if (rf.CheckFlag)
-            //    {
-            //        return ;
-            //    }
-            //        //pmNum = br.GetRobtMinTaskNUm();
-            //}
+            } 
             if (pmNum > 0)
             {
                 if (Regex.IsMatch(btn.Text, @"^[+-]?\d*[.]?\d*$"))
@@ -791,11 +783,5 @@ namespace PackageMachine
            // tp_CodeInfo.SetToolTip(btn, "");
         }
     }
-    /// <summary>
-    /// 是否自动刷新标志
-    /// </summary>
-    struct RobotFlag
-    {
-        public bool CheckFlag  ;
-    }
+ 
 }

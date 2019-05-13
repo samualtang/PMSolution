@@ -269,7 +269,7 @@ namespace PackageMachine
                         {
                             return;
                         }
-                        FmInfo.FuncAutoRefsh();//更新显示界面
+                      
                         //S  所在的位置 单抓 3 双抓 5
                         if (msg.Contains("|"))//如果包含双抓
                         {
@@ -294,6 +294,7 @@ namespace PackageMachine
                                 robotService.UpDateFinishTask(arr1, out outStr);
                                 robotService.UpDateFinishTask(arr2, out outStr);
                                 FmInfo.AutoRefreshUnShow(Convert.ToDecimal( arr2[0]),Convert.ToInt32( arr2[1]));
+                                FmInfo.FuncAutoRefsh();//更新显示界面
                                 flag = true;
                                 //FmInfo.AutoRefreshUnShow(int.Parse(arr2[0]));
                                 if (!string.IsNullOrWhiteSpace(outStr))
@@ -340,6 +341,7 @@ namespace PackageMachine
                             }
                             robotService.UpDateFinishTask(Arr, out outStr);
                             FmInfo.AutoRefreshUnShow(Convert.ToDecimal(Arr[0]), Convert.ToInt32(Arr[1]));
+                            FmInfo.FuncAutoRefsh();//更新显示界面
                             // FmInfo.AutoRefreshUnShow(int.Parse(Arr[0]));
                             if (!string.IsNullOrWhiteSpace(outStr))
                             { 
