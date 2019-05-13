@@ -33,7 +33,7 @@ namespace PackageMachine
             cbCgyOrNot.Checked = true;
             AddListBtn();
             FuncAutoRefsh = AutoRefshRobotShow;
-            rf.CheckFlag = true; 
+            CheckFlag = true; 
             
             // AutoScroll = true; 
         } 
