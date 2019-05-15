@@ -18,7 +18,7 @@ namespace Functions
                 log = new WriteLog();
             return log;
         }
-        private WriteLog()
+        public WriteLog()
         {
             //初始化大于399M日志文件将自动删除;
 

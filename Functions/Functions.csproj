@@ -73,6 +73,7 @@
     <Compile Include="BLL\FmOrderInofFun.cs" />
     <Compile Include="BLL\GetAllOrderinfo.cs" />
     <Compile Include="BLL\ItemService.cs" />
+    <Compile Include="BLL\Modbus.cs" />
     <Compile Include="BLL\PackageAlgorithm.cs" />
     <Compile Include="BLL\PackageService%282%29.cs" />
     <Compile Include="BLL\PackageService.cs" />

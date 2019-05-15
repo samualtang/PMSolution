@@ -35,9 +35,10 @@ namespace PackageMachine
             robotService = new RobotTaskService();
 
           CreateOpcClinet();
+            modbus = new Modbus();
         }
 
-   
+        Modbus modbus;
         /// <summary>
         /// 服务创建成功标志
         /// </summary>
@@ -339,7 +340,9 @@ namespace PackageMachine
                             {
                                 return;
                             }
+                            flag = false;
                             robotService.UpDateFinishTask(Arr, out outStr);
+                            flag = true;
                             FmInfo.AutoRefreshUnShow(Convert.ToDecimal(Arr[0]), Convert.ToInt32(Arr[1]));
                             FmInfo.FuncAutoRefsh();//更新显示界面
                             // FmInfo.AutoRefreshUnShow(int.Parse(Arr[0]));
@@ -507,16 +510,25 @@ namespace PackageMachine
         #endregion
 
         #region   连接 创建事件
-  
+        
         private async Task   ConnectionAsync()
         {
            
             string ErrMsg =  await Task.Run( ()=> CreateDataChange()); //创建 
-
+          
             FmInfo.GetTaskInfo(plc.ReadAndWriteCGYTaskConpelte());//获取常规烟未取走完成信号
             FmInfo.GetTaskInfo(plc.ReadAndWriteYXYTaskConpelte());//获取异形烟未取走完成信号
             if (string.IsNullOrWhiteSpace(ErrMsg) )//事件创建成功
             {  
+                if (modbus.Connection())
+                {
+                    FmInfo.GetTaskInfo("modbus连接成功！");
+                   Task.Run(()=> modbus.ReadAsync());
+                }
+                else
+                {
+                    FmInfo.GetTaskInfo("modbus连接失败！");
+                }
                 FmInfo.GetTaskInfo("启动定时器，触发倍速链，翻版跳变！");
                 FmInfo.Func(1);
                 EnabletStartAndStop(1);
@@ -527,6 +539,7 @@ namespace PackageMachine
             {
                 FmInfo.GetTaskInfo("客户端初始化失败！错误：" + ErrMsg);
             }
+            
             FmInfo.Func(1);
             EnabletStartAndStop(1);
         }
@@ -793,6 +806,7 @@ namespace PackageMachine
             if (socketCore != null)
             {
                 connectSuccess = false;
+                modbus.DisConnection();
                 RoBotState = false;
                 socketCore.Close();
                 socketCore = null; 
