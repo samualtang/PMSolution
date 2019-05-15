@@ -38,9 +38,8 @@ namespace PackageMachine
             this.task = task;
             InitializeComponent();
             br = new BillResolution(cigrShow1.Size);
-
             ORDERPACKAGEQTY = task.ORDERPACKAGEQTY;
-
+            
             label_sortnum.Text = "任务号：" + task.SORTNUM;
             label_regioncode.Text = "车组号：" + task.REGIONCODE;
             label_sortseq.Text = "户序：" + task.SORTSEQ.ToString();
@@ -54,10 +53,12 @@ namespace PackageMachine
              data1 = FmOrderInofFun.QueryBySortnum(task.SORTNUM);
             MaxAllpackageseq = (int)data1.Max(x => x.ALLPACKAGESEQ).Value;
             MinAllpackageseq = (int)data1.Min(x => x.ALLPACKAGESEQ).Value;
-        
+            
             label_allpackageseq.Text = "当前包装机共：" + br.Length + "包";
             label_nowpackageseq.Text = "当前包装机第：" + MinAllpackageseq + "包";
-          
+
+            decimal PACKAGENUM = (decimal)data1.Where(x => x.ALLPACKAGESEQ == MinAllpackageseq).Select(x => x.PACKTASKNUM).FirstOrDefault();
+            label_packagetasknum.Text = "包装机任务号：" + PACKAGENUM.ToString();
         }
 
         BillResolution br;

@@ -63,6 +63,10 @@ namespace PackageMachine
             label_allpackageseq.Text = "当前包装机共：" + br.Length + "包";
             label_nowpackageseq.Text = "当前包装机第：" + task.ALLPACKAGENUM + "包";
             pkIndex = Convert.ToInt32(task.ALLPACKAGENUM);
+
+            decimal packtasknum = (decimal)data1.Where(x => x.ALLPACKAGESEQ == task.ALLPACKAGENUM).Select(x => x.PACKTASKNUM).FirstOrDefault();
+            label_packtasknum.Text = "包装机任务号：" + packtasknum.ToString();
+
         }
 
         BillResolution br;
@@ -296,6 +300,7 @@ namespace PackageMachine
             label_SumCignum.Text = "订单总条数：" + task[7];
             label_customername.Text = "客户名称：" + task[9];
             label_allpacksortnum.Text = "总条数：" + task[10];
+            label_packtasknum.Text = "包装机任务号：" + task[11];
         }
 
         private void button_end_Click(object sender, EventArgs e)

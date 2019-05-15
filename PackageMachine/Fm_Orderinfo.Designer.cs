@@ -55,6 +55,7 @@
             this.label_unnormul = new System.Windows.Forms.Label();
             this.label_nowpackageseq = new System.Windows.Forms.Label();
             this.cigrShow1 = new PackageMachine.CigrShow();
+            this.label_packagetasknum = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv_datainfo)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -90,7 +91,7 @@
             // label_customername
             // 
             this.label_customername.AutoSize = true;
-            this.label_customername.Location = new System.Drawing.Point(10, 34);
+            this.label_customername.Location = new System.Drawing.Point(232, 39);
             this.label_customername.Name = "label_customername";
             this.label_customername.Size = new System.Drawing.Size(203, 12);
             this.label_customername.TabIndex = 6;
@@ -338,12 +339,22 @@
             this.cigrShow1.W = 0;
             this.cigrShow1.Load += new System.EventHandler(this.cigrShow1_Load);
             // 
+            // label_packagetasknum
+            // 
+            this.label_packagetasknum.AutoSize = true;
+            this.label_packagetasknum.Location = new System.Drawing.Point(10, 39);
+            this.label_packagetasknum.Name = "label_packagetasknum";
+            this.label_packagetasknum.Size = new System.Drawing.Size(137, 12);
+            this.label_packagetasknum.TabIndex = 27;
+            this.label_packagetasknum.Text = "包装机任务号：00000000";
+            // 
             // Fm_Orderinfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1186, 488);
+            this.Controls.Add(this.label_packagetasknum);
             this.Controls.Add(this.label_nowpackageseq);
             this.Controls.Add(this.label_unnormul);
             this.Controls.Add(this.label_normul);
@@ -407,5 +418,6 @@
         private System.Windows.Forms.Label label_normul;
         private System.Windows.Forms.Label label_unnormul;
         private System.Windows.Forms.Label label_nowpackageseq;
+        private System.Windows.Forms.Label label_packagetasknum;
     }
 }

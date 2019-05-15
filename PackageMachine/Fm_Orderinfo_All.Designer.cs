@@ -55,6 +55,7 @@
             this.label_sortseq = new System.Windows.Forms.Label();
             this.label_regioncode = new System.Windows.Forms.Label();
             this.label_packageseq = new System.Windows.Forms.Label();
+            this.label_packtasknum = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv_datainfo)).BeginInit();
             this.SuspendLayout();
@@ -303,7 +304,7 @@
             // label_customername
             // 
             this.label_customername.AutoSize = true;
-            this.label_customername.Location = new System.Drawing.Point(8, 31);
+            this.label_customername.Location = new System.Drawing.Point(230, 36);
             this.label_customername.Name = "label_customername";
             this.label_customername.Size = new System.Drawing.Size(203, 12);
             this.label_customername.TabIndex = 30;
@@ -337,11 +338,21 @@
             this.label_packageseq.TabIndex = 27;
             this.label_packageseq.Text = "当前第：000包";
             // 
+            // label_packtasknum
+            // 
+            this.label_packtasknum.AutoSize = true;
+            this.label_packtasknum.Location = new System.Drawing.Point(8, 36);
+            this.label_packtasknum.Name = "label_packtasknum";
+            this.label_packtasknum.Size = new System.Drawing.Size(137, 12);
+            this.label_packtasknum.TabIndex = 51;
+            this.label_packtasknum.Text = "包装机任务号：00000000";
+            // 
             // Fm_Orderinfo_All
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1186, 488);
+            this.Controls.Add(this.label_packtasknum);
             this.Controls.Add(this.label_nowpackageseq);
             this.Controls.Add(this.label_unnormul);
             this.Controls.Add(this.label_normul);
@@ -406,5 +417,6 @@
         private System.Windows.Forms.Label label_sortseq;
         private System.Windows.Forms.Label label_regioncode;
         private System.Windows.Forms.Label label_packageseq;
+        private System.Windows.Forms.Label label_packtasknum;
     }
 }

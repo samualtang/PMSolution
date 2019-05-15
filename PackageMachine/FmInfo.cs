@@ -219,9 +219,13 @@ namespace PackageMachine
                     {
                         ChangeButton3(values); 
                     }
-                    btn.Text = values;
-                    btn.BackColor = Color.LightGreen;
-                    btn.Cursor = Cursors.Hand;
+                    if (btn.Name == "btngw10")//如果是合包处工位任务号不同 就把这个任务移到拨杆三的位置
+                    {
+                        btn.Text = values;
+                        btn.BackColor = Color.LightGreen;
+                        btn.Cursor = Cursors.Hand;
+                    }
+                   
                     //if (btn.Name == "btnRobt")//如果是机器人 则单击一次 刷新
                     //{
                     //    gbtnw1_Click(btnRobt, null);
