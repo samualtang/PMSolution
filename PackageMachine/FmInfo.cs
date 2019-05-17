@@ -219,7 +219,7 @@ namespace PackageMachine
                     {
                         ChangeButton3(values); 
                     }
-                    if (btn.Name == "btngw10")//如果是合包处工位任务号不同 就把这个任务移到拨杆三的位置
+                    if (btn.Name != "btngw10")//如果是合包处工位任务号不同 就把这个任务移到拨杆三的位置
                     {
                         btn.Text = values;
                         btn.BackColor = Color.LightGreen;
@@ -239,7 +239,7 @@ namespace PackageMachine
 
         void ChangeButton3(string text )
         {
-            if( text != btngw10.Text )//如果新的数据 和旧数据不一样
+            if( text != btngw9.Text )//如果新的数据 和旧数据不一样
             {
                 btngw10.Text = btngw9.Text; //就把旧数据赋值给 拨杆三
                 btngw10.BackColor = Color.LightGreen;

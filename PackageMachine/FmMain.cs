@@ -675,8 +675,8 @@ namespace PackageMachine
         /// <returns></returns>
         void SendRobotTask()
         {
-            FmInfo.GetTaskInfo("机器人：三秒后发送机器人任务");
-            Thread.Sleep(3000);
+            FmInfo.GetTaskInfo("机器人：一秒后发送机器人任务");
+            Thread.Sleep(1000);
         sendTask: if (RoBotState)//读取机器人状态为自动运行
             {
            
@@ -749,9 +749,9 @@ namespace PackageMachine
             else
             {
                 //FmInfo.GetTaskInfo("机器人自动运行状态为关闭,十秒之后再次检测机器人状态");
-                lblTask.Text = "机器人：自动运行状态为关闭,十秒之后再次检测机器人状态";
+                lblTask.Text = "机器人：自动运行状态为关闭,一秒之后再次检测机器人状态";
              
-               Thread.Sleep(10000);//十秒之后再次检测机器人状态
+               Thread.Sleep(1000);//十秒之后再次检测机器人状态
                 goto sendTask;
             }
         }

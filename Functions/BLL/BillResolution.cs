@@ -468,7 +468,7 @@ namespace Functions.BLL
                 List<RouteDetail> list = new List<RouteDetail>();
            
 
-                var regionPagNum = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item).ToList();
+                var regionPagNum = (from item in en.T_PACKAGE_TASK where item.PACKAGENO == packageno select item).OrderBy (item=>item.PACKTASKNUM).ToList();
                 if (regionPagNum.Any())
                 {
                     var region = regionPagNum.Select(a => new { region = a.REGIONCODE }).Distinct().ToList();
