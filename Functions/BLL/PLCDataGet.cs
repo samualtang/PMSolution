@@ -171,7 +171,7 @@ namespace Functions.BLL
             }
         }
         /// <summary>
-        /// 获取数据库内未发送的任务 异型烟
+        /// 获取数据库内未发送的任务 常规烟
         /// </summary>
         /// <param name="PackageNo">包装机号</param>
         /// <returns></returns>

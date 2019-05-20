@@ -91,7 +91,7 @@ namespace PackageMachine
                 //                                        MessageBoxDefaultButton.Button2);//定义对话框的按钮式样
                 if (true)
                 {
-                   // FmInfo.GetTaskInfo("校验输入的包号是否存在...");
+                    FmInfo.GetTaskInfo(info);
                     updateLabel("校验输入的包号是否存在...", lblOper);
                     if (rts.CheckPackageTaskNum(yxyRobot, yxyCigSeq, cgyFb, yxyBsul, out string errinfo))
                     {
@@ -124,11 +124,13 @@ namespace PackageMachine
                         if (rts.TaskLocate(yxyRobot, yxyCigSeq, cgyFb, yxyBsul))
                         {
                             updateLabel("定位成功！", lblOper);
+                            FmInfo.GetTaskInfo(info+ "定位成功！");
                             MessageBox.Show("定位成功！"); 
                         }
                         else
                         {
                             updateLabel("定位成功！\r\n但数据库改变行数为0！", lblOper);
+                            FmInfo.GetTaskInfo(info + "定位成功！\r\n但数据库改变行数为0！");
                             MessageBox.Show("定位成功！\r\n但数据库改变行数为0！"); 
                         }
                     }

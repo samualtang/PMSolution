@@ -225,7 +225,7 @@ namespace Functions.BLL
             using (Entities en = new Entities())
             {
                 var uninfo = (from item in en.T_PACKAGE_TASK
-                              where item.PACKTASKNUM >= packtasknum && item .CIGSEQ >= seq && item.PACKAGENO == packageno && item.CIGTYPE == "2"  && item.CIGSTATE == 10
+                              where item.PACKTASKNUM >= packtasknum && item .CIGSEQ >= seq && item.PACKAGENO == packageno && item.CIGTYPE == "2"  
                               orderby  item.PACKTASKNUM, item.CIGSEQ
                               select item).Take(200).ToList() ;
                 foreach (var item in uninfo)

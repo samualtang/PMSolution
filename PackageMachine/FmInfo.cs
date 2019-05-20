@@ -217,6 +217,7 @@ namespace PackageMachine
 
                     if ( btn.Name=="btngw9")//如果是合包处工位任务号不同 就把这个任务移到拨杆三的位置
                     {
+                        textBox1.Text = values;
                         ChangeButton3(values); 
                     }
                     if (btn.Name != "btngw10")//如果是合包处工位任务号不同 就把这个任务移到拨杆三的位置
@@ -236,27 +237,30 @@ namespace PackageMachine
             }
 
         }
-
+        object lockobj = new object();
         void ChangeButton3(string text )
         {
-            if( text != btngw9.Text )//如果新的数据 和旧数据不一样
-            {
-                btngw10.Text = btngw9.Text; //就把旧数据赋值给 拨杆三
-                btngw10.BackColor = Color.LightGreen;
-                btngw10.Cursor = Cursors.Hand;
+            lock (lockobj)
+            { 
+                if (text != btngw9.Text)//如果新的数据 和旧数据不一样
+                {
+                    btngw10.Text = btngw9.Text; //就把旧数据赋值给 拨杆三
+                    btngw10.BackColor = Color.LightGreen;
+                    btngw10.Cursor = Cursors.Hand;
+                }
+                else if (!Regex.IsMatch(text, @"^[+-]?\d*[.]?\d*$"))//如果不包含数字
+                {
+                    btngw10.Text = "拨杆三";
+                    btngw10.BackColor = Color.Red;
+                    btngw10.Cursor = Cursors.No;
+                }
             }
-            else if(!Regex.IsMatch(text, @"^[+-]?\d*[.]?\d*$"))//如果不包含数字
-            {
-                btngw10.Text = "拨杆三";
-                btngw10.BackColor = Color.Red;
-                btngw10.Cursor = Cursors.No;
-            }
-            else
-            {
-                btngw10.Text = "拨杆三";
-                btngw10.BackColor = Color.Red;
-                btngw10.Cursor = Cursors.No;
-            }
+            //else
+            //{
+            //    btngw10.Text = "拨杆三";
+            //    btngw10.BackColor = Color.Red;
+            //    btngw10.Cursor = Cursors.No;
+            //}
 
         }
         /// <summary>
@@ -665,13 +669,35 @@ namespace PackageMachine
 
         private void btnAuto_Click(object sender, EventArgs e)
         {
-            var arr = br.GetReadyTaskNum();//索引1 为 合包处的任务号，  索引 2，3 对应的是 机器人任务号 和条烟流水号
-            if(arr!= null)
+           // var arr = br.GetReadyTaskNum();//索引1 为 合包处的任务号，  索引 2，3 对应的是 机器人任务号 和条烟流水号
+
+            if (Regex.IsMatch(listBtn[8].Text, @"^[+-]?\d*[.]?\d*$"))//如果拨杆2按钮内容不为文字
             {
-                Hrs(Convert.ToInt32( arr[0]), 1);
-                HrsUbs(arr[1], Convert.ToInt32(arr[2]), 1);
+                Hrs(Convert.ToInt32(listBtn[8].Text), 1);
             }
-        
+
+            else
+            {
+                if (Regex.IsMatch(listBtn[7].Text, @"^[+-]?\d*[.]?\d*$"))//如果拨杆1按钮内容不为文字
+                {
+                    Hrs(Convert.ToInt32(listBtn[8].Text), 1);
+                }
+                else
+                {
+
+                    Hrs(1, 0);
+                }
+            }
+
+            if (Regex.IsMatch(listBtn[10].Text, @"^[+-]?\d*[.]?\d*$"))//如果机器人工位按钮内容不为文字
+            {
+                HrsUbs(Convert.ToDecimal(listBtn[10].Text), 1, 1);
+            }
+            else
+            {
+                HrsUbs(1, 1, 0);
+            }
+
         }
          
         private void btnRouteSerch_Click(object sender, EventArgs e)

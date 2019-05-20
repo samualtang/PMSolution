@@ -69,7 +69,7 @@ namespace Functions.BLL
                 str[1] = data.Select(x => x.PACKAGESEQ).FirstOrDefault().ToString();
                 str[2] = data.Where(x => x.CIGTYPE == "1").Sum(x => x.NORMALQTY).ToString();
                 str[3] = data.Where(x => x.CIGTYPE == "2").Sum(x => x.NORMALQTY).ToString();
-                str[11] = data.Where(x => x.ALLPACKAGESEQ == Convert.ToDecimal(str[0])).FirstOrDefault().ToString();
+                str[11] = data.Where(x => x.ALLPACKAGESEQ == Convert.ToDecimal(str[0])).Select(x=>x.PACKTASKNUM).FirstOrDefault().ToString();
 
                 decimal sortnum = data.Select(x => x.SORTNUM).FirstOrDefault() ?? 0;
                 var data2 = et.V_PRODUCE_PACKAGEINFO.Where(x => x.TASKNUM == sortnum).FirstOrDefault();
