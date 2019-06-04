@@ -179,7 +179,7 @@ namespace PackageMachine
                     if(btn.Name == "btnRobt")
                     {
                         btn.Text = "机器人工位" ;
-                        btn.BackColor = Color.Red;
+                        btn.BackColor = Color.Gray;
                         btn.Cursor = Cursors.No;
                         gbtnw1_Click(btnRobt, null); 
                     }
@@ -188,25 +188,25 @@ namespace PackageMachine
                         if(btn.Name.Contains("8")  )
                         { 
                             btn.Text = "拨杆一";
-                            btn.BackColor = Color.Red;
+                            btn.BackColor = Color.Gray;
                             btn.Cursor = Cursors.No;
                         }
                         else if (btn.Name.Contains("9"))
                         {
                             btn.Text = "拨杆二" ;
-                            btn.BackColor = Color.Red;
+                            btn.BackColor = Color.Gray;
                             btn.Cursor = Cursors.No;
                         }
                         else if (btn.Name.Contains("10"))
                         {
                             btn.Text = "拨杆三" ;
-                            btn.BackColor = Color.Red;
+                            btn.BackColor = Color.Gray;
                             btn.Cursor = Cursors.No;
                         }
                         else
                         { 
                             btn.Text = "工位" + (j + 1);
-                            btn.BackColor = Color.Red;
+                            btn.BackColor = Color.Gray;
                             btn.Cursor = Cursors.No;
                         }
                     }
@@ -251,14 +251,14 @@ namespace PackageMachine
                 else if (!Regex.IsMatch(text, @"^[+-]?\d*[.]?\d*$"))//如果不包含数字
                 {
                     btngw10.Text = "拨杆三";
-                    btngw10.BackColor = Color.Red;
+                    btngw10.BackColor = Color.Gray;
                     btngw10.Cursor = Cursors.No;
                 }
             }
             //else
             //{
             //    btngw10.Text = "拨杆三";
-            //    btngw10.BackColor = Color.Red;
+            //    btngw10.BackColor = Color.Gray;
             //    btngw10.Cursor = Cursors.No;
             //}
 
@@ -669,34 +669,41 @@ namespace PackageMachine
 
         private void btnAuto_Click(object sender, EventArgs e)
         {
-           // var arr = br.GetReadyTaskNum();//索引1 为 合包处的任务号，  索引 2，3 对应的是 机器人任务号 和条烟流水号
-
-            if (Regex.IsMatch(listBtn[8].Text, @"^[+-]?\d*[.]?\d*$"))//如果拨杆2按钮内容不为文字
+            // var arr = br.GetReadyTaskNum();//索引1 为 合包处的任务号，  索引 2，3 对应的是 机器人任务号 和条烟流水号
+            try
             {
-                Hrs(Convert.ToInt32(listBtn[8].Text), 1);
-            }
-
-            else
-            {
-                if (Regex.IsMatch(listBtn[7].Text, @"^[+-]?\d*[.]?\d*$"))//如果拨杆1按钮内容不为文字
+                if (Regex.IsMatch(listBtn[8].Text, @"^[+-]?\d*[.]?\d*$"))//如果拨杆2按钮内容不为文字
                 {
                     Hrs(Convert.ToInt32(listBtn[8].Text), 1);
                 }
                 else
                 {
+                    if (Regex.IsMatch(listBtn[7].Text, @"^[+-]?\d*[.]?\d*$"))//如果拨杆1按钮内容不为文字
+                    {
+                        Hrs(Convert.ToInt32(listBtn[7].Text), 1);
+                    }
+                    else
+                    {
 
-                    Hrs(1, 0);
+                        Hrs(1, 0);
+                    }
+                }
+
+                if (Regex.IsMatch(listBtn[10].Text, @"^[+-]?\d*[.]?\d*$"))//如果机器人工位按钮内容不为文字
+                {
+                    HrsUbs(Convert.ToDecimal(listBtn[10].Text), 1, 1);
+                }
+                else
+                {
+                    HrsUbs(1, 1, 0);
                 }
             }
+            catch (Exception)
+            {
 
-            if (Regex.IsMatch(listBtn[10].Text, @"^[+-]?\d*[.]?\d*$"))//如果机器人工位按钮内容不为文字
-            {
-                HrsUbs(Convert.ToDecimal(listBtn[10].Text), 1, 1);
+                throw;
             }
-            else
-            {
-                HrsUbs(1, 1, 0);
-            }
+            
 
         }
          
