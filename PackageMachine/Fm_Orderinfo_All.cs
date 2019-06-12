@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using EFModle.Model;
+using Functions.PubFunction;
 
 namespace PackageMachine
 {
@@ -288,7 +289,7 @@ namespace PackageMachine
         void labelChange()
         {
             
-            string[] tasks = GetAllOrderinfo.GetLabelData(SORTSEQ, task.SORTNUM);
+            string[] tasks = GetAllOrderinfo.GetLabelData(SORTSEQ, GlobalPara.PackageNo);
             label_nowpackageseq.Text = "当前包装机第：" + tasks[0] + "包";
             label_packageseq.Text = "当前订单第：" + tasks[1] + "包";
             label_normul.Text = "常规烟：" + tasks[2];
