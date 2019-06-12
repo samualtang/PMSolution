@@ -59,12 +59,12 @@ namespace Functions.BLL
                 return lists;
             }
         }
-        public static string[] GetLabelData(decimal seq)
+        public static string[] GetLabelData(decimal seq, decimal sortNum)
         {
             string[] str = new string[12];
             using (Entities et = new Entities())
             {
-                var data = et.T_PACKAGE_TASK.Where(x => x.ALLPACKAGESEQ == seq).ToList();
+                var data = et.T_PACKAGE_TASK.Where(x => x.ALLPACKAGESEQ == seq && x.SORTNUM == sortNum).ToList();
                 str[0] = data.Select(x => x.ALLPACKAGESEQ).FirstOrDefault().ToString();
                 str[1] = data.Select(x => x.PACKAGESEQ).FirstOrDefault().ToString();
                 str[2] = data.Where(x => x.CIGTYPE == "1").Sum(x => x.NORMALQTY).ToString();

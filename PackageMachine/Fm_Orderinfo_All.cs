@@ -287,20 +287,21 @@ namespace PackageMachine
         /// </summary>
         void labelChange()
         {
-            string[] task = GetAllOrderinfo.GetLabelData(SORTSEQ);
-            label_nowpackageseq.Text = "当前包装机第：" + task[0] + "包";
-            label_packageseq.Text = "当前订单第：" + task[1] + "包";
-            label_normul.Text = "常规烟：" + task[2];
-            label_unnormul.Text = "异型烟：" + task[3];
+            
+            string[] tasks = GetAllOrderinfo.GetLabelData(SORTSEQ, task.SORTNUM);
+            label_nowpackageseq.Text = "当前包装机第：" + tasks[0] + "包";
+            label_packageseq.Text = "当前订单第：" + tasks[1] + "包";
+            label_normul.Text = "常规烟：" + tasks[2];
+            label_unnormul.Text = "异型烟：" + tasks[3];
 
-            label_sortnum.Text = "任务号：" + task[4]; 
-            label_regioncode.Text = "车组号：" + task[5]; ;
-            label_sortseq.Text = "户序：" + task[6];
-            label_customcode.Text = "专卖证号：" + task[8];
-            label_SumCignum.Text = "订单总条数：" + task[7];
-            label_customername.Text = "客户名称：" + task[9];
-            label_allpacksortnum.Text = "总条数：" + task[10];
-            label_packtasknum.Text = "包装机任务号：" + task[11];
+            label_sortnum.Text = "任务号：" + tasks[4]; 
+            label_regioncode.Text = "车组号：" + tasks[5]; ;
+            label_sortseq.Text = "户序：" + tasks[6];
+            label_customcode.Text = "专卖证号：" + tasks[8];
+            label_SumCignum.Text = "订单总条数：" + tasks[7];
+            label_customername.Text = "客户名称：" + tasks[9];
+            label_allpacksortnum.Text = "总条数：" + tasks[10];
+            label_packtasknum.Text = "包装机任务号：" + tasks[11];
         }
 
         private void button_end_Click(object sender, EventArgs e)
