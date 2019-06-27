@@ -225,10 +225,33 @@ namespace Functions.BLL
             using (Entities en = new Entities())
             {
                 var uninfo = (from item in en.T_PACKAGE_TASK
-                              where item.PACKTASKNUM >= packtasknum && item .CIGSEQ >= seq && item.PACKAGENO == packageno && item.CIGTYPE == "2"  
-                              orderby  item.PACKTASKNUM, item.CIGSEQ
-                              select item).Take(200).ToList() ;
+                              where item.PACKTASKNUM == packtasknum && item.CIGSEQ >= seq && item.PACKAGENO == packageno && item.CIGTYPE == "2"
+                              orderby item.PACKTASKNUM, item.CIGSEQ
+                              select item).ToList();
                 foreach (var item in uninfo)
+                {
+                    TobaccoInfo info = new TobaccoInfo
+                    {
+                        TobaccoName = item.CIGARETTENAME,
+                        TobaccoLength = (float)Convert.ToDouble(item.CIGLENGTH),
+                        TobaccoWidth = (float)Convert.ToDouble(item.CIGWIDTH),
+                        TobaccoHeight = (float)Convert.ToDouble(item.CIGHIGH),
+                        GlobalIndex = Convert.ToInt32(item.ALLPACKAGESEQ ?? 0),
+                        TobaccoState = item.CIGSTATE ?? 0,
+                        PacktaskNum = item.PACKTASKNUM ?? 0,
+                        CigNum = item.CIGSEQ ?? 0,
+                        NormalLayerNum = item.PUSHSPACE ?? 0,
+                        Speed = 1,
+                        OrderIndex = Convert.ToInt32(item.CIGSEQ ?? 0),
+                        CigType = item.CIGTYPE,//卷烟类型 
+                    };
+                    list.Add(info);
+                }
+                var uninfos = (from item in en.T_PACKAGE_TASK
+                               where item.PACKTASKNUM > packtasknum && item.PACKAGENO == packageno && item.CIGTYPE == "2"
+                               orderby item.PACKTASKNUM, item.CIGSEQ
+                               select item).Take(200 - uninfo.Count).ToList();
+                foreach (var item in uninfos)
                 {
                     TobaccoInfo info = new TobaccoInfo
                     {
