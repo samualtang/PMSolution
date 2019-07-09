@@ -16,6 +16,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace PackageMachine
 {
@@ -292,8 +293,12 @@ namespace PackageMachine
                                 flag = false;
                                 string[] arr1 = newArr[0].Trim().Split(',');
                                 string[] arr2 = newArr[1].Trim().Split(',');
-                                robotService.UpDateFinishTask(arr1, out outStr);
-                                robotService.UpDateFinishTask(arr2, out outStr);
+                                List<string[]> arrlist = new List<string[]>();
+                                arrlist.Add(arr1);
+                                arrlist.Add(arr2);
+                                robotService.UpDateFinishTasks(arrlist, out outStr);
+                                //robotService.UpDateFinishTask(arr1, out outStr);
+                                //robotService.UpDateFinishTask(arr2, out outStr);
                                 FmInfo.AutoRefreshUnShow(Convert.ToDecimal( arr2[0]),Convert.ToInt32( arr2[1]));
                                 FmInfo.FuncAutoRefsh();//更新显示界面
                                 flag = true;

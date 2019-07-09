@@ -232,7 +232,42 @@ namespace Functions.BLL
                 }
             }
         }
+        public void UpDateFinishTasks(List<string[]> tasks, out string ErrMsg)
+        {
+            ErrMsg = "";
+            try
+            {
+                using (Entities en = new Entities())
+                {
+                    foreach (var task in tasks)
+                    {
+                        decimal taskNum = Convert.ToDecimal(task[0]);
+                        int CigSeq = int.Parse(task[1].ToString());
 
+                        var query1 = (from item in en.T_PACKAGE_TASK
+                                      where item.PACKTASKNUM == taskNum && item.PACKAGENO == packageno && item.CIGSEQ == CigSeq && item.CIGTYPE == "2"
+                                      select item).ToList();
+                        if (query1.Any())
+                        {
+                            foreach (var item in query1)
+                            {
+                                item.CIGSTATE = 20;
+                            }
+                        }
+                        else
+                        {
+                            ErrMsg += "机器人:未找到任务号" + taskNum + ",和条烟流水号" + CigSeq;
+                        }
+                    }
+                    en.SaveChanges();//更新数据库
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrMsg += "机器人:任务服务类，更新完成任务方法，数据库连接失败:" + ex.Message;
+                throw ex = new Exception(ErrMsg);
+            }
+        }
         public void UpDateFinishTask(string[] task, out string ErrMsg)
         {
             ErrMsg = "";
