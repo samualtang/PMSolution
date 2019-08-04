@@ -29,6 +29,7 @@ namespace Functions
 
         private Group spyGroup6;
         private Group shapeGroup7;
+        private Group shapeGroup8;
 
         /// <summary>
         /// 是否已经在发送任务：true有，false没有
@@ -73,9 +74,12 @@ namespace Functions
             SpyGroup6 = new Group(pIOPCServer, 6, "group6", 1, LOCALE_ID);  //创建监控标志位的
             SpyGroup6.addItem(ItemCollection.GetSpyStateItem());
 
-            ShapeGroup7 = new Group(pIOPCServer, 7, "group7", 1, LOCALE_ID);  //倍速链和翻版 PLC 任务清空与暂停设备组
+            ShapeGroup7 = new Group(pIOPCServer, 7, "group7", 1, LOCALE_ID);  //翻板任务清空
             ShapeGroup7.addItem(ItemCollection.ClearAndStop_cgy());
 
+            ShapeGroup8 = new Group(pIOPCServer, 8, "group8", 1, LOCALE_ID);  //倍速链任务清空
+            ShapeGroup8.addItem(ItemCollection.ClearAndStop_yxy());
+            
             strmessage[0] +="";//写入校验plc连接尝试结果
             strmessage[1] = "1";
             return strmessage;
@@ -107,9 +111,14 @@ namespace Functions
         /// </summary>
         public Group SpyGroup6 { get => spyGroup6; set => spyGroup6 = value; }
         /// <summary>
-        /// 倍速链和翻版 PLC 任务清空与暂停设备组
+        /// 翻版任务清空
         /// </summary>
         public Group ShapeGroup7 { get => shapeGroup7; set => shapeGroup7 = value; }
+
+        /// <summary>
+        /// 倍速链任务清空
+        /// </summary>
+        public Group ShapeGroup8 { get => shapeGroup8; set => shapeGroup8 = value; }
 
         /// <summary>
         /// 检验opc连接  
@@ -470,7 +479,88 @@ namespace Functions
                 
             
             
-        }              
- 
+        }
+
+
+        /// <summary>
+        /// 倍速链任务清空
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> ClearPLCDataBSL()
+        {
+            startatg = true;
+            string Strmessage = "清空倍速链数据：";
+            try
+            {
+                object[] vs = new object[ItemCollection.ClearAndStop_yxy().Count()];
+                vs[0] = 1;
+                ShapeGroup8.SyncWrite(vs);
+                Strmessage += "清空数据中:"+System.DateTime.Now.ToLongTimeString()+"写入标志1 成功，等待两秒";
+                Thread.Sleep(2000);
+                vs[0] = 0;
+                ShapeGroup8.SyncWrite(vs);
+                Strmessage += "清空数据成功:" + System.DateTime.Now.ToLongTimeString() + "写入标志0 成功，清空完成";
+            }
+            catch (Exception ex)
+            {
+                writeLog.Write(ex.Message);
+                if (ex.InnerException != null && ex.InnerException.Message != null)
+                {
+                    writeLog.Write(ex.InnerException.Message);
+                }
+                Strmessage += "清空倍速链数据失败";
+                if (ShapeGroup8 == null)
+                {
+                    Strmessage += "PLC连接未成功建立！请等待连接建立成功后再试！";
+                }
+                startatg = false;
+            }
+            finally
+            {
+                writeLog.Write(Strmessage);
+            }
+            return true;
+        }
+
+
+        /// <summary>
+        /// 翻板任务清空
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> ClearPLCDataFB()
+        {
+            startatg = true;
+            string Strmessage = "清空翻板数据：";
+            try
+            {
+                object[] vs = new object[ItemCollection.ClearAndStop_cgy().Count()];
+                vs[0] = 1;
+                ShapeGroup7.SyncWrite(vs);
+                Strmessage += "清空数据中:" + System.DateTime.Now.ToLongTimeString() + "写入标志1 成功，等待两秒";
+                Thread.Sleep(2000);
+                vs[0] = 0;
+                ShapeGroup7.SyncWrite(vs);
+                Strmessage += "清空数据成功:" + System.DateTime.Now.ToLongTimeString() + "写入标志0 成功，清空完成";
+            }
+            catch (Exception ex)
+            {
+                writeLog.Write(ex.Message);
+                if (ex.InnerException != null && ex.InnerException.Message != null)
+                {
+                    writeLog.Write(ex.InnerException.Message);
+                }
+                Strmessage += "清空翻板数据失败";
+                if (ShapeGroup8 == null)
+                {
+                    Strmessage += "PLC连接未成功建立！请等待连接建立成功后再试！";
+                }
+                startatg = false;
+            }
+            finally
+            {
+                writeLog.Write(Strmessage);
+            }
+            return true;
+        }
     }
 }

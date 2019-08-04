@@ -38,6 +38,7 @@
             this.lblServerInfo = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.mune = new System.Windows.Forms.Panel();
+            this.pbstatus = new System.Windows.Forms.PictureBox();
             this.pbSize = new System.Windows.Forms.PictureBox();
             this.pbConnSet = new System.Windows.Forms.PictureBox();
             this.pbUnionS = new System.Windows.Forms.PictureBox();
@@ -49,6 +50,7 @@
             this.pbTitle = new System.Windows.Forms.PictureBox();
             this.gbSysDate.SuspendLayout();
             this.mune.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbstatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbConnSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbUnionS)).BeginInit();
@@ -128,6 +130,7 @@
             // 
             this.mune.BackColor = System.Drawing.SystemColors.Control;
             this.mune.BackgroundImage = global::PackageMachine.Properties.Resources.菜单背景;
+            this.mune.Controls.Add(this.pbstatus);
             this.mune.Controls.Add(this.pbSize);
             this.mune.Controls.Add(this.pbConnSet);
             this.mune.Controls.Add(this.pbUnionS);
@@ -137,6 +140,22 @@
             this.mune.Name = "mune";
             this.mune.Size = new System.Drawing.Size(76, 663);
             this.mune.TabIndex = 79;
+            // 
+            // pbstatus
+            // 
+            this.pbstatus.BackgroundImage = global::PackageMachine.Properties.Resources.尺寸维护;
+            this.pbstatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbstatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbstatus.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbstatus.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pbstatus.Image = global::PackageMachine.Properties.Resources.状态查询;
+            this.pbstatus.Location = new System.Drawing.Point(0, 220);
+            this.pbstatus.Name = "pbstatus";
+            this.pbstatus.Size = new System.Drawing.Size(76, 56);
+            this.pbstatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbstatus.TabIndex = 5;
+            this.pbstatus.TabStop = false;
+            this.pbstatus.Click += new System.EventHandler(this.pbstatus_Click);
             // 
             // pbSize
             // 
@@ -277,6 +296,7 @@
             this.gbSysDate.ResumeLayout(false);
             this.gbSysDate.PerformLayout();
             this.mune.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbstatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbConnSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbUnionS)).EndInit();
@@ -308,6 +328,7 @@
         private System.Windows.Forms.Label lblTask;
         private System.Windows.Forms.Label lblFinshiTask;
         private System.Windows.Forms.Label lblRobotState;
+        private System.Windows.Forms.PictureBox pbstatus;
     }
 }
 

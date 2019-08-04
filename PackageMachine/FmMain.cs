@@ -297,7 +297,7 @@ namespace PackageMachine
                                 arrlist.Add(arr1);
                                 arrlist.Add(arr2);
                                 robotService.UpDateFinishTasks(arrlist, out outStr);
-                                //robotService.UpDateFinishTask(arr1, out outStr);
+                                //robotService.UpDateFinishTask(arr1, out outStr);//y 修改为一起修改 20190709
                                 //robotService.UpDateFinishTask(arr2, out outStr);
                                 FmInfo.AutoRefreshUnShow(Convert.ToDecimal( arr2[0]),Convert.ToInt32( arr2[1]));
                                 FmInfo.FuncAutoRefsh();//更新显示界面
@@ -1039,6 +1039,20 @@ namespace PackageMachine
         private void button1_Click(object sender, EventArgs e)
         {
             FmInfo.FuncAutoRefsh();
+        }
+
+        private void pbstatus_Click(object sender, EventArgs e)
+        {
+            Fm_StatusSearch frm = new Fm_StatusSearch();
+            if (CheckExist(frm) == true)
+            {
+                frm.Dispose();
+                frm = null;
+                return;
+            }
+            frm.MdiParent = this;
+            frm.Dock = DockStyle.Fill;
+            frm.Show();
         }
     }
 }

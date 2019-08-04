@@ -52,7 +52,6 @@
             this.lbllinename = new System.Windows.Forms.Label();
             this.lblCache = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.cce1 = new PackageMachine.CigrCache();
             this.plcrtl = new System.Windows.Forms.Panel();
             this.cbCgyOrNot = new System.Windows.Forms.CheckBox();
             this.cbAutoRefsh = new System.Windows.Forms.CheckBox();
@@ -83,6 +82,7 @@
             this.lblDxdetail = new System.Windows.Forms.Label();
             this.lblGwcx = new System.Windows.Forms.Label();
             this.timeToClike = new System.Windows.Forms.Timer(this.components);
+            this.cce1 = new PackageMachine.CigrCache();
             this.cs2 = new PackageMachine.CigrShow();
             this.cs = new PackageMachine.CigrShow();
             this.panelInfo.SuspendLayout();
@@ -354,14 +354,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(176, 579);
             this.panel1.TabIndex = 8;
-            // 
-            // cce1
-            // 
-            this.cce1.BackColor = System.Drawing.Color.White;
-            this.cce1.Location = new System.Drawing.Point(11, 48);
-            this.cce1.Name = "cce1";
-            this.cce1.Size = new System.Drawing.Size(137, 526);
-            this.cce1.TabIndex = 6;
             // 
             // plcrtl
             // 
@@ -732,6 +724,14 @@
             // timeToClike
             // 
             this.timeToClike.Tick += new System.EventHandler(this.timeToClike_Tick);
+            // 
+            // cce1
+            // 
+            this.cce1.BackColor = System.Drawing.Color.White;
+            this.cce1.Location = new System.Drawing.Point(11, 48);
+            this.cce1.Name = "cce1";
+            this.cce1.Size = new System.Drawing.Size(137, 526);
+            this.cce1.TabIndex = 6;
             // 
             // cs2
             // 

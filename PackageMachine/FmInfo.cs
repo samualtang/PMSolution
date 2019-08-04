@@ -814,6 +814,7 @@ namespace PackageMachine
           
         }
 
+
         private void btngw1_MouseEnter(object sender, EventArgs e)
         {
             Button btn = (Button)sender;

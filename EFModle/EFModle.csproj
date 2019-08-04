@@ -71,6 +71,7 @@
     <Compile Include="Model\PackageArea.cs" />
     <Compile Include="Model\PackageData_YXY.cs" />
     <Compile Include="Model\PackageVo.cs" />
+    <Compile Include="Model\StatusModel.cs" />
     <Compile Include="Model\TaskList.cs" />
     <Compile Include="Model\TobaccoInfo.cs" />
     <Compile Include="PROJ_PRODUCT.cs">
@@ -146,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="EntityData.edmx.diagram">
       <DependentUpon>EntityData.edmx</DependentUpon>
     </None>

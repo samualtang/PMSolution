@@ -397,7 +397,7 @@ namespace Functions.PubFunction
             }
         }
         /// <summary>
-        /// opc服务别名 异型烟
+        /// opc服务别名 常规烟
         /// </summary>
         public static string Opc_Namecgy
         {
