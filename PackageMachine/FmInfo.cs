@@ -53,6 +53,8 @@ namespace PackageMachine
         /// 获取OPC组
         /// </summary>
         public static Func<Group, Group, int> GetGroup;
+
+        public OPC_ToPLC plc { get; set; }
         /// <summary>
         /// 自动刷新委托
         /// </summary>
@@ -657,6 +659,7 @@ namespace PackageMachine
                 {
                     StartPosition = FormStartPosition.CenterScreen
                 };
+                fmTask.opc = plc;
                 fmTask.ShowDialog();
             }
             else

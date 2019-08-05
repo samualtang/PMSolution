@@ -24,7 +24,7 @@ namespace PackageMachine
             rts = new RobotTaskService();
             lblinfo.Text = "提示：定位会从指定的任务重新开始下发任务\r\n并且清空电控（倍速链，翻版，机器人）已缓存的任务数据！ ";
         }
-
+        public Functions.OPC_ToPLC opc { get; set; }
         Group G7;
         /// <summary>
         /// 
@@ -61,7 +61,7 @@ namespace PackageMachine
             DialogResult MsgBoxResult = MessageBox.Show("确认清空翻板数据？", "提示：", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (MsgBoxResult == DialogResult.OK)
             {
-                await clearfun.ClearFB();
+                await clearfun.ClearFB(opc);
             }
         }
 
@@ -73,7 +73,7 @@ namespace PackageMachine
             DialogResult MsgBoxResult = MessageBox.Show("确认清空倍速链数据？","提示：",MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (MsgBoxResult == DialogResult.OK)
             {
-                await clearfun.ClearBSL();
+                await clearfun.ClearBSL(opc);
             }
         }
 

@@ -407,6 +407,7 @@ namespace PackageMachine
             }
             frm.MdiParent = this;
             frm.Dock = DockStyle.Fill;
+            frm.plc = plc;
             frm.Show();
            
         }

@@ -8,16 +8,14 @@ namespace Functions.BLL
 {
     public class PLCDataClear
     {
-        public async Task<bool> ClearBSL()
+        public async Task<bool> ClearBSL(OPC_ToPLC opc)
         {
-            OPC_ToPLC opc = new OPC_ToPLC();
             bool x = await opc.ClearPLCDataBSL();
             return x;
         }
 
-        public async Task<bool> ClearFB()
+        public async Task<bool> ClearFB(OPC_ToPLC opc)
         {
-            OPC_ToPLC opc = new OPC_ToPLC();
             bool x = await opc.ClearPLCDataFB();
             return x;
         }

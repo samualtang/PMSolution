@@ -495,11 +495,11 @@ namespace Functions
                 object[] vs = new object[ItemCollection.ClearAndStop_yxy().Count()];
                 vs[0] = 1;
                 ShapeGroup8.SyncWrite(vs);
-                Strmessage += "清空数据中:"+System.DateTime.Now.ToLongTimeString()+"写入标志1 成功，等待两秒";
-                Thread.Sleep(2000);
-                vs[0] = 0;
-                ShapeGroup8.SyncWrite(vs);
-                Strmessage += "清空数据成功:" + System.DateTime.Now.ToLongTimeString() + "写入标志0 成功，清空完成";
+                Strmessage += "清空数据中:" + System.DateTime.Now.ToLongTimeString() + "写入标志1 成功";//，等待两秒";
+                //Thread.Sleep(2000);
+                //vs[0] = 0;
+                //ShapeGroup8.SyncWrite(vs);
+                //Strmessage += "清空数据成功:" + System.DateTime.Now.ToLongTimeString() + "写入标志0 成功，清空完成";
             }
             catch (Exception ex)
             {
@@ -536,11 +536,11 @@ namespace Functions
                 object[] vs = new object[ItemCollection.ClearAndStop_cgy().Count()];
                 vs[0] = 1;
                 ShapeGroup7.SyncWrite(vs);
-                Strmessage += "清空数据中:" + System.DateTime.Now.ToLongTimeString() + "写入标志1 成功，等待两秒";
-                Thread.Sleep(2000);
-                vs[0] = 0;
-                ShapeGroup7.SyncWrite(vs);
-                Strmessage += "清空数据成功:" + System.DateTime.Now.ToLongTimeString() + "写入标志0 成功，清空完成";
+                Strmessage += "清空数据中:" + System.DateTime.Now.ToLongTimeString() + "写入标志1 成功";//，等待两秒";
+                //Thread.Sleep(2000);
+                //vs[0] = 0;
+                //ShapeGroup7.SyncWrite(vs);
+                //Strmessage += "清空数据成功:" + System.DateTime.Now.ToLongTimeString() + "写入标志0 成功，清空完成";
             }
             catch (Exception ex)
             {

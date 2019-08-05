@@ -108,7 +108,7 @@ namespace Functions.Model
             string S7Name = PubFunction.GlobalPara.Opc_Namecgy;
             List<string> list = new List<string>();
 
-            list.Add(S7Name + "DB30,W518");//常规烟翻版 清空任务 0
+            list.Add(S7Name + "DB1,W518");//常规烟翻版 清空任务 0
 
             return list;
         }
