@@ -19,5 +19,7 @@ namespace EFModle.Model
         public decimal? cigstate { get; set; }
         public decimal? state { get; set; }
         public decimal? normailstate { get; set; }
+        public string doubletask { get; set; }
+        
     }
 }

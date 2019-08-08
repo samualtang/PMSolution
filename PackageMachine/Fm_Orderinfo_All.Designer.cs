@@ -48,7 +48,6 @@
             this.button_last = new System.Windows.Forms.Button();
             this.button_end = new System.Windows.Forms.Button();
             this.button_top = new System.Windows.Forms.Button();
-            this.cigrShow1 = new PackageMachine.CigrShow();
             this.label_SumCignum = new System.Windows.Forms.Label();
             this.label_customcode = new System.Windows.Forms.Label();
             this.label_customername = new System.Windows.Forms.Label();
@@ -56,6 +55,8 @@
             this.label_regioncode = new System.Windows.Forms.Label();
             this.label_packageseq = new System.Windows.Forms.Label();
             this.label_packtasknum = new System.Windows.Forms.Label();
+            this.cigrShow1 = new PackageMachine.CigrShow();
+            this.lbl_orderpackagenum = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv_datainfo)).BeginInit();
             this.SuspendLayout();
@@ -112,7 +113,7 @@
             this.radioButton_all.TabStop = true;
             this.radioButton_all.Text = "全部";
             this.radioButton_all.UseVisualStyleBackColor = true;
-            this.radioButton_all.Click += new System.EventHandler(this.radioButton_all_CheckedChanged);
+            this.radioButton_all.CheckedChanged += new System.EventHandler(this.radioButton_all_CheckedChanged);
             // 
             // radioButton_yxy
             // 
@@ -123,7 +124,7 @@
             this.radioButton_yxy.TabIndex = 25;
             this.radioButton_yxy.Text = "异型烟";
             this.radioButton_yxy.UseVisualStyleBackColor = true;
-            this.radioButton_yxy.Click += new System.EventHandler(this.radioButton_yxy_CheckedChanged);
+            this.radioButton_yxy.CheckedChanged += new System.EventHandler(this.radioButton_yxy_CheckedChanged);
             // 
             // radioButton_cgy
             // 
@@ -134,7 +135,7 @@
             this.radioButton_cgy.TabIndex = 24;
             this.radioButton_cgy.Text = "常规烟";
             this.radioButton_cgy.UseVisualStyleBackColor = true;
-            this.radioButton_cgy.Click += new System.EventHandler(this.radioButton_cgy_CheckedChanged);
+            this.radioButton_cgy.CheckedChanged += new System.EventHandler(this.radioButton_cgy_CheckedChanged);
             // 
             // label1
             // 
@@ -155,6 +156,7 @@
             this.checkBox_display.TabIndex = 45;
             this.checkBox_display.Text = "显示全部明细";
             this.checkBox_display.UseVisualStyleBackColor = true;
+            this.checkBox_display.Visible = false;
             this.checkBox_display.Click += new System.EventHandler(this.checkBox_display_CheckedChanged);
             // 
             // Dgv_datainfo
@@ -271,22 +273,11 @@
             this.button_top.UseVisualStyleBackColor = true;
             this.button_top.Click += new System.EventHandler(this.button_top_Click);
             // 
-            // cigrShow1
-            // 
-            this.cigrShow1.BackColor = System.Drawing.Color.White;
-            this.cigrShow1.H = 0;
-            this.cigrShow1.Location = new System.Drawing.Point(623, 170);
-            this.cigrShow1.Margin = new System.Windows.Forms.Padding(4);
-            this.cigrShow1.Name = "cigrShow1";
-            this.cigrShow1.Size = new System.Drawing.Size(555, 308);
-            this.cigrShow1.TabIndex = 33;
-            this.cigrShow1.W = 0;
-            // 
             // label_SumCignum
             // 
             this.label_SumCignum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_SumCignum.AutoSize = true;
-            this.label_SumCignum.Location = new System.Drawing.Point(623, 93);
+            this.label_SumCignum.Location = new System.Drawing.Point(744, 93);
             this.label_SumCignum.Name = "label_SumCignum";
             this.label_SumCignum.Size = new System.Drawing.Size(59, 12);
             this.label_SumCignum.TabIndex = 32;
@@ -347,11 +338,33 @@
             this.label_packtasknum.TabIndex = 51;
             this.label_packtasknum.Text = "包装机任务号：00000000";
             // 
+            // cigrShow1
+            // 
+            this.cigrShow1.BackColor = System.Drawing.Color.White;
+            this.cigrShow1.H = 0;
+            this.cigrShow1.Location = new System.Drawing.Point(623, 170);
+            this.cigrShow1.Margin = new System.Windows.Forms.Padding(4);
+            this.cigrShow1.Name = "cigrShow1";
+            this.cigrShow1.Size = new System.Drawing.Size(555, 308);
+            this.cigrShow1.TabIndex = 33;
+            this.cigrShow1.W = 0;
+            // 
+            // lbl_orderpackagenum
+            // 
+            this.lbl_orderpackagenum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_orderpackagenum.AutoSize = true;
+            this.lbl_orderpackagenum.Location = new System.Drawing.Point(621, 93);
+            this.lbl_orderpackagenum.Name = "lbl_orderpackagenum";
+            this.lbl_orderpackagenum.Size = new System.Drawing.Size(59, 12);
+            this.lbl_orderpackagenum.TabIndex = 52;
+            this.lbl_orderpackagenum.Text = "共：000包";
+            // 
             // Fm_Orderinfo_All
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1186, 488);
+            this.Controls.Add(this.lbl_orderpackagenum);
             this.Controls.Add(this.label_packtasknum);
             this.Controls.Add(this.label_nowpackageseq);
             this.Controls.Add(this.label_unnormul);
@@ -418,5 +431,6 @@
         private System.Windows.Forms.Label label_regioncode;
         private System.Windows.Forms.Label label_packageseq;
         private System.Windows.Forms.Label label_packtasknum;
+        private System.Windows.Forms.Label lbl_orderpackagenum;
     }
 }

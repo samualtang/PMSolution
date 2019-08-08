@@ -37,6 +37,8 @@ namespace PackageMachine
             textBox_Opc_Nameyxy.Text = Functions.PubFunction.GlobalPara.Opc_Nameyxy.ToString();
             textBox_Opc_Namecgy.Text = Functions.PubFunction.GlobalPara.Opc_Namecgy.ToString();
 
+            txt_uid.Text = Functions.PubFunction.GlobalPara.OpenCheckUid.ToString();
+            txt_pwd.Text = Functions.PubFunction.GlobalPara.OpenCheckPwd.ToString();
         }
 
         private void btn_updateLinkString_Click(object sender, EventArgs e)
@@ -52,6 +54,9 @@ namespace PackageMachine
                 Functions.PubFunction.GlobalPara.RobitPlc_Port = textBox_RobitPlc_Port.Text;
                 Functions.PubFunction.GlobalPara.Opc_Nameyxy = textBox_Opc_Nameyxy.Text;
                 Functions.PubFunction.GlobalPara.Opc_Namecgy = textBox_Opc_Namecgy.Text;
+
+                Functions.PubFunction.GlobalPara.OpenCheckUid = txt_uid.Text;
+                Functions.PubFunction.GlobalPara.OpenCheckPwd = txt_pwd.Text;
             }
             catch (Exception ex)
             {

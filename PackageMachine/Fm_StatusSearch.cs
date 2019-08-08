@@ -53,7 +53,6 @@ namespace PackageMachine
                     break;
             }
             EFModle.Entities et = new EFModle.Entities();
-            dataGridView1.DataSource = et.T_PACKAGE_TASK.Take(100).ToList();
             dataGridView1.DataSource = list;
 
             

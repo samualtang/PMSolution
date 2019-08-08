@@ -54,14 +54,14 @@ namespace Functions.BLL
             List<T_PACKAGE_TASK> taskLists = new List<T_PACKAGE_TASK>();
             using (Entities et = new Entities())
             {
-                var lists = et.T_PACKAGE_TASK.Where(x => x.ALLPACKAGESEQ == allpacknum).Select(x => x).ToList();
+                var lists = et.T_PACKAGE_TASK.Where(x => x.ALLPACKAGESEQ == allpacknum && x.PACKAGENO == PubFunction.GlobalPara.PackageNo).Select(x => x).ToList();
 
                 return lists;
             }
         }
         public static string[] GetLabelData(decimal seq, decimal packageno)
         {
-            string[] str = new string[12];
+            string[] str = new string[13];
             using (Entities et = new Entities())
             {
                 var data = et.T_PACKAGE_TASK.Where(x => x.ALLPACKAGESEQ == seq && x.PACKAGENO == packageno).ToList();
@@ -70,6 +70,7 @@ namespace Functions.BLL
                 str[2] = data.Where(x => x.CIGTYPE == "1").Sum(x => x.NORMALQTY).ToString();
                 str[3] = data.Where(x => x.CIGTYPE == "2").Sum(x => x.NORMALQTY).ToString();
                 str[11] = data.Where(x => x.ALLPACKAGESEQ == Convert.ToDecimal(str[0])).Select(x=>x.PACKTASKNUM).FirstOrDefault().ToString();
+                str[12] = data.Select(x => x.ORDERPACKAGEQTY).FirstOrDefault().ToString();
 
                 decimal sortnum = data.Select(x => x.SORTNUM).FirstOrDefault() ?? 0;
                 var data2 = et.V_PRODUCE_PACKAGEINFO.Where(x => x.TASKNUM == sortnum).FirstOrDefault();

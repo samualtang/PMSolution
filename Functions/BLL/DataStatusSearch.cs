@@ -63,10 +63,11 @@ namespace Functions.BLL
                              join item2 in et.T_PRODUCE_ORDER
                              on item.BILLCODE equals item2.BILLCODE
                              where item.STATE == status
+                             && item.CIGTYPE == "2"
                              && item.PACKAGENO == PubFunction.GlobalPara.PackageNo
                              && item.PACKTASKNUM >= packtasknum
                             orderby item.PACKTASKNUM,item.CIGTYPE,item.CIGSEQ
-                             select new EFModle.Model.StatusModel {  billcode = item.BILLCODE, customername = item2.CUSTOMERNAME,packtasknum = item.PACKTASKNUM, cigtype = item.CIGTYPE, cigseq = item.CIGSEQ,cigarettename = item.CIGARETTENAME,normalqty = item.NORMALQTY,cigstate = item.CIGSTATE,state = item.STATE,normailstate = item.NORMAILSTATE}
+                             select new EFModle.Model.StatusModel {  billcode = item.BILLCODE, customername = item2.CUSTOMERNAME,packtasknum = item.PACKTASKNUM, cigtype = item.CIGTYPE =="1" ?"常规烟":"异型烟", cigseq = item.CIGSEQ,cigarettename = item.CIGARETTENAME,normalqty = item.NORMALQTY,cigstate = item.CIGSTATE,state = item.STATE,normailstate = item.NORMAILSTATE, doubletask = item.DOUBLETAKE == "0" ? "": "双抓" }
                              ).Take(500).ToList();
 
                 return data;
@@ -89,7 +90,7 @@ namespace Functions.BLL
                             && item.PACKAGENO == PubFunction.GlobalPara.PackageNo
                              && item.PACKTASKNUM >= packtasknum
                             orderby item.PACKTASKNUM, item.CIGTYPE, item.CIGSEQ
-                            select new EFModle.Model.StatusModel { billcode = item.BILLCODE, customername = item2.CUSTOMERNAME, packtasknum = item.PACKTASKNUM, cigtype = item.CIGTYPE, cigseq = item.CIGSEQ, cigarettename = item.CIGARETTENAME, normalqty = item.NORMALQTY, cigstate = item.CIGSTATE, state = item.STATE, normailstate = item.NORMAILSTATE }
+                            select new EFModle.Model.StatusModel { billcode = item.BILLCODE, customername = item2.CUSTOMERNAME, packtasknum = item.PACKTASKNUM, cigtype = item.CIGTYPE == "1" ? "常规烟" : "异型烟", cigseq = item.CIGSEQ, cigarettename = item.CIGARETTENAME, normalqty = item.NORMALQTY, cigstate = item.CIGSTATE, state = item.STATE, normailstate = item.NORMAILSTATE, doubletask = item.DOUBLETAKE == "0" ? "" : "双抓" }
                             ).Take(500).ToList();
 
                 return data;
@@ -109,10 +110,11 @@ namespace Functions.BLL
                             join item2 in et.T_PRODUCE_ORDER
                             on item.BILLCODE equals item2.BILLCODE
                             where item.CIGSTATE == status
+                            && item.CIGTYPE == "2"
                             && item.PACKAGENO == PubFunction.GlobalPara.PackageNo
                              && item.PACKTASKNUM >= packtasknum
                             orderby item.PACKTASKNUM, item.CIGTYPE, item.CIGSEQ
-                            select new EFModle.Model.StatusModel { billcode = item.BILLCODE, customername = item2.CUSTOMERNAME, packtasknum = item.PACKTASKNUM, cigtype = item.CIGTYPE, cigseq = item.CIGSEQ, cigarettename = item.CIGARETTENAME, normalqty = item.NORMALQTY, cigstate = item.CIGSTATE, state = item.STATE, normailstate = item.NORMAILSTATE }
+                            select new EFModle.Model.StatusModel { billcode = item.BILLCODE, customername = item2.CUSTOMERNAME, packtasknum = item.PACKTASKNUM, cigtype = item.CIGTYPE == "1" ? "常规烟" : "异型烟", cigseq = item.CIGSEQ, cigarettename = item.CIGARETTENAME, normalqty = item.NORMALQTY, cigstate = item.CIGSTATE, state = item.STATE, normailstate = item.NORMAILSTATE, doubletask = item.DOUBLETAKE == "0" ? "" : "双抓" }
                             ).Take(500).ToList();
 
                 return data;
@@ -135,7 +137,7 @@ namespace Functions.BLL
                             where item.PACKAGENO == PubFunction.GlobalPara.PackageNo
                              && item.PACKTASKNUM >= packtasknum
                             orderby item.PACKTASKNUM, item.CIGTYPE, item.CIGSEQ
-                            select new EFModle.Model.StatusModel { billcode = item.BILLCODE, customername = item2.CUSTOMERNAME, packtasknum = item.PACKTASKNUM, cigtype = item.CIGTYPE, cigseq = item.CIGSEQ, cigarettename = item.CIGARETTENAME, normalqty = item.NORMALQTY, cigstate = item.CIGSTATE, state = item.STATE, normailstate = item.NORMAILSTATE }
+                            select new EFModle.Model.StatusModel { billcode = item.BILLCODE, customername = item2.CUSTOMERNAME, packtasknum = item.PACKTASKNUM, cigtype = item.CIGTYPE == "1" ? "常规烟" : "异型烟", cigseq = item.CIGSEQ, cigarettename = item.CIGARETTENAME, normalqty = item.NORMALQTY, cigstate = item.CIGSTATE, state = item.STATE, normailstate = item.NORMAILSTATE, doubletask = item.DOUBLETAKE == "0" ? "" : "双抓" }
                             ).Take(500).ToList();
 
                 return data;

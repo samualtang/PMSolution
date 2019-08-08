@@ -741,7 +741,7 @@ namespace PackageMachine
                             goto CreateTask;
                              
                         } 
-                       Thread.Sleep(80); // 0.05秒后再次发送
+                       Thread.Sleep(120); // 0.12秒后再次发送
                     }
                     
                    

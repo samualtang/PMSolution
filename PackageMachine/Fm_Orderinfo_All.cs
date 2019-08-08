@@ -102,10 +102,10 @@ namespace PackageMachine
                         Dgv_datainfo.DataSource = GetAllOrderinfo.QueryBypacknum(SORTSEQ).OrderBy(x => x.CIGNUM).Select(x => new { x.CIGARETTENAME, x.CIGARETTECODE, CIGTYPE = x.CIGTYPE == "1" ? "常规烟" : "异型烟", x.NORMALQTY, x.PACKAGESEQ }).ToList();
                         break;
                     case 2:
-                        Dgv_datainfo.DataSource = GetAllOrderinfo.QueryBypacknum(SORTSEQ).OrderBy(x => x.CIGNUM).Select(x => new { x.CIGARETTENAME, x.CIGARETTECODE, CIGTYPE = x.CIGTYPE == "1" ? "常规烟" : "异型烟", x.NORMALQTY, x.PACKAGESEQ }).ToList();
+                        Dgv_datainfo.DataSource = GetAllOrderinfo.QueryBypacknum(SORTSEQ).Where(x=>x.CIGTYPE == "1").OrderBy(x => x.CIGNUM).Select(x => new { x.CIGARETTENAME, x.CIGARETTECODE, CIGTYPE = x.CIGTYPE == "1" ? "常规烟" : "异型烟", x.NORMALQTY, x.PACKAGESEQ }).ToList();
                         break;
                     case 3:
-                        Dgv_datainfo.DataSource = GetAllOrderinfo.QueryBypacknum(SORTSEQ).OrderBy(x => x.CIGNUM).Select(x => new { x.CIGARETTENAME, x.CIGARETTECODE, CIGTYPE = x.CIGTYPE == "1" ? "常规烟" : "异型烟", x.NORMALQTY, x.PACKAGESEQ }).ToList();
+                        Dgv_datainfo.DataSource = GetAllOrderinfo.QueryBypacknum(SORTSEQ).Where(x => x.CIGTYPE == "2").OrderBy(x => x.CIGNUM).Select(x => new { x.CIGARETTENAME, x.CIGARETTECODE, CIGTYPE = x.CIGTYPE == "1" ? "常规烟" : "异型烟", x.NORMALQTY, x.PACKAGESEQ }).ToList();
                         break;
                     case 4:
                         Dgv_datainfo.DataSource = GetAllOrderinfo.QueryBypacknum(SORTSEQ).Select(x => new { x.CIGARETTENAME, x.CIGARETTECODE, CIGTYPE = x.CIGTYPE == "1" ? "常规烟" : "异型烟", x.NORMALQTY, x.PACKAGESEQ }).ToList();
@@ -126,7 +126,7 @@ namespace PackageMachine
                 Dgv_datainfo.Columns[4].HeaderText = "包序号";
                 Dgv_datainfo.Columns[4].Width = 80;
             }
-            label_allcig.Text = GetAllOrderinfo.QueryBypacknum(SORTSEQ).Where(x => x.ALLPACKAGESEQ == pkIndex).Select(x => x.PACKAGEQTY).FirstOrDefault() + "条烟";
+            label_allcig.Text = "共"+GetAllOrderinfo.QueryBypacknum(SORTSEQ).Where(x => x.ALLPACKAGESEQ == pkIndex).Select(x => x.PACKAGEQTY).FirstOrDefault() + "条烟";
         }
         /// <summary>
         /// 获取数据绑定 数据控件datagridview
@@ -303,6 +303,7 @@ namespace PackageMachine
             label_customername.Text = "客户名称：" + tasks[9];
             label_allpacksortnum.Text = "总条数：" + tasks[10];
             label_packtasknum.Text = "包装机任务号：" + tasks[11];
+            lbl_orderpackagenum.Text = "共：" + tasks[12] + "包";
         }
 
         private void button_end_Click(object sender, EventArgs e)

@@ -25,6 +25,17 @@ namespace Functions.BLL
             return vs;
         }
         /// <summary>
+        /// 双抓下拉列表绑定值
+        /// </summary>
+        /// <returns></returns>
+        public static string[] HFtasklist()
+        {
+            string[] vs = new string[2];
+            vs[0] = "否";
+            vs[1] = "是";
+            return vs;
+        }
+        /// <summary>
         /// 读取品牌信息
         /// </summary>
         /// <param name="CommodityName"></param>
@@ -33,7 +44,8 @@ namespace Functions.BLL
         {
             using (Entities et = new Entities())
             {
-                return et.T_WMS_ITEM.Where(x => x.ITEMNAME.Contains(CommodityName)).Select(x => new CommoditySize { ITEMNAME = x.ITEMNAME, ITEMNO = x.ITEMNO, ILENGTH = x.ILENGTH ?? 0 , IWIDTH = x.IWIDTH ?? 0 , IHEIGHT = x.IHEIGHT ?? 0 , DOUBLETAKE =x.DOUBLETAKE }).ToList();
+                return et.T_WMS_ITEM.Where(x => x.ITEMNAME.IndexOf(CommodityName)>=0 || x.ITEMNO.IndexOf(CommodityName) >=0)
+                    .Select(x => new CommoditySize { ITEMNAME = x.ITEMNAME, ITEMNO = x.ITEMNO, ILENGTH = x.ILENGTH ?? 0 , IWIDTH = x.IWIDTH ?? 0 , IHEIGHT = x.IHEIGHT ?? 0 , DOUBLETAKE =x.DOUBLETAKE }).ToList();
             }
         }
 

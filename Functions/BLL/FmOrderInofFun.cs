@@ -117,7 +117,8 @@ namespace Functions.BLL
                          on item.BILLCODE equals item2.BILLCODE
                          where item2.PACKAGENO == packageno &&( item2.BILLCODE.IndexOf(contentstr) >= 0 || item.COMPANYNAME.IndexOf(contentstr) >= 0 ||    
                          item.CUSTOMERCODE.IndexOf(contentstr)>= 0 ||item.CUSTOMERNAME.IndexOf(contentstr) >= 0 || 
-                         item2.CIGARETTENAME.IndexOf(contentstr) >= 0 || item2.CIGARETTECODE.IndexOf(contentstr) >= 0)
+                         item2.CIGARETTENAME.IndexOf(contentstr) >= 0 || item2.CIGARETTECODE.IndexOf(contentstr) >= 0
+                         || item.REGIONCODE.IndexOf(contentstr) >=0)
                          select new TaskList
                          {
                              SORTNUM = item2.SORTNUM ?? 0,

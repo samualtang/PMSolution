@@ -42,6 +42,7 @@
             this.packtasknum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cigtype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cigseq = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.doubletask = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cigarettename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.normalqty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cigstate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -115,6 +116,7 @@
             this.packtasknum,
             this.cigtype,
             this.cigseq,
+            this.doubletask,
             this.cigarettename,
             this.normalqty,
             this.cigstate,
@@ -124,6 +126,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(776, 374);
             this.dataGridView1.TabIndex = 6;
             // 
@@ -193,6 +196,13 @@
             this.cigseq.Name = "cigseq";
             this.cigseq.ReadOnly = true;
             this.cigseq.Width = 80;
+            // 
+            // doubletask
+            // 
+            this.doubletask.DataPropertyName = "doubletask";
+            this.doubletask.HeaderText = "双抓";
+            this.doubletask.Name = "doubletask";
+            this.doubletask.ReadOnly = true;
             // 
             // cigarettename
             // 
@@ -274,6 +284,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn packtasknum;
         private System.Windows.Forms.DataGridViewTextBoxColumn cigtype;
         private System.Windows.Forms.DataGridViewTextBoxColumn cigseq;
+        private System.Windows.Forms.DataGridViewTextBoxColumn doubletask;
         private System.Windows.Forms.DataGridViewTextBoxColumn cigarettename;
         private System.Windows.Forms.DataGridViewTextBoxColumn normalqty;
         private System.Windows.Forms.DataGridViewTextBoxColumn cigstate;

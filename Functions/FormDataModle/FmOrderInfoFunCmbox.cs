@@ -17,11 +17,11 @@ namespace Functions.FormDataModle
         {
             List<OrderInfoCmbox> orderInfoCmboxes = new List<OrderInfoCmbox>(); 
             orderInfoCmboxes.Add(new OrderInfoCmbox() { TITLE = "任务号", CONTENT = "SORTNUM" });
-            orderInfoCmboxes.Add(new OrderInfoCmbox() { TITLE = "客户名称", CONTENT = "CUSTOMERNAME" });
-            orderInfoCmboxes.Add(new OrderInfoCmbox() { TITLE = "专卖证号", CONTENT = "CUSTOMERCODE" });
-            orderInfoCmboxes.Add(new OrderInfoCmbox() { TITLE = "车组号", CONTENT = "REGIONCODE" });
-            orderInfoCmboxes.Add(new OrderInfoCmbox() { TITLE = "卷烟名称", CONTENT = "CIGARETTENAME" });
-            orderInfoCmboxes.Add(new OrderInfoCmbox() { TITLE = "卷烟编码", CONTENT = "CIGARETTECODE" }); 
+            orderInfoCmboxes.Add(new OrderInfoCmbox() { TITLE = "客户名/专卖证/车组及品牌名与编码", CONTENT = "CUSTOMERNAME" });
+            //orderInfoCmboxes.Add(new OrderInfoCmbox() { TITLE = "专卖证号", CONTENT = "CUSTOMERCODE" });
+            //orderInfoCmboxes.Add(new OrderInfoCmbox() { TITLE = "车组号", CONTENT = "REGIONCODE" });
+            //orderInfoCmboxes.Add(new OrderInfoCmbox() { TITLE = "卷烟名称", CONTENT = "CIGARETTENAME" });
+            //orderInfoCmboxes.Add(new OrderInfoCmbox() { TITLE = "卷烟编码", CONTENT = "CIGARETTECODE" }); 
             return orderInfoCmboxes;
         }
     }

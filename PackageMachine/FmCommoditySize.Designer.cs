@@ -47,6 +47,8 @@
             this.txt_name = new System.Windows.Forms.TextBox();
             this.lbl_name = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_OrderInfo)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -56,6 +58,9 @@
             // 
             this.DGV_OrderInfo.AllowUserToAddRows = false;
             this.DGV_OrderInfo.AllowUserToDeleteRows = false;
+            this.DGV_OrderInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DGV_OrderInfo.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.DGV_OrderInfo.Location = new System.Drawing.Point(12, 82);
             this.DGV_OrderInfo.Name = "DGV_OrderInfo";
@@ -89,14 +94,18 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(101, 26);
+            this.label2.Location = new System.Drawing.Point(76, 26);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 12);
+            this.label2.Size = new System.Drawing.Size(95, 12);
             this.label2.TabIndex = 8;
-            this.label2.Text = "品牌名称：";
+            this.label2.Text = "品牌名称/编码：";
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btn_update);
             this.groupBox1.Controls.Add(this.comboBox_doubletask);
             this.groupBox1.Controls.Add(this.lbl_doubletask);
@@ -119,7 +128,7 @@
             // btn_update
             // 
             this.btn_update.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_update.Location = new System.Drawing.Point(109, 399);
+            this.btn_update.Location = new System.Drawing.Point(98, 430);
             this.btn_update.Name = "btn_update";
             this.btn_update.Size = new System.Drawing.Size(101, 36);
             this.btn_update.TabIndex = 34;
@@ -232,6 +241,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.btn_Query);
             this.groupBox2.Controls.Add(this.textBox_QueryText);
             this.groupBox2.Controls.Add(this.label2);
@@ -241,6 +252,26 @@
             this.groupBox2.TabIndex = 23;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "尺寸维护";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(84, 314);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(100, 20);
+            this.comboBox1.TabIndex = 36;
+            this.comboBox1.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(42, 317);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 12);
+            this.label1.TabIndex = 35;
+            this.label1.Text = "横放";
+            this.label1.Visible = false;
             // 
             // FmCommoditySize
             // 
@@ -284,5 +315,7 @@
         private System.Windows.Forms.TextBox txt_name;
         private System.Windows.Forms.Label lbl_name;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label1;
     }
 }

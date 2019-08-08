@@ -25,7 +25,16 @@ namespace PackageMachine
             }
             else
             {
-                Application.Run(new FmMain ());
+                Fm_Login users = new Fm_Login();
+                users.ShowDialog();
+                if (users.DialogResult == DialogResult.OK)
+                {
+                    Application.Run(new FmMain());
+                }
+                else
+                {
+                    return;
+                }
             }
 
         }

@@ -187,6 +187,7 @@
             this.btn_clearFB.TabIndex = 4;
             this.btn_clearFB.Text = "清 空 翻 板";
             this.btn_clearFB.UseVisualStyleBackColor = true;
+            this.btn_clearFB.Visible = false;
             this.btn_clearFB.Click += new System.EventHandler(this.btn_clearFB_Click);
             // 
             // FmTaskLocate

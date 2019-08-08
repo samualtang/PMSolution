@@ -56,8 +56,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_packageno = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.txt_pwd = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txt_uid = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.gbox_DB.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbox_DB
@@ -70,7 +76,7 @@
             this.gbox_DB.Controls.Add(this.label_username);
             this.gbox_DB.Controls.Add(this.label_DBName);
             this.gbox_DB.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.gbox_DB.Location = new System.Drawing.Point(474, 233);
+            this.gbox_DB.Location = new System.Drawing.Point(930, 244);
             this.gbox_DB.Name = "gbox_DB";
             this.gbox_DB.Size = new System.Drawing.Size(326, 232);
             this.gbox_DB.TabIndex = 2;
@@ -149,7 +155,7 @@
             // 
             this.btn_updateLinkString.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_updateLinkString.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_updateLinkString.Location = new System.Drawing.Point(523, 18);
+            this.btn_updateLinkString.Location = new System.Drawing.Point(635, 37);
             this.btn_updateLinkString.Name = "btn_updateLinkString";
             this.btn_updateLinkString.Size = new System.Drawing.Size(123, 48);
             this.btn_updateLinkString.TabIndex = 7;
@@ -159,6 +165,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.groupBox2);
+            this.groupBox1.Controls.Add(this.btn_updateLinkString);
             this.groupBox1.Controls.Add(this.textBox_Opc_Namecgy);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.textBox_Opc_Nameyxy);
@@ -180,10 +188,10 @@
             this.groupBox1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox1.Location = new System.Drawing.Point(44, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(414, 453);
+            this.groupBox1.Size = new System.Drawing.Size(796, 453);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "其他参数设置";
+            this.groupBox1.Text = "参数设置";
             // 
             // textBox_Opc_Namecgy
             // 
@@ -347,6 +355,55 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "包装机号";
             // 
+            // txt_pwd
+            // 
+            this.txt_pwd.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txt_pwd.Location = new System.Drawing.Point(78, 90);
+            this.txt_pwd.Name = "txt_pwd";
+            this.txt_pwd.Size = new System.Drawing.Size(193, 23);
+            this.txt_pwd.TabIndex = 11;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label10.Location = new System.Drawing.Point(22, 93);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(48, 17);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "密 码：";
+            // 
+            // txt_uid
+            // 
+            this.txt_uid.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txt_uid.Location = new System.Drawing.Point(78, 44);
+            this.txt_uid.Name = "txt_uid";
+            this.txt_uid.Size = new System.Drawing.Size(193, 23);
+            this.txt_uid.TabIndex = 9;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label11.Location = new System.Drawing.Point(16, 47);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(56, 17);
+            this.label11.TabIndex = 8;
+            this.label11.Text = "用户名：";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.txt_pwd);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.txt_uid);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Location = new System.Drawing.Point(487, 298);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(303, 149);
+            this.groupBox2.TabIndex = 27;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "本机登录凭证";
+            // 
             // FmSystemSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -354,7 +411,6 @@
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1033, 488);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btn_updateLinkString);
             this.Controls.Add(this.gbox_DB);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FmSystemSetup";
@@ -364,6 +420,8 @@
             this.gbox_DB.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -398,5 +456,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox_Opc_Namecgy;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox txt_pwd;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txt_uid;
+        private System.Windows.Forms.Label label10;
     }
 }

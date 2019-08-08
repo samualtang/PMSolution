@@ -490,7 +490,90 @@ namespace Functions.PubFunction
                 throw ex;
             }
         }
-        
+
+        public static string OpenCheckUid
+        {
+            get
+            {
+                if (config != null)
+                {
+                    try
+                    {
+                        string result = config.AppSettings.Settings["OpenCheckUid"].Value.ToString();
+                        if (!string.IsNullOrWhiteSpace(result))
+                        {
+                            return result;
+                        }
+                        else
+                        {
+                            return "错误的验证值";
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        return "错误的验证值";
+                    }
+
+                }
+                else
+                {
+                    return "错误的验证值";
+                }
+
+            }
+            set
+            {
+                if (config != null)
+                {
+                    config.AppSettings.Settings["OpenCheckUid"].Value = value.ToString();
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+        }
+        public static string OpenCheckPwd
+        {
+            get
+            {
+                if (config != null)
+                {
+                    try
+                    {
+                        string result = config.AppSettings.Settings["OpenCheckPwd"].Value.ToString();
+                        if (!string.IsNullOrWhiteSpace(result))
+                        {
+                            return result;
+                        }
+                        else
+                        {
+                            return "错误的验证值";
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                        return "错误的验证值";
+                    }
+
+                }
+                else
+                {
+                    return "错误的验证值";
+                }
+
+            }
+            set
+            {
+                if (config != null)
+                {
+                    config.AppSettings.Settings["OpenCheckPwd"].Value = value.ToString();
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+        }
+
         private static string key = "abcd1234";
         #region DES加密
         public static string EncryptString(string pToEncrypt)
