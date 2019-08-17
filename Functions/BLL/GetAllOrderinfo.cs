@@ -34,14 +34,14 @@ namespace Functions.BLL
         {
             using (Entities et = new Entities())
             {
-                return et.T_PACKAGE_TASK.Max(x => x.ALLPACKAGESEQ).Value;
+                return et.T_PACKAGE_TASK.Where(x=>x.PACKAGENO == PubFunction.GlobalPara.PackageNo).Max(x => x.ALLPACKAGESEQ).Value;
             }
         }
         public static decimal GetMinAllpackageseq()
         {
             using (Entities et = new Entities())
             {
-                return et.T_PACKAGE_TASK.Min(x => x.ALLPACKAGESEQ).Value;
+                return et.T_PACKAGE_TASK.Where(x => x.PACKAGENO == PubFunction.GlobalPara.PackageNo).Min(x => x.ALLPACKAGESEQ).Value;
             }
         }
         /// <summary>

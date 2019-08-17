@@ -493,7 +493,7 @@ namespace PackageMachine
             {
                 return;
             }
-     
+            EnabletStartAndStop(1);
             if (!CreateState)
             {
                 FmInfo.GetTaskInfo("必须在所有服务创建成功后，才能开始任务！");
