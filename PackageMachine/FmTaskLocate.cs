@@ -58,7 +58,7 @@ namespace PackageMachine
         private async void btn_clearFB_Click(object sender, EventArgs e)
         {
             //确认调用
-            DialogResult MsgBoxResult = MessageBox.Show("确认清空翻板数据？", "提示：", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            DialogResult MsgBoxResult = MessageBox.Show("确认清空翻板数据？", "提示：请谨慎操作！", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (MsgBoxResult == DialogResult.OK)
             {
                 await clearfun.ClearFB(opc);
@@ -70,7 +70,7 @@ namespace PackageMachine
         private async void btn_clearBSL_Click(object sender, EventArgs e)
         {
             //确认调用
-            DialogResult MsgBoxResult = MessageBox.Show("确认清空倍速链数据？","提示：",MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            DialogResult MsgBoxResult = MessageBox.Show("确认清空倍速链数据？","提示：请谨慎操作！",MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (MsgBoxResult == DialogResult.OK)
             {
                 await clearfun.ClearBSL(opc);
@@ -105,66 +105,60 @@ namespace PackageMachine
                                                              MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             if (DialogResult.OK == MsgBoxResult2)
             {
-
-                //DialogResult MsgBoxResult = MessageBox.Show(
-                //                                        "定位后电控任务将会清除，可能会导致任务丢失！", //对话框的显示内容 
-                //                                        "确定要定位任务?",//对话框的标题 
-                //                                        MessageBoxButtons.YesNo,//定义对话框的按钮，这里定义了YSE和NO两个按钮 
-                //                                        MessageBoxIcon.Question,//定义对话框内的图表式样，这里是一个黄色三角型内加一个感叹号 
-                //                                        MessageBoxDefaultButton.Button2);//定义对话框的按钮式样
-                if (true)
+                FmInfo.GetTaskInfo(info);
+                updateLabel("校验输入的包号是否存在...", lblOper);
+                if (rts.CheckPackageTaskNum(yxyRobot, yxyCigSeq, cgyFb, yxyBsul, out string errinfo))
                 {
-                    FmInfo.GetTaskInfo(info);
-                    updateLabel("校验输入的包号是否存在...", lblOper);
-                    if (rts.CheckPackageTaskNum(yxyRobot, yxyCigSeq, cgyFb, yxyBsul, out string errinfo))
+                    //FmInfo.GetTaskInfo("校验通过！准备清空电控任务！");
+                    updateLabel("校验通过！准备清空电控任务...", lblOper);
+                    try
                     {
-                        //FmInfo.GetTaskInfo("校验通过！准备清空电控任务！");
-                        updateLabel("校验通过！准备清空电控任务...", lblOper);
-                        try
+                        G7.Write(1, 0);//清空指令 常规烟翻版
+                        G7.Write(yxyBsul, 2);//任务号 异型烟倍速链
+                        G7.Write(1, 3);//清空指令 异型烟倍速链
+                        Thread.Sleep(2000);//停顿两秒
+                        if (G7.ReadD(0).CastTo(-1) == 0 && G7.ReadD(3).CastTo(-1) == 0)
                         {
-                            G7.Write(1, 0);//清空指令 常规烟翻版
-                            G7.Write(yxyBsul, 2);//任务号 异型烟倍速链
-                            G7.Write(1, 3);//清空指令 异型烟倍速链
-                            Thread.Sleep(2000);//停顿两秒
-                            if (G7.ReadD(0).CastTo(-1) == 0 && G7.ReadD(3).CastTo(-1) == 0)
-                            {
-                                //FmInfo.GetTaskInfo("电控任务清除成功！");
-                                updateLabel("电控任务清除成功！", lblOper);
-                            }
-                            else
-                            {
-                                FmInfo.GetTaskInfo("电控任务清除失败，定位失败！");
-                                updateLabel("电控任务清除失败，定位失败！", lblOper);
-                                return;
-                            }
-                        }
-                        catch (Exception ex )
-                        { 
-                            FmInfo.GetTaskInfo("电控任务清除失败，定位失败！错误："+ex.Message);
-                        }
-                       // FmInfo.GetTaskInfo("准备数据库进行定位..."  );
-                        updateLabel("准备数据库进行定位...", lblOper);
-                        if (rts.TaskLocate(yxyRobot, yxyCigSeq, cgyFb, yxyBsul))
-                        {
-                            updateLabel("定位成功！", lblOper);
-                            FmInfo.GetTaskInfo(info+ "定位成功！");
-                            MessageBox.Show("定位成功！"); 
+                            //FmInfo.GetTaskInfo("电控任务清除成功！");
+                            updateLabel("电控任务清除成功！", lblOper);
                         }
                         else
                         {
-                            updateLabel("定位成功！\r\n但数据库改变行数为0！", lblOper);
-                            FmInfo.GetTaskInfo(info + "定位成功！\r\n但数据库改变行数为0！");
-                            MessageBox.Show("定位成功！\r\n但数据库改变行数为0！"); 
+                            FmInfo.GetTaskInfo("电控任务清除失败，定位失败！");
+                            updateLabel("电控任务清除失败，定位失败！", lblOper);
+                            return;
                         }
+                    }
+                    catch (Exception ex)
+                    {
+                        FmInfo.GetTaskInfo("电控任务清除失败，定位失败！错误：" + ex.Message);
+                    }
+                    // FmInfo.GetTaskInfo("准备数据库进行定位..."  );
+                    updateLabel("准备数据库进行定位...", lblOper);
+                    if (rts.TaskLocate(yxyRobot, yxyCigSeq, cgyFb, yxyBsul))
+                    {
+                        updateLabel("定位成功！", lblOper);
+                        FmInfo.GetTaskInfo(info + "定位成功！");
+                        MessageBox.Show("定位成功！");
                     }
                     else
                     {
-                        FmInfo.GetTaskInfo("任务包号校验未通过：" + errinfo);
-                        updateLabel("任务包号校验未通过：" + errinfo, lblOper);
-                        MessageBox.Show(errinfo);
+                        updateLabel("定位成功！\r\n但数据库改变行数为0！", lblOper);
+                        FmInfo.GetTaskInfo(info + "定位成功！\r\n但数据库改变行数为0！");
+                        MessageBox.Show("定位成功！\r\n但数据库改变行数为0！");
                     }
-                
                 }
+                else
+                {
+                    FmInfo.GetTaskInfo("任务包号校验未通过：" + errinfo);
+                    updateLabel("任务包号校验未通过：" + errinfo, lblOper);
+                    MessageBox.Show(errinfo);
+                }
+                txtFb.Text = "";
+                txtBsul.Text = "";
+                txtRobot.Text = "";
+                txtCigseq.Text = "";
+
             }
             else
             {
