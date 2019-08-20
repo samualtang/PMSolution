@@ -67,6 +67,7 @@ namespace PackageMachine
             pkIndex = MinAllpackageseq;
             BindBillInfo(pkIndex);
             GetValues();
+            labelChange();
         }
         /// <summary>
         /// DataType： GetValues类型 整包1  /常规2  /异型3  /整个订单4
@@ -115,7 +116,8 @@ namespace PackageMachine
                 Dgv_datainfo.Columns[4].HeaderText = "包序号";
                 Dgv_datainfo.Columns[4].Width = 80;
             }
-            label_allcig.Text = data1.Where(x => x.ALLPACKAGESEQ == pkIndex).Select(x => x.PACKAGEQTY).FirstOrDefault() + "条烟";
+            label_allcig.Text = "共"+data1.Where(x => x.ALLPACKAGESEQ == pkIndex).Select(x => x.PACKAGEQTY).FirstOrDefault() + "条烟";
+            label_packagetasknum.Text = "包装机任务号：" + data1.Where(x => x.ALLPACKAGESEQ == pkIndex).Select(x => x.PACKTASKNUM).FirstOrDefault();
         }
         /// <summary>
         /// 获取数据绑定 数据控件datagridview
