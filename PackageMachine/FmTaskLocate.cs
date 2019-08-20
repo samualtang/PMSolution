@@ -81,7 +81,7 @@ namespace PackageMachine
         {
             if (string.IsNullOrWhiteSpace(txtRobot.Text + txtFb.Text + txtBsul.Text))
             {
-                //return;
+                return;
             } 
             string info = "";
             if (!string.IsNullOrWhiteSpace(txtFb.Text))
@@ -109,31 +109,7 @@ namespace PackageMachine
                 updateLabel("校验输入的包号是否存在...", lblOper);
                 if (rts.CheckPackageTaskNum(yxyRobot, yxyCigSeq, cgyFb, yxyBsul, out string errinfo))
                 {
-                    //FmInfo.GetTaskInfo("校验通过！准备清空电控任务！");
-                    updateLabel("校验通过！准备清空电控任务...", lblOper);
-                    try
-                    {
-                        G7.Write(1, 0);//清空指令 常规烟翻版
-                        G7.Write(yxyBsul, 2);//任务号 异型烟倍速链
-                        G7.Write(1, 3);//清空指令 异型烟倍速链
-                        Thread.Sleep(2000);//停顿两秒
-                        if (G7.ReadD(0).CastTo(-1) == 0 && G7.ReadD(3).CastTo(-1) == 0)
-                        {
-                            //FmInfo.GetTaskInfo("电控任务清除成功！");
-                            updateLabel("电控任务清除成功！", lblOper);
-                        }
-                        else
-                        {
-                            FmInfo.GetTaskInfo("电控任务清除失败，定位失败！");
-                            updateLabel("电控任务清除失败，定位失败！", lblOper);
-                            return;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        FmInfo.GetTaskInfo("电控任务清除失败，定位失败！错误：" + ex.Message);
-                    }
-                    // FmInfo.GetTaskInfo("准备数据库进行定位..."  );
+                    FmInfo.GetTaskInfo("准备数据库进行定位..."  );
                     updateLabel("准备数据库进行定位...", lblOper);
                     if (rts.TaskLocate(yxyRobot, yxyCigSeq, cgyFb, yxyBsul))
                     {
@@ -143,9 +119,9 @@ namespace PackageMachine
                     }
                     else
                     {
-                        updateLabel("定位成功！\r\n但数据库改变行数为0！", lblOper);
-                        FmInfo.GetTaskInfo(info + "定位成功！\r\n但数据库改变行数为0！");
-                        MessageBox.Show("定位成功！\r\n但数据库改变行数为0！");
+                        updateLabel("定位失败！\r\n数据库改变行数为0！", lblOper);
+                        FmInfo.GetTaskInfo(info + "定位失败！\r\n数据库改变行数为0！");
+                        MessageBox.Show("定位失败！\r\n数据库改变行数为0！");
                     }
                 }
                 else

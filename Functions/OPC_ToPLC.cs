@@ -201,7 +201,7 @@ namespace Functions
                 {
                     //strmessage += "读取到异型烟链板机电控DB块：" + ItemCollection.GetTaskStatusByComplete_yxy()[i] + "  值：" + result[i];
                     //数据库置完成该任务
-                    bool tag = BLL.PLCDataGet.UpdataTask_yxy(result[i] );
+                    bool tag = BLL.PLCDataGet.UpdataTaskcomplent_yxy(result[i] );
                     if (tag)
                     {
                         strmessage += "异型烟倍速链：任务包号 " + result[i] +   "，数据库已置完成";
@@ -234,7 +234,7 @@ namespace Functions
                 {
                     //strmessage += "读取到常规烟翻板电控DB块：" + ItemCollection.GetTaskStatusByComplete_cgy()[i] + "  值：" + result[i];
                     //数据库置完成该任务
-                    bool tag = BLL.PLCDataGet.UpdataTask_cgy(result[i]);
+                    bool tag = BLL.PLCDataGet.UpdataTaskcomplent_cgy(result[i]);
                     if (tag)
                     {
                         strmessage +="常规烟翻版：任务包号 "+ result[i]+ "，数据库已置完成";
@@ -311,8 +311,16 @@ namespace Functions
             if (BLL.PLCDataGet.UpdataTask_cgy(packtasknum))
             {
                 strmessage += packtasknum + "号任务数据库更新完成成功";
-                ShapeGroup3.Write(0, index);
-                //strmessage += packtasknum + ",电控数据更新成功!";
+                try
+                {
+                    ShapeGroup3.Write(0, index);
+                    strmessage += packtasknum + ",电控数据更新成功!";
+                }
+                catch (Exception)
+                {
+                    ShapeGroup3.Write(0, index);
+                    strmessage += packtasknum + ",电控数据更新失败!";
+                }
             }
             else
             {
@@ -488,18 +496,25 @@ namespace Functions
         /// <returns></returns>
         public async Task<bool> ClearPLCDataBSL()
         {
-            startatg = true;
             string Strmessage = "清空倍速链数据：";
             try
             {
                 object[] vs = new object[ItemCollection.ClearAndStop_yxy().Count()];
                 vs[0] = 1;
                 ShapeGroup8.SyncWrite(vs);
-                Strmessage += "清空数据中:" + System.DateTime.Now.ToLongTimeString() + "写入标志1 成功";//，等待两秒";
-                //Thread.Sleep(2000);
-                //vs[0] = 0;
-                //ShapeGroup8.SyncWrite(vs);
-                //Strmessage += "清空数据成功:" + System.DateTime.Now.ToLongTimeString() + "写入标志0 成功，清空完成";
+                Strmessage += "清空数据中:" + System.DateTime.Now.ToLongTimeString() + "写入标志1 成功";
+                while (true)
+                {
+                    if (ShapeGroup8.Read(0).ToString() == "1")
+                    {
+                        Thread.Sleep(200);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                return true;
             }
             catch (Exception ex)
             {
@@ -513,13 +528,12 @@ namespace Functions
                 {
                     Strmessage += "PLC连接未成功建立！请等待连接建立成功后再试！";
                 }
-                startatg = false;
+                return false;
             }
             finally
             {
                 writeLog.Write(Strmessage);
             }
-            return true;
         }
 
 
@@ -529,18 +543,25 @@ namespace Functions
         /// <returns></returns>
         public async Task<bool> ClearPLCDataFB()
         {
-            startatg = true;
             string Strmessage = "清空翻板数据：";
             try
             {
                 object[] vs = new object[ItemCollection.ClearAndStop_cgy().Count()];
                 vs[0] = 1;
                 ShapeGroup7.SyncWrite(vs);
-                Strmessage += "清空数据中:" + System.DateTime.Now.ToLongTimeString() + "写入标志1 成功";//，等待两秒";
-                //Thread.Sleep(2000);
-                //vs[0] = 0;
-                //ShapeGroup7.SyncWrite(vs);
-                //Strmessage += "清空数据成功:" + System.DateTime.Now.ToLongTimeString() + "写入标志0 成功，清空完成";
+                Strmessage += "清空数据中:" + System.DateTime.Now.ToLongTimeString() + "写入标志1 成功!";
+                while (true)
+                {
+                    if (ShapeGroup7.Read(0).ToString() == "1")
+                    {
+                        Thread.Sleep(200);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                return true;
             }
             catch (Exception ex)
             {
@@ -549,18 +570,17 @@ namespace Functions
                 {
                     writeLog.Write(ex.InnerException.Message);
                 }
-                Strmessage += "清空翻板数据失败";
+                Strmessage += "清空翻板数据失败!";
                 if (ShapeGroup8 == null)
                 {
                     Strmessage += "PLC连接未成功建立！请等待连接建立成功后再试！";
                 }
-                startatg = false;
+                return false;
             }
             finally
             {
                 writeLog.Write(Strmessage);
             }
-            return true;
         }
     }
 }

@@ -38,6 +38,11 @@
             this.label_DBName = new System.Windows.Forms.Label();
             this.btn_updateLinkString = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txt_pwd = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txt_uid = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.textBox_Opc_Namecgy = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textBox_Opc_Nameyxy = new System.Windows.Forms.TextBox();
@@ -56,11 +61,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_packageno = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txt_pwd = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txt_uid = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.gbox_DB.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -193,6 +193,55 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "参数设置";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.txt_pwd);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.txt_uid);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Location = new System.Drawing.Point(487, 298);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(303, 149);
+            this.groupBox2.TabIndex = 27;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "本机登录凭证";
+            // 
+            // txt_pwd
+            // 
+            this.txt_pwd.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txt_pwd.Location = new System.Drawing.Point(78, 90);
+            this.txt_pwd.Name = "txt_pwd";
+            this.txt_pwd.Size = new System.Drawing.Size(193, 23);
+            this.txt_pwd.TabIndex = 11;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label11.Location = new System.Drawing.Point(16, 47);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(56, 17);
+            this.label11.TabIndex = 8;
+            this.label11.Text = "用户名：";
+            // 
+            // txt_uid
+            // 
+            this.txt_uid.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txt_uid.Location = new System.Drawing.Point(78, 44);
+            this.txt_uid.Name = "txt_uid";
+            this.txt_uid.Size = new System.Drawing.Size(193, 23);
+            this.txt_uid.TabIndex = 9;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label10.Location = new System.Drawing.Point(22, 93);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(48, 17);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "密 码：";
+            // 
             // textBox_Opc_Namecgy
             // 
             this.textBox_Opc_Namecgy.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -285,6 +334,7 @@
             // 
             // textBox_BoxHeight
             // 
+            this.textBox_BoxHeight.Enabled = false;
             this.textBox_BoxHeight.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.textBox_BoxHeight.Location = new System.Drawing.Point(170, 171);
             this.textBox_BoxHeight.Name = "textBox_BoxHeight";
@@ -303,6 +353,7 @@
             // 
             // textBox_BoxWidth
             // 
+            this.textBox_BoxWidth.Enabled = false;
             this.textBox_BoxWidth.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.textBox_BoxWidth.Location = new System.Drawing.Point(170, 126);
             this.textBox_BoxWidth.Name = "textBox_BoxWidth";
@@ -321,6 +372,7 @@
             // 
             // textBox_BoxLenght
             // 
+            this.textBox_BoxLenght.Enabled = false;
             this.textBox_BoxLenght.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.textBox_BoxLenght.Location = new System.Drawing.Point(170, 80);
             this.textBox_BoxLenght.Name = "textBox_BoxLenght";
@@ -354,55 +406,6 @@
             this.label1.Size = new System.Drawing.Size(56, 17);
             this.label1.TabIndex = 9;
             this.label1.Text = "包装机号";
-            // 
-            // txt_pwd
-            // 
-            this.txt_pwd.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txt_pwd.Location = new System.Drawing.Point(78, 90);
-            this.txt_pwd.Name = "txt_pwd";
-            this.txt_pwd.Size = new System.Drawing.Size(193, 23);
-            this.txt_pwd.TabIndex = 11;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label10.Location = new System.Drawing.Point(22, 93);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(48, 17);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "密 码：";
-            // 
-            // txt_uid
-            // 
-            this.txt_uid.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txt_uid.Location = new System.Drawing.Point(78, 44);
-            this.txt_uid.Name = "txt_uid";
-            this.txt_uid.Size = new System.Drawing.Size(193, 23);
-            this.txt_uid.TabIndex = 9;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label11.Location = new System.Drawing.Point(16, 47);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(56, 17);
-            this.label11.TabIndex = 8;
-            this.label11.Text = "用户名：";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.txt_pwd);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.txt_uid);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Location = new System.Drawing.Point(487, 298);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(303, 149);
-            this.groupBox2.TabIndex = 27;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "本机登录凭证";
             // 
             // FmSystemSetup
             // 

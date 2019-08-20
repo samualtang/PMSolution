@@ -43,6 +43,36 @@ namespace Functions.BLL
             }
         }
         /// <summary>
+        /// 更新异型烟倍速链合包任务状态  异型烟  强制
+        /// </summary>
+        /// <param name="packagetasknum">包任务号</param>
+        /// <returns></returns>
+        public static bool UpdataTaskcomplent_yxy(int packagetasknum)
+        {
+            //数据库置完成该任务
+            using (Entities et = new Entities())
+            {
+                List<T_PACKAGE_TASK> lists = et.T_PACKAGE_TASK.Where(x => x.PACKTASKNUM == packagetasknum).Select(x => x).ToList();
+                if (lists.Count <= 0)
+                {
+                    return false;
+                }
+                foreach (var item in lists)
+                {
+                    item.FINISHTIME = DateTime.Now;
+                    item.STATE = 20;
+                }
+                if (et.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        /// <summary>
         /// 异型烟接收状态
         /// </summary>
         /// <param name="packageNUm">任务包号</param>
@@ -140,14 +170,59 @@ namespace Functions.BLL
                 {
                     foreach (var item in lists)
                     {
-                        if (item.STATE == 15)
+                        if (item.NORMAILSTATE == 15)
                         {
                             item.FINISHTIME = DateTime.Now;
-                            item.STATE = 20;    
+                            item.STATE = 20;
+                            item.NORMAILSTATE = 20;
                         }
+                       
                     }
                 }
              
+                if (et.SaveChanges() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        /// <summary>
+        /// 更新合包任务状态  常规烟  强制
+        /// </summary>
+        /// <param name="packagetasknum">包任务号</param>
+        /// <returns></returns>
+        public static bool UpdataTaskcomplent_cgy(int packagetasknum)
+        {
+            //数据库置完成该任务
+            using (Entities et = new Entities())
+            {
+                List<T_PACKAGE_TASK> lists = et.T_PACKAGE_TASK.Where(x => x.PACKTASKNUM == packagetasknum).Select(x => x).ToList();
+                if (lists.Count <= 0)
+                {
+                    return false;
+                }
+                if (lists.Where(a => a.UNIONPACKAGETAG == 1).Any())//如果需要合包
+                {
+                    foreach (var item in lists)
+                    {
+                        item.FINISHTIME = DateTime.Now;
+                        item.NORMAILSTATE = 20;
+                    }
+                }
+                else//如果不需要合包 则视这个任务已经全部完成
+                {
+                    foreach (var item in lists)
+                    {
+                        item.FINISHTIME = DateTime.Now;
+                        item.STATE = 20;
+                        item.NORMAILSTATE = 20;
+                    }
+                }
+
                 if (et.SaveChanges() > 0)
                 {
                     return true;

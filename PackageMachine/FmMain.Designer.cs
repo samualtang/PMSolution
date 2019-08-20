@@ -48,6 +48,7 @@
             this.pbStop = new System.Windows.Forms.PictureBox();
             this.pbStart = new System.Windows.Forms.PictureBox();
             this.pbTitle = new System.Windows.Forms.PictureBox();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.gbSysDate.SuspendLayout();
             this.mune.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbstatus)).BeginInit();
@@ -227,6 +228,7 @@
             this.pbmaintitle.Name = "pbmaintitle";
             this.pbmaintitle.Size = new System.Drawing.Size(1284, 40);
             this.pbmaintitle.TabIndex = 77;
+            this.pbmaintitle.Paint += new System.Windows.Forms.PaintEventHandler(this.pbmaintitle_Paint);
             // 
             // pbExit
             // 
@@ -279,6 +281,10 @@
             this.pbTitle.TabIndex = 3;
             this.pbTitle.TabStop = false;
             // 
+            // timer2
+            // 
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
             // FmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -329,6 +335,7 @@
         private System.Windows.Forms.Label lblFinshiTask;
         private System.Windows.Forms.Label lblRobotState;
         private System.Windows.Forms.PictureBox pbstatus;
+        private System.Windows.Forms.Timer timer2;
     }
 }
 

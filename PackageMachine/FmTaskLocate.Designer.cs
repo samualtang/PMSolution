@@ -176,6 +176,7 @@
             this.btn_clearBSL.TabIndex = 3;
             this.btn_clearBSL.Text = "清空倍速链";
             this.btn_clearBSL.UseVisualStyleBackColor = true;
+            this.btn_clearBSL.Visible = false;
             this.btn_clearBSL.Click += new System.EventHandler(this.btn_clearBSL_Click);
             // 
             // btn_clearFB

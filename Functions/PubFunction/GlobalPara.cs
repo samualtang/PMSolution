@@ -574,6 +574,76 @@ namespace Functions.PubFunction
             }
         }
 
+        public static int TimerIntervalStart
+        {
+            get
+            {
+                if (config != null)
+                {
+                    int result = 5;
+                    try
+                    {
+                        result = Convert.ToInt32(config.AppSettings.Settings["TimerIntervalStart"].Value);
+                    }
+                    catch (Exception)
+                    {
+                        result = 5;
+                    }
+
+                    return result;
+                }
+                else
+                {
+                    return 5;
+                }
+
+            }
+            set
+            {
+                if (config != null)
+                {
+                    config.AppSettings.Settings["TimerIntervalStart"].Value = value.ToString();
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+        }
+
+        public static int TimerIntervalCycle
+        {
+            get
+            {
+                if (config != null)
+                {
+                    int result = 180;
+                    try
+                    {
+                        result = Convert.ToInt32(config.AppSettings.Settings["TimerIntervalCycle"].Value);
+                    }
+                    catch (Exception)
+                    {
+                        result = 180;
+                    }
+
+                    return result;
+                }
+                else
+                {
+                    return 180;
+                }
+
+            }
+            set
+            {
+                if (config != null)
+                {
+                    config.AppSettings.Settings["TimerIntervalCycle"].Value = value.ToString();
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("appSettings");
+                }
+            }
+        }
+
         private static string key = "abcd1234";
         #region DES加密
         public static string EncryptString(string pToEncrypt)

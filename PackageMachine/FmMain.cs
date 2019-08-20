@@ -494,6 +494,7 @@ namespace PackageMachine
                 return;
             }
             EnabletStartAndStop(1);
+            FmInfo.Func(1);
             if (!CreateState)
             {
                 FmInfo.GetTaskInfo("必须在所有服务创建成功后，才能开始任务！");
@@ -522,7 +523,7 @@ namespace PackageMachine
            
             string ErrMsg =  await Task.Run( ()=> CreateDataChange()); //创建 
           
-            FmInfo.GetTaskInfo(plc.ReadAndWriteCGYTaskConpelte());//获取常规烟未取走完成信号
+            //FmInfo.GetTaskInfo(plc.ReadAndWriteCGYTaskConpelte());//获取常规烟未取走完成信号
             FmInfo.GetTaskInfo(plc.ReadAndWriteYXYTaskConpelte());//获取异形烟未取走完成信号
             if (string.IsNullOrWhiteSpace(ErrMsg) )//事件创建成功
             {  
@@ -538,7 +539,7 @@ namespace PackageMachine
                 FmInfo.GetTaskInfo("启动定时器，触发倍速链，翻版跳变！");
                 FmInfo.Func(1);
                 EnabletStartAndStop(1);
-                timer1.Interval = 5000;
+                timer1.Interval = 1000 * GlobalPara.TimerIntervalStart;
                 timer1.Start(); //启动定时器
             }
             else
@@ -798,7 +799,7 @@ namespace PackageMachine
                                                         MessageBoxDefaultButton.Button2);//定义对话框的按钮式样
             if (DialogResult.Yes == MsgBoxResult)
             {
-             
+                timer2.Stop();
                 CloseDataChange();
                 EnabletStartAndStop(2);
             }
@@ -831,7 +832,6 @@ namespace PackageMachine
                 plc.ShapeGroup4.callback -= OnDataChange;
                 plc.SpyGroup6.callback -= OnDataChange;
                 FmInfo.GetTaskInfo("异型烟倍速链，常规烟翻版移除事件成功！");
-                FmInfo.Func(2);
                 FmInfo.GetTaskInfo("任务停止发送与接收！");
             }
             catch (NullReferenceException nuller)
@@ -842,7 +842,7 @@ namespace PackageMachine
             {
                 FmInfo.GetTaskInfo("异型烟链板机任务停止失败！错误："+ex.Message);
             }
-
+            FmInfo.Func(2);
 
         }
 
@@ -1001,6 +1001,8 @@ namespace PackageMachine
         private void Timer1_Tick(object sender, EventArgs e)
         {
             FmInfo.GetTaskInfo("触发定时器，"+plc.timerSendTask());
+            timer2.Interval = 1000 * GlobalPara.TimerIntervalCycle;
+            timer2.Start(); //启动定时器
             timer1.Stop();
         }
        
@@ -1054,6 +1056,18 @@ namespace PackageMachine
             frm.MdiParent = this;
             frm.Dock = DockStyle.Fill;
             frm.Show();
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            FmInfo.GetTaskInfo("完成信号定时读取触发");
+            FmInfo.GetTaskInfo(plc.ReadAndWriteCGYTaskConpelte());//获取常规烟未取走完成信号
+            FmInfo.GetTaskInfo(plc.ReadAndWriteYXYTaskConpelte());//获取异形烟未取走完成信号
+        }
+
+        private void pbmaintitle_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

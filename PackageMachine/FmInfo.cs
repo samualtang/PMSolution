@@ -90,6 +90,7 @@ namespace PackageMachine
                 btnnext.Cursor = Cursors.No;
                 btnJump.Cursor = Cursors.No;
                 btnRemake.Cursor = Cursors.No;
+                btn_clear.Cursor = Cursors.No;
                 return 0;
             }
             else if (flage == 2)
@@ -98,6 +99,7 @@ namespace PackageMachine
                 btnnext.Cursor = Cursors.Hand;
                 btnJump.Cursor = Cursors.Hand;
                 btnRemake.Cursor = Cursors.Hand;
+                btn_clear.Cursor = Cursors.Hand;
                 return 0;
             }
             return 1;
@@ -817,6 +819,68 @@ namespace PackageMachine
           
         }
 
+        private async void btn_clear_Click(object sender, EventArgs e)
+        {
+            if (btn_clear.Cursor == Cursors.No)
+            {
+                return;
+            }
+            string msg = "";
+            Fm_Check fc = new Fm_Check();
+            fc.ShowDialog();
+            if (fc.DialogResult == DialogResult.OK)
+            {
+                bool result1, result2;
+                //确认调用
+                DialogResult MsgBoxResult = MessageBox.Show("确认清空电控数据？", "提示：请谨慎操作！", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (MsgBoxResult == DialogResult.OK)
+                {
+                    btn_clear.BackColor = Color.Green;
+                    btn_clear.Text = "清空任务中";
+                    try
+                    {
+                        result1 = await clearfun.ClearFB(plc);
+                        if (result1)
+                        {
+                            msg += "翻板任务清空成功！\r\n";
+                        }
+                        else
+                        {
+                            msg += "翻板任务清空失败！\r\n";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        msg += ex.InnerException.Message.ToString();
+                    }
+                    try
+                    {
+                        result2 = await clearfun.ClearBSL(plc);
+                        if (result2)
+                        {
+                            msg += "倍速链任务清空成功！\r\n";
+                        }
+                        else
+                        {
+                            msg += "倍速链任务清空失败！\r\n";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        msg += ex.InnerException.Message.ToString();
+                    }
+                }
+            }
+            else
+            {
+                return;
+            }
+            FmInfo.GetTaskInfo(msg);
+            MessageBox.Show(msg, "提示：",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            btn_clear.BackColor = Color.Transparent;
+            btn_clear.Text = "电控任务清空";
+        }
+        PLCDataClear clearfun = new PLCDataClear();
 
         private void btngw1_MouseEnter(object sender, EventArgs e)
         {
