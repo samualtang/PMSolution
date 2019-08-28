@@ -1,10 +1,10 @@
-﻿using Functions.BLL;
+﻿using EFModle.Model;
+using Functions.BLL;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using EFModle.Model;
 
 namespace PackageMachine
 {

@@ -98,7 +98,7 @@ namespace Functions.BLL
                                 info += item.PACKTASKNUM.ToString().PadLeft(10, '0') + ",";//任务流水号 
                                 info += item.CIGSEQ.ToString().PadLeft(2, '0') + ",";//包内条烟流水号
                                 info +=Convert.ToInt32(item.CIGWIDTHX).ToString().PadLeft(3, '0') + ",";// item.CIGWIDTHX + ",";// item.CIGWIDTHX + ",";//坐标X
-                                info += item.CIGZ.ToString().PadLeft(3, '0') + ","; //GlobalPara.BoxLenght/2 + ",";// (GlobalPara.BoxWidth / 2) + ",";//坐标Y
+                                info += 183.ToString().PadLeft(3, '0') + ","; //Convert.ToInt32(item.CIGZ).ToString().PadLeft(3, '0') + ","; //GlobalPara.BoxLenght/2 + ",";// (GlobalPara.BoxWidth / 2) + ",";//坐标Y
                                 info += Convert.ToInt32(item.CIGHIGHY).ToString().PadLeft(3, '0') + ",";// item.CIGHIGHY + ",";// item.CIGHIGHY + ",";//坐标z
                                 info += item.DOUBLETAKE + ",";//是否双抓
                                 info += UnCigQty.ToString().PadLeft(2, '0') + ","; ;//包内总数
@@ -134,7 +134,7 @@ namespace Functions.BLL
                                 info += item.PACKTASKNUM.ToString().PadLeft(10, '0') + ",";//任务流水号 
                                 info += item.CIGSEQ.ToString().PadLeft(2, '0') + ",";//包内条烟流水号
                                 info += Convert.ToInt32(item.CIGWIDTHX).ToString().PadLeft(3, '0') + ",";// item.CIGWIDTHX + ",";// item.CIGWIDTHX + ",";//坐标X
-                                info += 183.ToString().PadLeft(3, '0') + ","; //GlobalPara.BoxLenght/2 + ",";// (GlobalPara.BoxWidth / 2) + ",";//坐标Y
+                                info += 183.ToString().PadLeft(3, '0') + ",";//Convert.ToInt32(item.CIGZ).ToString().PadLeft(3, '0') + ","; //GlobalPara.BoxLenght/2 + ",";// (GlobalPara.BoxWidth / 2) + ",";//坐标Y
                                 info += Convert.ToInt32(item.CIGHIGHY).ToString().PadLeft(3, '0') + ",";// item.CIGHIGHY + ",";// item.CIGHIGHY + ",";//坐标z
                                 info += item.DOUBLETAKE + ",";//是否双抓
                                 info += UnCigQty.ToString().PadLeft(2, '0') + ","; ;//包内总数

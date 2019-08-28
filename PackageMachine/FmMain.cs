@@ -523,7 +523,7 @@ namespace PackageMachine
            
             string ErrMsg =  await Task.Run( ()=> CreateDataChange()); //创建 
           
-            //FmInfo.GetTaskInfo(plc.ReadAndWriteCGYTaskConpelte());//获取常规烟未取走完成信号
+            FmInfo.GetTaskInfo(plc.ReadAndWriteCGYTaskConpelte());//获取常规烟未取走完成信号
             FmInfo.GetTaskInfo(plc.ReadAndWriteYXYTaskConpelte());//获取异形烟未取走完成信号
             if (string.IsNullOrWhiteSpace(ErrMsg) )//事件创建成功
             {  
