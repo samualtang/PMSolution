@@ -159,7 +159,7 @@ namespace Functions.BLL
             List<T_PACKAGE_TASK> taskLists = new List<T_PACKAGE_TASK>();
             using (Entities et =new Entities())
             {
-                var lists = et.T_PACKAGE_TASK.Where(x => x.SORTNUM == qureystr).Select(x => x).ToList();    
+                var lists = et.T_PACKAGE_TASK.Where(x => x.SORTNUM == qureystr && x.PACKAGENO == PubFunction.GlobalPara.PackageNo).Select(x => x).ToList();    
 
                 return lists;
             }
