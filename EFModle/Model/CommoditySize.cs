@@ -15,5 +15,6 @@ namespace EFModle.Model
         public decimal IWIDTH { get; set; }
         public decimal ILENGTH { get; set; }
         public string DOUBLETAKE { get; set; }
+        public decimal CDTYPE { get; set; }
     }
 }

@@ -42,6 +42,8 @@ namespace PackageMachine
             DGV_OrderInfo.Columns[4].Width = 60;
             DGV_OrderInfo.Columns[5].HeaderText = "双抓";
             DGV_OrderInfo.Columns[5].Width = 60;
+            DGV_OrderInfo.Columns[6].HeaderText = "横放";
+            DGV_OrderInfo.Columns[6].Width = 60;
 
             TextboxDataClear();
         }
@@ -63,7 +65,18 @@ namespace PackageMachine
                 MessageBox.Show("请输入正确格式的长、宽、高！");
                 return;
             }
-
+            switch ( comboBox_cdtype.SelectedIndex)
+            {
+                case 0:
+                    commoditySize.CDTYPE = 0;
+                    break;
+                case 1:
+                    commoditySize.CDTYPE = 1;
+                    break;
+                default:
+                    commoditySize.CDTYPE = 0;
+                    break;
+            }
             switch (comboBox_doubletask.SelectedIndex)
             {
                 case 0:
@@ -106,6 +119,8 @@ namespace PackageMachine
                 txt_height.Text = DGV_OrderInfo.Rows[e.RowIndex].Cells[2].Value.ToString();
                 comboBox_doubletask.Items.Clear();
                 comboBox_doubletask.Items.AddRange(FmCommoditySizeFun.doubletasklist());
+                comboBox_cdtype.Items.Clear();
+                comboBox_cdtype.Items.AddRange(FmCommoditySizeFun.HFtasklist());
 
                 if (DGV_OrderInfo.Rows[e.RowIndex].Cells[5].Value == null)
                 {
@@ -126,6 +141,25 @@ namespace PackageMachine
                             break;
                     }
                 }
+                if (DGV_OrderInfo.Rows[e.RowIndex].Cells[6].Value == null)
+                {
+                    comboBox_cdtype.SelectedIndex = 0;
+                }
+                else
+                {
+                    switch (DGV_OrderInfo.Rows[e.RowIndex].Cells[6].Value.ToString())
+                    {
+                        case "0":
+                            comboBox_cdtype.SelectedIndex = 0;
+                            break;
+                        case "1":
+                            comboBox_cdtype.SelectedIndex = 1;
+                            break;
+                        default:
+                            MessageBox.Show("选取超出索引！");
+                            break;
+                    }
+                }
             }
             
         }
@@ -135,6 +169,10 @@ namespace PackageMachine
             if (e.ColumnIndex == 5)
             {
                 e.Value = Convert.ToInt32(e.Value) == 1 ? "双抓" : "";
+            }
+            if (e.ColumnIndex == 6)
+            {
+                e.Value = Convert.ToInt32(e.Value) == 1 ? "横放" : "";
             }
         }
     }

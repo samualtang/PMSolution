@@ -33,6 +33,8 @@
             this.btn_Query = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox_cdtype = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.btn_update = new System.Windows.Forms.Button();
             this.comboBox_doubletask = new System.Windows.Forms.ComboBox();
             this.lbl_doubletask = new System.Windows.Forms.Label();
@@ -47,8 +49,6 @@
             this.txt_name = new System.Windows.Forms.TextBox();
             this.lbl_name = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_OrderInfo)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -104,7 +104,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.comboBox_cdtype);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btn_update);
             this.groupBox1.Controls.Add(this.comboBox_doubletask);
@@ -124,6 +124,24 @@
             this.groupBox1.Size = new System.Drawing.Size(298, 498);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
+            // 
+            // comboBox_cdtype
+            // 
+            this.comboBox_cdtype.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_cdtype.FormattingEnabled = true;
+            this.comboBox_cdtype.Location = new System.Drawing.Point(84, 314);
+            this.comboBox_cdtype.Name = "comboBox_cdtype";
+            this.comboBox_cdtype.Size = new System.Drawing.Size(100, 20);
+            this.comboBox_cdtype.TabIndex = 36;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(42, 317);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 12);
+            this.label1.TabIndex = 35;
+            this.label1.Text = "横放";
             // 
             // btn_update
             // 
@@ -253,26 +271,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "尺寸维护";
             // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(84, 314);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(100, 20);
-            this.comboBox1.TabIndex = 36;
-            this.comboBox1.Visible = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(42, 317);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 12);
-            this.label1.TabIndex = 35;
-            this.label1.Text = "横放";
-            this.label1.Visible = false;
-            // 
             // FmCommoditySize
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -315,7 +313,7 @@
         private System.Windows.Forms.TextBox txt_name;
         private System.Windows.Forms.Label lbl_name;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox_cdtype;
         private System.Windows.Forms.Label label1;
     }
 }

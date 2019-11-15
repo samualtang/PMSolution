@@ -45,7 +45,7 @@ namespace Functions.BLL
             using (Entities et = new Entities())
             {
                 return et.T_WMS_ITEM.Where(x => x.ITEMNAME.IndexOf(CommodityName)>=0 || x.ITEMNO.IndexOf(CommodityName) >=0)
-                    .Select(x => new CommoditySize { ITEMNAME = x.ITEMNAME, ITEMNO = x.ITEMNO, ILENGTH = x.ILENGTH ?? 0 , IWIDTH = x.IWIDTH ?? 0 , IHEIGHT = x.IHEIGHT ?? 0 , DOUBLETAKE =x.DOUBLETAKE }).ToList();
+                    .Select(x => new CommoditySize { ITEMNAME = x.ITEMNAME, ITEMNO = x.ITEMNO, ILENGTH = x.ILENGTH ?? 0 , IWIDTH = x.IWIDTH ?? 0 , IHEIGHT = x.IHEIGHT ?? 0 , DOUBLETAKE =x.DOUBLETAKE , CDTYPE =x.CDTYPE ?? 0}).ToList();
             }
         }
 
@@ -64,6 +64,7 @@ namespace Functions.BLL
                 commoditys.ITEMNAME = commodity.ITEMNAME;
                 commoditys.IWIDTH = commodity.IWIDTH;
                 commoditys.DOUBLETAKE = commodity.DOUBLETAKE;
+                commoditys.CDTYPE = commodity.CDTYPE;
                 int res = et.SaveChanges();
 
                 return res > 0 ? true : false; ;
