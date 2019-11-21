@@ -529,12 +529,12 @@ namespace PackageMachine
             {  
                 if (modbus.Connection())
                 {
-                    FmInfo.GetTaskInfo("modbus连接成功！");
+                    FmInfo.GetTaskInfo("机械手连接成功！");
                    Task.Run(()=> modbus.ReadAsync());
                 }
                 else
                 {
-                    FmInfo.GetTaskInfo("modbus连接失败！");
+                    FmInfo.GetTaskInfo("机械手连接失败！");
                 }
                 FmInfo.GetTaskInfo("启动定时器，触发倍速链，翻版跳变！");
                 FmInfo.Func(1);
