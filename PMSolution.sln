@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFModle", "EFModle\EFModle.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functions", "Functions\Functions.csproj", "{C85E1CDC-CE4A-4756-BCE1-D969C9BE02FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docoumt", "Docoumt\Docoumt.csproj", "{D5C1CF94-39F3-4317-AF5A-5C7D713261A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C85E1CDC-CE4A-4756-BCE1-D969C9BE02FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C85E1CDC-CE4A-4756-BCE1-D969C9BE02FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C85E1CDC-CE4A-4756-BCE1-D969C9BE02FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5C1CF94-39F3-4317-AF5A-5C7D713261A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5C1CF94-39F3-4317-AF5A-5C7D713261A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5C1CF94-39F3-4317-AF5A-5C7D713261A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5C1CF94-39F3-4317-AF5A-5C7D713261A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
